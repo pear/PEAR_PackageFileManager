@@ -266,6 +266,7 @@ class PEAR_PackageFileManager_File {
     /**
      * Construct the {@link $ignore} array
      * @param array strings of files/paths/wildcards to ignore
+     * @param 0|1 0 = files to include, 1 = files to ignore
      * @access private
      */
     function _setupIgnore($ignore, $index)

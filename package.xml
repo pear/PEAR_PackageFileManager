@@ -47,8 +47,8 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
     <filelist>
       <dir baseinstalldir="PEAR" name="/">
        <dir name="examples">
-        <file role="doc" name="createPhpDocumentor_package.xml.php"/>
-        <file role="doc" name="generatePackage.xml.php"/>
+        <file role="php" name="createPhpDocumentor_package.xml.php"/>
+        <file role="php" name="generatePackage.xml.php"/>
        </dir> <!-- examples -->
        <dir name="PackageFileManager">
         <file role="php" name="Cvs.php"/>
@@ -58,6 +58,7 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
        <dir name="tests">
         <file role="test" name="Bad_file.php"/>
         <file role="test" name="HTML_TestListener.php"/>
+        <file role="test" name="PEAR_PackageFileManager_CVS_TestCase_dirList.php"/>
         <file role="test" name="PEAR_PackageFileManager_File_TestCase_checkIgnore.php"/>
         <file role="test" name="PEAR_PackageFileManager_File_TestCase_dirList.php"/>
         <file role="test" name="PEAR_PackageFileManager_File_TestCase_getFileList.php"/>
@@ -92,6 +93,10 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
            <file role="test" name="boo.txt"/>
           </dir> <!-- tests/footest/subfoo/subsubfoo -->
          </dir> <!-- tests/footest/subfoo -->
+         <dir name="testCVS">
+          <file role="test" name="testEntries"/>
+          <file role="test" name="testEntries.Extra"/>
+         </dir> <!-- tests/footest/testCVS -->
         </dir> <!-- tests/footest -->
        </dir> <!-- tests -->
        <file role="php" name="PackageFileManager.php"/>

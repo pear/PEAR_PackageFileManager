@@ -71,7 +71,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
         } else {
             return parent::dirList($directory);
         }
-        if (!$entries) {
+        if (!$entries || !is_array($entries)) {
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES, $directory);
         }
         return $this->_readCVSEntries($entries);
@@ -96,7 +96,10 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
         foreach($entries as $cvsentry) {
-            $directory = dirname(dirname($cvsentry));
+            $directory = @dirname(@dirname($cvsentry));
+            if (!$directory) {
+                continue;
+            }
             $d = $this->_getCVSEntries($cvsentry);
             if (!is_array($d)) {
                 continue;

@@ -39,6 +39,7 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
         $this->_expectedMessage = 'NO ERROR TRIGGERED';
         $this->_expectedCode = -1;
         $this->_testMethod = 'unknown';
+        $this->_expected = array();
     }
 
     function tearDown()
@@ -95,12 +96,21 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
     }
 
     function errorHandler($errno, $errstr, $errfile, $errline) {
+        if (error_reporting() == 0) {
+            return;
+        }
         //die("$errstr in $errfile at line $errline: $errstr");
         $this->errorOccured = true;
         $this->assertTrue(false, "$errstr at line $errline, $errfile");
     }
 
     function PEARerrorHandler($error) {
+        if (count($this->_expected)) {
+            $err = array_pop($this->_expected);
+            $this->_expectedCode = $err[2];
+            $this->_expectedMessage = $err[1];
+            $this->_testMethod = $err[0];
+        }
         $this->assertEquals($this->_expectedCode, $error->getCode(),
             $this->_testMethod . ' ' . $this->errorCodeToString($this->_expectedCode)
             . ' actual: ' . $this->errorCodeToString($error->getCode()));
@@ -110,9 +120,7 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
     
     function expectPEARError($method, $msg, $code = null)
     {
-        $this->_expectedMessage = $msg;
-        $this->_expectedCode = $code;
-        $this->_testMethod = $method;
+        $this->_expected[] = array($method, $msg, $code);
     }
     
     function test_invalid()
@@ -122,10 +130,19 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
         }
         $this->expectPEARError(
             'test_invalid',
+            'PEAR_PackageFileManager Error: Directory "fargusblurbe[]--#/"" is ' .
+            'not a CVS directory (it must have the CVS/Entries file)',
+            PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES
+        );
+        $this->expectPEARError(
+            'test_invalid',
             'PEAR_PackageFileManager Error: Package source base directory ' .
             '"fargusblurbe[]--#/"" doesn\'t exist or isn\'t a directory',
             PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST
         );
+        $this->packagexml->_options['ignore'] = 
+        $this->packagexml->_options['include'] = false;
+        $this->packagexml->_options['packagefile'] = 'package.xml';
         $res = $this->packagexml->dirList('fargusblurbe[]--#/"');
         $this->assertTrue(is_object($res), 'no error');
         $this->assertEquals('true', $this->errorThrown, 'no error thrown');
@@ -140,8 +157,9 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
             return;
         }
         $this->packagexml->_options['addhiddenfiles'] = false;
-        $this->packagexml->_setupIgnore(false, 0);
-        $this->packagexml->_setupIgnore(false, 1);
+        $this->packagexml->_options['ignore'] = 
+        $this->packagexml->_options['include'] = false;
+        $this->packagexml->_options['packagefile'] = 'package.xml';
         mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
         copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
             . DIRECTORY_SEPARATOR . 'testEntries',
@@ -156,12 +174,9 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
         $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
         $this->assertEquals(
             array(
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/.test',
             ),
             $res,
             'incorrect dir structure');
@@ -193,20 +208,23 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
             dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
             DIRECTORY_SEPARATOR . 'Entries.Extra');
         $this->packagexml->_options['addhiddenfiles'] = false;
-        $this->packagexml->_setupIgnore(array('blar*'), 1);
-        $this->packagexml->_setupIgnore(false, 0);
+        $this->packagexml->_options['ignore'] = array('*1*');
+        $this->packagexml->_options['include'] = false;
+        $this->packagexml->_options['packagefile'] = 'package.xml';
         $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
         $this->assertEquals(
             array(
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/.test',
             ),
             $res,
             'incorrect dir structure');
         $this->assertFalse($this->errorThrown, 'error thrown');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
+        rmdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
     }
     
     function test_valid_with_include()
@@ -229,16 +247,22 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
             dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
             DIRECTORY_SEPARATOR . 'Entries.Extra');
         $this->packagexml->_options['addhiddenfiles'] = false;
-        $this->packagexml->_setupIgnore(array('blar*'), 0);
-        $this->packagexml->_setupIgnore(false, 1);
+        $this->packagexml->_options['include'] = array('*1*');
+        $this->packagexml->_options['ignore'] = false;
+        $this->packagexml->_options['packagefile'] = 'package.xml';
         $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
         $this->assertEquals(
             array(
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
             ),
             $res,
             'incorrect dir structure');
         $this->assertFalse($this->errorThrown, 'error thrown');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
+        rmdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
     }
 }
 
