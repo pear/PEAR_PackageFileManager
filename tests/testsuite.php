@@ -57,7 +57,6 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
     	    'PEAR_PackageFileManager_TestCase_addMaintainer',
     	    'PEAR_PackageFileManager_TestCase_addConfigureOption',
     	    'PEAR_PackageFileManager_TestCase_addDependency',
-            'PEAR_PackageFileManager_File_TestCase_setupIgnore',
             'PEAR_PackageFileManager_File_TestCase_setupDirs',
             'PEAR_PackageFileManager_File_TestCase_setDir',
             'PEAR_PackageFileManager_XMLOutput_TestCase_1',
