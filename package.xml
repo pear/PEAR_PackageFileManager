@@ -27,7 +27,7 @@ Features include
   </maintainers>
   <release>
     <version>1.1.0</version>
-    <date>2003-10-17</date>
+    <date>2003-10-18</date>
     <license>PHP License</license>
     <state>stable</state>
     <notes>bugfix release
@@ -60,9 +60,10 @@ Features include
       <file role="php" baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="b31072af603f2fd430e7b6d62abcad3d" name="PackageFileManager/File.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="95fb4606d4c742cb262ac4996dfc30b5" name="tests/PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b04bc0beeab2752524a5b5bd64c36f71" name="tests/PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="3b3b49007a5ece2e0c43ea47fe562e5e" name="tests/PEAR_PackageFileManager_TestCase_addDependency.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="2c883e242323093d5abe78b908374301" name="tests/PEAR_PackageFileManager_TestCase_addMaintainer.php"/>
@@ -73,7 +74,7 @@ Features include
       <file role="test" baseinstalldir="PEAR" md5sum="bc33f9ae47809c31ed393f8bd063c938" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="a065782393d07b73407831372de379e7" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="878d8c2df221a9be41388d5d8ea6972c" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="3761af72d475c268e6d79ac74767bf9b" name="PackageFileManager.php"/>
@@ -273,7 +274,7 @@ No changes from 0.15</notes>
     </release>
     <release>
       <version>1.1.0</version>
-      <date>2003-10-17</date>
+      <date>2003-10-18</date>
       <license>PHP License</license>
       <state>stable</state>
       <notes>bugfix release
