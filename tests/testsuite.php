@@ -56,6 +56,7 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
     	    'PEAR_PackageFileManager_TestCase_addConfigureOption',
     	    'PEAR_PackageFileManager_TestCase_addDependency',
             'PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString',
+            'PEAR_PackageFileManager_File_TestCase_setupIgnore',
 	);
 
 	
