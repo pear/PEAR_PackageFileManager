@@ -57,6 +57,8 @@ clear all existing dependencies from package.xml before starting</notes>
         <file role="php" name="Cvs.php"/>
         <file role="php" name="Svn.php"/>
         <file role="php" name="File.php"/>
+        <file role="php" name="Perforce.php"/>
+        <file role="php" name="SimpleGenerator.php"/>
         <file role="php" name="XMLOutput.php"/>
        </dir> <!-- PackageFileManager -->
        <dir name="tests">

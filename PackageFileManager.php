@@ -497,8 +497,13 @@ class PEAR_PackageFileManager
         
         if (!class_exists($this->_options['pearcommonclass'])) {
             if ($this->_options['simpleoutput']) {
-                require_once 'PEAR/PackageFileManager/XMLOutput.php';
-                $this->_options['pearcommonclass'] = 'PEAR_PackageFileManager_XMLOutput';
+                if ($this->isIncludeable('PEAR/PackageFile/Generator/v1.php')) {
+                    include_once 'PEAR/PackageFileManager/SimpleGenerator.php';
+                    $this->_options['pearcommonclass'] = 'PEAR_PackageFileManager_SimpleGenerator';
+                } else {
+                    include_once 'PEAR/PackageFileManager/XMLOutput.php';
+                    $this->_options['pearcommonclass'] = 'PEAR_PackageFileManager_XMLOutput';
+                }
             } else {
                 $this->_options['pearcommonclass'] = 'PEAR_Common';
             }
@@ -1023,7 +1028,7 @@ class PEAR_PackageFileManager
     {
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
         $generator = new $generatorclass($this, $this->_options);
-        if ($this->_options['simpleoutput']) {
+        if ($this->_options['simpleoutput'] && is_a($generator, 'PEAR_Common')) {
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
         return $this->_getDirTag($this->_struc = $generator->getFileList()); 
@@ -1095,12 +1100,14 @@ class PEAR_PackageFileManager
                     $test = explode('/', $files['path']);
                     foreach ($test as $subpath) {
                         if ($subpath == 'CVS') {
-                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED, array('path' => $files['path']));
+                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED,
+                                array('path' => $files['path']));
                         }
                     }
     				$ret[$files['file']] = array('role' => $myrole);
                     if (isset($installexceptions[$files['path']])) {
-                        $ret[$files['file']]['baseinstalldir'] = $installexceptions[$files['path']];
+                        $ret[$files['file']]['baseinstalldir'] =
+                            $installexceptions[$files['path']];
                     }
                     if (isset($platformexceptions[$files['path']])) {
                         $ret[$files['file']]['platform'] = $platformexceptions[$files['path']];
@@ -1183,11 +1190,12 @@ class PEAR_PackageFileManager
                         array('role' => $myrole,
                               'baseinstalldir' => $bi,
                               );
-                    $md5sum = @md5_file($this->_options['packagedirectory'] . $files['path']);
-                    if (!empty($md5sum)) {
-                        $ret[$files['path']]['md5sum'] = $md5sum;
-                    }
-                    if ($this->_options['simpleoutput']) {
+                    if (!isset($this->_options['simpleoutput'])) {
+                        $md5sum = @md5_file($this->_options['packagedirectory'] . $files['path']);
+                        if (!empty($md5sum)) {
+                            $ret[$files['path']]['md5sum'] = $md5sum;
+                        }
+                    } elseif (isset($ret[$files['path']]['md5sum'])) {
                         unset($ret[$files['path']]['md5sum']);
                     }
                     if (isset($platformexceptions[$files['path']])) {
@@ -1379,8 +1387,25 @@ class PEAR_PackageFileManager
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
                 }
                 $common = new $PEAR_Common;
-                $this->_oldPackageXml =
-                $this->_packageXml = $common->infoFromString($contents);
+                if (is_a($common, 'PEAR_Common')) {
+                    $this->_oldPackageXml =
+                    $this->_packageXml = $common->infoFromString($contents);
+                } else { // new way
+                    require_once 'PEAR/PackageFile.php';
+                    $z = &PEAR_Config::singleton();
+                    $pkg = &new PEAR_PackageFile($z);
+                    $pf = &$pkg->fromXmlString($contents, PEAR_VALIDATE_DOWNLOADING, $path . $packagefile);
+                    if (PEAR::isError($pf)) {
+                        return $pf;
+                    }
+                    if ($pf->getPackagexmlVersion() != '1.0') {
+                        return PEAR::raiseError('PEAR_PackageFileManager can only manage ' .
+                            'package.xml version 1.0, use PEAR_PackageFileManager_v2 for newer' .
+                            ' package files');
+                    }
+                    $this->_oldPackageXml =
+                    $this->_packageXml = $pf->toArray();
+                }
                 if (PEAR::isError($this->_packageXml)) {
                     return $this->_packageXml;
                 }
