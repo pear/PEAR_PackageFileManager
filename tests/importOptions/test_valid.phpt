@@ -4,13 +4,12 @@ PEAR_PackageFileManager->importOptions, valid test
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['pearcommonclass'] = 'PEAR_Common';
 $res = $packagexml->importOptions(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'test1_package.xml');
 $phpunit->assertTrue($res, 'return');
 $phpunit->assertEquals(array (
   'packagefile' => 'package.xml',
   'doctype' => 'http://pear.php.net/dtd/package-1.0',
-  'filelistgenerator' => 'file',
+  'filelistgenerator' => 'File',
   'license' => 'PHP License',
   'changelogoldtonew' => true,
   'roles' => 

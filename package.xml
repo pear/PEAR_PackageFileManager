@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0" packagerversion="1.4.0a9">
+<package version="1.0" packagerversion="1.4.0a10">
  <name>PEAR_PackageFileManager</name>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
  <description>This package revolutionizes the maintenance of PEAR packages.  With a few parameters,
@@ -37,18 +37,12 @@ PEAR_PackageFileManager is fully unit tested.
   </maintainer>
   </maintainers>
  <release>
-  <version>1.5.0</version>
-  <date>2005-03-28</date>
+  <version>1.5.1</version>
+  <date>2005-04-06</date>
   <license>PHP License</license>
   <state>stable</state>
-  <notes>New features and bugfixes
-* fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
-* implement Request #3747 getOptions() method
-* Migrate all unit tests to .phpt, run
-  &quot;pear run-tests -p PEAR_PackageFileManager&quot; in PEAR 1.4.0 to run tests
-  post-installation
-* add dependency on XML_Tree (used by SVN driver)
-* add package2.xml to the list of auto-ignored files
+  <notes>Bugfix release
+* fix Bug #4003 importOptions() won't work until setOptions() is called
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
@@ -523,6 +517,15 @@ package.xml
   post-installation
 * add dependency on XML_Tree (used by SVN driver)
 * add package2.xml to the list of auto-ignored files
+    </notes>
+   </release>
+   <release>
+    <version>1.5.1</version>
+    <date>2005-04-06</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>Bugfix release
+* fix Bug #4003 importOptions() won't work until setOptions() is called
     </notes>
    </release>
  </changelog>

@@ -466,17 +466,19 @@ class PEAR_PackageFileManager
      * @throws PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND
      * @param array
      */
-    function setOptions($options = array())
+    function setOptions($options = array(), $internal = false)
     {
-        if (!isset($options['state'])) {
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOSTATE);
+        if (!$internal) {
+            if (!isset($options['state'])) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOSTATE);
+            }
+            if (!isset($options['version'])) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOVERSION);
+            }
         }
-        if (!isset($options['version'])) {
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOVERSION);
-        }
-        if (!isset($options['packagedirectory'])) {
+        if (!isset($options['packagedirectory']) && !$internal) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOPKGDIR);
-        } else {
+        } elseif (isset($options['packagedirectory'])) {
             $options['packagedirectory'] = str_replace(DIRECTORY_SEPARATOR,
                                                      '/',
                                                      realpath($options['packagedirectory']));
@@ -492,7 +494,7 @@ class PEAR_PackageFileManager
                 $options['pathtopackagefile'] .= '/';
             }
         }
-        if (!isset($options['baseinstalldir'])) {
+        if (!isset($options['baseinstalldir']) && !$internal) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
@@ -512,14 +514,20 @@ class PEAR_PackageFileManager
         }
         $path = ($this->_options['pathtopackagefile'] ?
                     $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);
-        $this->_options['filelistgenerator'] = ucfirst(strtolower($this->_options['filelistgenerator']));
-        if (PEAR::isError($res = $this->_getExistingPackageXML($path, $this->_options['packagefile']))) {
-            return $res;
+        $this->_options['filelistgenerator'] =
+            ucfirst(strtolower($this->_options['filelistgenerator']));
+        if (!$internal) {
+            if (PEAR::isError($res =
+                  $this->_getExistingPackageXML($path, $this->_options['packagefile']))) {
+                return $res;
+            }
         }
         if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
             // attempt to load the interface from the standard PEAR location
-            if ($this->isIncludeable('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php')) {
-                include_once('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php');
+            if ($this->isIncludeable('PEAR/PackageFileManager/' .
+                  $this->_options['filelistgenerator'] . '.php')) {
+                include_once('PEAR/PackageFileManager/' .
+                    $this->_options['filelistgenerator'] . '.php');
             } elseif (isset($this->_options['usergeneratordir'])) {
                 // attempt to load from a user-specified directory
                 if (is_dir(realpath($this->_options['usergeneratordir']))) {
@@ -527,7 +535,8 @@ class PEAR_PackageFileManager
                         str_replace(DIRECTORY_SEPARATOR,
                                     '/',
                                     realpath($this->_options['usergeneratordir']));
-                    if ($this->_options['usergeneratordir']{strlen($this->_options['usergeneratordir']) - 1} != '/') {
+                    if ($this->_options['usergeneratordir']{strlen($this->_options['usergeneratordir'])
+                          - 1} != '/') {
                         $this->_options['usergeneratordir'] .= '/';
                     }
                 } else {
@@ -556,11 +565,10 @@ class PEAR_PackageFileManager
      *
      * @return true|PEAR_Error
      */
-    function importOptions($packagefile)
+    function importOptions($packagefile, $options = array())
     {
-        $this->_options['cleardependencies'] = false;
-        $this->_options['deps'] = false;
-        $this->_options['maintainers'] = false;
+        $options['cleardependencies'] = $options['deps'] = $options['maintainers'] = false;
+        $this->setOptions($options, true);
         if (PEAR::isError($res = $this->_getExistingPackageXML(dirname($packagefile) .
               DIRECTORY_SEPARATOR, basename($packagefile)))) {
             return $res;
