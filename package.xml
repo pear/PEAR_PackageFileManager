@@ -64,6 +64,7 @@ Features include
       <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b04bc0beeab2752524a5b5bd64c36f71" name="tests/PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="3b3b49007a5ece2e0c43ea47fe562e5e" name="tests/PEAR_PackageFileManager_TestCase_addDependency.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="2c883e242323093d5abe78b908374301" name="tests/PEAR_PackageFileManager_TestCase_addMaintainer.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="756f4e87daa38686888517621ee750b4" name="tests/PEAR_PackageFileManager_TestCase_addReplacement.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="338b0877c5d9a8687009d6ccd6f783c4" name="tests/PEAR_PackageFileManager_TestCase_addRole.php"/>
@@ -72,10 +73,10 @@ Features include
       <file role="test" baseinstalldir="PEAR" md5sum="bc33f9ae47809c31ed393f8bd063c938" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="875934e247c52a091843b061cc2a3136" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="a065782393d07b73407831372de379e7" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="73887608da1ac2cb8b7b325ced604e05" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="3761af72d475c268e6d79ac74767bf9b" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
