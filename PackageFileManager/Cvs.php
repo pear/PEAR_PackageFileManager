@@ -16,6 +16,14 @@ require_once 'PEAR/PackageFileManager/File.php';
  */
 class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     /**
+     * List of CVS-specific files that may exist in CVS but should be
+     * ignored when building the package's file list.
+     * @var array
+     * @access private
+     */
+    var $_cvsIgnore = array('.cvsignore');
+
+    /**
      * Return a list of all files in the CVS repository
      *
      * This function is like {@link parent::dirList()} except
@@ -35,7 +43,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     {
         static $in_recursion = false;
         if (!$in_recursion) {
-            $ignore = $this->ignore;
+            $ignore = array_merge($this->_options['ignore'], $this->_cvsIgnore);
             // include only CVS/Entries files
             $this->_setupIgnore(array('*/CVS/Entries'), 0);
             $this->_setupIgnore(array(), 1);
