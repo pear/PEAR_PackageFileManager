@@ -55,6 +55,7 @@ define('PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE', 23);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_ROLE', 24);
 define('PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE', 25);
 define('PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED', 26);
+define('PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO', 27);
 /**#@-*/
 /**
  * Error messages
@@ -121,6 +122,8 @@ array(
             'addDependency had PHP as a package, use type="php"',
         PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED =>
             'path "%path%" contains CVS directory',
+        PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO =>
+            'PHP_Compat is not installed, cannot detect dependencies',
         ),
         // other language translations go here
      );
@@ -245,6 +248,13 @@ class PEAR_PackageFileManager
      * @var array
      */
     var $_warningStack = array();
+
+    /**
+     * flag used to determine whether to use PHP_CompatInfo to detect deps
+     * @var boolean
+     * @access private
+     */
+    var $_detectDependencies = false;
     
     /**
      * @access private
@@ -287,6 +297,7 @@ class PEAR_PackageFileManager
                       'pearcommonclass' => false,
                       'simpleoutput' => false,
                       'addhiddenfiles' => false,
+                      'cleardependencies' => false,
                       );
     
     /**
@@ -381,6 +392,8 @@ class PEAR_PackageFileManager
      * <b>WARNING</b>: all complex options that require a file path are case-sensitive
      *
      * package.xml complex options:
+     * - cleardependencies: since version 1.3.0, this option will erase any existing
+     *                      dependencies in the package.xml if set to true
      * - ignore: an array of filenames, directory names, or wildcard expressions specifying
      *           files to exclude entirely from the package.xml.  Wildcards are operating system
      *           wildcards * and ?.  file*foo.php will exclude filefoo.php, fileabrfoo.php and
@@ -696,7 +709,41 @@ class PEAR_PackageFileManager
             $this->_packageXml['configure_options'][] = $option;
         }
     }
-    
+
+    /**
+     * @return void|PEAR_Error
+     * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
+     */
+    function detectDependencies()
+    {
+        if (!$this->_packageXml) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
+        }
+        if (!$this->isIncludeable('PHP/CompatInfo.php')) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PHP_COMPAT_NOT_INSTALLED);
+        } else {
+            if (include_once('PHP/CompatInfo.php')) {
+                $this->_detectDependencies = true;
+            } else {
+                $this->raiseError(PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO);
+            }
+        }
+    }
+
+    function isIncludeable($file)
+    {
+        if (!defined('PATH_SEPARATOR')) {
+            define('PATH_SEPARATOR', strtolower(substr(PHP_OS, 0, 3)) == 'win' ? ';' : ':');
+        }
+        foreach (explode(PATH_SEPARATOR, ini_get('include_path')) as $path) {
+            if (file_exists($path . DIRECTORY_SEPARATOR . $file) &&
+                  is_readable($path . DIRECTORY_SEPARATOR . $file)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Add a dependency on another package, or an extension/php
      *
@@ -723,7 +770,7 @@ class PEAR_PackageFileManager
         if ((strtolower($name) == 'php') && (strtolower($type) == 'pkg')) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE);
         }
-        if (!isset($this->_packageXml['release_deps'])) {
+        if (!isset($this->_packageXml['release_deps']) || !is_array($this->_packageXml['release_deps'])) {
             $this->_packageXml['release_deps'] = array();
         }
         $found = false;
@@ -977,9 +1024,9 @@ class PEAR_PackageFileManager
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
         $generator = new $generatorclass($this, $this->_options);
         if ($this->_options['simpleoutput']) {
-            return $this->_getSimpleDirTag($generator->getFileList());
+            return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
-        return $this->_getDirTag($generator->getFileList()); 
+        return $this->_getDirTag($this->_struc = $generator->getFileList()); 
     }
     
     /**
@@ -1162,12 +1209,38 @@ class PEAR_PackageFileManager
     }
 
     /**
+     * @param array
+     * @access private
+     */
+    function _traverseFileArray($files, &$ret) {
+        foreach ($files as $file) {
+            if (!isset($file['fullpath'])) {
+                $this->_traverseFileArray($file, $ret);
+            } else {
+                $ret[] = $file['fullpath'];
+            }
+        }
+    }
+
+    /**
      * Retrieve the 'deps' option passed to the constructor
      * @access private
      * @return array
      */
     function _getDependencies()
     {
+        if ($this->_detectDependencies) {
+            $this->_traverseFileArray($this->_struc, $ret);
+            $compatinfo = new PHP_CompatInfo();
+            $info = $compatinfo->parseArray($ret);
+            $ret = $this->addDependency('php',$info['version'],'ge','php',false);
+            if (is_a($ret, 'PEAR_Error')) {
+                return $ret;
+            }
+            foreach ($info['extensions'] as $ext) {
+                $this->addDependency($ext, '', 'has', 'ext', false);
+            }
+        }
         if (isset($this->_packageXml['release_deps']) &&
               is_array($this->_packageXml['release_deps'])) {
             return $this->_packageXml['release_deps'];
@@ -1311,6 +1384,9 @@ class PEAR_PackageFileManager
                 if (PEAR::isError($this->_packageXml)) {
                     return $this->_packageXml;
                 }
+                if ($this->_options['cleardependencies']) {
+                    $this->_packageXml['release_deps'] = $this->_options['deps'];
+                }
                 if ($this->_options['deps'] !== false) {
                     $this->_packageXml['release_deps'] = $this->_options['deps'];
                 } else {
@@ -1373,30 +1449,6 @@ class PEAR_PackageFileManager
             $this->_packageXml['maintainers'] = $this->_options['maintainers'] = array();
         }
         return true;
-    }
-
-    /**
-     * calls {@link file_exists()} for each value in include_path,
-     * then calls {@link is_readable()} when it finds the file
-     * @param string
-     * @static
-     * @return boolean
-     */
-    function isIncludeable($filename)
-    {
-        $ip = ini_get('include_path');
-        $ip = explode(PATH_SEPARATOR, $ip);
-        foreach($ip as $path)
-        {
-            if ($a = realpath($path . DIRECTORY_SEPARATOR . $filename))
-            {
-                if (is_readable($a))
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
 
