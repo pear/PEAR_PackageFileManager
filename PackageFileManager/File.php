@@ -164,26 +164,47 @@ class PEAR_PackageFileManager_File {
                 && strtoupper($file) != 'NEWS') {
             if (!is_numeric(strpos($file,'.'))) return true;
         }
-        $this->_setupIgnore($ignore);
-        if (!$this->ignore) {
-            return false;
+        if (!isset($this->ignore) || !$this->ignore) {
+            $this->_setupIgnore($ignore);
+            if (!$this->ignore) {
+                return false;
+            }
         }
         if (is_array($this->ignore)) {
             foreach($this->ignore as $match) {
+                // match is an array if the ignore parameter was a /path/to/pattern
                 if (is_array($match)) {
-                    preg_match('/^'.strtoupper($match[0]).'$/',strtoupper($path) . PATH_DELIMITER,$find);
+                    // check to see if the path matches with a path delimiter appended
+                    preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path) . '/',$find);
                     if (!count($find)) {
-                        preg_match('/^'.strtoupper($match[0]).'$/',strtoupper($path),$find);
+                        // check to see if it matches without an appended path delimiter
+                        preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path), $find);
                     }
                     if (count($find)) {
-                        preg_match('/^'.strtoupper($match[1]).'$/',strtoupper($file),$find);
-                        if (count($find)) return true;
+                        // check to see if the file matches the file portion of the regex string
+                        preg_match('/^' . strtoupper($match[1]).'$/', strtoupper($file), $find);
+                        if (count($find)) {
+                            return true;
+                        }
+                    }
+                    // check to see if the full path matches the regex
+                    preg_match('/^' . strtoupper($match[0]).'$/',
+                               strtoupper($path . DIRECTORY_SEPARATOR . $file), $find);
+                    if (count($find)) {
+                        return true;
                     }
                 } else {
-                    preg_match('/^'.strtoupper($match).'$/',strtoupper($path),$find);
-                    if (count($find)) return true;
-                    preg_match('/^'.strtoupper($match).'$/',strtoupper($file),$find);
-                    if (count($find)) return true;
+                    // ignore parameter was just a pattern with no path delimiters
+                    // check it against the path
+                    preg_match('/^' . strtoupper($match).'$/', strtoupper($path), $find);
+                    if (count($find)) {
+                        return true;
+                    }
+                    // check it against the file only
+                    preg_match('/^' . strtoupper($match).'$/', strtoupper($file), $find);
+                    if (count($find)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -234,9 +255,7 @@ class PEAR_PackageFileManager_File {
         if (DIRECTORY_SEPARATOR == '\\') {
             $y = '\\\\';
         }
-        if (strpos($s,'/') === strlen($s) - 1) {
-            $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
-        }
+        $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
         $x = strtr($s, array('?' => '.','*' => '.*','.' => '\\.','\\' => '\\\\','/' => '\\/',
                                 '[' => '\\[',']' => '\\]','-' => '\\-'));
         if (strpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {

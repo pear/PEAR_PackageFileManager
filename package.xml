@@ -26,16 +26,14 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.6</version>
+    <version>0.8</version>
     <date>2003-07-23</date>
     <license>PHP License</license>
     <state>alpha</state>
     <notes>Bugfix release
 
-- When reading in an existing package.xml, if a file
-  has been removed, several warnings were emitted by
-  PEAR_Common attempting to examine the source of a
-  non-existent file</notes>
+- Fixed bug in ignore, ignoring an explicit full path with
+  or without wildcards would not work</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -138,14 +136,34 @@ maintainers and configure options
     <release>
       <version>0.6</version>
       <date>2003-07-23</date>
-      <license>PHP License</license>
       <state>alpha</state>
       <notes>Bugfix release
 
 - When reading in an existing package.xml, if a file
   has been removed, several warnings were emitted by
   PEAR_Common attempting to examine the source of a
-  non-existent file</notes>
+  non-existent file
+- Fixed warning if release notes were empty in a
+  previous changelog</notes>
+    </release>
+    <release>
+      <version>0.7</version>
+      <date>2003-07-23</date>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in CVS reading, if files have been added/removed
+  but not yet committed, it would try to add them to the package.xml</notes>
+    </release>
+    <release>
+      <version>0.8</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in ignore, ignoring an explicit full path with
+  or without wildcards would not work</notes>
     </release>
   </changelog>
 </package>

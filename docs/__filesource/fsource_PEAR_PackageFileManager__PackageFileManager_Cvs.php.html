@@ -140,14 +140,15 @@
 </font><a name="a128"></a><br />129   <font color="#009999">     * Check whether an entry is a file or a directory</font><a name="a129"></a><br />130   <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@return </font></strong><font color="#009999"></font><em>boolean </em><a name="a130"></a><br />131   <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@param </font></strong><font color="#009999"></font><em>string </em><font color="#009999"></font><font color="#009999">a line in a CVS/Entries file</font><a name="a131"></a><br />132   <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@access</font></strong><font color="#009999"> private</font><a name="a132"></a><br />133   <font color="#009999">     */</font>
 <a name="a133"></a><br />134       <font color="blue">function</font> _isCVSFile<strong>(</strong><strong><font color="#008000">$cvsentry</font></strong><strong>)</strong>
 <a name="a134"></a><br />135       <strong>{</strong>
-<a name="a135"></a><br />136           <font color="blue">return</font> <strong><font color="#008000">$cvsentry</font></strong><strong>{</strong>0<strong>}</strong> == <font color="#ff702b">'/'</font>;
-<a name="a136"></a><br />137       <strong>}</strong>
-<a name="a137"></a><br />138   <strong>}</strong>
-<a name="a138"></a><br />139   <strong>?&gt;</strong></pre>
+<a name="a135"></a><br />136           <font color="#a0a0a4">// make sure we ignore entries that have either been removed or added, but not committed yet
+</font><a name="a136"></a><br />137           <font color="blue">return</font> <strong><font color="#008000">$cvsentry</font></strong><strong>{</strong>0<strong>}</strong> == <font color="#ff702b">'/'</font> &amp;&amp; <strong>!</strong><a href="http://www.php.net/strpos">strpos</a><strong>(</strong><strong><font color="#008000">$cvsentry</font></strong><strong>,</strong> <font color="#ff702b">'dummy timestamp'</font><strong>)</strong>;
+<a name="a137"></a><br />138       <strong>}</strong>
+<a name="a138"></a><br />139   <strong>}</strong>
+<a name="a139"></a><br />140   <strong>?&gt;</strong></pre>
 </div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Wed, 23 Jul 2003 17:00:29 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.2</a>
+		    Documentation generated on Wed, 23 Jul 2003 18:12:25 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.2</a>
 	      </div>
       </td></tr></table>
     </td>

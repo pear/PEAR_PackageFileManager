@@ -134,7 +134,8 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
      */
     function _isCVSFile($cvsentry)
     {
-        return $cvsentry{0} == '/';
+        // make sure we ignore entries that have either been removed or added, but not committed yet
+        return $cvsentry{0} == '/' && !strpos($cvsentry, 'dummy timestamp');
     }
 }
 ?>

@@ -777,7 +777,9 @@ class PEAR_PackageFileManager
             if ($changelog['version'] == $this->_options['version']) {
                 $curlog = $index;
             }
-            $this->_packageXml['changelog'][$index]['release_notes'] = trim($changelog['release_notes']);
+            if (isset($this->_packageXml['changelog'][$index]['release_notes'])) {
+                $this->_packageXml['changelog'][$index]['release_notes'] = trim($changelog['release_notes']);
+            }
             // the parsing of the release notes adds a \n for some reason
         }
         $notes = ($this->_options['changelognotes'] ?
@@ -827,6 +829,7 @@ class PEAR_PackageFileManager
                     $this->_options['maintainers'] = $this->_packageXml['maintainers'];
                 }
                 unset($this->_packageXml['filelist']);
+                unset($this->_packageXml['provides']);
             }
             return true;
         } else {
