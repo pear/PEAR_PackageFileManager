@@ -13,7 +13,7 @@
  * @package PEAR_PackageFileManager
  */
 
-class PEAR_PackageFileManager_TestCase_addRole extends PHPUnit_TestCase
+class PEAR_PackageFileManager_TestCase_addReplacement extends PHPUnit_TestCase
 {
     /**
      * A PEAR_PackageFileManager object
@@ -21,7 +21,7 @@ class PEAR_PackageFileManager_TestCase_addRole extends PHPUnit_TestCase
      */
     var $packagexml;
 
-    function PEAR_PackageFileManager_TestCase_addRole($name)
+    function PEAR_PackageFileManager_TestCase_addReplacement($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -114,12 +114,12 @@ class PEAR_PackageFileManager_TestCase_addRole extends PHPUnit_TestCase
         $this->_testMethod = $method;
     }
     
-    function test_invalid_role()
+    function test_invalid_replacement()
     {
         if (!$this->_methodExists('setOptions')) {
             return;
         }
-        if (!$this->_methodExists('addRole')) {
+        if (!$this->_methodExists('addReplacement')) {
             return;
         }
         $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
@@ -128,23 +128,23 @@ class PEAR_PackageFileManager_TestCase_addRole extends PHPUnit_TestCase
             'filelistgenerator' => 'File'));
         $this->assertFalse($this->errorThrown, 'error thrown');
         $this->expectPEARError('invalid role test',
-            'PEAR_PackageFileManager Error: Invalid file role passed to addRole, must be one of "' .
-            implode(PEAR_Common::getFileRoles(), ', ') .
+            'PEAR_PackageFileManager Error: Replacement Type must be one of "' .
+            implode(PEAR_Common::getReplacementTypes(), ', ') .
             '", was passed "ribbit"',
-            PEAR_PACKAGEFILEMANAGER_INVALID_ROLE
+            PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE
         );
-        $this->packagexml->addRole('frog', 'ribbit');
+        $this->packagexml->addReplacement('peeber.php', 'ribbit', 'tadpole', 'frog');
         $this->assertEquals('true', $this->errorThrown, 'error not thrown');
-        $this->assertTrue(!isset($this->packagexml->_options['roles']['frog']),
-            'extension was set, should not be');
+        $this->assertTrue(empty($this->packagexml->_options['replacements']),
+            'replacements was set, should not be');
     }
     
-    function test_valid_role()
+    function test_valid_replacement()
     {
         if (!$this->_methodExists('setOptions')) {
             return;
         }
-        if (!$this->_methodExists('addRole')) {
+        if (!$this->_methodExists('addReplacement')) {
             return;
         }
         $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
@@ -152,9 +152,10 @@ class PEAR_PackageFileManager_TestCase_addRole extends PHPUnit_TestCase
             'packagefile' => 'test1_package.xml',
             'filelistgenerator' => 'File'));
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->packagexml->addRole('frog', 'php');
+        $this->packagexml->addReplacement('peeber.php', 'package-info', '@version@', 'version');
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals('php', $this->packagexml->_options['roles']['frog'],
+        $this->assertEquals(array(array('type' => 'package-info', 'from' => '@version@', 'to' => 'version')),
+            $this->packagexml->_options['replacements']['peeber.php'],
             'extension was not set, should be');
     }
 }
