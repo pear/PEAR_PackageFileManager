@@ -123,7 +123,7 @@ class PEAR_PackageFileManager_CVS_TestCase_general extends PHPUnit_TestCase
         $this->_expected[] = array($method, $msg, $code);
     }
     
-    function test_valid()
+    function test_valid1()
     {
         if (!$this->_methodExists('dirList')) {
             return;
@@ -141,6 +141,54 @@ class PEAR_PackageFileManager_CVS_TestCase_general extends PHPUnit_TestCase
             
             dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
             DIRECTORY_SEPARATOR . 'Entries');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries.Extra',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
+        touch(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'unused');
+        $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
+        $this->assertEquals(
+            array(
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/.test',
+            ),
+            $res,
+            'incorrect dir structure');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'unused');
+        rmdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+    }
+    
+    function test_valid2()
+    {
+        if (!$this->_methodExists('dirList')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_options['addhiddenfiles'] = false;
+        $this->packagexml->_options['ignore'] = 
+        $this->packagexml->_options['include'] = false;
+        $this->packagexml->_options['packagefile'] = 'package.xml';
+        mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        $z = fopen(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries', 'a');
+        fwrite($z, "\n/unused/1.16/dummy timestamp//");
+        fclose($z);
         copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
             . DIRECTORY_SEPARATOR . 'testEntries.Extra',
             
