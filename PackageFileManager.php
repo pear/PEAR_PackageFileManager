@@ -51,6 +51,7 @@ define('PEAR_PACKAGEFILEMANAGER_NO_FILES', 19);
 define('PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING', 20);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE', 21);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE', 22);
+define('PEAR_PACKAGEFILEMANAGER_INVALID_ROLE', 23);
 /**#@-*/
 /**
  * Error messages
@@ -111,6 +112,8 @@ array(
             'Package validation failed:%s%s',
         PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE =>
             'Replacement Type must be one of "%s", was passed "%s"',
+        PEAR_PACKAGEFILEMANAGER_INVALID_ROLE =>
+            'Invalid file role passed to addRole, must be one of "%s", was passed "%s"',
         ),
         // other language translations go here
      );
@@ -377,8 +380,8 @@ class PEAR_PackageFileManager
      *                 the package.xml file used to install this file.
      * - configure_options: array specifies build options for PECL packages (you should probably
      *                      use PECL_Gen instead, but it's here for completeness)
-     * @see PEAR_PackageFileManager_Generator_File
-     * @see PEAR_PackageFileManager_Generator_CVS
+     * @see PEAR_PackageFileManager_File
+     * @see PEAR_PackageFileManager_CVS
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER_NOSTATE
      * @throws PEAR_PACKAGEFILEMANAGER_NOVERSION
@@ -447,9 +450,14 @@ class PEAR_PackageFileManager
      * Add an extension/role mapping to the role mapping option
      * @param string file extension
      * @param string role
+     * @throws PEAR_PACKAGEFILEMANAGER_INVALID_ROLE
      */
     function addRole($extension, $role)
     {
+        $roles = call_user_func(array($this->_options['pearcommonclass'], 'getfileroles'));
+        if (!in_array($role, $roles)) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_INVALID_ROLE, implode($roles, ', '), $role);
+        }
         $this->_options['roles'][$extension] = $role;
     }
     
@@ -499,7 +507,7 @@ class PEAR_PackageFileManager
         if (!isset($this->_options['replacements'])) {
             $this->_options['replacements'] = array();
         }
-        eval('$types = '.$this->_options['pearcommonclass'].'::getReplacementTypes();');
+        $types = call_user_func(array($this->_options['pearcommonclass'], 'getreplacementtypes'));
         if (!in_array($type, $types)) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE,
                 implode($types, ', '), $type);
@@ -824,7 +832,7 @@ class PEAR_PackageFileManager
      * @return array|PEAR_Error
      * @access private
      */
-    function _getDirTag($struc, $role=false)
+    function _getDirTag($struc, $role=false, $_curdir = '')
     {
         if (PEAR::isError($struc)) {
             return $struc;
@@ -833,23 +841,27 @@ class PEAR_PackageFileManager
         $ret = array();
     	foreach($struc as $dir => $files) {
     		if ($dir === '/') {
-                return $this->_getDirTag($struc[$dir], $role);
+                // global directory role? overrides all exceptions except file exceptions
+                if (isset($dir_roles['/'])) {
+                    $role = $dir_roles['/'];
+                }
+                return $this->_getDirTag($struc[$dir], $role, '');
     		} else {
     			if (!isset($files['file'])) {
     				$myrole = '';
-    				if ($role) {
+                    if (isset($dir_roles[$_curdir . $dir])) {
+                        $myrole = $dir_roles[$_curdir . $dir];
+                    } elseif ($role) {
                         $myrole = $role;
-                    } elseif (isset($dir_roles[$dir])) {
-                        $myrole = $dir_roles[$dir];
                     }
-                    $ret = array_merge($ret, $this->_getDirTag($files, $myrole));
+                    $ret = array_merge($ret, $this->_getDirTag($files, $myrole, $_curdir . $dir . '/'));
     			} else {
     				$myrole = '';
     				if (!$role)
     				{
     					$myrole = false;
-    					if (isset($exceptions[$files['file']])) {
-    						$myrole = $exceptions[$files['file']];
+    					if (isset($exceptions[$files['path']])) {
+    						$myrole = $exceptions[$files['path']];
     					} elseif (isset($roles[$files['ext']])) {
     						$myrole = $roles[$files['ext']];
     					} else {
@@ -857,6 +869,9 @@ class PEAR_PackageFileManager
                         }
     				} else {
                         $myrole = $role;
+    					if (isset($exceptions[$files['path']])) {
+    						$myrole = $exceptions[$files['path']];
+    					}
                     }
                     if (isset($installexceptions[$files['path']])) {
                         $bi = $installexceptions[$files['path']];

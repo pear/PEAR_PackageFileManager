@@ -26,23 +26,20 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.10</version>
+    <version>0.11</version>
     <date>2003-07-25</date>
     <license>PHP License</license>
     <state>beta</state>
-    <notes>With the release of 0.10, PEAR_PackageFileManager is
-essentially feature-complete.  It handles all possible package.xml settings
-for PEAR, and is extensible through the 'pearcommonclass' option
+    <notes>Bugfix release
 
-- changed to using strnatcasecmp for version numbers
-  in the search through ChangeLog, so 0.10 &gt; 0.1
-- added md5sum attribute to filelist
-- added use of PEAR_Common::validatePackage() to catch odd
-  errors
-- fixed incorrect handling of PEAR_Error in File::getFileList()
-- added handling of filelist platform attribute
-- added handling of filelist install-as attribute
-- added handling of filelist replacements options</notes>
+- exceptions option should be matching relative path of a file, not just the filename
+- exceptions were ignored if dir_roles was specified for the directory containing the file
+- fixed documentation error
+- added validation of file role
+- fixed directory role so that it checks values passed in before using the parent
+  directory's role
+- removed stupid use of eval, replaced with call_user_func
+- added new complex example that uses almost every option</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -66,29 +63,29 @@ for PEAR, and is extensible through the 'pearcommonclass' option
     <provides type="function" name="PEAR_PackageFileManager::raiseError" />
     <provides type="function" name="file_get_contents" />
     <filelist>
-      <file role="doc" baseinstalldir="PEAR" md5sum="b592d1d0fb88e0b5032dc30a26b8fc7a" name="docs/classtrees_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="f8780b25b5370038ccbbfdc503208bb4" name="docs/elementindex.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="31e4af995fab68d2153891bedcd56f0f" name="docs/elementindex_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="2187d7d6671bb20cf262b3ff468b580f" name="docs/errors.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="bcbc8fdd8b20e9b67f3bd10d6823ab22" name="docs/index.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="bcbc8fdd8b20e9b67f3bd10d6823ab22" name="docs/li_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="f3b031fdacf4571e320717b375d37cc1" name="docs/classtrees_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="75386c5302978ecf42597cc2fe624416" name="docs/elementindex.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="c8c013d67cb1f9a7119a26ccba0b4c2d" name="docs/elementindex_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="3d647f0693a39742b6237a61b864a9e0" name="docs/errors.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="263f4bf750c5ad43c4bac7dddf858ce0" name="docs/index.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="263f4bf750c5ad43c4bac7dddf858ce0" name="docs/li_PEAR_PackageFileManager.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="bd2ce7f8e1830aef0fbe11d6981cedd9" name="docs/todolist.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="908a7af2b36fa04f1b869ff74b6a8d37" name="docs/media/background.png"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="4c480a60db1ab64317fe351a24396eb1" name="docs/media/empty.png"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="45923cad7340f4184f27e287c17e2429" name="docs/media/logo.png"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="cfa1203cc96f584f6e44da9aef3aab73" name="docs/media/style.css"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="44ccd0a4a3505945ae8775bb6a9931ff" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="d597d64797894e3a9af66dca17b27124" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="0b5e9305e2ff34f19a0c65f294b89113" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_Cvs_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="13962f8c38c98e69fc805faa1cc272a0" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_File_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="28f588ab9918b7231f4e9df92e716018" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="6fdc3d4912de2060db8c6f115a7092b3" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="61e7b75a6e2eccc241dea92205c2aa90" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="3bcaa08bf1ddea5269d3d5b9a5e9b88d" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="ca9f4dae1b00b359fe84d3e740d6ed02" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="fc58a90db6fb4a9ee54e3778ad614b3a" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="8e71779b6e4476627e62f70d8d3126b8" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_Cvs_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="fa7fab8715e5aa8cb769198f2dd6bd2c" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_File_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="70daded900662637c2f4f7cc18df1b74" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="a05a50d465bf3d527c4c9ba800232500" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="6dc0edbed7eaff2613a70505f31bb25d" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="5b60c553a971f28ab5008d1dccf4d86d" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="471fc85077539c984d63c6f6bef6bf7f" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="41815de30ee0578d19d132d3f915d3bf" name="PackageFileManager/Cvs.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="c11872fe1f52769bb2219a31d5fae831" name="PackageFileManager/File.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="bc80bca176a8b516ef4ad705850a09a4" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="f359efc1ddf47e311b54fbe26b302a31" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -188,7 +185,6 @@ maintainers and configure options
     <release>
       <version>0.10</version>
       <date>2003-07-25</date>
-      <license>PHP License</license>
       <state>beta</state>
       <notes>With the release of 0.10, PEAR_PackageFileManager is
 essentially feature-complete.  It handles all possible package.xml settings
@@ -203,6 +199,22 @@ for PEAR, and is extensible through the 'pearcommonclass' option
 - added handling of filelist platform attribute
 - added handling of filelist install-as attribute
 - added handling of filelist replacements options</notes>
+    </release>
+    <release>
+      <version>0.11</version>
+      <date>2003-07-25</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- exceptions option should be matching relative path of a file, not just the filename
+- exceptions were ignored if dir_roles was specified for the directory containing the file
+- fixed documentation error
+- added validation of file role
+- fixed directory role so that it checks values passed in before using the parent
+  directory's role
+- removed stupid use of eval, replaced with call_user_func
+- added new complex example that uses almost every option</notes>
     </release>
   </changelog>
 </package>

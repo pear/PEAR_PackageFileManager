@@ -1,4 +1,11 @@
 <?php
+/**
+ * A simple example
+ * @package PEAR_PackageFileManager
+ */
+/**
+ * Include the package file manager
+ */
 require_once('PEAR/PackageFileManager.php');
 $test = new PEAR_PackageFileManager;
 if (PEAR::isError($test)) {
