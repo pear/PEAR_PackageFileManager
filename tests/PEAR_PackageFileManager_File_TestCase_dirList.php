@@ -151,6 +151,8 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
             ),
             $res,
             'incorrect dir structure');
@@ -178,6 +180,8 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
             ),
             $res,
             'incorrect dir structure');
@@ -203,6 +207,8 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
                 dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
             ),
             $res,
             'incorrect dir structure');

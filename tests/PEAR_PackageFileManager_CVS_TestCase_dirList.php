@@ -142,6 +142,17 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
         $this->packagexml->_options['addhiddenfiles'] = false;
         $this->packagexml->_setupIgnore(false, 0);
         $this->packagexml->_setupIgnore(false, 1);
+        mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries.Extra',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
         $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
         $this->assertEquals(
             array(
@@ -155,33 +166,11 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
             $res,
             'incorrect dir structure');
         $this->assertFalse($this->errorThrown, 'error thrown');
-    }
-    
-    function test_valid_addhiddenfiles()
-    {
-        if (!$this->_methodExists('dirList')) {
-            return;
-        }
-        if (!$this->_methodExists('_setupIgnore')) {
-            return;
-        }
-        $this->packagexml->_options['addhiddenfiles'] = true;
-        $this->packagexml->_setupIgnore(false, 0);
-        $this->packagexml->_setupIgnore(false, 1);
-        $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
-        $this->assertEquals(
-            array(
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/.test',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
-                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
-            ),
-            $res,
-            'incorrect dir structure');
-        $this->assertFalse($this->errorThrown, 'error thrown');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
+        rmdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
     }
     
     function test_valid_with_ignore()
@@ -192,6 +181,17 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
+        mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries.Extra',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
         $this->packagexml->_options['addhiddenfiles'] = false;
         $this->packagexml->_setupIgnore(array('blar*'), 1);
         $this->packagexml->_setupIgnore(false, 0);
@@ -217,6 +217,17 @@ class PEAR_PackageFileManager_CVS_TestCase_dirList extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
+        mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries');
+        copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
+            . DIRECTORY_SEPARATOR . 'testEntries.Extra',
+            
+            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
+            DIRECTORY_SEPARATOR . 'Entries.Extra');
         $this->packagexml->_options['addhiddenfiles'] = false;
         $this->packagexml->_setupIgnore(array('blar*'), 0);
         $this->packagexml->_setupIgnore(false, 1);

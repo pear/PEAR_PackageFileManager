@@ -166,6 +166,22 @@ class PEAR_PackageFileManager_File_TestCase_getFileList extends PHPUnit_TestCase
                                 )
                             ),
                         ),
+                'testCVS' =>
+                    array(
+                        0 =>
+                            array(
+                                'file' => 'testEntries',
+                                'ext' => '',
+                                'path' => 'testCVS/testEntries',
+                                'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+                            ),
+                            array(
+                                'file' => 'testEntries.Extra',
+                                'ext' => 'Extra',
+                                'path' => 'testCVS/testEntries.Extra',
+                                'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
+                            ),
+                        ),
                 0 =>
                     array(
                         'file' => 'test1.txt',

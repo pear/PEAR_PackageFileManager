@@ -182,6 +182,22 @@ class PEAR_PackageFileManager_File_TestCase_setupDirs extends PHPUnit_TestCase
                       'path' => 'test2.txt',
                       'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt'),
                    ),
+            'testCVS' =>
+                array(
+                    0 =>
+                        array(
+                            'file' => 'testEntries',
+                            'ext' => '',
+                            'path' => 'testCVS/testEntries',
+                            'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+                        ),
+                        array(
+                            'file' => 'testEntries.Extra',
+                            'ext' => 'Extra',
+                            'path' => 'testCVS/testEntries.Extra',
+                            'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
+                        ),
+                    ),
                       ), $struc, 'wrong basic structure');
         $this->assertFalse($this->errorThrown, 'error thrown');
         uksort($struc,'strnatcasecmp');
@@ -227,6 +243,22 @@ class PEAR_PackageFileManager_File_TestCase_setupDirs extends PHPUnit_TestCase
                       'path' => 'test2.txt',
                       'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt'),
                    ),
+            'testCVS' =>
+                array(
+                    0 =>
+                        array(
+                            'file' => 'testEntries',
+                            'ext' => '',
+                            'path' => 'testCVS/testEntries',
+                            'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+                        ),
+                        array(
+                            'file' => 'testEntries.Extra',
+                            'ext' => 'Extra',
+                            'path' => 'testCVS/testEntries.Extra',
+                            'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
+                        ),
+                    ),
                       ), $struc, 'wrong sorted structure');
         return $struc;
     }
