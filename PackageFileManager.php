@@ -49,6 +49,8 @@ define('PEAR_PACKAGEFILEMANAGER_NODESC', 17);
 define('PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS', 18);
 define('PEAR_PACKAGEFILEMANAGER_NO_FILES', 19);
 define('PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING', 20);
+define('PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE', 21);
+define('PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE', 22);
 /**#@-*/
 /**
  * Error messages
@@ -105,6 +107,10 @@ array(
             'No files found, check the path "%s"',
         PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING =>
             'No files left, check the path "%s" and ignore option "%s"',
+        PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE =>
+            'Package validation failed:%s%s',
+        PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE =>
+            'Replacement Type must be one of "%s", was passed "%s"',
         ),
         // other language translations go here
      );
@@ -167,9 +173,6 @@ array(
  * the use of the {@link addMaintainer()} method
  * </code>
  * @package PEAR_PackageFileManager
- * @todo add support for <replace> tag in file
- * @todo add support for md5sum attribute
- * @todo add support for platform attribute
  */
 class PEAR_PackageFileManager
 {
@@ -224,6 +227,8 @@ class PEAR_PackageFileManager
                              ),
                       'exceptions' => array(),
                       'installexceptions' => array(),
+                      'installas' => array(),
+                      'platformexceptions' => array(),
                       'ignore' => array(),
                       'deps' => false,
                       'maintainers' => false,
@@ -233,6 +238,8 @@ class PEAR_PackageFileManager
                       'pathtopackagefile' => false,
                       'lang' => 'en',
                       'configure_options' => array(),
+                      'replacements' => array(),
+                      'pearcommonclass' => 'PEAR_Common',
                       );
     
     /**
@@ -285,6 +292,9 @@ class PEAR_PackageFileManager
      *                     /path/to/foo/Foo.php
      * - doctype: Specifies the DTD of the package.xml file.  Default is
      *            http://pear.php.net/dtd/package-1.0
+     * - pearcommonclass: Specifies the name of the class to instantiate, default
+     *                    is PEAR_Common, but users can override this with a custom
+     *                    class that implements PEAR_Common's method interface
      *
      * package.xml simple options:
      * - baseinstalldir: The base directory to install this package in.  For
@@ -311,7 +321,16 @@ class PEAR_PackageFileManager
      *                three options are not optional when creating a new package.xml
      *                from scratch
      *
+     * <b>WARNING</b>: all complex options that require a file path are case-sensitive
+     *
      * package.xml complex options:
+     * - ignore: an array of filenames, directory names, or wildcard expressions specifying
+     *           files to exclude entirely from the package.xml.  Wildcards are operating system
+     *           wildcards * and ?.  file*foo.php will exclude filefoo.php, fileabrfoo.php and
+     *           filewho_is_thisfoo.php.  file?foo.php will exclude fileafoo.php and will not
+     *           exclude fileaafoo.php.  test/ will exclude all directories and subdirectories of
+     *           ANY directory named test encountered in directory parsing.  *test* will exclude
+     *           all files and directories that contain test in their name
      * - roles: this is an array mapping file extension to install role.  This
      *          specifies default behavior that can be overridden by the exceptions
      *          option and dir_roles option.  use {@link addRole()} to add a new
@@ -323,23 +342,41 @@ class PEAR_PackageFileManager
      *              a relative path from the baseinstalldir, or "/" for the baseinstalldir
      * - exceptions: specify file role for specific files.  This array maps all files
      *               matching the exact name of a file to a role as in "file.ext" => "role"
-     * - installexceptions: array mapping of specific filenames to baseinstalldir values.  Use
-     *                      this to force the installation of a file into another directory,
-     *                      such as forcing a script to be in the root scripts directory so that
-     *                      it will be in the path
      * - deps: dependency array.  Pass in an empty array to clear all dependencies, and use
      *         {@link addDependency()} to add new ones/replace existing ones
      * - maintainers: maintainers array.  Pass in an empty array to clear all maintainers, and
      *                use {@link addMaintainer()} to add a new maintainer/replace existing maintainer
+     * - installexceptions: array mapping of specific filenames to baseinstalldir values.  Use
+     *                      this to force the installation of a file into another directory,
+     *                      such as forcing a script to be in the root scripts directory so that
+     *                      it will be in the path.  The filename must be a relative path to the
+     *                      packagedirectory
+     * - platformexceptions: array mapping of specific filenames to the platform they should be
+     *                       installed on.  Use this to specify unix-only files or windows-only
+     *                       files.  The format of the platform string must be
+     *                       OS-version-cpu-extra if any more specific information is needed,
+     *                       and the OS must be in lower case as in "windows."  The match is
+     *                       performed using a regular expression, but uses * and ? wildcards
+     *                       instead of .* and .?.  Note that hpux/aix/irix/linux are all
+     *                       exclusive.  To select non-windows, use (*ix|*ux)
+     * - installas: array mapping of specific filenames to the filename they should be installed as.
+     *              Use this to specify new filenames for files that should be installed.  This will
+     *              often be used in conjunction with platformexceptions if there are two files for
+     *              different OSes that must have the same name when installed.
+     * - replacements: array mapping of specific filenames to complex text search-and-replace that
+     *                 should be performed upon install.  The format is:
+     *   <pre>
+     *   filename => array('type' => php-const|pear-config|package-info
+     *                     'from' => text in file
+     *                     'to' => name of variable)
+     *   </pre>
+     *                 if type is php-const, then 'to' must be the name of a PHP Constant.
+     *                 If type is pear-config, then 'to' must be the name of a PEAR config
+     *                 variable accessible through a PEAR_Config class->get() method.  If
+     *                 type is package-info, then 'to' must be the name of a section from
+     *                 the package.xml file used to install this file.
      * - configure_options: array specifies build options for PECL packages (you should probably
      *                      use PECL_Gen instead, but it's here for completeness)
-     * - ignore: an array of filenames, directory names, or wildcard expressions specifying
-     *           files to exclude entirely from the package.xml.  Wildcards are operating system
-     *           wildcards * and ?.  file*foo.php will exclude filefoo.php, fileabrfoo.php and
-     *           filewho_is_thisfoo.php.  file?foo.php will exclude fileafoo.php and will not
-     *           exclude fileaafoo.php.  test/ will exclude all directories and subdirectories of
-     *           ANY directory named test encountered in directory parsing.  *test* will exclude
-     *           all files and directories that contain test in their name
      * @see PEAR_PackageFileManager_Generator_File
      * @see PEAR_PackageFileManager_Generator_CVS
      * @return void|PEAR_Error
@@ -374,6 +411,9 @@ class PEAR_PackageFileManager
         }
         $this->_options = array_merge($this->_options, $options);
         
+        if (!class_exists($this->_options['pearcommonclass'])) {
+            $this->_options['pearcommonclass'] = 'PEAR_Common';
+        }
         $path = ($this->_options['pathtopackagefile'] ?
                     $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);
         $this->_options['filelistgenerator'] = ucfirst(strtolower($this->_options['filelistgenerator']));
@@ -411,6 +451,60 @@ class PEAR_PackageFileManager
     function addRole($extension, $role)
     {
         $this->_options['roles'][$extension] = $role;
+    }
+    
+    /**
+     * Add an install-time platform conditional install for a file
+     *
+     * The format of the platform string must be
+     * OS-version-cpu-extra if any more specific information is needed,
+     * and the OS must be in lower case as in "windows."  The match is
+     * performed using a regular expression, but uses * and ? wildcards
+     * instead of .* and .?.  Note that hpux/aix/irix/linux are all
+     * exclusive.  To select non-windows, use (*ix|*ux)
+     *
+     * This information is based on eyeing the source for OS/Guess.php, so
+     * if you are unsure of what to do, read that file.
+     * @param string relative path of file (relative to packagedirectory option)
+     * @param string platform descriptor string
+     */
+    function addPlatformException($path, $platform)
+    {
+        if (!isset($this->_options['platformexceptions'])) {
+            $this->_options['platformexceptions'] = array();
+        }
+        $this->_options['platformexceptions'][$path] = $platform;
+    }
+    
+    /**
+     * Add a replacement option for a file
+     *
+     * This sets an install-time complex search-and-replace function
+     * allowing the setting of platform-specific variables in an
+     * installed file.
+     *
+     * if $type is php-const, then $to must be the name of a PHP Constant.
+     * If $type is pear-config, then $to must be the name of a PEAR config
+     * variable accessible through a {@link PEAR_Config::get()} method.  If
+     * type is package-info, then $to must be the name of a section from
+     * the package.xml file used to install this file.
+     * @param string relative path of file (relative to packagedirectory option)
+     * @param string variable type, either php-const, pear-config or package-info
+     * @param string text to replace in the source file
+     * @param string variable name to use for replacement
+     * @throws PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE
+     */
+    function addReplacement($path, $type, $from, $to)
+    {
+        if (!isset($this->_options['replacements'])) {
+            $this->_options['replacements'] = array();
+        }
+        eval('$types = '.$this->_options['pearcommonclass'].'::getReplacementTypes();');
+        if (!in_array($type, $types)) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE,
+                implode($types, ', '), $type);
+        }
+        $this->_options['replacements'][$path][] = array('type' => $type, 'from' => $from, 'to' => $to);
     }
     
     /**
@@ -594,7 +688,8 @@ class PEAR_PackageFileManager
         $this->_packageXml['release_license'] = $license;
         $this->_packageXml['release_state'] = $state;
         $this->_packageXml['release_notes'] = $notes;
-        $this->_pear = new PEAR_Common;
+        $PEAR_Common = $this->_options['pearcommonclass'];
+        $this->_pear = new $PEAR_Common;
         $this->_packageXml['filelist'] = $this->_getFileList();
         if (PEAR::isError($this->_packageXml['filelist'])) {
             return $this->_packageXml['filelist'];
@@ -604,8 +699,25 @@ class PEAR_PackageFileManager
         }
         $this->_packageXml['release_deps'] = $this->_getDependencies();
         $this->_updateChangeLog();
+        
         $common = &$this->_pear;
+        $warnings = $errors = array();
         $packagexml = $common->xmlFromInfo($this->_packageXml);
+        $common->validatePackageInfo($packagexml, $warnings, $errors, $this->_options['packagedirectory']);
+        if (count($errors)) {
+            $ret = '';
+            $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
+            foreach($errors as $errmsg) {
+                $ret .= $errmsg . $nl;
+            }
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE, $nl, $ret);
+        }
+        if (count($warnings)) {
+            $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
+            foreach($warnings as $errmsg) {
+                echo $errmsg . $nl;
+            }
+        }
         if (!strpos($packagexml, '<!DOCTYPE')) {
             // hack to fix pear
             $packagexml = str_replace('<package version="1.0">',
@@ -746,12 +858,28 @@ class PEAR_PackageFileManager
     				} else {
                         $myrole = $role;
                     }
-                    if (isset($installexceptions[$files['file']])) {
-                        $bi = $installexceptions[$files['file']];
+                    if (isset($installexceptions[$files['path']])) {
+                        $bi = $installexceptions[$files['path']];
                     } else {
                         $bi = $baseinstalldir;
                     }
-    				$ret[$files['path']] = array('role' => $myrole, 'baseinstalldir' => $bi);
+    				$ret[$files['path']] =
+                        array('role' => $myrole,
+                              'baseinstalldir' => $bi,
+                              );
+                    $md5sum = @md5_file($this->_options['packagedirectory'] . $files['path']);
+                    if (!empty($md5sum)) {
+                        $ret[$files['path']]['md5sum'] = $md5sum;
+                    }
+                    if (isset($platformexceptions[$files['path']])) {
+                        $ret[$files['path']]['platform'] = $platformexceptions[$files['path']];
+                    }
+                    if (isset($installas[$files['path']])) {
+                        $ret[$files['path']]['install-as'] = $installas[$files['path']];
+                    }
+                    if (isset($replacements[$files['path']])) {
+                        $ret[$files['path']]['replacements'] = $replacements[$files['path']];
+                    }
                     if ($myrole == 'php') {
                         $this->_addProvides($this->_pear, $files['fullpath']);
                     }
@@ -803,7 +931,7 @@ class PEAR_PackageFileManager
             $this->_packageXml['changelog'] = array($changelog);
         }
         foreach($this->_packageXml['changelog'] as $index => $changelog) {
-            if (isset($changelog['version']) && $changelog['version'] == $this->_options['version']) {
+            if (isset($changelog['version']) && strnatcasecmp($changelog['version'], $this->_options['version']) == 0) {
                 $curlog = $index;
             }
             if (isset($this->_packageXml['changelog'][$index]['release_notes'])) {
@@ -842,7 +970,8 @@ class PEAR_PackageFileManager
             if (!$contents) {
                 return $this->_generateNewPackageXML();
             } else {
-                $common = new PEAR_Common;
+                $PEAR_Common = $this->_options['pearcommonclass'];
+                $common = new $PEAR_Common;
                 $this->_oldPackageXml =
                 $this->_packageXml = $common->infoFromString($contents);
                 if (PEAR::isError($this->_packageXml)) {

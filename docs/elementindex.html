@@ -27,11 +27,6 @@
   <tr valign="top">
     <td width="195" class="menu">
 		<div class="package-title">PEAR_PackageFileManager</div>
-  <div class="package">
-	<div id="todolist">
-			<p><a href="todolist.html">Todo List</a></p>
-	</div>
-	</div>
       <b>Packages:</b><br />
   <div class="package">
               <a href="li_PEAR_PackageFileManager.html">PEAR_PackageFileManager</a><br />
@@ -73,6 +68,10 @@
 				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddDependency">PEAR_PackageFileManager::addDependency()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add a dependency on another package, or an extension/php</dd>
 							<dt><b>addMaintainer</b></dt>
 				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddMaintainer">PEAR_PackageFileManager::addMaintainer()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add a maintainer to the list of maintainers.</dd>
+							<dt><b>addPlatformException</b></dt>
+				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddPlatformException">PEAR_PackageFileManager::addPlatformException()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add an install-time platform conditional install for a file</dd>
+							<dt><b>addReplacement</b></dt>
+				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddReplacement">PEAR_PackageFileManager::addReplacement()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add a replacement option for a file</dd>
 							<dt><b>addRole</b></dt>
 				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddRole">PEAR_PackageFileManager::addRole()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add an extension/role mapping to the role mapping option</dd>
 					</dl>
@@ -163,15 +162,19 @@
 							<dt><b>PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST">PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PackageFileManager_File</b></dt>
-				<dd>in file File.php, class <a href="PEAR_PackageFileManager/PEAR_PackageFileManager_File.html">PEAR_PackageFileManager_File</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the files from a directory listing</dd>
-							<dt><b>PEAR_PackageFileManager_File</b></dt>
 				<dd>in file File.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager_File.html#methodPEAR_PackageFileManager_File">PEAR_PackageFileManager_File::PEAR_PackageFileManager_File()</a></dd>
+							<dt><b>PEAR_PackageFileManager_File</b></dt>
+				<dd>in file File.php, class <a href="PEAR_PackageFileManager/PEAR_PackageFileManager_File.html">PEAR_PackageFileManager_File</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Retrieve the files from a directory listing</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND">PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE">PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING">PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE">PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE">PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_NOBASEDIR</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOBASEDIR">PEAR_PACKAGEFILEMANAGER_NOBASEDIR</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES</b></dt>
@@ -241,7 +244,7 @@
 	</div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Thu, 24 Jul 2003 23:10:21 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.2</a>
+		    Documentation generated on Fri, 25 Jul 2003 02:16:01 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.2</a>
 	      </div>
       </td></tr></table>
     </td>

@@ -51,6 +51,9 @@ class PEAR_PackageFileManager_File {
         $package_directory = $this->_options['packagedirectory'];
         $ignore = $this->_options['ignore'];
         $allfiles = $this->dirList(substr($package_directory, 0, strlen($package_directory) - 1));
+        if (PEAR::isError($allfiles)) {
+            return $allfiles;
+        }
         if (!count($allfiles)) {
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NO_FILES,
                 substr($package_directory, 0, strlen($package_directory) - 1));
