@@ -26,20 +26,17 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.11</version>
-    <date>2003-07-25</date>
+    <version>0.12</version>
+    <date>2003-07-28</date>
     <license>PHP License</license>
     <state>beta</state>
     <notes>Bugfix release
 
-- exceptions option should be matching relative path of a file, not just the filename
-- exceptions were ignored if dir_roles was specified for the directory containing the file
-- fixed documentation error
-- added validation of file role
-- fixed directory role so that it checks values passed in before using the parent
-  directory's role
-- removed stupid use of eval, replaced with call_user_func
-- added new complex example that uses almost every option</notes>
+- added fix, if no existing changelog for current package.xml,
+  but has old changelog, a new one is auto-generated from the release.
+- added new switch to specify order of changelog entries
+  &quot;changelogoldtonew&quot; default true.  Set to false to have the
+  newest entry listed first</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -63,30 +60,11 @@ Features include
     <provides type="function" name="PEAR_PackageFileManager::raiseError" />
     <provides type="function" name="file_get_contents" />
     <filelist>
-      <file role="doc" baseinstalldir="PEAR" md5sum="3d01cf1407255f0fab804bf4a31ce062" name="docs/classtrees_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="999bbab4f2359b29cd032f3a333a891e" name="docs/elementindex.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="99d456d9933d77838cc4fb042f069102" name="docs/elementindex_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="b9545db704ab6a42088b87777809d55c" name="docs/errors.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="a2e97c6a7a76ae380953b252f2c178d6" name="docs/index.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="a2e97c6a7a76ae380953b252f2c178d6" name="docs/li_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="bd2ce7f8e1830aef0fbe11d6981cedd9" name="docs/todolist.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="908a7af2b36fa04f1b869ff74b6a8d37" name="docs/media/background.png"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="4c480a60db1ab64317fe351a24396eb1" name="docs/media/empty.png"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="45923cad7340f4184f27e287c17e2429" name="docs/media/logo.png"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="cfa1203cc96f584f6e44da9aef3aab73" name="docs/media/style.css"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="4d69ebf557d1d8dcef0c4a84e875f892" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="6806b1e08d26dbfeb40cc15a6a072f22" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="5d6a36d6e789b731f161be4734c4ea43" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_Cvs_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="6aaff405d073a7cf365528e0e6337e82" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_File_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="9f496d8c67668aa6de9b7b916390bbfe" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="a326c500329084d23a681bb2661939da" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="181b3beb99379342594744ce6ec770d9" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="799c234a01c3f105120d9ee1580a0d4b" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="41815de30ee0578d19d132d3f915d3bf" name="PackageFileManager/Cvs.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="c11872fe1f52769bb2219a31d5fae831" name="PackageFileManager/File.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="f359efc1ddf47e311b54fbe26b302a31" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="198cae2be742006596bbca638393fafd" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="063b6b31c7f3e08bc7dd8a1ce3196fc8" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -204,7 +182,6 @@ for PEAR, and is extensible through the 'pearcommonclass' option
     <release>
       <version>0.11</version>
       <date>2003-07-25</date>
-      <license>PHP License</license>
       <state>beta</state>
       <notes>Bugfix release
 
@@ -216,6 +193,19 @@ for PEAR, and is extensible through the 'pearcommonclass' option
   directory's role
 - removed stupid use of eval, replaced with call_user_func
 - added new complex example that uses almost every option</notes>
+    </release>
+    <release>
+      <version>0.12</version>
+      <date>2003-07-28</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- added fix, if no existing changelog for current package.xml,
+  but has old changelog, a new one is auto-generated from the release.
+- added new switch to specify order of changelog entries
+  &quot;changelogoldtonew&quot; default true.  Set to false to have the
+  newest entry listed first</notes>
     </release>
   </changelog>
 </package>
