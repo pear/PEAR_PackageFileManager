@@ -141,6 +141,7 @@ class PEAR_PackageFileManager_File {
      * @access protected
      * @return array list of files in a directory
      * @param string $directory full path to the directory you want the list of
+     * @throws PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST
      */
     function dirList($directory)
     {
