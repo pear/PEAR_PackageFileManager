@@ -51,6 +51,10 @@ class PEAR_PackageFileManager_File {
         $package_directory = $this->_options['packagedirectory'];
         $ignore = $this->_options['ignore'];
         $allfiles = $this->dirList(substr($package_directory, 0, strlen($package_directory) - 1));
+        if (!count($allfiles)) {
+            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NO_FILES,
+                substr($package_directory, 0, strlen($package_directory) - 1));
+        }
         $struc = array();
         foreach($allfiles as $file) {
         	if ($this->_checkIgnore(basename($file), dirname($file), $ignore, false)) {
@@ -71,6 +75,17 @@ class PEAR_PackageFileManager_File {
                                     'ext' => $ext,
                                     'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
                                     'fullpath' => $file);
+        }
+        if (!count($struc)) {
+            $newig = '';
+            foreach($this->_options['ignore'] as $ig) {
+                if (!empty($newig)) {
+                    $newig .= ', ';
+                }
+                $newig .= $ig;
+            }
+            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING,
+                substr($package_directory, 0, strlen($package_directory) - 1), $newig);
         }
         uksort($struc,'strnatcasecmp');
         foreach($struc as $key => $ind) {

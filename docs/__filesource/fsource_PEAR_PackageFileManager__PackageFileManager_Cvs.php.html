@@ -50,10 +50,10 @@
 <font color="#009999">/**
 </font><a name="a9"></a><br />10    <font color="#009999"> * Generate a file list from a CVS checkout</font><a name="a10"></a><br />11    <font color="#009999"> *
 </font><a name="a11"></a><br />12    <font color="#009999"> * Note that this will &lt;b&gt;NOT&lt;/b&gt; work on a</font><a name="a12"></a><br />13    <font color="#009999"> * repository, only on a checked out CVS module</font><a name="a13"></a><br />14    <font color="#009999"> *</font><font color="#009999"> </font><strong><font color = "#0099FF">@package</font></strong><font color="#009999"> PEAR_PackageFileManager</font><a name="a14"></a><br />15    <font color="#009999"> */</font>
-<a name="a15"></a><br />16    <font color="blue">class</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html">PEAR_PackageFileManager_Cvs</a> <font color="blue">extends</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_File.html#methodPEAR_PackageFileManager_File">PEAR_PackageFileManager_File</a> <strong>{</strong>
+<a name="a15"></a><br />16    <font color="blue">class</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_CVS.html">PEAR_PackageFileManager_CVS</a> <font color="blue">extends</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_File.html#methodPEAR_PackageFileManager_File">PEAR_PackageFileManager_File</a> <strong>{</strong>
 <a name="a16"></a><br />17        <font color="#009999">/**
 </font><a name="a17"></a><br />18    <font color="#009999">     * Return a list of all files in the CVS repository</font><a name="a18"></a><br />19    <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@return </font></strong><font color="#009999"></font><em>array </em><font color="#009999"></font><font color="#009999">list of files in a directory</font><a name="a19"></a><br />20    <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@param </font></strong><font color="#009999"></font><em>string </em><font color="#009999"></font><strong>$directory </strong><font color="#009999">full path to the directory you want the list of</font><a name="a20"></a><br />21    <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@uses</font></strong><font color="#009999"> _recurDirList()</font><a name="a21"></a><br />22    <font color="#009999">     *</font><font color="#009999"> </font><strong><font color = "#0099FF">@uses</font></strong><font color="#009999"> _readCVSEntries()</font><a name="a22"></a><br />23    <font color="#009999">     */</font>
-<a name="a23"></a><br />24        <font color="blue">function</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html#methoddirList">dirList</a><strong>(</strong><strong><font color="#008000">$directory</font></strong><strong>)</strong>
+<a name="a23"></a><br />24        <font color="blue">function</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_CVS.html#methoddirList">dirList</a><strong>(</strong><strong><font color="#008000">$directory</font></strong><strong>)</strong>
 <a name="a24"></a><br />25        <strong>{</strong>
 <a name="a25"></a><br />26            <strong><font color="#008000">$entries</font></strong> = <strong><font color="#008000">$this</font></strong><strong>-&gt;</strong>_recurDirList<strong>(</strong><strong><font color="#008000">$directory</font></strong><strong>)</strong>;
 <a name="a26"></a><br />27            <font color="blue">if</font> <strong>(</strong><strong>!</strong><strong><font color="#008000">$entries</font></strong><strong>)</strong> <strong>{</strong>
@@ -147,7 +147,7 @@
 </div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Mon, 21 Jul 2003 20:16:08 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
+		    Documentation generated on Tue, 22 Jul 2003 15:09:35 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
 	      </div>
       </td></tr></table>
     </td>

@@ -14,7 +14,7 @@ require_once 'PEAR/PackageFileManager/File.php';
  * repository, only on a checked out CVS module
  * @package PEAR_PackageFileManager
  */
-class PEAR_PackageFileManager_Cvs extends PEAR_PackageFileManager_File {
+class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     /**
      * Return a list of all files in the CVS repository
      * @return array list of files in a directory
