@@ -132,6 +132,41 @@ class PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString extends PH
         $res1 .= $y;
         $this->assertEquals("(?:.*$y$res1?.*|$res1.*)", $res, 'wrong regexp 2');
     }
+    
+    function test_file_regexp()
+    {
+        if (!$this->_methodExists('_getRegExpableSearchString')) {
+            return;
+        }
+        $res = $this->packagexml->_getRegExpableSearchString('frog?-*.php');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+        $this->assertEquals('frog.\-.*\.php', $res, 'wrong regexp');
+        $this->assertTrue(preg_match("/^$res$/", 'frog1-hairy.php'), 'did not match frog1-hairy.php');
+        $this->assertTrue(preg_match("/^$res$/", 'frog1-hairy/thingo.php'), 'did not match frog1-hairy/thingo.php');
+        $this->assertTrue(preg_match("/^$res$/", 'frog1-hairy\\thingo.php'), 'did not match frog1-hairy\\thingo.php');
+        $this->assertFalse(preg_match("/^$res$/", 'frog11-hairy.php'), 'matched frog11-hairy.php');
+    }
+    
+    function test_dir_regexp()
+    {
+        if (!$this->_methodExists('_getRegExpableSearchString')) {
+            return;
+        }
+        $res = $this->packagexml->_getRegExpableSearchString('frog/');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+        $y = '\/';
+        if (DIRECTORY_SEPARATOR == '\\') {
+            $y = '\\\\';
+        }
+        $this->assertEquals('(?:.*' . $y . 'frog\\' . DIRECTORY_SEPARATOR .
+            '?.*|frog\\' . DIRECTORY_SEPARATOR . '.*)', $res, 'wrong regexp');
+        $this->assertTrue(preg_match("/^$res$/", 'frog' . DIRECTORY_SEPARATOR .
+            '1-hairy.php'), 'did not match frog//1-hairy.php');
+        $this->assertFalse(preg_match("/^$res$/", 'frog1-hairy' . DIRECTORY_SEPARATOR .
+            'thingo.php'), 'matched frog1-hairy//thingo.php');
+        $this->assertTrue(preg_match("/^$res$/", 'my' . DIRECTORY_SEPARATOR .
+            'frog' . DIRECTORY_SEPARATOR . 'thingo.php'), 'did not match my\\frog\\thingo.php');
+    }
 }
 
 ?>
