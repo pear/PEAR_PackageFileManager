@@ -80,7 +80,7 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
             return;
         }
         $this->expectPEARError('invalid nopackage',
-            'Package Name (option \'package\') must by specified in PEAR_PackageFileManager '.
+            'PEAR_PackageFileManager Error: Package Name (option \'package\') must by specified in PEAR_PackageFileManager '.
             'setOptions to create a new package.xml', PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
         $this->packagexml->_generateNewPackageXML();
     }
