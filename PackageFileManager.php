@@ -16,6 +16,7 @@
 // | Web           http://www.phpdoc.org                                    |
 // | Mirror        http://phpdocu.sourceforge.net/                          |
 // +------------------------------------------------------------------------+
+// $Id$
 //
 
 /**
@@ -216,6 +217,7 @@ class PEAR_PackageFileManager
                       'doctype' => 'http://pear.php.net/dtd/package-1.0',
                       'filelistgenerator' => 'file',
                       'license' => 'PHP License',
+                      'changelogoldtonew' => true,
                       'roles' =>
                         array(
             				'php' => 'php',
@@ -298,6 +300,8 @@ class PEAR_PackageFileManager
      * - pearcommonclass: Specifies the name of the class to instantiate, default
      *                    is PEAR_Common, but users can override this with a custom
      *                    class that implements PEAR_Common's method interface
+     * - changelogoldtonew: True if the ChangeLog should list from oldest entry to
+     *                      newest.  Set to false if you would like new entries first
      *
      * package.xml simple options:
      * - baseinstalldir: The base directory to install this package in.  For
@@ -937,7 +941,7 @@ class PEAR_PackageFileManager
      */
     function _updateChangeLog()
     {
-        $curlog = false;
+        $curlog = $oldchangelog = false;
         if (!isset($this->_packageXml['changelog'])) {
             $changelog = array();
             if (isset($this->_oldPackageXml['release_notes'])) {
@@ -956,8 +960,29 @@ class PEAR_PackageFileManager
                 $changelog['release_state'] = $this->_oldPackageXml['release_state'];
             }
             $this->_packageXml['changelog'] = array($changelog);
+        } else {
+            if (isset($this->_oldPackageXml['release_notes'])) {
+                $oldchangelog['release_notes'] = $this->_oldPackageXml['release_notes'];
+            }
+            if (isset($this->_oldPackageXml['version'])) {
+                $oldchangelog['version'] = $this->_oldPackageXml['version'];
+            }
+            if (isset($this->_oldPackageXml['release_date'])) {
+                $oldchangelog['release_date'] = $this->_oldPackageXml['release_date'];
+            }
+            if (isset($this->_oldPackageXml['release_license'])) {
+                $oldchangelog['release_license'] = $this->_oldPackageXml['release_license'];
+            }
+            if (isset($this->_oldPackageXml['release_state'])) {
+                $oldchangelog['release_state'] = $this->_oldPackageXml['release_state'];
+            }
         }
+        $hasoldversion = false;
         foreach($this->_packageXml['changelog'] as $index => $changelog) {
+            if ($oldchangelog && isset($oldchangelog['version']) 
+                    && strnatcasecmp($oldchangelog['version'], $changelog['version']) == 0) {
+                $hasoldversion = true;
+            }
             if (isset($changelog['version']) && strnatcasecmp($changelog['version'], $this->_options['version']) == 0) {
                 $curlog = $index;
             }
@@ -965,6 +990,9 @@ class PEAR_PackageFileManager
                 $this->_packageXml['changelog'][$index]['release_notes'] = trim($changelog['release_notes']);
             }
             // the parsing of the release notes adds a \n for some reason
+        }
+        if (!$hasoldversion) {
+            $this->_packageXml['changelog'][] = $oldchangelog;
         }
         $notes = ($this->_options['changelognotes'] ?
                     $this->_options['changelognotes'] : $this->_options['notes']);
@@ -978,6 +1006,20 @@ class PEAR_PackageFileManager
             $this->_packageXml['changelog'][$curlog] = $changelog;
         } else {
             $this->_packageXml['changelog'][] = $changelog;
+        }
+        usort($this->_packageXml['changelog'], array($this, '_changelogsort'));
+    }
+    
+    /**
+     * @static
+     * @access private
+     */
+    function _changelogsort($a, $b)
+    {
+        if ($this->_options['changelogoldtonew']) {
+            return strnatcasecmp($a['version'], $b['version']);
+        } else {
+            return strnatcasecmp($b['version'], $a['version']);
         }
     }
 
