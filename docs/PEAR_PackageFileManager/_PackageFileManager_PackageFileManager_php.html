@@ -1,0 +1,782 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Docs for page PackageFileManager.php</title>
+	<link rel="stylesheet" type="text/css" href="../media/style.css">
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+	<td class="header-top-left"><img src="../media/logo.png" border="0" alt="phpDocumentor " /></td>
+    <td class="header-top-right">PEAR_PackageFileManager<br /><div class="header-top-right-subpackage"></div></td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td colspan="2" class="header-menu">
+  		  [ <a href="../classtrees_PEAR_PackageFileManager.html" class="menu">class tree: PEAR_PackageFileManager</a> ]
+		  [ <a href="../elementindex_PEAR_PackageFileManager.html" class="menu">index: PEAR_PackageFileManager</a> ]
+		  [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td colspan="2" class="header-line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="195" class="menu">
+		<div class="package-title">PEAR_PackageFileManager</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
+      <b>Packages:</b><br />
+  <div class="package">
+              <a href="../li_PEAR_PackageFileManager.html">PEAR_PackageFileManager</a><br />
+      	</div>
+      <br />
+                        <b>Files:</b><br />
+        <div class="package">
+				<span style="padding-left: 1em;"><a href="../PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_Cvs_php.html">Cvs.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_File_php.html">File.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html">PackageFileManager.php</a></span><br />
+	  </div>
+            <br />
+            <b>Classes:</b><br />
+        <div class="package">
+		    		<a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html">PEAR_PackageFileManager</a>    	 <br />
+	    		<a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_CVS.html">PEAR_PackageFileManager_CVS</a>    	 <br />
+	    		<a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_File.html">PEAR_PackageFileManager_File</a>    	 <br />
+	  </div>
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1>Procedural File: PackageFileManager.php</h1>
+Source Location: Program_Root/PackageFileManager.php<br /><br />
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Page Details</div>
+	<div class="nav-bar">
+					<span class="disabled">Page Details</span> |
+							<a href="#sec-classes">Classes</a>
+			|							<a href="#sec-includes">Includes</a>
+			|							<a href="#sec-constants">Constants</a>
+			|							<a href="#sec-variables">Globals</a>
+								</div>
+	<div class="info-box-body">
+				<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td><strong>Filesource:</strong>&nbsp;&nbsp;</td><td><a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html">Source Code for this file</a></td></tr>
+	</table>
+
+			</div>
+</div>
+
+	<a name="sec-classes"></a>
+	<div class="info-box">
+		<div class="info-box-title">Classes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Page Details</a> |
+			<span class="disabled">Classes</span>
+			|							<a href="#sec-includes">Includes</a>
+				|										<a href="#sec-constants">Constants</a>
+				|										<a href="#sec-variables">Globals</a>
+												</div>
+		<div class="info-box-body">
+			<table cellpadding="2" cellspacing="0" class="class-table">
+				<tr>
+					<th class="class-table-header">Class</th>
+					<th class="class-table-header">Description</th>
+				</tr>
+								<tr>
+					<td style="padding-right: 2em; vertical-align: top">
+						<a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html">PEAR_PackageFileManager</a>
+					</td>
+					<td>
+											PEAR :: PackageGenerate updates the &lt;filelist&gt;&lt;/filelist&gt; section  of a PEAR package.xml file to reflect the current files in  preparation for a release.
+										</td>
+				</tr>
+							</table>
+		</div>
+	</div>
+
+	<a name="sec-includes"></a>
+	<div class="info-box">
+		<div class="info-box-title">Includes</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Page Details</a> |
+							<a href="#sec-classes">Classes</a>
+				|						<span class="disabled">Includes</span>
+			|							<a href="#sec-constants">Constants</a>
+				|										<a href="#sec-variables">Globals</a>
+												</div>
+		<div class="info-box-body">
+			<a name="_PEAR/Common_php"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="include-title">
+			<span class="include-type">require_once</span>
+			(<span class="include-name">'PEAR/Common.php'</span>)
+			<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a27">27</a>]</span>
+		</span>
+	</div>
+
+	<p align="center" class="short-description"><strong>PEAR installer
+</strong></p>
+	
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+		<br />
+</div>
+		</div>
+	</div><br />
+
+	<a name="sec-constants"></a>
+	<div class="info-box">
+		<div class="info-box-title">Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Page Details</a> |
+							<a href="#sec-classes">Classes</a>
+				|										<a href="#sec-includes">Includes</a>
+				|						<span class="disabled">Constants</span>
+			|							<a href="#sec-variables">Globals</a>
+												</div>
+		<div class="info-box-body">
+			<a name="definePEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a49">49</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS = 18</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a39">39</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE = 8</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a40">40</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE = 9</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_CANTWRITE_PKGFILE"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_CANTWRITE_PKGFILE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a37">37</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_CANTWRITE_PKGFILE = 6</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a38">38</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE = 7</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a43">43</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST = 12</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a35">35</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND = 4</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a36">36</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE = 5</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a51">51</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING = 20</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOBASEDIR"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOBASEDIR</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a34">34</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOBASEDIR = 3</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOCVSENTRIES"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a42">42</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES = 11</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NODESC"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NODESC</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a48">48</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NODESC = 17</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOPACKAGE"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOPACKAGE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a45">45</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOPACKAGE = 14</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOPKGDIR"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOPKGDIR</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a33">33</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOPKGDIR = 3</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOSTATE"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOSTATE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a31">31</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOSTATE = 1</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOSUMMARY"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOSUMMARY</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a47">47</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOSUMMARY = 16</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NOVERSION"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NOVERSION</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a32">32</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NOVERSION = 2</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_NO_FILES"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_NO_FILES</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a50">50</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_NO_FILES = 19</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a41">41</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST = 10</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a44">44</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS = 13</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+<a name="definePEAR_PACKAGEFILEMANAGER_WRONG_MROLE"><!-- --></a>
+<div class="oddrow">
+
+	<div>
+		<span class="const-title">
+			<span class="const-name">PEAR_PACKAGEFILEMANAGER_WRONG_MROLE</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a46">46</a>]</span>
+		</span>
+	</div>
+<br />
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">
+		<code>PEAR_PACKAGEFILEMANAGER_WRONG_MROLE = 15</code>
+    </td></tr></table>
+    </td></tr></table>
+
+    <p align="center" class="short-description"><strong>Error Codes
+</strong></p>
+    
+	<br />
+
+		<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+		</div>
+	</div><br />
+
+	<a name="sec-variables"></a>
+	<div class="info-box">
+		<div class="info-box-title">Globals</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Page Details</a> |
+							<a href="#sec-classes">Classes</a>
+				|										<a href="#sec-includes">Includes</a>
+				|										<a href="#sec-constants">Constants</a>
+				|						<span class="disabled">Globals</span>
+										<a href="#sec-functions">Functions</a>
+					</div>
+		<div class="info-box-body">
+			<a name="global$GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS']" id="global$GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS']"><!-- --></a>
+<div class="evenrow">
+
+	<div>
+		<span class="var-title">
+			<span class="var-type">array</span>&nbsp;&nbsp;
+			<span class="var-name">$GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS']</span>
+			<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a57">57</a>]</span>
+		</span>
+	</div>
+
+  	<p align="center" class="short-description"><strong>Error messages
+</strong></p>
+  
+  <b>Default value:</b>&nbsp;&nbsp;<span class="var-default">array(
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;'en'&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;array(
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOSTATE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Release&nbsp;State&nbsp;(option&nbsp;\'state\')&nbsp;must&nbsp;by&nbsp;specified&nbsp;in&nbsp;PEAR_PackageFileManager&nbsp;setOptions&nbsp;(alpha|beta|stable)',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOVERSION&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Release&nbsp;Version&nbsp;(option&nbsp;\'version\')&nbsp;must&nbsp;be&nbsp;specified&nbsp;in&nbsp;PEAR_PackageFileManager&nbsp;setOptions',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOPKGDIR&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Package&nbsp;source&nbsp;base&nbsp;directory&nbsp;(option&nbsp;\'packagedirectory\')&nbsp;must&nbsp;be&nbsp;'&nbsp;.
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'specified&nbsp;in&nbsp;PEAR_PackageFileManager&nbsp;setOptions',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOPKGDIR&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Package&nbsp;install&nbsp;base&nbsp;directory&nbsp;(option&nbsp;\'baseinstalldir\')&nbsp;must&nbsp;be&nbsp;'&nbsp;.
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'specified&nbsp;in&nbsp;PEAR_PackageFileManager&nbsp;setOptions',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Base&nbsp;class&nbsp;&quot;%s&quot;&nbsp;can\'t&nbsp;be&nbsp;located',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Base&nbsp;class&nbsp;&quot;%s&quot;&nbsp;can\'t&nbsp;be&nbsp;located&nbsp;in&nbsp;default&nbsp;or&nbsp;user-specified&nbsp;directories',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_CANTWRITE_PKGFILE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Failed&nbsp;to&nbsp;write&nbsp;package.xml&nbsp;file&nbsp;to&nbsp;destination&nbsp;directory',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Destination&nbsp;directory&nbsp;&quot;%s&quot;&nbsp;is&nbsp;unwritable',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Failed&nbsp;to&nbsp;copy&nbsp;package.xml.tmp&nbsp;file&nbsp;to&nbsp;package.xml',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Failed&nbsp;to&nbsp;open&nbsp;temporary&nbsp;file&nbsp;&quot;%s&quot;&nbsp;for&nbsp;writing',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'package.xml&nbsp;file&nbsp;path&nbsp;&quot;%s&quot;&nbsp;doesn\'t&nbsp;exist&nbsp;or&nbsp;isn\'t&nbsp;a&nbsp;directory',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Directory&nbsp;&quot;%s&quot;&nbsp;is&nbsp;not&nbsp;a&nbsp;CVS&nbsp;directory&nbsp;(it&nbsp;must&nbsp;have&nbsp;the&nbsp;CVS/Entries&nbsp;file)',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Package&nbsp;source&nbsp;base&nbsp;directory&nbsp;&quot;%s&quot;&nbsp;doesn\'t&nbsp;exist&nbsp;or&nbsp;isn\'t&nbsp;a&nbsp;directory',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Run&nbsp;$managerclass-&gt;setOptions()&nbsp;before&nbsp;any&nbsp;other&nbsp;methods',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOPACKAGE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Package&nbsp;Name&nbsp;(option&nbsp;\'package\')&nbsp;must&nbsp;by&nbsp;specified&nbsp;in&nbsp;PEAR_PackageFileManager&nbsp;'.
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'setOptions&nbsp;to&nbsp;create&nbsp;a&nbsp;new&nbsp;package.xml',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NOSUMMARY&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Package&nbsp;Summary&nbsp;(option&nbsp;\'summary\')&nbsp;must&nbsp;by&nbsp;specified&nbsp;in&nbsp;PEAR_PackageFileManager'&nbsp;.
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;setOptions&nbsp;to&nbsp;create&nbsp;a&nbsp;new&nbsp;package.xml',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NODESC&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Detailed&nbsp;Package&nbsp;Description&nbsp;(option&nbsp;\'description\')&nbsp;must&nbsp;be'&nbsp;.
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;specified&nbsp;in&nbsp;PEAR_PackageFileManager&nbsp;constructor&nbsp;to&nbsp;create&nbsp;a&nbsp;new&nbsp;package.xml',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_WRONG_MROLE&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Maintainer&nbsp;role&nbsp;must&nbsp;be&nbsp;one&nbsp;of&nbsp;&quot;%s&quot;,&nbsp;was&nbsp;&quot;%s&quot;',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Add&nbsp;maintainers&nbsp;to&nbsp;a&nbsp;package&nbsp;before&nbsp;generating&nbsp;the&nbsp;package.xml',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_NO_FILES&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'No&nbsp;files&nbsp;found,&nbsp;check&nbsp;the&nbsp;path&nbsp;&quot;%s&quot;',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING&nbsp;=&gt;
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'No&nbsp;files&nbsp;left,&nbsp;check&nbsp;the&nbsp;path&nbsp;&quot;%s&quot;&nbsp;and&nbsp;ignore&nbsp;option&nbsp;&quot;%s&quot;',
+<br&nbsp;/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),)</span>
+<br />
+	
+
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+	<br />
+</div>
+		</div>
+	</div><br />
+
+
+        <div class="credit">
+		    <hr class="separator" />
+		    Documentation generated on Thu, 24 Jul 2003 22:35:52 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.2</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
