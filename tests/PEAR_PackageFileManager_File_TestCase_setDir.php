@@ -117,151 +117,15 @@ class PEAR_PackageFileManager_File_TestCase_setDir extends PHPUnit_TestCase
     
     function test_concept()
     {
-        if (!$this->_methodExists('_setupDirs')) {
+        if (!$this->_methodExists('_setDir')) {
             return;
         }
-        $this->packagexml->_options['addhiddenfiles'] = false;
-        $this->packagexml->_options['ignore'] =
-        $this->packagexml->_options['include'] = false;
-        $this->packagexml->_setupIgnore(false, 0);
-        $this->packagexml->_setupIgnore(false, 1);
-        $list = $this->packagexml->dirList($package_directory =
-            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
-        $struc = array();
-        foreach($list as $file) {
-        	$path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR, 
-                                                              '/',
-                                                              realpath($package_directory))) + 1);
-        	if (!$path) {
-                $path = '/';
-            }
-        	$ext = array_pop(explode('.', $file));
-        	if (strlen($ext) == strlen($file)) {
-                $ext = '';
-            }
-        	$struc[$path][] = array('file' => basename($file),
-                                    'ext' => $ext,
-                                    'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
-                                    'fullpath' => $file);
-        }
-        $this->assertEquals(
-            array(
-            'blarfoo' =>
-              array(
-                array('file' => 'blartest.txt',
-                      'ext' => 'txt',
-                      'path' => 'blarfoo/blartest.txt',
-                      'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt')
-                   ),
-            'subfoo/subsubfoo' =>
-              array(
-                array('file' => 'boo.txt',
-                      'ext' => 'txt',
-                      'path' => 'subfoo/subsubfoo/boo.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt')
-                   ),
-            'subfoo' =>
-              array(
-                array('file' => 'test11.txt',
-                      'ext' => 'txt',
-                      'path' => 'subfoo/test11.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt'),
-                array('file' => 'test12.txt',
-                      'ext' => 'txt',
-                      'path' => 'subfoo/test12.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt'),
-                   ),
-            '/' =>
-              array(
-                array('file' => 'test1.txt',
-                      'ext' => 'txt',
-                      'path' => 'test1.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt'),
-                array('file' => 'test2.txt',
-                      'ext' => 'txt',
-                      'path' => 'test2.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt'),
-                   ),
-                      ), $struc, 'wrong basic structure');
-        $this->assertFalse($this->errorThrown, 'error thrown');
-        uksort($struc,'strnatcasecmp');
-        foreach($struc as $key => $ind) {
-        	usort($ind, array($this->packagexml, 'sortfiles'));
-        	$struc[$key] = $ind;
-        }
-        $this->assertEquals(
-            array(
-            'blarfoo' =>
-              array(
-                array('file' => 'blartest.txt',
-                      'ext' => 'txt',
-                      'path' => 'blarfoo/blartest.txt',
-                      'fullpath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt')
-                   ),
-            'subfoo/subsubfoo' =>
-              array(
-                array('file' => 'boo.txt',
-                      'ext' => 'txt',
-                      'path' => 'subfoo/subsubfoo/boo.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt')
-                   ),
-            'subfoo' =>
-              array(
-                array('file' => 'test11.txt',
-                      'ext' => 'txt',
-                      'path' => 'subfoo/test11.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt'),
-                array('file' => 'test12.txt',
-                      'ext' => 'txt',
-                      'path' => 'subfoo/test12.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt'),
-                   ),
-            '/' =>
-              array(
-                array('file' => 'test1.txt',
-                      'ext' => 'txt',
-                      'path' => 'test1.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt'),
-                array('file' => 'test2.txt',
-                      'ext' => 'txt',
-                      'path' => 'test2.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt'),
-                   ),
-                      ), $struc, 'wrong sorted structure');
-        return $struc;
-    }
-    
-    function test_valid()
-    {
-        $this->packagexml->_options['addhiddenfiles'] = false;
-        $struc = $this->test_concept();
-        $test = $this->packagexml->_setupDirs($struc['/'], explode('/','subfoo/subsubfoo'), $struc['subfoo/subsubfoo']);
-        $this->assertEquals(
-            array(
-                0 =>
-               array('file' => 'test1.txt',
-                      'ext' => 'txt',
-                      'path' => 'test1.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt'),
-                1 =>
-                array('file' => 'test2.txt',
-                      'ext' => 'txt',
-                      'path' => 'test2.txt',
-                      'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt'),
-                'subfoo' =>
-                  array(
-                    'subsubfoo' =>
-                      array(
-                        array('file' => 'boo.txt',
-                              'ext' => 'txt',
-                              'path' => 'subfoo/subsubfoo/boo.txt',
-                              'fullpath' =>dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt')
-                        ),
-                      ),
-            ),
-            $test,
-            'incorrect parsing'
-        );
+        $test = array('my' => array('butt' => array('first')));
+        $arr = array('my' => array('other' => array('test')));
+        $assert = $this->packagexml->_setDir($arr, $test);
+        $this->assertEquals(array('my' => array('other' => array('test'), 'butt' => array('first'))),
+            $assert,
+            'Wrong contents');
     }
 }
 
