@@ -7,6 +7,8 @@ $pf->setOptions(array(
 'version' => '1.5.0',
 'license' => 'PHP License',
 'notes' => 'New features and bugfixes
+* fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
+* implement Request #3747 getOptions() method
 * Migrate all unit tests to .phpt
 * add dependency on XML_Tree (used by SVN driver)',
 'packagedirectory' => dirname(__FILE__),
