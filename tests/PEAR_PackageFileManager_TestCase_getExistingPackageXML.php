@@ -35,7 +35,7 @@ class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_Tes
         $this->packagexml = new PEAR_PackageFileManager;
         PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, array(&$this, 'PEARerrorHandler'));
         $this->errorThrown = false;
-        $this->_expectedMessage = 'ERROR TRIGGERED';
+        $this->_expectedMessage = 'NO ERROR TRIGGERED';
         $this->_expectedCode = -1;
         $this->_testMethod = 'unknown';
     }

@@ -70,7 +70,7 @@ array(
         PEAR_PACKAGEFILEMANAGER_NOPKGDIR =>
             'Package source base directory (option \'packagedirectory\') must be ' .
             'specified in PEAR_PackageFileManager setOptions',
-        PEAR_PACKAGEFILEMANAGER_NOPKGDIR =>
+        PEAR_PACKAGEFILEMANAGER_NOBASEDIR =>
             'Package install base directory (option \'baseinstalldir\') must be ' .
             'specified in PEAR_PackageFileManager setOptions',
         PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND =>
@@ -470,18 +470,30 @@ class PEAR_PackageFileManager
         if (PEAR::isError($res = $this->_getExistingPackageXML($path, $this->_options['packagefile']))) {
             return $res;
         }
-        // attempt to load the interface from the standard PEAR location
-        @include_once('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php');
         if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
-            if (isset($this->_options['usergeneratordir'])) {
+            // attempt to load the interface from the standard PEAR location
+            if ($this->isIncludeable('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php')) {
+                include_once('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php');
+            } elseif (isset($this->_options['usergeneratordir'])) {
                 // attempt to load from a user-specified directory
-                $this->_options['usergeneratordir'] = str_replace(DIRECTORY_SEPARATOR,
-                                                                  '/',
-                                                                  realpath($this->_options['usergeneratordir']));
-                if ($this->_options['usergeneratordir']{strlen($this->_options['usergeneratordir']) - 1} != '/') {
-                    $this->_options['usergeneratordir'] .= '/';
+                if (is_dir(realpath($this->_options['usergeneratordir']))) {
+                    $this->_options['usergeneratordir'] =
+                        str_replace(DIRECTORY_SEPARATOR,
+                                    '/',
+                                    realpath($this->_options['usergeneratordir']));
+                    if ($this->_options['usergeneratordir']{strlen($this->_options['usergeneratordir']) - 1} != '/') {
+                        $this->_options['usergeneratordir'] .= '/';
+                    }
+                } else {
+                    $this->_options['usergeneratordir'] = '////';
                 }
-                @include_once($this->_options['usergeneratordir'] . $this->_options['filelistgenerator'] . '.php');
+                if (file_exists($this->_options['usergeneratordir'] .
+                      $this->_options['filelistgenerator'] . '.php') &&
+                      is_readable($this->_options['usergeneratordir'] .
+                      $this->_options['filelistgenerator'] . '.php')) {
+                    include_once($this->_options['usergeneratordir'] .
+                        $this->_options['filelistgenerator'] . '.php');
+                }
                 if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE,
                             'PEAR_PackageFileManager_' . $this->_options['filelistgenerator']);
@@ -1173,6 +1185,30 @@ class PEAR_PackageFileManager
             $this->_packageXml['maintainers'] = $this->_options['maintainers'] = array();
         }
         return true;
+    }
+
+    /**
+     * calls {@link file_exists()} for each value in include_path,
+     * then calls {@link is_readable()} when it finds the file
+     * @param string
+     * @static
+     * @return boolean
+     */
+    function isIncludeable($filename)
+    {
+        $ip = ini_get('include_path');
+        $ip = explode(PATH_SEPARATOR, $ip);
+        foreach($ip as $path)
+        {
+            if ($a = realpath($path . DIRECTORY_SEPARATOR . $filename))
+            {
+                if (is_readable($a))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 

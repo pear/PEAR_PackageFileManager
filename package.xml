@@ -27,7 +27,7 @@ Features include
   </maintainers>
   <release>
     <version>1.1.0</version>
-    <date>2003-10-14</date>
+    <date>2003-10-15</date>
     <license>PHP License</license>
     <state>stable</state>
     <notes>bugfix release
@@ -54,21 +54,24 @@ Features include
     <provides type="function" name="PEAR_PackageFileManager::writePackageFile" />
     <provides type="function" name="PEAR_PackageFileManager::debugPackageFile" />
     <provides type="function" name="PEAR_PackageFileManager::raiseError" />
+    <provides type="function" name="PEAR_PackageFileManager::isIncludeable" />
     <provides type="function" name="file_get_contents" />
     <filelist>
       <file role="php" baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="e28e2cf8f7c250d209ef1e4d8ac78ee3" name="tests/PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="0a5d8f749c8db22441179c9cc94c98cf" name="tests/PEAR_PackageFileManager_TestCase_getExistingPackageXML.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="a485ff969c4a5369d7f3af8e5d0c967c" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="9d1af0789e515a24d5bb51c37259d4ba" name="tests/PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="b53f66e62574c56854d50086cd76177b" name="tests/PEAR_PackageFileManager_TestCase_getExistingPackageXML.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="d47c81d81301c61407a396519f3cb22a" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="28b874f1041678c2f37ef1e73ed7958e" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="799ce8fcaa49c0bcb811d2d3e332c573" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="088a9045346469b9d4ae4938d8bbdbe2" name="PackageFileManager.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="eaca6911836afe7d40b26f959191163c" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -265,7 +268,7 @@ No changes from 0.15</notes>
     </release>
     <release>
       <version>1.1.0</version>
-      <date>2003-10-14</date>
+      <date>2003-10-15</date>
       <license>PHP License</license>
       <state>stable</state>
       <notes>bugfix release

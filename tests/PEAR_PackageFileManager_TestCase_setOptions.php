@@ -35,7 +35,7 @@ class PEAR_PackageFileManager_TestCase_setOptions extends PHPUnit_TestCase
         $this->packagexml = new PEAR_PackageFileManager;
         PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, array(&$this, 'PEARerrorHandler'));
         $this->errorThrown = false;
-        $this->_expectedMessage = 'ERROR TRIGGERED';
+        $this->_expectedMessage = 'NO ERROR TRIGGERED';
         $this->_expectedCode = -1;
         $this->_testMethod = 'unknown';
     }
@@ -119,11 +119,153 @@ class PEAR_PackageFileManager_TestCase_setOptions extends PHPUnit_TestCase
         if (!$this->_methodExists('setOptions')) {
             return;
         }
-        $this->expectPEARError('invalid nopackage',
+        $this->expectPEARError('invalid nostate',
             'PEAR_PackageFileManager Error: Release State (option \'state\') ' .
             'must by specified in PEAR_PackageFileManager setOptions (alpha|' .
             'beta|stable)', PEAR_PACKAGEFILEMANAGER_NOSTATE);
         $this->packagexml->setOptions(array());
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_invalid_noversion()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid noversion',
+            'PEAR_PackageFileManager Error: Release Version (option \'version\')' .
+            ' must be specified in PEAR_PackageFileManager setOptions', PEAR_PACKAGEFILEMANAGER_NOVERSION);
+        $this->packagexml->setOptions(array('state' => 'alpha'));
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_invalid_nopackagedir()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid nopackagedir',
+            'PEAR_PackageFileManager Error: Package source base directory (option \'packagedirectory\') must be ' .
+            'specified in PEAR_PackageFileManager setOptions', PEAR_PACKAGEFILEMANAGER_NOPKGDIR);
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0'));
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_invalid_nobaseinstalldir()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid nobaseinstalldir',
+            'PEAR_PackageFileManager Error: Package install base directory (option \'baseinstalldir\') must be ' .
+            'specified in PEAR_PackageFileManager setOptions', PEAR_PACKAGEFILEMANAGER_NOBASEDIR);
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__)));
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_invalid_badfilelistgenerator1()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid badfilelistgenerator1',
+            'PEAR_PackageFileManager Error: Base class "PEAR_PackageFileManager_Gronk"' .
+            ' can\'t be located', PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND);
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'Gronk'));
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_invalid_badfilelistgenerator2()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid badfilelistgenerator2',
+            'PEAR_PackageFileManager Error: Base class "PEAR_PackageFileManager_Gronk"' .
+            ' can\'t be located in default or user-specified directories',
+            PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE);
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'Gronk',
+            'usergeneratordir' => '\\onk'));
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_invalid_badfilelistgenerator3()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid badfilelistgenerator3',
+            'PEAR_PackageFileManager Error: Base class "PEAR_PackageFileManager_Gronk"' .
+            ' can\'t be located in default or user-specified directories',
+            PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE);
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'Gronk',
+            'usergeneratordir' => dirname(__FILE__)));
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
+    }
+    
+    function test_valid_filelistgeneratorfile()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'File'));
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_valid_filelistgeneratorcvs()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'CVS'));
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_valid_filelistgeneratorcustom()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'Test_file',
+            'usergeneratordir' => dirname(__FILE__)
+            ));
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_invalid_filelistgeneratorcustom()
+    {
+        if (!$this->_methodExists('setOptions')) {
+            return;
+        }
+        $this->expectPEARError('invalid badfilelistgenerator3',
+            'PEAR_PackageFileManager Error: Base class "PEAR_PackageFileManager_Bad_file"' .
+            ' can\'t be located in default or user-specified directories',
+            PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE);
+        $this->packagexml->setOptions(array('state' => 'alpha', 'version' => '1.0',
+            'packagedirectory' => dirname(__FILE__), 'baseinstalldir' => 'Foo',
+            'packagefile' => 'test1_package.xml',
+            'filelistgenerator' => 'Bad_file',
+            'usergeneratordir' => dirname(__FILE__)
+            ));
         $this->assertEquals('true', $this->errorThrown, 'no error thrown');
     }
 }
