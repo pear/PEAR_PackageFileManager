@@ -37,12 +37,14 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
   </maintainers>
   <release>
       <version>1.3.0</version>
-      <date>2004-07-12</date>
+      <date>2005-02-08</date>
       <license>PHP License</license>
       <state>stable</state>
       <notes>Add detectDependencies() - uses PHP_CompatInfo to detect deps.
 Also added cleardependencies option to setOptions(), which will
-clear all existing dependencies from package.xml before starting</notes>
+clear all existing dependencies from package.xml before starting
+Make this work with PEAR 1.4.0
+add Jon Parise's experimental Perforce file generator</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
       <dep type="pkg" rel="ge" version="1.0.0RC1" optional="yes">PHP_CompatInfo</dep>

@@ -28,10 +28,23 @@ require_once 'PEAR/PackageFile/Generator/v1.php';
  * @copyright 2003
  * @package PEAR_PackageFileManager
  */
-class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator_v1 {
+class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator_v1
+{
+    var $_options;
 
+    /**
+     * remove a warning about missing parameters - don't delete this
+     */
     function PEAR_PackageFileManager_SimpleGenerator()
     {
+    }
+
+    /**
+     * @param array
+     */
+    function setPackageFileManagerOptions($opts)
+    {
+        $this->_options = $opts;
     }
 
     /**
@@ -114,84 +127,122 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
     }
 
     /**
-     * Generate part of an XML description with release information.
-     *
-     * @param array  $pkginfo    array with release information
-     * @param bool   $changelog  whether the result will be in a changelog element
-     *
-     * @return string XML data
-     *
+     * @param array
+     * @access protected
+     */
+    function recursiveXmlFilelist($list)
+    {
+        $this->_dirs = array();
+        foreach ($list as $file => $attributes) {
+            $this->_addDir($this->_dirs, explode('/', dirname($file)), $file, $attributes);
+        }
+        if (count($this->_dirs['dirs']) != 1 || isset($this->_dirs['files'])) {
+            $this->_dirs = array('dirs' => array('/' => $this->_dirs));
+        }
+        return $this->_formatDir($this->_dirs, '', '', true);
+    }
+
+    /**
+     * @param array
+     * @param array
+     * @param string|null
+     * @param array|null
      * @access private
      */
-    function _makeReleaseXml($pkginfo, $changelog = false)
+    function _addDir(&$dirs, $dir, $file = null, $attributes = null)
     {
-        $indent = $changelog ? "  " : "";
-        $ret = "$indent  <release>\n";
-        if (!empty($pkginfo['version'])) {
-            $ret .= "$indent    <version>$pkginfo[version]</version>\n";
+        if ($dir == array() || $dir == array('.')) {
+            $dirs['files'][basename($file)] = $attributes;
+            return;
         }
-        if (!empty($pkginfo['release_date'])) {
-            $ret .= "$indent    <date>$pkginfo[release_date]</date>\n";
+        $curdir = array_shift($dir);
+        if (!isset($dirs['dirs'][$curdir])) {
+            $dirs['dirs'][$curdir] = array();
         }
-        if (!empty($pkginfo['release_license'])) {
-            $ret .= "$indent    <license>$pkginfo[release_license]</license>\n";
+        $this->_addDir($dirs['dirs'][$curdir], $dir, $file, $attributes);
+    }
+
+    /**
+     * @param array
+     * @param string
+     * @param string
+     * @access private
+     */
+    function _formatDir($dirs, $indent = '', $curdir = '', $toplevel = false)
+    {
+        $ret = '';
+        if (!count($dirs)) {
+            return '';
         }
-        if (!empty($pkginfo['release_state'])) {
-            $ret .= "$indent    <state>$pkginfo[release_state]</state>\n";
-        }
-        if (!empty($pkginfo['release_notes'])) {
-            $ret .= "$indent    <notes>".htmlspecialchars($pkginfo['release_notes'])."</notes>\n";
-        }
-        if (!empty($pkginfo['release_warnings'])) {
-            $ret .= "$indent    <warnings>".htmlspecialchars($pkginfo['release_warnings'])."</warnings>\n";
-        }
-        if (isset($pkginfo['release_deps']) && sizeof($pkginfo['release_deps']) > 0) {
-            $ret .= "$indent    <deps>\n";
-            foreach ($pkginfo['release_deps'] as $dep) {
-                $ret .= "$indent      <dep type=\"$dep[type]\" rel=\"$dep[rel]\"";
-                if (isset($dep['version'])) {
-                    $ret .= " version=\"$dep[version]\"";
-                }
-                if (isset($dep['optional'])) {
-                    $ret .= " optional=\"$dep[optional]\"";
-                }
-                if (isset($dep['name'])) {
-                    $ret .= ">$dep[name]</dep>\n";
+        if (isset($dirs['dirs'])) {
+            uksort($dirs['dirs'], 'strnatcasecmp');
+            foreach ($dirs['dirs'] as $dir => $contents) {
+                if ($dir == '/') {
+                    $usedir = '/';
                 } else {
-                    $ret .= "/>\n";
+                    if ($curdir == '/') {
+                        $curdir = '';
+                    }
+                    $usedir = "$curdir/$dir";
                 }
+                $ret .= "$indent   <dir name=\"$dir\"";
+                if ($toplevel) {
+                    $ret .= ' baseinstalldir="' . $this->_options['baseinstalldir'] . '"';
+                } else {
+                    if (isset($this->_options['installexceptions'][$dir])) {
+                        $ret .= ' baseinstalldir="' . $this->_options['installexceptions'][$dir] . '"';
+                    }
+                }
+                $ret .= ">\n";
+                $ret .= $this->_formatDir($contents, "$indent ", $usedir);
+                $ret .= "$indent   </dir> <!-- $usedir -->\n";
             }
-            $ret .= "$indent    </deps>\n";
         }
-        if (isset($pkginfo['configure_options'])) {
-            $ret .= "$indent    <configureoptions>\n";
-            foreach ($pkginfo['configure_options'] as $c) {
-                $ret .= "$indent      <configureoption name=\"".
-                    htmlspecialchars($c['name']) . "\"";
-                if (isset($c['default'])) {
-                    $ret .= " default=\"" . htmlspecialchars($c['default']) . "\"";
+        if (isset($dirs['files'])) {
+            uksort($dirs['files'], 'strnatcasecmp');
+            foreach ($dirs['files'] as $file => $attribs) {
+                $ret .= $this->_formatFile($file, $attribs, $indent);
+            }
+        }
+        return $ret;
+    }
+
+    /**
+     * @param string
+     * @param array
+     * @param string
+     * @access private
+     */
+    function _formatFile($file, $attributes, $indent)
+    {
+        $ret = "$indent   <file role=\"$attributes[role]\"";
+        if (isset($this->_options['installexceptions'][$file])) {
+            $ret .= ' baseinstalldir="' . $this->_options['installexceptions'][$file] . '"';
+        }
+        if (isset($attributes['md5sum'])) {
+            $ret .= " md5sum=\"$attributes[md5sum]\"";
+        }
+        if (isset($attributes['platform'])) {
+            $ret .= " platform=\"$attributes[platform]\"";
+        }
+        if (!empty($attributes['install-as'])) {
+            $ret .= ' install-as="' .
+                htmlspecialchars($attributes['install-as']) . '"';
+        }
+        $ret .= ' name="' . htmlspecialchars($file) . '"';
+        if (empty($attributes['replacements'])) {
+            $ret .= "/>\n";
+        } else {
+            $ret .= ">\n";
+            foreach ($attributes['replacements'] as $r) {
+                $ret .= "$indent    <replace";
+                foreach ($r as $k => $v) {
+                    $ret .= " $k=\"" . htmlspecialchars($v) .'"';
                 }
-                $ret .= " prompt=\"" . htmlspecialchars($c['prompt']) . "\"";
                 $ret .= "/>\n";
             }
-            $ret .= "$indent    </configureoptions>\n";
+            $ret .= "$indent   </file>\n";
         }
-        if (isset($pkginfo['provides'])) {
-            foreach ($pkginfo['provides'] as $key => $what) {
-                $ret .= "$indent    <provides type=\"$what[type]\" ";
-                $ret .= "name=\"$what[name]\" ";
-                if (isset($what['extends'])) {
-                    $ret .= "extends=\"$what[extends]\" ";
-                }
-                $ret .= "/>\n";
-            }
-        }
-        if (isset($pkginfo['filelist'])) {
-            $ret .= "$indent    <filelist>\n";
-            $ret .= $this->_doFileList($indent, $pkginfo['filelist'], '/');
-            $ret .= "$indent    </filelist>\n";
-        }
-        $ret .= "$indent  </release>\n";
         return $ret;
     }
 

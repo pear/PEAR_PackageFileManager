@@ -859,6 +859,9 @@ class PEAR_PackageFileManager
         $this->_packageXml['release_notes'] = $notes;
         $PEAR_Common = $this->_options['pearcommonclass'];
         $this->_pear = new $PEAR_Common;
+        if (method_exists($this->_pear, 'setPackageFileManager')) {
+            $this->_pear->setPackageFileManager($this);
+        }
         $this->_packageXml['filelist'] = $this->_getFileList();
         $warnings = $this->getWarnings();
         if (count($warnings)) {
@@ -881,8 +884,12 @@ class PEAR_PackageFileManager
         
         $common = &$this->_pear;
         $warnings = $errors = array();
+        if (method_exists($common, 'setPackageFileManagerOptions')) {
+            $common->setPackageFileManagerOptions($this->_options);
+        }
         $packagexml = $common->xmlFromInfo($this->_packageXml);
-        $common->validatePackageInfo($packagexml, $warnings, $errors, $this->_options['packagedirectory']);
+        $common->validatePackageInfo($packagexml, $warnings, $errors,
+            $this->_options['packagedirectory']);
         if (count($errors)) {
             $ret = '';
             $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
@@ -1028,7 +1035,7 @@ class PEAR_PackageFileManager
     {
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
         $generator = new $generatorclass($this, $this->_options);
-        if ($this->_options['simpleoutput'] && is_a($generator, 'PEAR_Common')) {
+        if ($this->_options['simpleoutput'] && is_a($this->_pear, 'PEAR_Common')) {
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
         return $this->_getDirTag($this->_struc = $generator->getFileList()); 
