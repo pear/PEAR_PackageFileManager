@@ -122,6 +122,9 @@ class PEAR_PackageFileManager_File {
         }
 
         $tempstruc = $struc;
+        if (!isset($tempstruc['/'])) {
+            $tempstruc['/'] = array();
+        }
         $struc = array('/' => $tempstruc['/']);
         $bv = 0;
         foreach($tempstruc as $key => $ind) {
