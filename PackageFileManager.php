@@ -448,6 +448,14 @@ class PEAR_PackageFileManager
                 $options['packagedirectory'] .= '/';
             }
         }
+        if (isset($options['pathtopackagefile'])) {
+            $options['pathtopackagefile'] = str_replace(DIRECTORY_SEPARATOR,
+                                                     '/',
+                                                     realpath($options['pathtopackagefile']));
+            if ($options['pathtopackagefile']{strlen($options['pathtopackagefile']) - 1} != '/') {
+                $options['pathtopackagefile'] .= '/';
+            }
+        }
         if (!isset($options['baseinstalldir'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOBASEDIR);
         }
