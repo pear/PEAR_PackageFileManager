@@ -13,7 +13,7 @@
  * @package PEAR_PackageFileManager
  */
 
-class PEAR_PackageFileManager_File_TestCase_setupIgnore extends PHPUnit_TestCase
+class PEAR_PackageFileManager_File_TestCase_checkIgnore extends PHPUnit_TestCase
 {
     /**
      * A PEAR_PackageFileManager object
@@ -21,7 +21,7 @@ class PEAR_PackageFileManager_File_TestCase_setupIgnore extends PHPUnit_TestCase
      */
     var $packagexml;
 
-    function PEAR_PackageFileManager_File_TestCase_setupIgnore($name)
+    function PEAR_PackageFileManager_File_TestCase_checkIgnore($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -117,116 +117,196 @@ class PEAR_PackageFileManager_File_TestCase_setupIgnore extends PHPUnit_TestCase
     
     function test_nonarray()
     {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
         $this->packagexml->_setupIgnore(false, 1);
-        $this->assertFalse($this->packagexml->ignore[1], 'should be false if not an array');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\goes'),
+            'anything\\goes', 1);
+        $this->assertFalse($res, 'wrongo');
         $this->assertFalse($this->errorThrown, 'error thrown');
     }
     
     function test_emptyarray()
     {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
         $this->packagexml->_setupIgnore(array(), 1);
-        $this->assertFalse($this->packagexml->ignore[1], 'should be false if not an array');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\goes'),
+            'anything\\goes', 1);
+        $this->assertFalse($res, 'wrongo');
         $this->assertFalse($this->errorThrown, 'error thrown');
     }
     
-    function test_simple()
+    function test_simple_no()
     {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
         $this->packagexml->_setupIgnore(array('frog*'), 1);
-        $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array('frog.*'),
-            $this->packagexml->ignore[1], 'incorrect setup');
-    }
-    
-    function test_simple_0()
-    {
-        if (!$this->_methodExists('_setupIgnore')) {
-            return;
-        }
         $this->packagexml->_setupIgnore(array('frog*'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\goes'),
+            'anything\\goes', 1);
+        $this->assertFalse($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\goes'),
+            'anything\\goes', 0);
+        $this->assertTrue($res, 'wrongo 2');
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array('frog.*'),
-            $this->packagexml->ignore[0], 'incorrect setup');
     }
     
-    function test_simple_dir()
+    function test_simple_pass()
     {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $y = '\/';
-        if (DIRECTORY_SEPARATOR == '\\') {
-            $y = '\\\\';
+        $this->packagexml->_setupIgnore(array('frog*'), 1);
+        $this->packagexml->_setupIgnore(array('frog*'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\goes\\frog'),
+            'anything\\goes\\frog', 1);
+        $this->assertTrue($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\goes\\frog'),
+            'anything\\goes\\frog', 0);
+        $this->assertFalse($res, 'wrongo 2');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_simple_dir_pass()
+    {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
         }
         $this->packagexml->_setupIgnore(array('frog*/'), 1);
-        $x = 'frog.*\\' . DIRECTORY_SEPARATOR;
+        $this->packagexml->_setupIgnore(array('frog*/'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\test.php'),
+            'anything\\froggoes\\test.php', 1);
+        $this->assertTrue($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\test.php'),
+            'anything\\froggoes\\test.php', 0);
+        $this->assertFalse($res, 'wrongo 2');
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array("(?:.*$y$x?.*|$x.*)"),
-            $this->packagexml->ignore[1], 'incorrect setup');
-
-        $this->packagexml->_setupIgnore(array('frog*\\'), 1);
-        $x = 'frog.*\\' . DIRECTORY_SEPARATOR;
-        $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array("(?:.*$y$x?.*|$x.*)"),
-            $this->packagexml->ignore[1], 'incorrect setup');
     }
     
-    function test_complex()
+    function test_simple_dir_no()
     {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $y = '\/';
-        if (DIRECTORY_SEPARATOR == '\\') {
-            $y = '\\\\';
+        $this->packagexml->_setupIgnore(array('frog*/'), 1);
+        $this->packagexml->_setupIgnore(array('frog*/'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
+            'anything\\frooggoes\\test.php', 1);
+        $this->assertFalse($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
+            'anything\\frooggoes\\test.php', 0);
+        $this->assertTrue($res, 'wrongo 2');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_complex_pass()
+    {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
         }
         $this->packagexml->_setupIgnore(array('frog*/test.php'), 1);
-        $x = 'frog.*\\' . DIRECTORY_SEPARATOR . 'test\.php';
+        $this->packagexml->_setupIgnore(array('frog*/test.php'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('froggoes\\test.php'),
+            'froggoes\\test.php', 1);
+        $this->assertTrue($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('froggoes\\test.php'),
+            'froggoes\\test.php', 0);
+        $this->assertFalse($res, 'wrongo 2');
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array(array($x, 'test\.php')),
-            $this->packagexml->ignore[1], 'incorrect setup');
-
-        $this->packagexml->_setupIgnore(array('frog*\\test.php'), 1);
-        $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array(array($x, 'test\.php')),
-            $this->packagexml->ignore[1], 'incorrect setup');
     }
     
-    function test_complex_multiple()
+    function test_complex_no()
     {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $y = '\/';
-        if (DIRECTORY_SEPARATOR == '\\') {
-            $y = '\\\\';
+        $this->packagexml->_setupIgnore(array('frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('frog*/test.php'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
+            'anything\\frooggoes\\test.php', 1);
+        $this->assertFalse($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
+            'anything\\frooggoes\\test.php', 0);
+        $this->assertTrue($res, 'wrongo 2');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_complex_multiple_pass()
+    {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
         }
-        $this->packagexml->_setupIgnore(array('frog*', 'frog*/test.php'), 1);
-        $x = 'frog.*\\' . DIRECTORY_SEPARATOR . 'test\.php';
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\test.php'),
+            'anything\\froggoes\\test.php', 1);
+        $this->assertTrue($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\gorftest.php'),
+            'anything\\froggoes\\gorftest.php', 1);
+        $this->assertTrue($res, 'wrongo 1.5');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\test.php'),
+            'anything\\froggoes\\test.php', 0);
+        $this->assertFalse($res, 'wrongo 2');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\gorftest.php'),
+            'anything\\froggoes\\gorftest.php', 0);
+        $this->assertFalse($res, 'wrongo 2.5');
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array('frog.*', array($x, 'test\.php')),
-            $this->packagexml->ignore[1], 'incorrect setup');
-
-        $this->packagexml->_setupIgnore(array('frog*', 'frog*\\test.php'), 1);
+    }
+    
+    function test_complex_multiple_no()
+    {
+        if (!$this->_methodExists('_checkIgnore')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 0);
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
+            'anything\\frooggoes\\test.php', 1);
+        $this->assertTrue($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\gorftest.php'),
+            'anything\\frooggoes\\gorftest.php', 1);
+        $this->assertTrue($res, 'wrongo 1.5');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
+            'anything\\frooggoes\\test.php', 0);
+        $this->assertFalse($res, 'wrongo 2');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\gorftest.php'),
+            'anything\\frooggoes\\gorftest.php', 0);
+        $this->assertFalse($res, 'wrongo 2.5');
         $this->assertFalse($this->errorThrown, 'error thrown');
-        $this->assertEquals(
-            array('frog.*', array($x, 'test\.php')),
-            $this->packagexml->ignore[1], 'incorrect setup');
     }
 }
 

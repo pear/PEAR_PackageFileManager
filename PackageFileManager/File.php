@@ -36,7 +36,7 @@ class PEAR_PackageFileManager_File {
     /**
      * Set up the File filelist generator
      *
-     * 'ignore' is the only option that this class uses.  See
+     * 'ignore' and 'include' are the only options that this class uses.  See
      * {@link PEAR_PackageFileManager::setOptions()} for
      * more information and formatting of this option
      * @param PEAR_PackageFileManager
@@ -60,6 +60,10 @@ class PEAR_PackageFileManager_File {
     {
         $package_directory = $this->_options['packagedirectory'];
         $ignore = $this->_options['ignore'];
+        $include = $this->_options['include'];
+        $this->ignore = array(false, false);
+        $this->_setupIgnore($ignore, 1);
+        $this->_setupIgnore($include, 0);
         $allfiles = $this->dirList(substr($package_directory, 0, strlen($package_directory) - 1));
         if (PEAR::isError($allfiles)) {
             return $allfiles;
@@ -70,9 +74,17 @@ class PEAR_PackageFileManager_File {
         }
         $struc = array();
         foreach($allfiles as $file) {
-        	if ($this->_checkIgnore(basename($file), dirname($file), $ignore, false)) {
-        //        print 'Ignoring '.$file."<br>\n";
-                continue;
+            if ($ignore) {
+            	if ($this->_checkIgnore(basename($file), dirname($file), $ignore, 1)) {
+//                    print 'Ignoring '.$file."<br>\n";
+                    continue;
+                }
+            }
+            if ($include) {
+                if ($this->_checkIgnore(basename($file), dirname($file), $include, 0)) {
+//                    print 'Including '.$file."<br\n";
+                    continue;
+                }
             }
         	$path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR, 
                                                               '/',
@@ -167,29 +179,17 @@ class PEAR_PackageFileManager_File {
      * @param    string  $file    just the file name of the file or directory,
      *                          in the case of directories this is the last dir
      * @param    string  $path    the full path
-     * @param    array   $ignore
+     * @param    1|0    $return  value to return if regexp matches.  Set this to
+     *                            false to include only matches, true to exclude
+     *                            all matches
      * @return   bool    true if $path should be ignored, false if it should not
      * @access private
      */
-    function _checkIgnore($file, $path, $ignore, $ignore_no_ext = false)
+    function _checkIgnore($file, $path, $return = 1)
     {
         $path = realpath($path);
-        if (!count($ignore)) {
-            return false;
-        }
-        if ($ignore_no_ext && strtoupper($file) != 'README' && strtoupper($file) != 'INSTALL'
-                && strtoupper($file) != 'CHANGELOG' && strtoupper($file) != 'FAQ'
-                && strtoupper($file) != 'NEWS') {
-            if (!is_numeric(strpos($file,'.'))) return true;
-        }
-        if (!isset($this->ignore) || !$this->ignore) {
-            $this->_setupIgnore($ignore);
-            if (!$this->ignore) {
-                return false;
-            }
-        }
-        if (is_array($this->ignore)) {
-            foreach($this->ignore as $match) {
+        if (is_array($this->ignore[$return])) {
+            foreach($this->ignore[$return] as $match) {
                 // match is an array if the ignore parameter was a /path/to/pattern
                 if (is_array($match)) {
                     // check to see if the path matches with a path delimiter appended
@@ -202,31 +202,31 @@ class PEAR_PackageFileManager_File {
                         // check to see if the file matches the file portion of the regex string
                         preg_match('/^' . strtoupper($match[1]).'$/', strtoupper($file), $find);
                         if (count($find)) {
-                            return true;
+                            return $return;
                         }
                     }
                     // check to see if the full path matches the regex
                     preg_match('/^' . strtoupper($match[0]).'$/',
                                strtoupper($path . DIRECTORY_SEPARATOR . $file), $find);
                     if (count($find)) {
-                        return true;
+                        return $return;
                     }
                 } else {
                     // ignore parameter was just a pattern with no path delimiters
                     // check it against the path
                     preg_match('/^' . strtoupper($match).'$/', strtoupper($path), $find);
                     if (count($find)) {
-                        return true;
+                        return $return;
                     }
                     // check it against the file only
                     preg_match('/^' . strtoupper($match).'$/', strtoupper($file), $find);
                     if (count($find)) {
-                        return true;
+                        return $return;
                     }
                 }
             }
         }
-        return false;
+        return !$return;
     }
     
     /**
@@ -234,7 +234,7 @@ class PEAR_PackageFileManager_File {
      * @param array strings of files/paths/wildcards to ignore
      * @access private
      */
-    function _setupIgnore($ignore)
+    function _setupIgnore($ignore, $index)
     {
         $ig = array();
         if (is_array($ignore)) {
@@ -256,11 +256,11 @@ class PEAR_PackageFileManager_File {
                 }
             }
             if (count($ig)) {
-                $this->ignore = $ig;
+                $this->ignore[$index] = $ig;
             } else {
-                $this->ignore = false;
+                $this->ignore[$index] = false;
             }
-        } else $this->ignore = false;
+        } else $this->ignore[$index] = false;
     }
     
     /**

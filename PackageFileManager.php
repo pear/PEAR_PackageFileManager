@@ -264,6 +264,7 @@ class PEAR_PackageFileManager
                       'platformexceptions' => array(),
                       'scriptphaseexceptions' => array(),
                       'ignore' => array(),
+                      'include' => false,
                       'deps' => false,
                       'maintainers' => false,
                       'notes' => '',
@@ -370,6 +371,9 @@ class PEAR_PackageFileManager
      *           exclude fileaafoo.php.  test/ will exclude all directories and subdirectories of
      *           ANY directory named test encountered in directory parsing.  *test* will exclude
      *           all files and directories that contain test in their name
+     * - include: an array of filenames, directory names, or wildcard expressions specifying
+     *            files to include in the listing.  All other files will be ignored.
+     *            Wildcards are in the same format as ignore
      * - roles: this is an array mapping file extension to install role.  This
      *          specifies default behavior that can be overridden by the exceptions
      *          option and dir_roles option.  use {@link addRole()} to add a new
