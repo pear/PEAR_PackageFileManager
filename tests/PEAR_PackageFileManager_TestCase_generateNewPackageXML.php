@@ -34,6 +34,10 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
 
         $this->packagexml = new PEAR_PackageFileManager;
         PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, array(&$this, 'PEARerrorHandler'));
+        $this->errorThrown = false;
+        $this->_expectedMessage = 'ERROR TRIGGERED';
+        $this->_expectedCode = -1;
+        $this->_testMethod = 'unknown';
     }
 
     function tearDown()
@@ -45,6 +49,7 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
     function errorCodeToString($code)
     {
         $codes = array_flip(array(
+            'OOPS' => -1,
             'PEAR_PACKAGEFILEMANAGER_NOSTATE' => PEAR_PACKAGEFILEMANAGER_NOSTATE,
             'PEAR_PACKAGEFILEMANAGER_NOVERSION' => PEAR_PACKAGEFILEMANAGER_NOVERSION,
             'PEAR_PACKAGEFILEMANAGER_NOPKGDIR' => PEAR_PACKAGEFILEMANAGER_NOPKGDIR,
@@ -96,8 +101,10 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
 
     function PEARerrorHandler($error) {
         $this->assertEquals($this->_expectedCode, $error->getCode(),
-            $this->_testMethod . ' ' . $this->errorCodeToString($this->_expectedCode));
+            $this->_testMethod . ' ' . $this->errorCodeToString($this->_expectedCode)
+            . ' actual: ' . $this->errorCodeToString($error->getCode()));
         $this->assertEquals($this->_expectedMessage, $error->getMessage(), $this->_testMethod);
+        $this->errorThrown = 'true';
     }
     
     function expectPEARError($method, $msg, $code = null)
@@ -117,6 +124,7 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
             'must by specified in PEAR_PackageFileManager '.
             'setOptions to create a new package.xml', PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
         $this->packagexml->_generateNewPackageXML();
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
     }
     
     function test_invalid_nosummary()
@@ -130,6 +138,7 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
             '\'summary\') must by specified in PEAR_PackageFileManager '.
             'setOptions to create a new package.xml', PEAR_PACKAGEFILEMANAGER_NOSUMMARY);
         $this->packagexml->_generateNewPackageXML();
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
     }
     
     function test_invalid_nodescription()
@@ -145,6 +154,7 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
             ' specified in PEAR_PackageFileManager setOptions to ' .
             'create a new package.xml', PEAR_PACKAGEFILEMANAGER_NODESC);
         $this->packagexml->_generateNewPackageXML();
+        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
     }
     
     function test_valid_simple()

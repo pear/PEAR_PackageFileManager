@@ -13,7 +13,7 @@
  * @package PEAR_PackageFileManager
  */
 
-class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_TestCase
+class PEAR_PackageFileManager_TestCase_setOptions extends PHPUnit_TestCase
 {
     /**
      * A Games_Chess_Standard object
@@ -21,7 +21,7 @@ class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_Tes
      */
     var $board;
 
-    function PEAR_PackageFileManager_TestCase_getExistingPackageXML($name)
+    function PEAR_PackageFileManager_TestCase_setOptions($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -114,101 +114,17 @@ class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_Tes
         $this->_testMethod = $method;
     }
     
-    function test_invalid_wrongdir()
+    function test_invalid_nostate()
     {
-        if (!$this->_methodExists('_getExistingPackageXML')) {
+        if (!$this->_methodExists('setOptions')) {
             return;
         }
         $this->expectPEARError('invalid nopackage',
-            'PEAR_PackageFileManager Error: package.xml file path "array" ' .
-            'doesn\'t exist or isn\'t a directory', PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST);
-        $this->packagexml->_getExistingPackageXML(array(), 'package.xml');
+            'PEAR_PackageFileManager Error: Release State (option \'state\') ' .
+            'must by specified in PEAR_PackageFileManager setOptions (alpha|' .
+            'beta|stable)', PEAR_PACKAGEFILEMANAGER_NOSTATE);
+        $this->packagexml->setOptions(array());
         $this->assertEquals('true', $this->errorThrown, 'no error thrown');
-    }
-    
-    function test_invalid_notexists_nopackage()
-    {
-        if (!$this->_methodExists('_getExistingPackageXML')) {
-            return;
-        }
-        $this->expectPEARError('invalid nopackage',
-            'PEAR_PackageFileManager Error: Package Name (option \'package\') ' .
-            'must by specified in PEAR_PackageFileManager '.
-            'setOptions to create a new package.xml', PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
-        $this->packagexml->_getExistingPackageXML(dirname(__FILE__), 'blah.xml');
-        $this->assertEquals('true', $this->errorThrown, 'no error thrown');
-    }
-    
-    function test_valid_simple()
-    {
-        if (!$this->_methodExists('_getExistingPackageXML')) {
-            return;
-        }
-        $res = $this->packagexml->_getExistingPackageXML(dirname(__FILE__) . '/', 'test1_package.xml');
-        $this->assertFalse(is_object($res), 'returned error');
-        $PEAR_Common = $this->packagexml->_options['pearcommonclass'];
-        $common = new $PEAR_Common;
-        $contents = $common->infoFromAny(dirname(__FILE__) . '/test1_package.xml');
-        $this->assertEquals($contents['release_deps'], $this->packagexml->_packageXml['release_deps'], 'wrong deps');
-        $this->assertEquals($contents['maintainers'], $this->packagexml->_packageXml['maintainers'], 'wrong maintainers');
-        $this->assertEquals($this->packagexml->_packageXml['release_deps'],
-            $this->packagexml->_options['deps'], 'wrong deps');
-        $this->assertEquals($this->packagexml->_packageXml['maintainers'],
-            $this->packagexml->_options['maintainers'], 'wrong maintainers');
-    }
-    
-    function test_valid_deps()
-    {
-        if (!$this->_methodExists('_getExistingPackageXML')) {
-            return;
-        }
-        $this->packagexml->_options['deps'] =
-            array(
-                array('name' => 'pork', 'rel' => 'ge', 'version' => '1.0.0',
-                      'optional' => 'yes')
-            );
-        $res = $this->packagexml->_getExistingPackageXML(dirname(__FILE__) . '/', 'test1_package.xml');
-        $this->assertFalse(is_object($res), 'returned error');
-        $PEAR_Common = $this->packagexml->_options['pearcommonclass'];
-        $common = new $PEAR_Common;
-        $contents = $common->infoFromAny(dirname(__FILE__) . '/test1_package.xml');
-        $this->assertEquals(array(
-                array('name' => 'pork', 'rel' => 'ge', 'version' => '1.0.0',
-                      'optional' => 'yes')
-            ), $this->packagexml->_packageXml['release_deps'], 'wrong deps');
-        $this->assertEquals($contents['maintainers'], $this->packagexml->_packageXml['maintainers'], 'wrong maintainers');
-        $this->assertEquals($this->packagexml->_packageXml['release_deps'],
-            $this->packagexml->_options['deps'], 'wrong deps');
-        $this->assertEquals($this->packagexml->_packageXml['maintainers'],
-            $this->packagexml->_options['maintainers'], 'wrong maintainers');
-    }
-    
-    function test_valid_maintainers()
-    {
-        if (!$this->_methodExists('_getExistingPackageXML')) {
-            return;
-        }
-        $this->packagexml->_options['maintainers'] =
-            array(
-                array('name' => 'Gerg', 'email' => 'foo@example.com',
-                      'role' => 'lead',
-                      'handle' => 'cellogerg')
-            );
-        $res = $this->packagexml->_getExistingPackageXML(dirname(__FILE__) . '/', 'test1_package.xml');
-        $this->assertFalse(is_object($res), 'returned error');
-        $PEAR_Common = $this->packagexml->_options['pearcommonclass'];
-        $common = new $PEAR_Common;
-        $contents = $common->infoFromAny(dirname(__FILE__) . '/test1_package.xml');
-        $this->assertEquals($contents['release_deps'], $this->packagexml->_packageXml['release_deps'], 'wrong deps');
-        $this->assertEquals(array(
-                array('name' => 'Gerg', 'email' => 'foo@example.com',
-                      'role' => 'lead',
-                      'handle' => 'cellogerg')
-            ), $this->packagexml->_packageXml['maintainers'], 'wrong maintainers');
-        $this->assertEquals($this->packagexml->_packageXml['release_deps'],
-            $this->packagexml->_options['deps'], 'wrong deps');
-        $this->assertEquals($this->packagexml->_packageXml['maintainers'],
-            $this->packagexml->_options['maintainers'], 'wrong maintainers');
     }
 }
 
