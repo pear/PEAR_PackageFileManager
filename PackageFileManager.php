@@ -960,9 +960,6 @@ class PEAR_PackageFileManager
                     if (isset($replacements[$files['path']])) {
                         $ret[$files['path']]['replacements'] = $replacements[$files['path']];
                     }
-                    if (isset($scriptphaseexceptions[$files['path']])) {
-                        $ret[$files['path']]['phase'] = $scriptphaseexceptions[$files['path']];
-                    }
                     if ($myrole == 'php') {
                         $this->_addProvides($this->_pear, $files['fullpath']);
                     }
@@ -1011,7 +1008,11 @@ class PEAR_PackageFileManager
             if (isset($this->_oldPackageXml['release_state'])) {
                 $changelog['release_state'] = $this->_oldPackageXml['release_state'];
             }
-            $this->_packageXml['changelog'] = array($changelog);
+            if (count($changelog)) {
+                $this->_packageXml['changelog'] = array($changelog);
+            } else {
+                $this->_packageXml['changelog'] = array();
+            }
         } else {
             if (isset($this->_oldPackageXml['release_notes'])) {
                 $oldchangelog['release_notes'] = $this->_oldPackageXml['release_notes'];
@@ -1043,7 +1044,7 @@ class PEAR_PackageFileManager
             }
             // the parsing of the release notes adds a \n for some reason
         }
-        if (!$hasoldversion) {
+        if (!$hasoldversion && $oldchangelog && count($oldchangelog)) {
             $this->_packageXml['changelog'][] = $oldchangelog;
         }
         $notes = ($this->_options['changelognotes'] ?
