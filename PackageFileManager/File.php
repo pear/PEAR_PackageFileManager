@@ -276,7 +276,8 @@ class PEAR_PackageFileManager_File {
         $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
         $x = strtr($s, array('?' => '.','*' => '.*','.' => '\\.','\\' => '\\\\','/' => '\\/',
                                 '[' => '\\[',']' => '\\]','-' => '\\-'));
-        if (strpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {
+        if (strpos($s, DIRECTORY_SEPARATOR) !== false &&
+              strrpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {
             $x = "(?:.*$y$x?.*|$x.*)";
         }
         return $x;
