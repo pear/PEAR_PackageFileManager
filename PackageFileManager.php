@@ -197,6 +197,7 @@ class PEAR_PackageFileManager
      */
     var $_options = array(
                       'packagefile' => 'package.xml',
+                      'doctype' => 'http://pear.php.net/dtd/package-1.0',
                       'filelistgenerator' => 'file',
                       'license' => 'PHP License',
                       'roles' =>
@@ -272,6 +273,8 @@ class PEAR_PackageFileManager
      *                     If you pass /path/to/foo in this option, setOptions
      *                     will look for PEAR_PackageFileManager_Foo in
      *                     /path/to/foo/Foo.php
+     * - doctype: Specifies the DTD of the package.xml file.  Default is
+     *            http://pear.php.net/dtd/package-1.0
      *
      * package.xml simple options:
      * - baseinstalldir: The base directory to install this package in.  For
@@ -510,15 +513,25 @@ class PEAR_PackageFileManager
         }
         $found = false;
         foreach($this->_packageXml['release_deps'] as $index => $dep) {
-            if ($dep['name'] == $name && $dep['type'] == $type) {
-                $found = $index;
-                break;
+            if ($type == 'php') {
+                if ($dep['type'] == 'php') {
+                    $found = $index;
+                    break;
+                }
+            } else {
+                if (isset($dep['name']) && $dep['name'] == $name && $dep['type'] == $type) {
+                    $found = $index;
+                    break;
+                }
             }
         }
         $dep =
             array(
                 'name' => $name,
                 'type' => $type);
+        if ($type == 'php') {
+            unset($dep['name']);
+        }
         if ($version) {
             $dep['version'] = $version;
             if ($operator) {
@@ -586,7 +599,8 @@ class PEAR_PackageFileManager
         if (!strpos($packagexml, '<!DOCTYPE')) {
             // hack to fix pear
             $packagexml = str_replace('<package version="1.0">',
-                "<!DOCTYPE package SYSTEM \"http://pear.php.net/dtd/package-1.0\">\n<package version=\"1.0\">",
+                '<!DOCTYPE package SYSTEM "' . $this->_options['doctype'] .
+                "\">\n<package version=\"1.0\">",
                 $packagexml);
         }
         if (isset($debuginterface)) {
@@ -599,7 +613,10 @@ class PEAR_PackageFileManager
         }
         $outputdir = ($this->_options['outputdirectory'] ?
                         $this->_options['outputdirectory'] : $this->_options['packagedirectory']);
-        if (is_writable($this->_options['packagedirectory'] . $this->_options['packagefile'])) {
+        if ((file_exists($outputdir . $this->_options['packagefile']) &&
+                is_writable($outputdir . $this->_options['packagefile']))
+                ||
+                @touch($outputdir . $this->_options['packagefile'])) {
             if ($fp = @fopen($outputdir . $this->_options['packagefile'] . '.tmp', "w")) {
                 $written = @fwrite($fp, $packagexml);
                 @fclose($fp);

@@ -26,15 +26,14 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.3</version>
-    <date>2003-07-22</date>
+    <version>0.5</version>
+    <date>2003-07-23</date>
     <license>PHP License</license>
     <state>alpha</state>
     <notes>Bugfix release
 
-- Added addMaintainer()
-- changed behavior of dependencies/maintainers to be consistent, and allow
-  re-working of existing values</notes>
+- Fixed bug in type=&quot;php&quot; dependency generation,
+- Fixed bug if the package.xml doesn't yet exist</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -102,7 +101,6 @@ maintainers and configure options
     <release>
       <version>0.3</version>
       <date>2003-07-22</date>
-      <license>PHP License</license>
       <state>alpha</state>
       <notes>bugfix release
 
@@ -115,6 +113,26 @@ maintainers and configure options
   already exists
 - fixed progressive addition of newlines to changelog release notes
   due to bug in the package.xml parser</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-07-23</date>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in testing of output
+- new option allows specifying the doctype,
+  default is &quot;http://pear.php.net/dtd/package-1.0&quot;</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in type=&quot;php&quot; dependency generation,
+- Fixed bug if the package.xml doesn't yet exist</notes>
     </release>
   </changelog>
 </package>
