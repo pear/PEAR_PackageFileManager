@@ -33,47 +33,23 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
      */
     function dirList($directory)
     {
-        $entries = $this->_recurDirList($directory);
+        static $in_recursion = false;
+        if (!$in_recursion) {
+            $ignore = $this->ignore;
+            // include only CVS/Entries files
+            $this->_setupIgnore(array('*/CVS/Entries'), 0);
+            $this->_setupIgnore(array(), 1);
+            $in_recursion = true;
+            $entries = parent::dirList($directory);
+            $in_recursion = false;
+            $this->ignore = $ignore;
+        } else {
+            return parent::dirList($directory);
+        }
         if (!$entries) {
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES, $directory);
         }
         return $this->_readCVSEntries($entries);
-    }
-    
-    /**
-     * Pull all the CVS/Entries files out from the base
-     * directory
-     * @param string current directory to traverse
-     * @access private
-     */
-    function _recurDirList($directory)
-    {
-        $ret = false;
-        if (@is_dir($directory)) {
-            $ret = array();
-            $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
-            while($d && $entry=$d->read()) {
-                if ($entry{0} != '.') {
-                    if (is_file($directory . '/' . $entry) && (strcmp($entry, 'Entries') == 0)) {
-                        $ret[] = $directory . '/' . $entry;
-                    }
-                    if (is_dir($directory . '/' . $entry)) {
-                        $tmp = $this->_recurDirList($directory . '/' . $entry);
-                        if (is_array($tmp)) {
-                            foreach($tmp as $ent) {
-                                $ret[] = $ent;
-                            }
-                        }
-                    }
-                }
-            }
-            if ($d) {
-                $d->close();
-            }
-        } else {
-            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
-        }
-        return $ret;
     }
     
     /**
@@ -87,6 +63,11 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     function _readCVSEntries($entries)
     {
         $ret = array();
+        $ignore = $this->_options['ignore'];
+        $include = $this->_options['include'];
+        $this->ignore = array(false, false);
+        $this->_setupIgnore($ignore, 1);
+        $this->_setupIgnore($include, 0);
         foreach($entries as $cvsentry) {
             $directory = dirname(dirname($cvsentry));
             $d = $this->_getCVSEntries($cvsentry);
@@ -94,6 +75,20 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
                 continue;
             }
             foreach($d as $entry) {
+                if ($ignore) {
+                	if ($this->_checkIgnore($this->_getCVSFileName($entry),
+                          $directory . '/' . $this->_getCVSFileName($entry), 1)) {
+    //                    print 'Ignoring '.$file."<br>\n";
+                        continue;
+                    }
+                }
+                if ($include) {
+                    if ($this->_checkIgnore($this->_getCVSFileName($entry),
+                          $directory . '/' . $this->_getCVSFileName($entry), 0)) {
+    //                    print 'Including '.$file."<br\n";
+                        continue;
+                    }
+                }
                 if ($this->_isCVSFile($entry)) {
                     $ret[] = $directory . '/' . $this->_getCVSFileName($entry);
                 }
