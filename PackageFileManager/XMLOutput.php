@@ -24,7 +24,8 @@
  *
  * @author Greg Beaver <cellog@php.net>
  * @since 1.2.0
- * @copyright 2003 
+ * @copyright 2003
+ * @package PEAR_PackageFileManager
  */
 class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
 
