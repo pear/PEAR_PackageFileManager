@@ -284,6 +284,7 @@ class PEAR_PackageFileManager
                       'configure_options' => array(),
                       'replacements' => array(),
                       'pearcommonclass' => 'PEAR_Common',
+                      'simpleoutput' => false,
                       );
     
     /**
@@ -344,6 +345,8 @@ class PEAR_PackageFileManager
      *                    class that implements PEAR_Common's method interface
      * - changelogoldtonew: True if the ChangeLog should list from oldest entry to
      *                      newest.  Set to false if you would like new entries first
+     * - simpleoutput: True if the package.xml should not contain md5sum or <provides />
+     *                 for readability
      *
      * package.xml simple options:
      * - baseinstalldir: The base directory to install this package in.  For
@@ -808,6 +811,9 @@ class PEAR_PackageFileManager
         if (isset($this->_pear->pkginfo['provides'])) {
             $this->_packageXml['provides'] = $this->_pear->pkginfo['provides'];
         }
+        if ($this->_options['simpleoutput']) {
+            unset($this->_packageXml['provides']);
+        }
         $this->_packageXml['release_deps'] = $this->_getDependencies();
         $this->_updateChangeLog();
         
@@ -1033,6 +1039,9 @@ class PEAR_PackageFileManager
                     if (!empty($md5sum)) {
                         $ret[$files['path']]['md5sum'] = $md5sum;
                     }
+                    if ($this->_options['simpleoutput']) {
+                        unset($ret[$files['path']]['md5sum']);
+                    }
                     if (isset($platformexceptions[$files['path']])) {
                         $ret[$files['path']]['platform'] = $platformexceptions[$files['path']];
                     }
@@ -1042,7 +1051,7 @@ class PEAR_PackageFileManager
                     if (isset($replacements[$files['path']])) {
                         $ret[$files['path']]['replacements'] = $replacements[$files['path']];
                     }
-                    if ($myrole == 'php') {
+                    if ($myrole == 'php' && !$this->_options['simpleoutput']) {
                         $this->_addProvides($this->_pear, $files['fullpath']);
                     }
     			}
