@@ -27,6 +27,12 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
       <email>cellog@users.sourceforge.net</email>
       <role>lead</role>
     </maintainer>
+    <maintainer>
+      <user>Arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@limbourg.com</email>
+      <role>developer</role>
+    </maintainer>
   </maintainers>
   <release>
     <version>1.2.1</version>
@@ -45,6 +51,7 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
        </dir> <!-- examples -->
        <dir name="PackageFileManager">
         <file role="php" name="Cvs.php"/>
+        <file role="php" name="Svn.php"/>
         <file role="php" name="File.php"/>
         <file role="php" name="XMLOutput.php"/>
        </dir> <!-- PackageFileManager -->
