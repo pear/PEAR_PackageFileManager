@@ -26,14 +26,15 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.8</version>
-    <date>2003-07-23</date>
+    <version>0.9</version>
+    <date>2003-07-24</date>
     <license>PHP License</license>
     <state>alpha</state>
     <notes>Bugfix release
 
-- Fixed bug in ignore, ignoring an explicit full path with
-  or without wildcards would not work</notes>
+- Fixed bug in reading a package.xml with no changelog entry, it now
+  auto-generates a changelog entry from the existing &lt;release&gt; tag if
+  there never was a changelog</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -61,6 +62,7 @@ Features include
       <file role="doc" baseinstalldir="PEAR" name="docs/errors.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/index.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/li_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" name="docs/todolist.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/background.png"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/empty.png"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/logo.png"/>
@@ -158,12 +160,22 @@ maintainers and configure options
     <release>
       <version>0.8</version>
       <date>2003-07-23</date>
-      <license>PHP License</license>
       <state>alpha</state>
       <notes>Bugfix release
 
 - Fixed bug in ignore, ignoring an explicit full path with
   or without wildcards would not work</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-07-24</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in reading a package.xml with no changelog entry, it now
+  auto-generates a changelog entry from the existing &lt;release&gt; tag if
+  there never was a changelog</notes>
     </release>
   </changelog>
 </package>

@@ -167,6 +167,9 @@ array(
  * the use of the {@link addMaintainer()} method
  * </code>
  * @package PEAR_PackageFileManager
+ * @todo add support for <replace> tag in file
+ * @todo add support for md5sum attribute
+ * @todo add support for platform attribute
  */
 class PEAR_PackageFileManager
 {
@@ -184,6 +187,13 @@ class PEAR_PackageFileManager
      * @access private
      */
     var $_packageXml = false;
+    
+    /**
+     * Contents of the original package.xml file, if any
+     * @var string
+     * @access private
+     */
+    var $_oldPackageXml = false;
     
     /**
      * @access private
@@ -773,8 +783,27 @@ class PEAR_PackageFileManager
     function _updateChangeLog()
     {
         $curlog = false;
+        if (!isset($this->_packageXml['changelog'])) {
+            $changelog = array();
+            if (isset($this->_oldPackageXml['release_notes'])) {
+                $changelog['release_notes'] = $this->_oldPackageXml['release_notes'];
+            }
+            if (isset($this->_oldPackageXml['version'])) {
+                $changelog['version'] = $this->_oldPackageXml['version'];
+            }
+            if (isset($this->_oldPackageXml['release_date'])) {
+                $changelog['release_date'] = $this->_oldPackageXml['release_date'];
+            }
+            if (isset($this->_oldPackageXml['release_license'])) {
+                $changelog['release_license'] = $this->_oldPackageXml['release_license'];
+            }
+            if (isset($this->_oldPackageXml['release_state'])) {
+                $changelog['release_state'] = $this->_oldPackageXml['release_state'];
+            }
+            $this->_packageXml['changelog'] = array($changelog);
+        }
         foreach($this->_packageXml['changelog'] as $index => $changelog) {
-            if ($changelog['version'] == $this->_options['version']) {
+            if (isset($changelog['version']) && $changelog['version'] == $this->_options['version']) {
                 $curlog = $index;
             }
             if (isset($this->_packageXml['changelog'][$index]['release_notes'])) {
@@ -814,6 +843,7 @@ class PEAR_PackageFileManager
                 return $this->_generateNewPackageXML();
             } else {
                 $common = new PEAR_Common;
+                $this->_oldPackageXml =
                 $this->_packageXml = $common->infoFromString($contents);
                 if (PEAR::isError($this->_packageXml)) {
                     return $this->_packageXml;
@@ -849,6 +879,7 @@ class PEAR_PackageFileManager
      */
     function _generateNewPackageXML()
     {
+        $this->_oldPackageXml = false;
         if (!isset($this->_options['package'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
         }
