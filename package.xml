@@ -66,25 +66,25 @@ for PEAR, and is extensible through the 'pearcommonclass' option
     <provides type="function" name="PEAR_PackageFileManager::raiseError" />
     <provides type="function" name="file_get_contents" />
     <filelist>
-      <file role="doc" baseinstalldir="PEAR" md5sum="bd4c2a7c35413ab1a4b2a759b8a91f10" name="docs/classtrees_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="e5975e4a8d0fd951191379c88253e50d" name="docs/elementindex.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="1fbb2784b08fabeb85915ed4511e5988" name="docs/elementindex_PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="0849768aaf03cdb5493e4c8dd76a2842" name="docs/errors.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="41803a2791bb8186e444ca5b2f6821d6" name="docs/index.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="41803a2791bb8186e444ca5b2f6821d6" name="docs/li_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="b592d1d0fb88e0b5032dc30a26b8fc7a" name="docs/classtrees_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="f8780b25b5370038ccbbfdc503208bb4" name="docs/elementindex.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="31e4af995fab68d2153891bedcd56f0f" name="docs/elementindex_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="2187d7d6671bb20cf262b3ff468b580f" name="docs/errors.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="bcbc8fdd8b20e9b67f3bd10d6823ab22" name="docs/index.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="bcbc8fdd8b20e9b67f3bd10d6823ab22" name="docs/li_PEAR_PackageFileManager.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="bd2ce7f8e1830aef0fbe11d6981cedd9" name="docs/todolist.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="908a7af2b36fa04f1b869ff74b6a8d37" name="docs/media/background.png"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="4c480a60db1ab64317fe351a24396eb1" name="docs/media/empty.png"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="45923cad7340f4184f27e287c17e2429" name="docs/media/logo.png"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="cfa1203cc96f584f6e44da9aef3aab73" name="docs/media/style.css"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="69b9092ee418f070d1ad6fb6c22832b3" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="e03925e35d032dd0382b514fa93dd423" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="828821afb24b37871c9ba8c4fb49aaa9" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_Cvs_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="438630d1515ee6c4e18342ad21ac3920" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_File_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="72c1818dd20d1e041c10848a02d72d68" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="d3c5da9b85235ed226c6aa0090a88a20" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="7bc66d67ecff28df9575e8783ba10698" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
-      <file role="doc" baseinstalldir="PEAR" md5sum="b9d72b385f724f9f4c434d21298f5fae" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="44ccd0a4a3505945ae8775bb6a9931ff" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="d597d64797894e3a9af66dca17b27124" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="0b5e9305e2ff34f19a0c65f294b89113" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_Cvs_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="13962f8c38c98e69fc805faa1cc272a0" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_File_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="28f588ab9918b7231f4e9df92e716018" name="docs/PEAR_PackageFileManager/_PEAR_PackageFileManager_PackageFileManager_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="6fdc3d4912de2060db8c6f115a7092b3" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="61e7b75a6e2eccc241dea92205c2aa90" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="3bcaa08bf1ddea5269d3d5b9a5e9b88d" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="471fc85077539c984d63c6f6bef6bf7f" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="41815de30ee0578d19d132d3f915d3bf" name="PackageFileManager/Cvs.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="c11872fe1f52769bb2219a31d5fae831" name="PackageFileManager/File.php"/>
