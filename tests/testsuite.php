@@ -53,6 +53,7 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
     	    'PEAR_PackageFileManager_TestCase_addReplacement',
     	    'PEAR_PackageFileManager_TestCase_addMaintainer',
     	    'PEAR_PackageFileManager_TestCase_addConfigureOption',
+    	    'PEAR_PackageFileManager_TestCase_addDependency',
 	);
 
 	
