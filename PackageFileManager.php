@@ -512,7 +512,7 @@ class PEAR_PackageFileManager
      * Files with role="data" are in a completely different directory hierarchy
      * from the program files of role="php"
      * 
-     * In PEAR 1.2b2, these roles are
+     * In PEAR 1.3b2, these roles are
      * - php (most common)
      * - data
      * - doc
