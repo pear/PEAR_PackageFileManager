@@ -81,6 +81,10 @@ class PEAR_PackageFileManager_File {
         $ignore = $this->_options['ignore'];
         // implicitly ignore packagefile
         $ignore[] = $this->_options['packagefile'];
+        if ($this->_options['packagefile'] == 'package.xml') {
+            // ignore auto-generated package2.xml from PEAR 1.4.0
+            $ignore[] = 'package2.xml';
+        }
         $include = $this->_options['include'];
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
