@@ -124,7 +124,7 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
             'test_invalid',
             'PEAR_PackageFileManager Error: Package source base directory ' .
             '"fargusblurbe[]--#/"" doesn\'t exist or isn\'t a directory',
-            PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST,
+            PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST
         );
         $res = $this->packagexml->dirList('fargusblurbe[]--#/"');
         $this->assertTrue(is_object($res), 'no error');
