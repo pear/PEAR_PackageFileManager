@@ -188,6 +188,15 @@ class PEAR_PackageFileManager_File {
         return $ret;
     }
     
+    /**
+     * Test whether an entry should be processed.
+     * 
+     * Normally, it ignores all files and directories that begin with "."  addhiddenfiles option
+     * instead only ignores "." and ".." entries
+     * @access private
+     * @param string directory name of entry
+     * @param string name
+     */
     function _testFile($directory, $entry)
     {
         if ($this->_options['addhiddenfiles']) {
