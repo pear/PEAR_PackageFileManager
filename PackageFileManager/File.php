@@ -75,13 +75,13 @@ class PEAR_PackageFileManager_File {
         $struc = array();
         foreach($allfiles as $file) {
             if ($ignore) {
-            	if ($this->_checkIgnore(basename($file), dirname($file), $ignore, 1)) {
+            	if ($this->_checkIgnore(basename($file), dirname($file), 1)) {
 //                    print 'Ignoring '.$file."<br>\n";
                     continue;
                 }
             }
             if ($include) {
-                if ($this->_checkIgnore(basename($file), dirname($file), $include, 0)) {
+                if ($this->_checkIgnore(basename($file), dirname($file), 0)) {
 //                    print 'Including '.$file."<br\n";
                     continue;
                 }
