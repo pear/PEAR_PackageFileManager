@@ -19,7 +19,8 @@ Features include
    file from any directory.
  - can specify a different name for the package.xml file
  
-As of version 1.1.0, PEAR_PackageFileManager is fully unit tested.</description>
+As of version 1.1.0, PEAR_PackageFileManager is partially unit tested.
+Version 1.1.1 will contain the rest of the unit tests.</description>
   <maintainers>
     <maintainer>
       <user>cellog</user>
@@ -30,15 +31,18 @@ As of version 1.1.0, PEAR_PackageFileManager is fully unit tested.</description>
   </maintainers>
   <release>
     <version>1.1.0</version>
-    <date>2003-10-25</date>
+    <date>2003-12-11</date>
     <license>PHP License</license>
     <state>stable</state>
     <notes>unit-tested with 1 new feature: include
 
 - fixed #8: notices if a package has no dependencies
+- fixed #261: package.xml files shouldn't be included in the package file list
+- fixed #155: warning emitted if CVS/ is packaged
+- fixed #260: .cvsignore files should be excluded from package file lists
 - new feature, &quot;include&quot; option.  This works just like &quot;ignore&quot; except it
   excludes all files that do not match the names passed in.  &quot;ignore&quot; includes
-  only flies that do not match the names passed in.  Suggested by Stan Lemon</notes>
+  only files that do not match the names passed in.  Suggested by Stan Lemon</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
     </deps>
@@ -59,14 +63,16 @@ As of version 1.1.0, PEAR_PackageFileManager is fully unit tested.</description>
     <provides type="function" name="PEAR_PackageFileManager::addDependency" />
     <provides type="function" name="PEAR_PackageFileManager::writePackageFile" />
     <provides type="function" name="PEAR_PackageFileManager::debugPackageFile" />
+    <provides type="function" name="PEAR_PackageFileManager::pushWarning" />
+    <provides type="function" name="PEAR_PackageFileManager::getWarnings" />
     <provides type="function" name="PEAR_PackageFileManager::raiseError" />
     <provides type="function" name="PEAR_PackageFileManager::isIncludeable" />
     <provides type="function" name="file_get_contents" />
     <filelist>
       <file role="php" baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="741e191f561c57ef78f2f0dcf119deda" name="PackageFileManager/Cvs.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="160171133c8879039717f4811968e2cb" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="b298fa82316128a838431b37a15e1d1c" name="PackageFileManager/Cvs.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="66e0c8f5099a790576826c97caa37629" name="PackageFileManager/File.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="5eaca8e81f2f69fe63519ac115a92187" name="tests/PEAR_PackageFileManager_File_TestCase_checkIgnore.php"/>
@@ -85,7 +91,7 @@ As of version 1.1.0, PEAR_PackageFileManager is fully unit tested.</description>
       <file role="test" baseinstalldir="PEAR" md5sum="bc33f9ae47809c31ed393f8bd063c938" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="755394e80f42fa0411a23923a6559a39" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="59d74759c0f9e229309a5bb549555808" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/test1.txt"/>
@@ -94,7 +100,7 @@ As of version 1.1.0, PEAR_PackageFileManager is fully unit tested.</description>
       <file role="test" baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/subfoo/test11.txt"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/subfoo/test12.txt"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/subfoo/subsubfoo/boo.txt"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="d79ea12293875ec05b5df6cc04b339f8" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="985d80b10c9c0db35589703dabc49530" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -291,15 +297,18 @@ No changes from 0.15</notes>
     </release>
     <release>
       <version>1.1.0</version>
-      <date>2003-10-25</date>
+      <date>2003-12-11</date>
       <license>PHP License</license>
       <state>stable</state>
       <notes>unit-tested with 1 new feature: include
 
 - fixed #8: notices if a package has no dependencies
+- fixed #261: package.xml files shouldn't be included in the package file list
+- fixed #155: warning emitted if CVS/ is packaged
+- fixed #260: .cvsignore files should be excluded from package file lists
 - new feature, &quot;include&quot; option.  This works just like &quot;ignore&quot; except it
   excludes all files that do not match the names passed in.  &quot;ignore&quot; includes
-  only flies that do not match the names passed in.  Suggested by Stan Lemon</notes>
+  only files that do not match the names passed in.  Suggested by Stan Lemon</notes>
     </release>
   </changelog>
 </package>
