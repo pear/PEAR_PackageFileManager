@@ -451,6 +451,8 @@ class PEAR_PackageFileManager
      *                 variable accessible through a PEAR_Config class->get() method.  If
      *                 type is package-info, then 'to' must be the name of a section from
      *                 the package.xml file used to install this file.
+     * - globalreplacements: a list of replacements that should be performed on every single file.
+     *                       the format is the saem as replacements (since 1.4.0)
      * - configure_options: array specifies build options for PECL packages (you should probably
      *                      use PECL_Gen instead, but it's here for completeness)
      * @see PEAR_PackageFileManager_File
@@ -598,7 +600,39 @@ class PEAR_PackageFileManager
         }
         $this->_options['platformexceptions'][$path] = $platform;
     }
-    
+
+    /**
+     * Add a replacement option for all files
+     *
+     * This sets an install-time complex search-and-replace function
+     * allowing the setting of platform-specific variables in all
+     * installed files.
+     *
+     * if $type is php-const, then $to must be the name of a PHP Constant.
+     * If $type is pear-config, then $to must be the name of a PEAR config
+     * variable accessible through a {@link PEAR_Config::get()} method.  If
+     * type is package-info, then $to must be the name of a section from
+     * the package.xml file used to install this file.
+     * @param string relative path of file (relative to packagedirectory option)
+     * @param string variable type, either php-const, pear-config or package-info
+     * @param string text to replace in the source file
+     * @param string variable name to use for replacement
+     * @throws PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE
+     */
+    function addGlobalReplacement($type, $from, $to)
+    {
+        if (!isset($this->_options['globalreplacements'])) {
+            $this->_options['globalreplacements'] = array();
+        }
+        $types = call_user_func(array($this->_options['pearcommonclass'], 'getreplacementtypes'));
+        if (!in_array($type, $types)) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE,
+                implode($types, ', '), $type);
+        }
+        $this->_options['globalreplacements'][] =
+            array('type' => $type, 'from' => $from, 'to' => $to);
+    }
+
     /**
      * Add a replacement option for a file
      *
@@ -1125,6 +1159,13 @@ class PEAR_PackageFileManager
                     if (isset($replacements[$files['path']])) {
                         $ret[$files['file']]['replacements'] = $replacements[$files['path']];
                     }
+                    if (isset($globalreplacements)) {
+                        if (!isset($ret[$files['file']]['replacements'])) {
+                            $ret[$files['file']]['replacements'] = array();
+                        }
+                        $ret[$files['file']]['replacements'] = array_merge(
+                            $ret[$files['file']]['replacements'], $globalreplacements);
+                    }
     			}
     		}
     	}
@@ -1213,6 +1254,13 @@ class PEAR_PackageFileManager
                     }
                     if (isset($replacements[$files['path']])) {
                         $ret[$files['path']]['replacements'] = $replacements[$files['path']];
+                    }
+                    if (isset($globalreplacements)) {
+                        if (!isset($ret[$files['path']]['replacements'])) {
+                            $ret[$files['path']]['replacements'] = array();
+                        }
+                        $ret[$files['path']]['replacements'] = array_merge(
+                            $ret[$files['path']]['replacements'], $globalreplacements);
                     }
                     if ($myrole == 'php' && !$this->_options['simpleoutput']) {
                         $this->_addProvides($this->_pear, $files['fullpath']);

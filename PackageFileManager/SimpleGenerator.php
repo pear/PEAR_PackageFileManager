@@ -74,6 +74,11 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
         return PEAR_Common::getFileRoles();
     }
 
+    function getReplacementTypes()
+    {
+        return PEAR_Common::getReplacementTypes();
+    }
+
     /**
      * Validate XML package definition file.
      *
