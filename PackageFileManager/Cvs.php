@@ -43,14 +43,12 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     {
         static $in_recursion = false;
         if (!$in_recursion) {
-            $ignore = array_merge($this->_options['ignore'], $this->_cvsIgnore);
             // include only CVS/Entries files
             $this->_setupIgnore(array('*/CVS/Entries'), 0);
             $this->_setupIgnore(array(), 1);
             $in_recursion = true;
             $entries = parent::dirList($directory);
             $in_recursion = false;
-            $this->ignore = $ignore;
         } else {
             return parent::dirList($directory);
         }
@@ -71,7 +69,9 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     function _readCVSEntries($entries)
     {
         $ret = array();
-        $ignore = $this->_options['ignore'];
+        $ignore = array_merge($this->_options['ignore'], $this->_cvsIgnore);
+        // implicitly ignore packagefile
+        $ignore[] = $this->_options['packagefile'];
         $include = $this->_options['include'];
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);

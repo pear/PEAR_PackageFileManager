@@ -54,6 +54,7 @@ define('PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE', 22);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE', 23);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_ROLE', 24);
 define('PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE', 25);
+define('PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED', 26);
 /**#@-*/
 /**
  * Error messages
@@ -118,6 +119,8 @@ array(
             'Invalid file role passed to addRole, must be one of "%s", was passed "%s"',
         PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE =>
             'addDependency had PHP as a package, use type="php"',
+        PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED =>
+            'path "%path%" contains CVS directory',
         ),
         // other language translations go here
      );
@@ -235,6 +238,12 @@ class PEAR_PackageFileManager
      * @var PEAR_Common
      */
     var $_pear;
+    
+    /**
+     * @access private
+     * @var array
+     */
+    var $_warningStack = array();
     
     /**
      * @access private
@@ -786,6 +795,13 @@ class PEAR_PackageFileManager
         $PEAR_Common = $this->_options['pearcommonclass'];
         $this->_pear = new $PEAR_Common;
         $this->_packageXml['filelist'] = $this->_getFileList();
+        $warnings = $this->getWarnings();
+        if (count($warnings)) {
+            $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
+            foreach($warnings as $errmsg) {
+                echo 'WARNING: ' . $errmsg['message'] . $nl;
+            }
+        }
         if (PEAR::isError($this->_packageXml['filelist'])) {
             return $this->_packageXml['filelist'];
         }
@@ -869,6 +885,40 @@ class PEAR_PackageFileManager
     {
         $webinterface = isset($_SERVER['PATH_TRANSLATED']);
         return $this->writePackageFile($webinterface);
+    }
+    
+    /**
+     * Store a warning on the warning stack
+     */
+    function pushWarning($code, $info)
+    {
+        $this->_warningStack[] = array('code' => $code,
+                                       'message' => $this->_getMessage($code, $info));
+    }
+    
+    /**
+     * Retrieve the list of warnings
+     * @return array
+     */
+    function getWarnings()
+    {
+        $a = $this->_warningStack;
+        $this->_warningStack = array();
+        return $a;
+    }
+    
+    /**
+     * Retrieve an error message from a code
+     * @access private
+     * @return string Error message
+     */
+    function _getMessage($code, $info)
+    {
+        $msg = $GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS'][$this->_options['lang']][$code];
+        foreach ($info as $name => $value) {
+            $msg = str_replace('%' . $name . '%', $value, $msg);
+        }
+        return $msg;
     }
     
     /**
@@ -968,6 +1018,12 @@ class PEAR_PackageFileManager
                         $bi = $installexceptions[$files['path']];
                     } else {
                         $bi = $baseinstalldir;
+                    }
+                    $test = explode('/', $files['path']);
+                    foreach ($test as $subpath) {
+                        if ($subpath == 'CVS') {
+                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED, array('path' => $files['path']));
+                        }
                     }
     				$ret[$files['path']] =
                         array('role' => $myrole,

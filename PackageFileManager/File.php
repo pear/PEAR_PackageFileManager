@@ -60,6 +60,8 @@ class PEAR_PackageFileManager_File {
     {
         $package_directory = $this->_options['packagedirectory'];
         $ignore = $this->_options['ignore'];
+        // implicitly ignore packagefile
+        $ignore[] = $this->_options['packagefile'];
         $include = $this->_options['include'];
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
