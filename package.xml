@@ -26,13 +26,14 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.14</version>
-    <date>2003-08-04</date>
+    <version>0.15</version>
+    <date>2003-08-06</date>
     <license>PHP License</license>
     <state>beta</state>
     <notes>Bugfix release
 
-- fix warning if you attempt to add a dependency on PHP as a package</notes>
+- erroneous blank &lt;release&gt; tag in changelog for generation of a new
+package.xml</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -60,7 +61,7 @@ Features include
       <file role="doc" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="0d9ac249e6844c180ae29264e3a5380b" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="6f9a40970a1808b39c9da98713b3e8cd" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -235,6 +236,16 @@ for PEAR, and is extensible through the 'pearcommonclass' option
       <notes>Bugfix release
 
 - fix warning if you attempt to add a dependency on PHP as a package</notes>
+    </release>
+    <release>
+      <version>0.15</version>
+      <date>2003-08-06</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- erroneous blank &lt;release&gt; tag in changelog for generation of a new
+package.xml</notes>
     </release>
   </changelog>
 </package>
