@@ -75,13 +75,13 @@ class PEAR_PackageFileManager_File {
         $struc = array();
         foreach($allfiles as $file) {
             if ($ignore) {
-            	if ($this->_checkIgnore(basename($file), dirname($file), 1)) {
+            	if ($this->_checkIgnore(basename($file), $file, 1)) {
 //                    print 'Ignoring '.$file."<br>\n";
                     continue;
                 }
             }
             if ($include) {
-                if ($this->_checkIgnore(basename($file), dirname($file), 0)) {
+                if ($this->_checkIgnore(basename($file), $file, 0)) {
 //                    print 'Including '.$file."<br\n";
                     continue;
                 }
@@ -151,6 +151,12 @@ class PEAR_PackageFileManager_File {
             $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
             while($d && $entry=$d->read()) {
                 if ($entry{0} != '.') {
+                    // if include option was set, then only pass included files
+                    if ($this->ignore[0]) {
+                        if ($this->_checkIgnore($entry, $directory . '/' . $entry, 0)) {
+                            continue;
+                        }
+                    }
                     if (is_file($directory . '/' . $entry)) {
                         $ret[] = $directory . '/' . $entry;
                     }
