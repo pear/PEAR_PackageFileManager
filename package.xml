@@ -61,11 +61,11 @@ Features include
       <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="e02584b03f1f61bc64e7d06eb3cf303d" name="tests/PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="6e405d20c2c514cdf2a8486c4172862a" name="tests/PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="daaad0c62382f67dc87d3e2803759d46" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="599f316e444325b3b8b2ef3e49b13e32" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="6cb983b0b24d25922cbc202e7c70e0be" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>

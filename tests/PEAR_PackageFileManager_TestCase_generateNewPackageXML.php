@@ -42,6 +42,38 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
         PEAR::popErrorHandling();
     }
 
+    function errorCodeToString($code)
+    {
+        $codes = array_flip(array(
+            'PEAR_PACKAGEFILEMANAGER_NOSTATE' => PEAR_PACKAGEFILEMANAGER_NOSTATE,
+            'PEAR_PACKAGEFILEMANAGER_NOVERSION' => PEAR_PACKAGEFILEMANAGER_NOVERSION,
+            'PEAR_PACKAGEFILEMANAGER_NOPKGDIR' => PEAR_PACKAGEFILEMANAGER_NOPKGDIR,
+            'PEAR_PACKAGEFILEMANAGER_NOBASEDIR' => PEAR_PACKAGEFILEMANAGER_NOBASEDIR,
+            'PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND' => PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND,
+            'PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE' => PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE,
+            'PEAR_PACKAGEFILEMANAGER_CANTWRITE_PKGFILE' => PEAR_PACKAGEFILEMANAGER_CANTWRITE_PKGFILE,
+            'PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE' => PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE,
+            'PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE' => PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE,
+            'PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE' => PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE,
+            'PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST' => PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST,
+            'PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES' => PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES,
+            'PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST' => PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST,
+            'PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS' => PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS,
+            'PEAR_PACKAGEFILEMANAGER_NOPACKAGE' => PEAR_PACKAGEFILEMANAGER_NOPACKAGE,
+            'PEAR_PACKAGEFILEMANAGER_WRONG_MROLE' => PEAR_PACKAGEFILEMANAGER_WRONG_MROLE,
+            'PEAR_PACKAGEFILEMANAGER_NOSUMMARY' => PEAR_PACKAGEFILEMANAGER_NOSUMMARY,
+            'PEAR_PACKAGEFILEMANAGER_NODESC' => PEAR_PACKAGEFILEMANAGER_NODESC,
+            'PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS' => PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS,
+            'PEAR_PACKAGEFILEMANAGER_NO_FILES' => PEAR_PACKAGEFILEMANAGER_NO_FILES,
+            'PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING' => PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING,
+            'PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE' => PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE,
+            'PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE' => PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE,
+            'PEAR_PACKAGEFILEMANAGER_INVALID_ROLE' => PEAR_PACKAGEFILEMANAGER_INVALID_ROLE,
+            'PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE' => PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE
+        ));
+        return $codes[$code];
+    }
+
     function _stripWhitespace($str)
     {
         return preg_replace('/\\s+/', '', $str);
@@ -63,7 +95,8 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
     }
 
     function PEARerrorHandler($error) {
-        $this->assertEquals($this->_expectedCode, $error->getCode(), $this->_testMethod);
+        $this->assertEquals($this->_expectedCode, $error->getCode(),
+            $this->_testMethod . ' ' . $this->errorCodeToString($this->_expectedCode));
         $this->assertEquals($this->_expectedMessage, $error->getMessage(), $this->_testMethod);
     }
     
@@ -80,9 +113,166 @@ class PEAR_PackageFileManager_TestCase_generateNewPackageXML extends PHPUnit_Tes
             return;
         }
         $this->expectPEARError('invalid nopackage',
-            'PEAR_PackageFileManager Error: Package Name (option \'package\') must by specified in PEAR_PackageFileManager '.
+            'PEAR_PackageFileManager Error: Package Name (option \'package\') ' .
+            'must by specified in PEAR_PackageFileManager '.
             'setOptions to create a new package.xml', PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
         $this->packagexml->_generateNewPackageXML();
+    }
+    
+    function test_invalid_nosummary()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->expectPEARError('invalid nosummary',
+            'PEAR_PackageFileManager Error: Package Summary (option ' .
+            '\'summary\') must by specified in PEAR_PackageFileManager '.
+            'setOptions to create a new package.xml', PEAR_PACKAGEFILEMANAGER_NOSUMMARY);
+        $this->packagexml->_generateNewPackageXML();
+    }
+    
+    function test_invalid_nodescription()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->packagexml->_options['summary'] = 'test';
+        $this->expectPEARError('invalid nodescription',
+            'PEAR_PackageFileManager Error: Detailed Package Description ' .
+            '(option \'description\') must be' .
+            ' specified in PEAR_PackageFileManager setOptions to ' .
+            'create a new package.xml', PEAR_PACKAGEFILEMANAGER_NODESC);
+        $this->packagexml->_generateNewPackageXML();
+    }
+    
+    function test_valid_simple()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->packagexml->_options['summary'] = 'test';
+        $this->packagexml->_options['description'] = 'test';
+        $ret = $this->packagexml->_generateNewPackageXML();
+        $this->assertFalse(is_object($ret), 'did not return true');
+        $this->assertEquals(
+            array('changelog' => array(),
+                  'description' => 'test',
+                  'maintainers' => array(),
+                  'package' => 'test',
+                  'release_deps' => array(),
+                  'summary' => 'test', 
+                  ),
+            $this->packagexml->_packageXml,
+            'incorrect package');
+    }
+    
+    function test_valid_withdepsfalse()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->packagexml->_options['summary'] = 'test';
+        $this->packagexml->_options['description'] = 'test';
+        $this->packagexml->_options['deps'] = false;
+        $ret = $this->packagexml->_generateNewPackageXML();
+        $this->assertFalse(is_object($ret), 'did not return true');
+        $this->assertEquals(
+            array('changelog' => array(),
+                  'description' => 'test',
+                  'maintainers' => array(),
+                  'package' => 'test',
+                  'release_deps' => array(),
+                  'summary' => 'test', 
+                  ),
+            $this->packagexml->_packageXml,
+            'incorrect package');
+    }
+    
+    function test_valid_withdeps()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->packagexml->_options['summary'] = 'test';
+        $this->packagexml->_options['description'] = 'test';
+        $this->packagexml->_options['deps'] =
+            array(
+                array('name' => 'pork', 'rel' => 'ge', 'version' => '1.0.0',
+                      'optional' => 'yes')
+            );
+        $ret = $this->packagexml->_generateNewPackageXML();
+        $this->assertFalse(is_object($ret), 'did not return true');
+        $this->assertEquals(
+            array('changelog' => array(),
+                  'description' => 'test',
+                  'maintainers' => array(),
+                  'package' => 'test',
+                  'release_deps' => array(
+                array('name' => 'pork', 'rel' => 'ge', 'version' => '1.0.0',
+                      'optional' => 'yes')),
+                  'summary' => 'test', 
+                  ),
+            $this->packagexml->_packageXml,
+            'incorrect package');
+    }
+    
+    function test_valid_withmaintainersfalse()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->packagexml->_options['summary'] = 'test';
+        $this->packagexml->_options['description'] = 'test';
+        $this->packagexml->_options['maintainers'] = false;
+        $ret = $this->packagexml->_generateNewPackageXML();
+        $this->assertFalse(is_object($ret), 'did not return true');
+        $this->assertEquals(
+            array('changelog' => array(),
+                  'description' => 'test',
+                  'maintainers' => array(),
+                  'package' => 'test',
+                  'release_deps' => array(),
+                  'summary' => 'test', 
+                  ),
+            $this->packagexml->_packageXml,
+            'incorrect package');
+    }
+    
+    function test_valid_withmaintainers()
+    {
+        if (!$this->_methodExists('_generateNewPackageXML')) {
+            return;
+        }
+        $this->packagexml->_options['package'] = 'test';
+        $this->packagexml->_options['summary'] = 'test';
+        $this->packagexml->_options['description'] = 'test';
+        $this->packagexml->_options['maintainers'] =
+            array(
+                array('name' => 'Gerg', 'email' => 'foo@example.com',
+                      'role' => 'lead',
+                      'handle' => 'cellogerg')
+            );
+        $ret = $this->packagexml->_generateNewPackageXML();
+        $this->assertFalse(is_object($ret), 'did not return true');
+        $this->assertEquals(
+            array('changelog' => array(),
+                  'description' => 'test',
+                  'maintainers' => array(
+                array('name' => 'Gerg', 'email' => 'foo@example.com',
+                      'role' => 'lead',
+                      'handle' => 'cellogerg')),
+                  'package' => 'test',
+                  'release_deps' => array(),
+                  'summary' => 'test', 
+                  ),
+            $this->packagexml->_packageXml,
+            'incorrect package');
     }
 }
 
