@@ -1297,6 +1297,9 @@ class PEAR_PackageFileManager
                 return $this->_generateNewPackageXML();
             } else {
                 $PEAR_Common = $this->_options['pearcommonclass'];
+                if (!class_exists($PEAR_Common)) {
+                    return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
+                }
                 $common = new $PEAR_Common;
                 $this->_oldPackageXml =
                 $this->_packageXml = $common->infoFromString($contents);
