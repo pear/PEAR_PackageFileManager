@@ -16,10 +16,10 @@
 class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_TestCase
 {
     /**
-     * A Games_Chess_Standard object
+     * A PEAR_PackageFileManager object
      * @var        object
      */
-    var $board;
+    var $packagexml;
 
     function PEAR_PackageFileManager_TestCase_getExistingPackageXML($name)
     {
