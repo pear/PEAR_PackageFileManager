@@ -143,14 +143,26 @@ PEAR_PackageFileManager is fully unit tested.
       <dir name="getFileList">
        <file role="test" name="test_valid.phpt"/>
       </dir> <!-- /tests/PEAR_PackageFileManager_File/getFileList -->
+      <dir name="getRegExpableSearchString">
+       <file role="test" name="test_1.phpt"/>
+       <file role="test" name="test_dir_regexp.phpt"/>
+       <file role="test" name="test_file_regexp.phpt"/>
+      </dir> <!-- /tests/PEAR_PackageFileManager_File/getRegExpableSearchString -->
+      <dir name="setupIgnore">
+       <file role="test" name="test_complex.phpt"/>
+       <file role="test" name="test_complex_multiple.phpt"/>
+       <file role="test" name="test_emptyarray.phpt"/>
+       <file role="test" name="test_nonarray.phpt"/>
+       <file role="test" name="test_simple.phpt"/>
+       <file role="test" name="test_simple_0.phpt"/>
+       <file role="test" name="test_simple_dir.phpt"/>
+      </dir> <!-- /tests/PEAR_PackageFileManager_File/setupIgnore -->
       <file role="test" name="setup.php.inc"/>
      </dir> <!-- /tests/PEAR_PackageFileManager_File -->
      <file role="test" name="Bad_file.php"/>
      <file role="test" name="HTML_TestListener.php"/>
-     <file role="test" name="PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
      <file role="test" name="PEAR_PackageFileManager_File_TestCase_setDir.php"/>
      <file role="test" name="PEAR_PackageFileManager_File_TestCase_setupDirs.php"/>
-     <file role="test" name="PEAR_PackageFileManager_File_TestCase_setupIgnore.php"/>
      <file role="test" name="PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
      <file role="test" name="PEAR_PackageFileManager_TestCase_addDependency.php"/>
      <file role="test" name="PEAR_PackageFileManager_TestCase_addMaintainer.php"/>
