@@ -3,7 +3,7 @@
 // +------------------------------------------------------------------------+
 // | PEAR :: Package File Manager                                           |
 // +------------------------------------------------------------------------+
-// | Copyright (c) 2003 Gregory Beaver                                      |
+// | Copyright (c) 2003-2004 Gregory Beaver                                 |
 // | Email         cellog@phpdoc.org                                        |
 // +------------------------------------------------------------------------+
 // | This source file is subject to version 3.00 of the PHP License,        |
@@ -283,7 +283,7 @@ class PEAR_PackageFileManager
                       'lang' => 'en',
                       'configure_options' => array(),
                       'replacements' => array(),
-                      'pearcommonclass' => 'PEAR_Common',
+                      'pearcommonclass' => false,
                       'simpleoutput' => false,
                       );
     
@@ -478,7 +478,12 @@ class PEAR_PackageFileManager
         $this->_options = array_merge($this->_options, $options);
         
         if (!class_exists($this->_options['pearcommonclass'])) {
-            $this->_options['pearcommonclass'] = 'PEAR_Common';
+            if ($this->_options['simpleoutput']) {
+                require_once 'PEAR/PackageFileManager/XMLOutput.php';
+                $this->_options['pearcommonclass'] = 'PEAR_PackageFileManager_XMLOutput';
+            } else {
+                $this->_options['pearcommonclass'] = 'PEAR_Common';
+            }
         }
         $path = ($this->_options['pathtopackagefile'] ?
                     $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);
