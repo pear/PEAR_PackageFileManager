@@ -257,6 +257,8 @@ class PEAR_PackageFileManager_File {
             }
             if (count($ig)) {
                 $this->ignore = $ig;
+            } else {
+                $this->ignore = false;
             }
         } else $this->ignore = false;
     }
