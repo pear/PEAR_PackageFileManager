@@ -224,7 +224,9 @@ class PEAR_PackageFileManager_File {
      */
     function _checkIgnore($file, $path, $return = 1)
     {
-        $path = realpath($path);
+        if (file_exists($path)) {
+            $path = realpath($path);
+        }
         if (is_array($this->ignore[$return])) {
             foreach($this->ignore[$return] as $match) {
                 // match is an array if the ignore parameter was a /path/to/pattern
