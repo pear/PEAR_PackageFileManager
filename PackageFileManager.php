@@ -125,11 +125,11 @@ array(
         // other language translations go here
      );
 /**
- * PEAR :: PackageGenerate updates the <filelist></filelist> section
+ * PEAR :: PackageFileManager updates the <filelist></filelist> section
  * of a PEAR package.xml file to reflect the current files in
  * preparation for a release.
  *
- * The PEAR_PackageGenerate class uses a plugin system to generate the
+ * The PEAR_PackageFileManager class uses a plugin system to generate the
  * list of files in a package.  This allows both standard recursive
  * directory parsing (plugin type file) and more intelligent options
  * such as the CVS browser {@link PEAR_PackageFileManager_Cvs}, which
@@ -202,11 +202,11 @@ array(
  *     die();
  * }
  * ?>
- *
+ * </code>
+ * 
  * In addition, a package.xml file can now be generated from
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addMaintainer()} method
- * </code>
  * @package PEAR_PackageFileManager
  */
 class PEAR_PackageFileManager
