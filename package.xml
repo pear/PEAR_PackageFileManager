@@ -26,17 +26,17 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.12</version>
-    <date>2003-07-28</date>
+    <version>0.13</version>
+    <date>2003-08-02</date>
     <license>PHP License</license>
     <state>beta</state>
     <notes>Bugfix release
 
-- added fix, if no existing changelog for current package.xml,
-  but has old changelog, a new one is auto-generated from the release.
-- added new switch to specify order of changelog entries
-  &quot;changelogoldtonew&quot; default true.  Set to false to have the
-  newest entry listed first</notes>
+- add warning if you attempt to add a dependency on PHP as a package
+- switched to usage of PEAR_Common::getUserRoles()
+
+- added optional dependency support
+- added script phase support (unimplemented in PEAR)</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -62,9 +62,9 @@ Features include
     <filelist>
       <file role="doc" baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php"/>
       <file role="doc" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="41815de30ee0578d19d132d3f915d3bf" name="PackageFileManager/Cvs.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="198cae2be742006596bbca638393fafd" name="PackageFileManager/File.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="063b6b31c7f3e08bc7dd8a1ce3196fc8" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="5e8662b7306e0b212edb71b3dbc994f6" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -197,7 +197,6 @@ for PEAR, and is extensible through the 'pearcommonclass' option
     <release>
       <version>0.12</version>
       <date>2003-07-28</date>
-      <license>PHP License</license>
       <state>beta</state>
       <notes>Bugfix release
 
@@ -206,6 +205,19 @@ for PEAR, and is extensible through the 'pearcommonclass' option
 - added new switch to specify order of changelog entries
   &quot;changelogoldtonew&quot; default true.  Set to false to have the
   newest entry listed first</notes>
+    </release>
+    <release>
+      <version>0.13</version>
+      <date>2003-08-02</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- add warning if you attempt to add a dependency on PHP as a package
+- switched to usage of PEAR_Common::getUserRoles()
+
+- added optional dependency support
+- added script phase support (unimplemented in PEAR)</notes>
     </release>
   </changelog>
 </package>

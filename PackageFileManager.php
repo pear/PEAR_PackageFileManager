@@ -53,6 +53,7 @@ define('PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING', 20);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE', 21);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE', 22);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_ROLE', 23);
+define('PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE', 24);
 /**#@-*/
 /**
  * Error messages
@@ -115,6 +116,8 @@ array(
             'Replacement Type must be one of "%s", was passed "%s"',
         PEAR_PACKAGEFILEMANAGER_INVALID_ROLE =>
             'Invalid file role passed to addRole, must be one of "%s", was passed "%s"',
+        PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE =>
+            'addDependency had PHP as a package, use type="php"',
         ),
         // other language translations go here
      );
@@ -259,6 +262,7 @@ class PEAR_PackageFileManager
                       'installexceptions' => array(),
                       'installas' => array(),
                       'platformexceptions' => array(),
+                      'scriptphaseexceptions' => array(),
                       'ignore' => array(),
                       'deps' => false,
                       'maintainers' => false,
@@ -394,6 +398,9 @@ class PEAR_PackageFileManager
      *                       performed using a regular expression, but uses * and ? wildcards
      *                       instead of .* and .?.  Note that hpux/aix/irix/linux are all
      *                       exclusive.  To select non-windows, use (*ix|*ux)
+     * - scriptphaseexceptions: array mapping of scripts to their install phase.  This can be
+     *                          one of: pre-install, post-install, pre-uninstall, post-uninstall,
+     *                          pre-build, post-build, pre-setup, or post-setup
      * - installas: array mapping of specific filenames to the filename they should be installed as.
      *              Use this to specify new filenames for files that should be installed.  This will
      *              often be used in conjunction with platformexceptions if there are two files for
@@ -584,7 +591,7 @@ class PEAR_PackageFileManager
         }
         if (!in_array($role, $GLOBALS['_PEAR_Common_maintainer_roles'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_WRONG_MROLE,
-                implode(', ', $GLOBALS['_PEAR_Common_maintainer_roles']),
+                implode(', ', PEAR_Common::getUserRoles()),
                 $role);
         }
         if (!isset($this->_packageXml['maintainers'])) {
@@ -656,11 +663,15 @@ class PEAR_PackageFileManager
      *   'has', 'not', 'lt', 'le', 'eq', 'ne', 'ge', or 'gt'
      * @param string Dependency type.  This can be one of:
      *   'pkg', 'ext', 'php', 'prog', 'os', 'sapi', or 'zend'
+     * @param boolean true if dependency is optional
      * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
      * @return void|PEAR_Error
      */
-    function addDependency($name, $version = false, $operator = 'ge', $type = 'pkg')
+    function addDependency($name, $version = false, $operator = 'ge', $type = 'pkg', $optional = false)
     {
+        if (strtolower($name) == 'php') {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE);
+        }
         if (!$this->_packageXml) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
         }
@@ -693,6 +704,12 @@ class PEAR_PackageFileManager
             if ($operator) {
                 $dep['rel'] = $operator;
             }
+        }
+        
+        if ($optional) {
+            $dep['optional'] = 'yes';
+        } else {
+            $dep['optional'] = 'no';
         }
 
         if ($found !== false) {
@@ -942,6 +959,9 @@ class PEAR_PackageFileManager
                     }
                     if (isset($replacements[$files['path']])) {
                         $ret[$files['path']]['replacements'] = $replacements[$files['path']];
+                    }
+                    if (isset($scriptphaseexceptions[$files['path']])) {
+                        $ret[$files['path']]['phase'] = $scriptphaseexceptions[$files['path']];
                     }
                     if ($myrole == 'php') {
                         $this->_addProvides($this->_pear, $files['fullpath']);
