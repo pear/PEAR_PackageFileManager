@@ -976,7 +976,8 @@ class PEAR_PackageFileManager
      */
     function _getDependencies()
     {
-        if ($this->_packageXml['release_deps']) {
+        if (isset($this->_packageXml['release_deps']) &&
+              is_array($this->_packageXml['release_deps'])) {
             return $this->_packageXml['release_deps'];
         } else {
             return array();
@@ -1087,8 +1088,11 @@ class PEAR_PackageFileManager
      */
     function _getExistingPackageXML($path, $packagefile = 'package.xml')
     {
-        if (@is_dir($path)) {
-            $contents = @file_get_contents($path . $packagefile);
+        if (is_string($path) && is_dir($path)) {
+            $contents = false;
+            if (file_exists($path . $packagefile)) {
+                $contents = file_get_contents($path . $packagefile);
+            }
             if (!$contents) {
                 return $this->_generateNewPackageXML();
             } else {
@@ -1102,7 +1106,9 @@ class PEAR_PackageFileManager
                 if ($this->_options['deps'] !== false) {
                     $this->_packageXml['release_deps'] = $this->_options['deps'];
                 } else {
-                    $this->_options['deps'] = $this->_packageXml['release_deps'];
+                    if (isset($this->_packageXml['release_deps'])) {
+                        $this->_options['deps'] = $this->_packageXml['release_deps'];
+                    }
                 }
                 if ($this->_options['maintainers'] !== false) {
                     $this->_packageXml['maintainers'] = $this->_options['maintainers'];
