@@ -856,7 +856,7 @@ class PEAR_PackageFileManager
     {
         return PEAR::raiseError('PEAR_PackageFileManager Error: ' .
                     sprintf($GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS'][$this->_options['lang']][$code],
-                    $i1, $i2));
+                    $i1, $i2), $code);
     }
     
     /**
