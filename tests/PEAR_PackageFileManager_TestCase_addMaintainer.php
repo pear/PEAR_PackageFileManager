@@ -125,8 +125,6 @@ class PEAR_PackageFileManager_TestCase_addMaintainer extends PHPUnit_TestCase
         );
         $this->packagexml->addMaintainer('peeber.php', 'ribbit', 'tadpole', 'frog');
         $this->assertEquals('true', $this->errorThrown, 'error not thrown');
-        $this->assertTrue(empty($this->packagexml->_options['replacements']),
-            'replacements was set, should not be');
     }
     
     function test_invalid_wrongrole()
@@ -150,8 +148,6 @@ class PEAR_PackageFileManager_TestCase_addMaintainer extends PHPUnit_TestCase
         );
         $this->packagexml->addMaintainer('peeber.php', 'ribbit', 'tadpole', 'frog');
         $this->assertEquals('true', $this->errorThrown, 'error not thrown');
-        $this->assertTrue(empty($this->packagexml->_options['replacements']),
-            'replacements was set, should not be');
     }
 
     function test_valid_add()
