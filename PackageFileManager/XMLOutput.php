@@ -40,7 +40,6 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
      */
     function _makeReleaseXml($pkginfo, $changelog = false)
     {
-        // XXX QUOTE ENTITIES IN PCDATA, OR EMBED IN CDATA BLOCKS!!
         $indent = $changelog ? "  " : "";
         $ret = "$indent  <release>\n";
         if (!empty($pkginfo['version'])) {
@@ -104,7 +103,7 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
         }
         if (isset($pkginfo['filelist'])) {
             $ret .= "$indent    <filelist>\n";
-            $ret .= $this->_doFileList($indent, $pkginfo['filelist']);
+            $ret .= $this->_doFileList($indent, $pkginfo['filelist'], '/');
             $ret .= "$indent    </filelist>\n";
         }
         $ret .= "$indent  </release>\n";
@@ -116,18 +115,18 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
      * @access private
      * @return string
      */
-    function _doFileList($indent, $filelist)
+    function _doFileList($indent, $filelist, $curdir)
     {
         $ret = '';
         foreach ($filelist as $file => $fa) {
             if (isset($fa['files'])) {
-                $ret .= "$indent      <dir ";
+                $ret .= "$indent      <dir";
             } else {
-                $ret .= "$indent      <file ";
+                $ret .= "$indent      <file";
             }
 
             if (isset($fa['role'])) {
-                $ret .= "role=\"$fa[role]\"";
+                $ret .= " role=\"$fa[role]\"";
             }
             if (isset($fa['baseinstalldir'])) {
                 $ret .= ' baseinstalldir="' .
@@ -146,21 +145,30 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
             $ret .= ' name="' . htmlspecialchars($file) . '"';
             if (isset($fa['files'])) {
                 $ret .= ">\n";
-                $ret .= $this->_doFileList("$indent ", $fa['files']);
-                $ret .= "$indent      </dir>\n";
-            }
-            if (empty($fa['replacements'])) {
-                $ret .= "/>\n";
-            } else {
-                $ret .= ">\n";
-                foreach ($fa['replacements'] as $r) {
-                    $ret .= "$indent        <replace";
-                    foreach ($r as $k => $v) {
-                        $ret .= " $k=\"" . htmlspecialchars($v) .'"';
-                    }
-                    $ret .= "/>\n";
+                $recurdir = $curdir;
+                if ($recurdir == '///') {
+                    $recurdir = '';
                 }
-                $ret .= "$indent      </file>\n";
+                $ret .= $this->_doFileList("$indent ", $fa['files'], $recurdir . $file . '/');
+                $displaydir = $curdir;
+                if ($displaydir == '///' || $displaydir == '/') {
+                    $displaydir = '';
+                }
+                $ret .= "$indent      </dir> <!-- $displaydir$file -->\n";
+            } else {
+                if (empty($fa['replacements'])) {
+                    $ret .= "/>\n";
+                } else {
+                    $ret .= ">\n";
+                    foreach ($fa['replacements'] as $r) {
+                        $ret .= "$indent        <replace";
+                        foreach ($r as $k => $v) {
+                            $ret .= " $k=\"" . htmlspecialchars($v) .'"';
+                        }
+                        $ret .= "/>\n";
+                    }
+                    $ret .= "$indent      </file>\n";
+                }
             }
         }
         return $ret;

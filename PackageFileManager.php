@@ -971,7 +971,98 @@ class PEAR_PackageFileManager
     {
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
         $generator = new $generatorclass($this, $this->_options);
+        if ($this->_options['simpleoutput']) {
+            return $this->_getSimpleDirTag($generator->getFileList());
+        }
         return $this->_getDirTag($generator->getFileList()); 
+    }
+    
+    /**
+     * Recursively generate the <filelist> section's <dir> and <file> tags, but with
+     * simple human-readable output
+     * @param array|PEAR_Error the sorted directory structure, or an error
+     *                         from filelist generation
+     * @param false|string whether the parent directory has a role this should
+     * inherit
+     * @param integer indentation level
+     * @return array|PEAR_Error
+     * @access private
+     */
+    function _getSimpleDirTag($struc, $role = false, $_curdir = '')
+    {
+        if (PEAR::isError($struc)) {
+            return $struc;
+        }
+        extract($this->_options);
+        $ret = array();
+    	foreach($struc as $dir => $files) {
+    		if (false && $dir === '/') {
+                // global directory role? overrides all exceptions except file exceptions
+                if (isset($dir_roles['/'])) {
+                    $role = $dir_roles['/'];
+                }
+                return array(
+                    'baseinstalldir' => $this->_options['baseinstalldir'],
+                    'files' => $this->_getSimpleDirTag($struc[$dir], $role, ''),
+                    'name' => '/');
+    		} else {
+    			if (!isset($files['file'])) {
+                    if (isset($dir_roles[$_curdir . $dir])) {
+                        $myrole = $dir_roles[$_curdir . $dir];
+                    } else {
+                        $myrole = $role;
+                    }
+                    $ret[$dir] = array();
+                    if ($dir == '/') {
+                        $ret[$dir]['baseinstalldir'] = $this->_options['baseinstalldir'];
+                    }
+                    $ret[$dir]['name'] = $dir;
+                    $recurdir = ($_curdir == '') ? $dir . '/' : $_curdir . $dir . '/';
+                    if ($recurdir == '//') {
+                        $recurdir = '';
+                    }
+                    $ret[$dir]['files'] = $this->_getSimpleDirTag($files, $myrole, $recurdir);
+    			} else {
+    				$myrole = '';
+    				if (!$role)
+    				{
+    					$myrole = false;
+    					if (isset($exceptions[$files['path']])) {
+    						$myrole = $exceptions[$files['path']];
+    					} elseif (isset($roles[$files['ext']])) {
+    						$myrole = $roles[$files['ext']];
+    					} else {
+                            $myrole = $roles['*'];
+                        }
+    				} else {
+                        $myrole = $role;
+    					if (isset($exceptions[$files['path']])) {
+    						$myrole = $exceptions[$files['path']];
+    					}
+                    }
+                    $test = explode('/', $files['path']);
+                    foreach ($test as $subpath) {
+                        if ($subpath == 'CVS') {
+                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED, array('path' => $files['path']));
+                        }
+                    }
+    				$ret[$files['file']] = array('role' => $myrole);
+                    if (isset($installexceptions[$files['path']])) {
+                        $ret[$files['file']]['baseinstalldir'] = $installexceptions[$files['path']];
+                    }
+                    if (isset($platformexceptions[$files['path']])) {
+                        $ret[$files['file']]['platform'] = $platformexceptions[$files['path']];
+                    }
+                    if (isset($installas[$files['path']])) {
+                        $ret[$files['file']]['install-as'] = $installas[$files['path']];
+                    }
+                    if (isset($replacements[$files['path']])) {
+                        $ret[$files['file']]['replacements'] = $replacements[$files['path']];
+                    }
+    			}
+    		}
+    	}
+    	return $ret;
     }
     
     /**
@@ -1028,7 +1119,7 @@ class PEAR_PackageFileManager
                     if (isset($installexceptions[$files['path']])) {
                         $bi = $installexceptions[$files['path']];
                     } else {
-                        $bi = $baseinstalldir;
+                        $bi = $this->_options['baseinstalldir'];
                     }
                     $test = explode('/', $files['path']);
                     foreach ($test as $subpath) {
