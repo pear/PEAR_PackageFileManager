@@ -120,6 +120,7 @@ class PEAR_PackageFileManager_File_TestCase_getFileList extends PHPUnit_TestCase
         if (!$this->_methodExists('getFileList')) {
             return;
         }
+        $this->packagexml->_options['addhiddenfiles'] = false;
         $this->packagexml->_options['packagefile'] = 'package.xml';
         $this->packagexml->_options['ignore'] =
         $this->packagexml->_options['include'] = false;

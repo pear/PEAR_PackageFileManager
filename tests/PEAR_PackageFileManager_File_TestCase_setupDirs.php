@@ -120,6 +120,7 @@ class PEAR_PackageFileManager_File_TestCase_setupDirs extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupDirs')) {
             return;
         }
+        $this->packagexml->_options['addhiddenfiles'] = false;
         $this->packagexml->_options['ignore'] =
         $this->packagexml->_options['include'] = false;
         $this->packagexml->_setupIgnore(false, 0);
@@ -232,6 +233,7 @@ class PEAR_PackageFileManager_File_TestCase_setupDirs extends PHPUnit_TestCase
     
     function test_valid()
     {
+        $this->packagexml->_options['addhiddenfiles'] = false;
         $struc = $this->test_concept();
         $test = $this->packagexml->_setupDirs($struc['/'], explode('/','subfoo/subsubfoo'), $struc['subfoo/subsubfoo']);
         $this->assertEquals(

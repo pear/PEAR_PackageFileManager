@@ -111,13 +111,7 @@ class PEAR_PackageFileManager_File {
                                     'fullpath' => $file);
         }
         if (!count($struc)) {
-            $newig = '';
-            foreach($this->_options['ignore'] as $ig) {
-                if (!empty($newig)) {
-                    $newig .= ', ';
-                }
-                $newig .= $ig;
-            }
+            $newig = implode($this->_options['ignore'], ', ');
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING,
                 substr($package_directory, 0, strlen($package_directory) - 1), $newig);
         }
@@ -159,7 +153,7 @@ class PEAR_PackageFileManager_File {
             $ret = array();
             $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
             while($d && $entry=$d->read()) {
-                if ($entry{0} != '.') {
+                if ($this->_testFile($directory, $entry)) {
                     if (is_file($directory . '/' . $entry)) {
                         // if include option was set, then only pass included files
                         if ($this->ignore[0]) {
@@ -192,6 +186,15 @@ class PEAR_PackageFileManager_File {
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
         }
         return $ret;
+    }
+    
+    function _testFile($directory, $entry)
+    {
+        if ($this->_options['addhiddenfiles']) {
+            return is_file($directory . '/' . $entry) || (is_dir($directory . '/' . $entry) && !in_array($entry, array('.', '..')));
+        } else {
+            return $entry{0} != '.';
+        }
     }
 
     /**

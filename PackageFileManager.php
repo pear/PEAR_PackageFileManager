@@ -285,6 +285,7 @@ class PEAR_PackageFileManager
                       'replacements' => array(),
                       'pearcommonclass' => false,
                       'simpleoutput' => false,
+                      'addhiddenfiles' => false,
                       );
     
     /**
@@ -347,6 +348,8 @@ class PEAR_PackageFileManager
      *                      newest.  Set to false if you would like new entries first
      * - simpleoutput: True if the package.xml should not contain md5sum or <provides />
      *                 for readability
+     * - addhiddenfiles: True if you wish to add hidden files/directories that begin with .
+     *                   like .bashrc
      *
      * package.xml simple options:
      * - baseinstalldir: The base directory to install this package in.  For
@@ -1232,8 +1235,7 @@ class PEAR_PackageFileManager
             }
             // the parsing of the release notes adds a \n for some reason
         }
-        if (!$hasoldversion && $oldchangelog && count($oldchangelog)
-              && $oldchangelog['version'] != $this->_options['version']) {
+        if (!$hasoldversion && $oldchangelog && count($oldchangelog)) {
             $this->_packageXml['changelog'][] = $oldchangelog;
         }
         $notes = ($this->_options['changelognotes'] ?
@@ -1259,22 +1261,10 @@ class PEAR_PackageFileManager
     function _changelogsort($a, $b)
     {
         if ($this->_options['changelogoldtonew']) {
-            $c = strtotime($a['release_date']);
-            $d = strtotime($b['release_date']);
-            $v1 = $a['version'];
-            $v2 = $b['version'];
+            return strnatcasecmp($a['version'], $b['version']);
         } else {
-            $d = strtotime($a['release_date']);
-            $c = strtotime($b['release_date']);
-            $v2 = $a['version'];
-            $v1 = $b['version'];
+            return strnatcasecmp($b['version'], $a['version']);
         }
-        if ($c - $d > 0) {
-            return 1;
-        } elseif ($c - $d < 0) {
-            return -1;
-        }
-        return version_compare($v1, $v2);
     }
 
     /**
