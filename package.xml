@@ -38,7 +38,7 @@ PEAR_PackageFileManager is fully unit tested.
   </maintainers>
  <release>
   <version>1.5.0</version>
-  <date>2005-03-27</date>
+  <date>2005-03-28</date>
   <license>PHP License</license>
   <state>alpha</state>
   <notes>New features and bugfixes
@@ -86,6 +86,23 @@ PEAR_PackageFileManager is fully unit tested.
       <file role="test" name="test1.txt"/>
       <file role="test" name="test2.txt"/>
      </dir> <!-- /tests/footest -->
+     <dir name="generateNewPackageXML">
+      <file role="test" name="test_invalid_nodescription.phpt"/>
+      <file role="test" name="test_invalid_nopackage.phpt"/>
+      <file role="test" name="test_invalid_nosummary.phpt"/>
+      <file role="test" name="test_valid_simple.phpt"/>
+      <file role="test" name="test_valid_withdeps.phpt"/>
+      <file role="test" name="test_valid_withdepsfalse.phpt"/>
+      <file role="test" name="test_valid_withmaintainers.phpt"/>
+      <file role="test" name="test_valid_withmaintainersfalse.phpt"/>
+     </dir> <!-- /tests/generateNewPackageXML -->
+     <dir name="getExistingPackageXML">
+      <file role="test" name="test_invalid_notexists_nopackage.phpt"/>
+      <file role="test" name="test_invalid_wrongdir.phpt"/>
+      <file role="test" name="test_valid_deps.phpt"/>
+      <file role="test" name="test_valid_maintainers.phpt"/>
+      <file role="test" name="test_valid_simple.phpt"/>
+     </dir> <!-- /tests/getExistingPackageXML -->
      <dir name="PEAR_PackageFileManager_CVS">
       <dir name="footest">
        <dir name="blarfoo">
@@ -173,11 +190,10 @@ PEAR_PackageFileManager is fully unit tested.
      <file role="test" name="PEAR_PackageFileManager_TestCase_addMaintainer.php"/>
      <file role="test" name="PEAR_PackageFileManager_TestCase_addReplacement.php"/>
      <file role="test" name="PEAR_PackageFileManager_TestCase_addRole.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_getExistingPackageXML.php"/>
      <file role="test" name="PEAR_PackageFileManager_TestCase_setOptions.php"/>
      <file role="test" name="PEAR_PackageFileManager_XMLOutput_TestCase_1.php"/>
      <file role="test" name="phpt_test.php.inc"/>
+     <file role="test" name="setup.php.inc"/>
      <file role="test" name="stylesheet.css"/>
      <file role="test" name="test1_package.xml"/>
      <file role="test" name="testsuite.php"/>
@@ -457,7 +473,7 @@ package.xml
    </release>
    <release>
     <version>1.5.0</version>
-    <date>2005-03-27</date>
+    <date>2005-03-28</date>
     <license>PHP License</license>
     <state>alpha</state>
     <notes>New features and bugfixes
