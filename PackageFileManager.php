@@ -192,7 +192,8 @@ array(
  *     exit;
  * }
  * // note use of {@link debugPackageFile()} - this is VERY important
- * if (isset($_GET['make']) || $_SERVER['argv'][2] == 'make') {
+ * if (isset($_GET['make']) || (isset($_SERVER['argv'][2]) &&
+ *       $_SERVER['argv'][2] == 'make')) {
  *     $e = $packagexml->writePackageFile();
  * } else {
  *     $e = $packagexml->debugPackageFile();
