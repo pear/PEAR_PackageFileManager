@@ -452,7 +452,7 @@ class PEAR_PackageFileManager
      *                 type is package-info, then 'to' must be the name of a section from
      *                 the package.xml file used to install this file.
      * - globalreplacements: a list of replacements that should be performed on every single file.
-     *                       the format is the saem as replacements (since 1.4.0)
+     *                       The format is the same as replacements (since 1.4.0)
      * - configure_options: array specifies build options for PECL packages (you should probably
      *                      use PECL_Gen instead, but it's here for completeness)
      * @see PEAR_PackageFileManager_File
