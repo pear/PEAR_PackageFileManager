@@ -550,7 +550,44 @@ class PEAR_PackageFileManager
             }
         }
     }
-    
+
+    /**
+     * Import options from an existing package.xml
+     *
+     * @return true|PEAR_Error
+     */
+    function importOptions($packagefile)
+    {
+        $this->_options['cleardependencies'] = false;
+        $this->_options['deps'] = false;
+        $this->_options['maintainers'] = false;
+        if (PEAR::isError($res = $this->_getExistingPackageXML(dirname($packagefile),
+              basename($packagefile)))) {
+            return $res;
+        }
+        $this->_options['package'] = $this->_packagexml['package'];
+        $this->_options['summary'] = $this->_packagexml['summary'];
+        $this->_options['description'] = $this->_packagexml['description'];
+        $this->_options['date'] = $this->_packagexml['release_date'];
+        $this->_options['version'] = $this->_packagexml['version'];
+        $this->_options['license'] = $this->_packagexml['release_license'];
+        $this->_options['state'] = $this->_packagexml['release_state'];
+        $this->_options['notes'] = $this->_packagexml['release_notes'];
+        if (isset($this->_packagexml['release_deps'])) {
+            $this->_options['deps'] = $this->_packagexml['release_deps'];
+        }
+        $this->_options['maintainers'] = $this->_packagexml['maintainers'];
+    }
+
+    /**
+     * Get the existing options
+     * @return array
+     */
+    function getOptions()
+    {
+        return $this->_options;
+    }
+
     /**
      * Add an extension/role mapping to the role mapping option
      *
@@ -986,13 +1023,13 @@ class PEAR_PackageFileManager
      *
      * This method instructs writePackageFile() to simply print the package.xml
      * to output, either command-line or web-friendly (this is automatic
-     * based on the existence of $_SERVER['PATH_TRANSLATED']
+     * based on the value of php_sapi_name())
      * @uses writePackageFile() calls with the debug parameter set based on
      *       whether it is called from the command-line or web interface
      */
     function debugPackageFile()
     {
-        $webinterface = isset($_SERVER['PATH_TRANSLATED']);
+        $webinterface = php_sapi_name() != 'cli';
         return $this->writePackageFile($webinterface);
     }
     
