@@ -20,7 +20,7 @@ Features include
    file from any directory.
  - can specify a different name for the package.xml file
  
-As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.
+PEAR_PackageFileManager is fully unit tested.
  </description>
  <maintainers>
   <maintainer>
@@ -127,25 +127,6 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.
        <file role="test" name="test_simple_pass.phpt"/>
       </dir> <!-- /tests/PEAR_PackageFileManager_File/checkIgnore -->
       <dir name="dirList">
-       <dir name="footest">
-        <dir name="blarfoo">
-         <file role="test" name="blartest.txt"/>
-        </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/footest/blarfoo -->
-        <dir name="subfoo">
-         <dir name="subsubfoo">
-          <file role="test" name="boo.txt"/>
-         </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/footest/subfoo/subsubfoo -->
-         <file role="test" name="test11.txt"/>
-         <file role="test" name="test12.txt"/>
-        </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/footest/subfoo -->
-        <dir name="testCVS">
-         <file role="test" name="testEntries"/>
-         <file role="test" name="testEntries.Extra"/>
-        </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/footest/testCVS -->
-        <file role="test" name=".test"/>
-        <file role="test" name="test1.txt"/>
-        <file role="test" name="test2.txt"/>
-       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/footest -->
        <dir name="test_bug1217">
         <file role="test" name="0"/>
         <file role="test" name="firstfile.php"/>
@@ -159,17 +140,13 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.
        <file role="test" name="test_valid_with_ignore.phpt"/>
        <file role="test" name="test_valid_with_include.phpt"/>
       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList -->
+      <dir name="getFileList">
+       <file role="test" name="test_valid.phpt"/>
+      </dir> <!-- /tests/PEAR_PackageFileManager_File/getFileList -->
       <file role="test" name="setup.php.inc"/>
      </dir> <!-- /tests/PEAR_PackageFileManager_File -->
-     <dir name="test_bug1217">
-      <file role="test" name="0"/>
-      <file role="test" name="firstfile.php"/>
-      <file role="test" name="fourthfile.php"/>
-      <file role="test" name="secondfile.php"/>
-     </dir> <!-- /tests/test_bug1217 -->
      <file role="test" name="Bad_file.php"/>
      <file role="test" name="HTML_TestListener.php"/>
-     <file role="test" name="PEAR_PackageFileManager_File_TestCase_getFileList.php"/>
      <file role="test" name="PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
      <file role="test" name="PEAR_PackageFileManager_File_TestCase_setDir.php"/>
      <file role="test" name="PEAR_PackageFileManager_File_TestCase_setupDirs.php"/>
