@@ -88,7 +88,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     function _readCVSEntries($entries)
     {
         $ret = array();
-        $ignore = array_merge($this->_options['ignore'], $this->_cvsIgnore);
+        $ignore = array_merge((array) $this->_options['ignore'], $this->_cvsIgnore);
         // implicitly ignore packagefile
         $ignore[] = $this->_options['packagefile'];
         $include = $this->_options['include'];
