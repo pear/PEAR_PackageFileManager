@@ -673,7 +673,11 @@ class PEAR_PackageFileManager
      */
     function _addProvides(&$pear, $file)
     {
-        $pear->buildProvidesArray($pear->analyzeSourceCode($file));
+        if (!($a = $pear->analyzeSourceCode($file))) {
+            return;
+        } else {
+            $pear->buildProvidesArray($a);
+        }
     }
     
     /**

@@ -26,14 +26,16 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.5</version>
+    <version>0.6</version>
     <date>2003-07-23</date>
     <license>PHP License</license>
     <state>alpha</state>
     <notes>Bugfix release
 
-- Fixed bug in type=&quot;php&quot; dependency generation,
-- Fixed bug if the package.xml doesn't yet exist</notes>
+- When reading in an existing package.xml, if a file
+  has been removed, several warnings were emitted by
+  PEAR_Common attempting to examine the source of a
+  non-existent file</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -127,12 +129,23 @@ maintainers and configure options
     <release>
       <version>0.5</version>
       <date>2003-07-23</date>
-      <license>PHP License</license>
       <state>alpha</state>
       <notes>Bugfix release
 
 - Fixed bug in type=&quot;php&quot; dependency generation,
 - Fixed bug if the package.xml doesn't yet exist</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- When reading in an existing package.xml, if a file
+  has been removed, several warnings were emitted by
+  PEAR_Common attempting to examine the source of a
+  non-existent file</notes>
     </release>
   </changelog>
 </package>
