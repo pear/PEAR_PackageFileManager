@@ -155,6 +155,50 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
             'incorrect dir structure');
         $this->assertFalse($this->errorThrown, 'error thrown');
     }
+    
+    function test_valid_with_ignore()
+    {
+        if (!$this->_methodExists('dirList')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_setupIgnore(array('blar*'), 1);
+        $this->packagexml->_setupIgnore(false, 0);
+        $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
+        $this->assertEquals(
+            array(
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+            ),
+            $res,
+            'incorrect dir structure');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
+    
+    function test_valid_with_include()
+    {
+        if (!$this->_methodExists('dirList')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_setupIgnore(array('blar*'), 0);
+        $this->packagexml->_setupIgnore(false, 1);
+        $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
+        $this->assertEquals(
+            array(
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',
+            ),
+            $res,
+            'incorrect dir structure');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
 }
 
 ?>
