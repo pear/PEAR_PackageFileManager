@@ -1120,6 +1120,9 @@ class PEAR_PackageFileManager
             }
             return true;
         } else {
+            if (!is_string($path)) {
+                $path = gettype($path);
+            }
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST,
                 $path);
         }
