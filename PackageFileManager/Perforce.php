@@ -58,12 +58,31 @@ class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
         /* Strip off everything except the filename from each line of output. */
         $files = preg_replace('/^.* \- /', '', $output);
 
+        /* If we have a list of files to include, remove all other entries. */
+        if ($this->ignore[0]) {
+            $files = array_filter($files, array($this, '_includeFilter'));
+        }
+
         /* If we have a list of files to ignore, remove them from the array. */
         if ($this->ignore[1]) {
             $files = array_filter($files, array($this, '_ignoreFilter'));
         }
 
         return $files;
+    }
+
+    /**
+     * Determine whether a given file should be excluded from the file list.
+     * 
+     * @param   string  $file       The full pathname of file to check.
+     * 
+     * @return  bool    True if the specified file should be included.
+     *
+     * @access  private
+     */
+    function _includeFilter($file)
+    {
+        return ($this->_checkIgnore(basename($file), $file, 0) === 0);
     }
 
     /**
@@ -78,6 +97,6 @@ class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
      */
     function _ignoreFilter($file)
     {
-        return ($this->_checkIgnore(basename($file), $file, 1) != 1);
+        return ($this->_checkIgnore(basename($file), $file, 1) !== 1);
     }
 }
