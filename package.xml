@@ -40,7 +40,7 @@ PEAR_PackageFileManager is fully unit tested.
   <version>1.5.0</version>
   <date>2005-03-28</date>
   <license>PHP License</license>
-  <state>alpha</state>
+  <state>stable</state>
   <notes>New features and bugfixes
 * fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
 * implement Request #3747 getOptions() method
@@ -514,7 +514,7 @@ package.xml
     <version>1.5.0</version>
     <date>2005-03-28</date>
     <license>PHP License</license>
-    <state>alpha</state>
+    <state>stable</state>
     <notes>New features and bugfixes
 * fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
 * implement Request #3747 getOptions() method
