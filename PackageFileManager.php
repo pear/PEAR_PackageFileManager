@@ -101,7 +101,7 @@ array(
             ' setOptions to create a new package.xml',
         PEAR_PACKAGEFILEMANAGER_NODESC =>
             'Detailed Package Description (option \'description\') must be' .
-            ' specified in PEAR_PackageFileManager constructor to create a new package.xml',
+            ' specified in PEAR_PackageFileManager setOptions to create a new package.xml',
         PEAR_PACKAGEFILEMANAGER_WRONG_MROLE =>
             'Maintainer role must be one of "%s", was "%s"',
         PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS =>
