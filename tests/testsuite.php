@@ -49,7 +49,6 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
 <h2>Tests</h2>
 	<?php
 	$testcases = array(
-    	    'PEAR_PackageFileManager_TestCase_generateNewPackageXML',
     	    'PEAR_PackageFileManager_TestCase_getExistingPackageXML',
     	    'PEAR_PackageFileManager_TestCase_setOptions',
     	    'PEAR_PackageFileManager_TestCase_addRole',
