@@ -26,7 +26,7 @@ class PEAR_PackageFileManager_Cvs extends PEAR_PackageFileManager_File {
     {
         $entries = $this->_recurDirList($directory);
         if (!$entries) {
-            return false;
+            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES, $directory);
         }
         return $this->_readCVSEntries($entries);
     }
@@ -62,7 +62,7 @@ class PEAR_PackageFileManager_Cvs extends PEAR_PackageFileManager_File {
                 $d->close();
             }
         } else {
-            die("directory: '$directory'  not found\n");
+            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
         }
         return $ret;
     }

@@ -42,21 +42,14 @@ Features include
       <file role="doc" baseinstalldir="PEAR" name="docs/li_PEAR_PackageFileManager.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/background.png"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/empty.png"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/media/logo-old.png"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/logo.png"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/media/style.css"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/media/CVS/Entries"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/media/CVS/Repository"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/media/CVS/Root"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/media/CVS/Tag"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/_PackageFileManager_examples_generatePackage_xml_php.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_Cvs_php.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_File_php.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html"/>
-      <file role="doc" baseinstalldir="PEAR" name="docs/__filesource/fsource_PEAR_PackageFileManager__examples_generatePackage.xml.php.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
       <file role="doc" baseinstalldir="PEAR" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>

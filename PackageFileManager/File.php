@@ -122,7 +122,7 @@ class PEAR_PackageFileManager_File {
                 $d->close();
             }
         } else {
-            die("directory: '$directory'  not found\n");
+            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
         }
         return $ret;
     }

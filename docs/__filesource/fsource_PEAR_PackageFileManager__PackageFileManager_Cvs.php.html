@@ -57,7 +57,7 @@
 <a name="a24"></a><br />25        <strong>{</strong>
 <a name="a25"></a><br />26            <strong><font color="#008000">$entries</font></strong> = <strong><font color="#008000">$this</font></strong><strong>-&gt;</strong>_recurDirList<strong>(</strong><strong><font color="#008000">$directory</font></strong><strong>)</strong>;
 <a name="a26"></a><br />27            <font color="blue">if</font> <strong>(</strong><strong>!</strong><strong><font color="#008000">$entries</font></strong><strong>)</strong> <strong>{</strong>
-<a name="a27"></a><br />28                <font color="blue">return</font> false;
+<a name="a27"></a><br />28                <font color="blue">return</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html">PEAR_PackageFileManager</a><strong>::</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodraiseError">raiseError</a><strong>(</strong><a href="../PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOCVSENTRIES">PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES</a><strong>,</strong> <strong><font color="#008000">$directory</font></strong><strong>)</strong>;
 <a name="a28"></a><br />29            <strong>}</strong>
 <a name="a29"></a><br />30            <font color="blue">return</font> <strong><font color="#008000">$this</font></strong><strong>-&gt;</strong>_readCVSEntries<strong>(</strong><strong><font color="#008000">$entries</font></strong><strong>)</strong>;
 <a name="a30"></a><br />31        <strong>}</strong>
@@ -89,7 +89,7 @@
 <a name="a60"></a><br />61                    <strong><font color="#008000">$d</font></strong><strong>-&gt;</strong>close<strong>(</strong><strong>)</strong>;
 <a name="a61"></a><br />62                <strong>}</strong>
 <a name="a62"></a><br />63            <strong>}</strong> else <strong>{</strong>
-<a name="a63"></a><br />64                die<strong>(</strong>&quot;<font color="#ff702b">directory: '<strong><font color="#008000">$directory</font></strong>'  not found\n</font>&quot;<strong>)</strong>;
+<a name="a63"></a><br />64                <font color="blue">return</font> <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html">PEAR_PackageFileManager</a><strong>::</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodraiseError">raiseError</a><strong>(</strong><a href="../PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST">PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST</a><strong>,</strong> <strong><font color="#008000">$directory</font></strong><strong>)</strong>;
 <a name="a64"></a><br />65            <strong>}</strong>
 <a name="a65"></a><br />66            <font color="blue">return</font> <strong><font color="#008000">$ret</font></strong>;
 <a name="a66"></a><br />67        <strong>}</strong>
@@ -147,7 +147,7 @@
 </div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Mon, 21 Jul 2003 16:11:28 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
+		    Documentation generated on Mon, 21 Jul 2003 17:14:18 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
 	      </div>
       </td></tr></table>
     </td>
