@@ -26,17 +26,13 @@ Features include
     </maintainer>
   </maintainers>
   <release>
-    <version>0.13</version>
-    <date>2003-08-02</date>
+    <version>0.14</version>
+    <date>2003-08-04</date>
     <license>PHP License</license>
     <state>beta</state>
     <notes>Bugfix release
 
-- add warning if you attempt to add a dependency on PHP as a package
-- switched to usage of PEAR_Common::getUserRoles()
-
-- added optional dependency support
-- added script phase support (unimplemented in PEAR)</notes>
+- fix warning if you attempt to add a dependency on PHP as a package</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
     </deps>
@@ -64,7 +60,7 @@ Features include
       <file role="doc" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="59f11eee12162cabe88091af208ce7d4" name="PackageFileManager.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="0d9ac249e6844c180ae29264e3a5380b" name="PackageFileManager.php"/>
     </filelist>
   </release>
   <changelog>
@@ -230,6 +226,15 @@ for PEAR, and is extensible through the 'pearcommonclass' option
 
 - added optional dependency support
 - added script phase support (unimplemented in PEAR)</notes>
+    </release>
+    <release>
+      <version>0.14</version>
+      <date>2003-08-04</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- fix warning if you attempt to add a dependency on PHP as a package</notes>
     </release>
   </changelog>
 </package>

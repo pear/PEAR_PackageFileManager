@@ -669,7 +669,7 @@ class PEAR_PackageFileManager
      */
     function addDependency($name, $version = false, $operator = 'ge', $type = 'pkg', $optional = false)
     {
-        if (strtolower($name) == 'php') {
+        if ((strtolower($name) == 'php') && (strtolower($type) == 'pkg')) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE);
         }
         if (!$this->_packageXml) {
