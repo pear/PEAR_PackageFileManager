@@ -134,6 +134,10 @@ PEAR_PackageFileManager is fully unit tested.
       <file role="test" name="test_valid_maintainers.phpt"/>
       <file role="test" name="test_valid_simple.phpt"/>
      </dir> <!-- /tests/getExistingPackageXML -->
+     <dir name="importOptions">
+      <file role="test" name="test_invalid.phpt"/>
+      <file role="test" name="test_valid.phpt"/>
+     </dir> <!-- /tests/importOptions -->
      <dir name="PEAR_PackageFileManager_CVS">
       <dir name="footest">
        <dir name="blarfoo">
