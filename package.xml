@@ -12,11 +12,14 @@ Features include
    reads the CVS/Entries files and generates a file listing based on the contents
    of a checked out CVS repository
  - incredibly flexible options for assigning install roles to files/directories
- - ability to ignore any file based on a * ? wildcard-enabled string
+ - ability to ignore any file based on a * ? wildcard-enabled string(s)
+ - ability to include only files that match a * ? wildcard-enabled string(s)
  - ability to manage dependencies
  - can output the package.xml in any directory, and read in the package.xml
    file from any directory.
- - can specify a different name for the package.xml file</description>
+ - can specify a different name for the package.xml file
+ 
+As of version 1.1.0, PEAR_PackageFileManager is fully unit tested.</description>
   <maintainers>
     <maintainer>
       <user>cellog</user>
@@ -27,12 +30,15 @@ Features include
   </maintainers>
   <release>
     <version>1.1.0</version>
-    <date>2003-10-18</date>
+    <date>2003-10-19</date>
     <license>PHP License</license>
     <state>stable</state>
-    <notes>bugfix release
+    <notes>unit-tested with 1 new feature: include
 
-- fixed #8: notices if a package has no dependencies</notes>
+- fixed #8: notices if a package has no dependencies
+- new feature, &quot;include&quot; option.  This works just like &quot;ignore&quot; except it
+  excludes all files that do not match the names passed in.  &quot;ignore&quot; includes
+  only flies that do not match the names passed in.  Suggested by Stan Lemon</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
     </deps>
@@ -59,12 +65,13 @@ Features include
     <filelist>
       <file role="php" baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="af363df56194c252f85275d6657fadeb" name="PackageFileManager/Cvs.php"/>
-      <file role="php" baseinstalldir="PEAR" md5sum="3d00716222dee4b640e0657caa0d3eeb" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="741e191f561c57ef78f2f0dcf119deda" name="PackageFileManager/Cvs.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="160171133c8879039717f4811968e2cb" name="PackageFileManager/File.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="5eaca8e81f2f69fe63519ac115a92187" name="tests/PEAR_PackageFileManager_File_TestCase_checkIgnore.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="c704501d398458d9e79bde4067951471" name="tests/PEAR_PackageFileManager_File_TestCase_dirList.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="e6a6efceda6ee11f05c56b4db16ebe8d" name="tests/PEAR_PackageFileManager_File_TestCase_dirList.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="af5086337b8712fa279afb5ad1cfd304" name="tests/PEAR_PackageFileManager_File_TestCase_getFileList.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="ab2f9fa2fa50b1977c102be090e157ec" name="tests/PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="ca41dc78448bd3df3643ee8b06fa8d64" name="tests/PEAR_PackageFileManager_File_TestCase_setupIgnore.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b04bc0beeab2752524a5b5bd64c36f71" name="tests/PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
@@ -77,7 +84,7 @@ Features include
       <file role="test" baseinstalldir="PEAR" md5sum="bc33f9ae47809c31ed393f8bd063c938" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="14699fa85a2e391f0151ca64f63cfbe1" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="2fd5840fdb5d256cbeaee716a64d8bb3" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/test1.txt"/>
@@ -283,12 +290,15 @@ No changes from 0.15</notes>
     </release>
     <release>
       <version>1.1.0</version>
-      <date>2003-10-18</date>
+      <date>2003-10-19</date>
       <license>PHP License</license>
       <state>stable</state>
-      <notes>bugfix release
+      <notes>unit-tested with 1 new feature: include
 
-- fixed #8: notices if a package has no dependencies</notes>
+- fixed #8: notices if a package has no dependencies
+- new feature, &quot;include&quot; option.  This works just like &quot;ignore&quot; except it
+  excludes all files that do not match the names passed in.  &quot;ignore&quot; includes
+  only flies that do not match the names passed in.  Suggested by Stan Lemon</notes>
     </release>
   </changelog>
 </package>
