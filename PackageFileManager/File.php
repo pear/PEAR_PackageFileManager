@@ -5,6 +5,11 @@
  */
 /**
  * Retrieve the files from a directory listing
+ *
+ * This class is used to retrieve a raw directory
+ * listing.  Use the {@link PEAR_PackageFileManager_CVS}
+ * class to only retrieve the contents of a cvs
+ * repository when generating the package.xml
  * @package PEAR_PackageFileManager
  */
 class PEAR_PackageFileManager_File {
@@ -31,9 +36,9 @@ class PEAR_PackageFileManager_File {
     /**
      * Set up the File filelist generator
      *
-     * Options specific to this class are ignore.  See
+     * 'ignore' is the only option that this class uses.  See
      * {@link PEAR_PackageFileManager::setOptions()} for
-     * more information
+     * more information and formatting of this option
      * @param PEAR_PackageFileManager
      * @param array
      */

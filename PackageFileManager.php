@@ -164,8 +164,33 @@ array(
  *     echo $e->getMessage();
  *     die();
  * }
+ * $e = $test->addPlatformException('pear-phpdoc.bat', 'windows');
+ * if (PEAR::isError($e)) {
+ *     echo $e->getMessage();
+ *     exit;
+ * }
  * $packagexml->addRole('pkg', 'doc'); // add a new role mapping
- * $e = $packagexml->writePackageFile();
+ * if (PEAR::isError($e)) {
+ *     echo $e->getMessage();
+ *     exit;
+ * }
+ * // replace @PHP-BIN@ in this file with the path to php executable!  pretty neat
+ * $e = $test->addReplacement('pear-phpdoc', 'pear-config', '@PHP-BIN@', 'php_bin');
+ * if (PEAR::isError($e)) {
+ *     echo $e->getMessage();
+ *     exit;
+ * }
+ * $e = $test->addReplacement('pear-phpdoc.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
+ * if (PEAR::isError($e)) {
+ *     echo $e->getMessage();
+ *     exit;
+ * }
+ * // note use of {@link debugPackageFile()} - this is VERY important
+ * if (isset($_GET['make']) || $_SERVER['argv'][2] == 'make') {
+ *     $e = $packagexml->writePackageFile();
+ * } else {
+ *     $e = $packagexml->debugPackageFile();
+ * }
  * if (PEAR::isError($e)) {
  *     echo $e->getMessage();
  *     die();
@@ -249,7 +274,10 @@ class PEAR_PackageFileManager
     
     /**
      * Does nothing, use setOptions
-     * @see setOptions
+     *
+     * The constructor is not used in order to be able to
+     * return a PEAR_Error from setOptions
+     * @see setOptions()
      */
     function PEAR_PackageFileManager()
     {
@@ -269,7 +297,7 @@ class PEAR_PackageFileManager
      * Configuration options:
      * - lang: lang controls the language in which error messages are
      *         displayed.  There are currently only English error messages,
-     *         but any contributed will be added over time.<br />
+     *         but any contributed will be added over time.<br>
      *         Possible values: en (default)
      * - packagefile: the name of the packagefile, defaults to package.xml
      * - pathtopackagefile: the path to an existing package file to read in,
@@ -787,6 +815,10 @@ class PEAR_PackageFileManager
     
     /**
      * ALWAYS use this to test output before overwriting your package.xml!!
+     *
+     * This method instructs writePackageFile() to simply print the package.xml
+     * to output, either command-line or web-friendly (this is automatic
+     * based on the existence of $_SERVER['PATH_TRANSLATED']
      * @uses writePackageFile() calls with the debug parameter set based on
      *       whether it is called from the command-line or web interface
      */

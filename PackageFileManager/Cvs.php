@@ -17,6 +17,15 @@ require_once 'PEAR/PackageFileManager/File.php';
 class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
     /**
      * Return a list of all files in the CVS repository
+     *
+     * This function is like {@link parent::dirList()} except
+     * that instead of retrieving a regular filelist, it first
+     * retrieves a listing of all the CVS/Entries files in
+     * $directory and all of the subdirectories.  Then, it
+     * reads the Entries file, and creates a listing of files
+     * that are a part of the CVS repository.  No check is
+     * made to see if they have been modified, but newly
+     * added or removed files are ignored.
      * @return array list of files in a directory
      * @param string $directory full path to the directory you want the list of
      * @uses _recurDirList()
