@@ -79,6 +79,7 @@ Version 1.1.1 will contain the rest of the unit tests.</description>
       <file role="test" baseinstalldir="PEAR" md5sum="e6a6efceda6ee11f05c56b4db16ebe8d" name="tests/PEAR_PackageFileManager_File_TestCase_dirList.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="52071e4d77c561e2a7d652c0568bf762" name="tests/PEAR_PackageFileManager_File_TestCase_getFileList.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="ab2f9fa2fa50b1977c102be090e157ec" name="tests/PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="03469717b123f3140f9a9afff66485ac" name="tests/PEAR_PackageFileManager_File_TestCase_setDir.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="4cb9fe86c31f9465f34e363731953323" name="tests/PEAR_PackageFileManager_File_TestCase_setupDirs.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="ca41dc78448bd3df3643ee8b06fa8d64" name="tests/PEAR_PackageFileManager_File_TestCase_setupIgnore.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b04bc0beeab2752524a5b5bd64c36f71" name="tests/PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
@@ -91,7 +92,7 @@ Version 1.1.1 will contain the rest of the unit tests.</description>
       <file role="test" baseinstalldir="PEAR" md5sum="bc33f9ae47809c31ed393f8bd063c938" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="59d74759c0f9e229309a5bb549555808" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="d0b8b3b9327b5eff3873d3ce6aae4033" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/test1.txt"/>
