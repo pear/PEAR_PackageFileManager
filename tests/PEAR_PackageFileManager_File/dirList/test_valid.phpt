@@ -12,17 +12,17 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml->_options['addhiddenfiles'] = false;
 $packagexml->_setupIgnore(false, 0);
 $packagexml->_setupIgnore(false, 1);
-$res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
+$res = $packagexml->dirList(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest');
 $phpunit->assertEquals(
     array(
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/subfoo/subsubfoo/boo.txt',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/subfoo/test11.txt',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/subfoo/test12.txt',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/test1.txt',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries',
+        dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/testCVS/testEntries.Extra',
     ),
     $res,
     'incorrect dir structure');
