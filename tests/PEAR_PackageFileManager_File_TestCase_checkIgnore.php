@@ -229,8 +229,8 @@ class PEAR_PackageFileManager_File_TestCase_checkIgnore extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $this->packagexml->_setupIgnore(array('frog*/test.php'), 1);
-        $this->packagexml->_setupIgnore(array('frog*/test.php'), 0);
+        $this->packagexml->_setupIgnore(array('*frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('*frog*/test.php'), 0);
         $res = $this->packagexml->_checkIgnore(basename('froggoes\\test.php'),
             'froggoes\\test.php', 1);
         $this->assertTrue($res, 'wrongo 1');
@@ -248,8 +248,8 @@ class PEAR_PackageFileManager_File_TestCase_checkIgnore extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $this->packagexml->_setupIgnore(array('frog*/test.php'), 1);
-        $this->packagexml->_setupIgnore(array('frog*/test.php'), 0);
+        $this->packagexml->_setupIgnore(array('*frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('*frog*/test.php'), 0);
         $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
             'anything\\frooggoes\\test.php', 1);
         $this->assertFalse($res, 'wrongo 1');
@@ -267,8 +267,8 @@ class PEAR_PackageFileManager_File_TestCase_checkIgnore extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 1);
-        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 0);
+        $this->packagexml->_setupIgnore(array('gorf*', '*frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('gorf*', '*frog*/test.php'), 0);
         $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\test.php'),
             'anything\\froggoes\\test.php', 1);
         $this->assertTrue($res, 'wrongo 1');
@@ -292,20 +292,20 @@ class PEAR_PackageFileManager_File_TestCase_checkIgnore extends PHPUnit_TestCase
         if (!$this->_methodExists('_setupIgnore')) {
             return;
         }
-        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 1);
-        $this->packagexml->_setupIgnore(array('gorf*', 'frog*/test.php'), 0);
+        $this->packagexml->_setupIgnore(array('gorf*', '*frog*/test.php'), 1);
+        $this->packagexml->_setupIgnore(array('gorf*', '*frog*/test.php'), 0);
         $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
             'anything\\frooggoes\\test.php', 1);
-        $this->assertTrue($res, 'wrongo 1');
-        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\gorftest.php'),
+        $this->assertFalse($res, 'wrongo 1');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\goorftest.php'),
             'anything\\frooggoes\\gorftest.php', 1);
-        $this->assertTrue($res, 'wrongo 1.5');
+        $this->assertFalse($res, 'wrongo 1.5');
         $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\test.php'),
             'anything\\frooggoes\\test.php', 0);
-        $this->assertFalse($res, 'wrongo 2');
-        $res = $this->packagexml->_checkIgnore(basename('anything\\frooggoes\\gorftest.php'),
+        $this->assertTrue($res, 'wrongo 2');
+        $res = $this->packagexml->_checkIgnore(basename('anything\\froggoes\\goorftest.php'),
             'anything\\frooggoes\\gorftest.php', 0);
-        $this->assertFalse($res, 'wrongo 2.5');
+        $this->assertTrue($res, 'wrongo 2.5');
         $this->assertFalse($this->errorThrown, 'error thrown');
     }
 }

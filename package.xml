@@ -63,7 +63,7 @@ Features include
       <file role="php" baseinstalldir="PEAR" md5sum="b33e54f79f3674470b88fb30130146fe" name="PackageFileManager/File.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="b58a31a77f0ed50fe01dfac46bbe68df" name="tests/PEAR_PackageFileManager_File_TestCase_checkIgnore.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="8717f7bf0d97468d5216c10aa01d656a" name="tests/PEAR_PackageFileManager_File_TestCase_checkIgnore.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="ab2f9fa2fa50b1977c102be090e157ec" name="tests/PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="ca41dc78448bd3df3643ee8b06fa8d64" name="tests/PEAR_PackageFileManager_File_TestCase_setupIgnore.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b04bc0beeab2752524a5b5bd64c36f71" name="tests/PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
