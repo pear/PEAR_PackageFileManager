@@ -44,8 +44,11 @@ PEAR_PackageFileManager is fully unit tested.
   <notes>New features and bugfixes
 * fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
 * implement Request #3747 getOptions() method
-* Migrate all unit tests to .phpt
+* Migrate all unit tests to .phpt, run
+  &quot;pear run-tests -p PEAR_PackageFileManager&quot; in PEAR 1.4.0 to run tests
+  post-installation
 * add dependency on XML_Tree (used by SVN driver)
+* add package2.xml to the list of auto-ignored files
   </notes>
   <deps>
    <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
@@ -511,8 +514,11 @@ package.xml
     <notes>New features and bugfixes
 * fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
 * implement Request #3747 getOptions() method
-* Migrate all unit tests to .phpt
+* Migrate all unit tests to .phpt, run
+  &quot;pear run-tests -p PEAR_PackageFileManager&quot; in PEAR 1.4.0 to run tests
+  post-installation
 * add dependency on XML_Tree (used by SVN driver)
+* add package2.xml to the list of auto-ignored files
     </notes>
    </release>
  </changelog>
