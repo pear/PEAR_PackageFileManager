@@ -226,7 +226,7 @@ class PEAR_PackageFileManager
                         array(
         					'docs' => 'doc',
         					'examples' => 'doc',
-        					'tests' => 'tests',
+        					'tests' => 'test',
                              ),
                       'exceptions' => array(),
                       'installexceptions' => array(),
@@ -448,6 +448,18 @@ class PEAR_PackageFileManager
     
     /**
      * Add an extension/role mapping to the role mapping option
+     *
+     * Roles influence both where a file is installed and how it is installed.
+     * Files with role="data" are in a completely different directory hierarchy
+     * from the program files of role="php"
+     * 
+     * In PEAR 1.2b2, these roles are
+     * - php (most common)
+     * - data
+     * - doc
+     * - test
+     * - script (gives the file an executable attribute)
+     * - src
      * @param string file extension
      * @param string role
      * @throws PEAR_PACKAGEFILEMANAGER_INVALID_ROLE

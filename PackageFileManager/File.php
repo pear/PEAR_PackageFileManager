@@ -29,6 +29,11 @@ class PEAR_PackageFileManager_File {
     var $_ignore = false;
 
     /**
+     * Set up the File filelist generator
+     *
+     * Options specific to this class are ignore.  See
+     * {@link PEAR_PackageFileManager::setOptions()} for
+     * more information
      * @param PEAR_PackageFileManager
      * @param array
      */
@@ -112,6 +117,11 @@ class PEAR_PackageFileManager_File {
     }
     
     /**
+     * Retrieve a listing of every file in $directory and
+     * all subdirectories.
+     *
+     * The return format is an array of full paths to files
+     * @access protected
      * @return array list of files in a directory
      * @param string $directory full path to the directory you want the list of
      */
