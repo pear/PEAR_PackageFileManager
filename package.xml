@@ -45,8 +45,8 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
     <filelist>
       <dir baseinstalldir="PEAR" name="/">
        <dir name="examples">
-        <file role="php" name="createPhpDocumentor_package.xml.php"/>
-        <file role="php" name="generatePackage.xml.php"/>
+        <file role="doc" name="createPhpDocumentor_package.xml.php"/>
+        <file role="doc" name="generatePackage.xml.php"/>
        </dir> <!-- examples -->
        <dir name="PackageFileManager">
         <file role="php" name="Cvs.php"/>
