@@ -561,22 +561,23 @@ class PEAR_PackageFileManager
         $this->_options['cleardependencies'] = false;
         $this->_options['deps'] = false;
         $this->_options['maintainers'] = false;
-        if (PEAR::isError($res = $this->_getExistingPackageXML(dirname($packagefile),
-              basename($packagefile)))) {
+        if (PEAR::isError($res = $this->_getExistingPackageXML(dirname($packagefile) .
+              DIRECTORY_SEPARATOR, basename($packagefile)))) {
             return $res;
         }
-        $this->_options['package'] = $this->_packagexml['package'];
-        $this->_options['summary'] = $this->_packagexml['summary'];
-        $this->_options['description'] = $this->_packagexml['description'];
-        $this->_options['date'] = $this->_packagexml['release_date'];
-        $this->_options['version'] = $this->_packagexml['version'];
-        $this->_options['license'] = $this->_packagexml['release_license'];
-        $this->_options['state'] = $this->_packagexml['release_state'];
-        $this->_options['notes'] = $this->_packagexml['release_notes'];
-        if (isset($this->_packagexml['release_deps'])) {
-            $this->_options['deps'] = $this->_packagexml['release_deps'];
+        $this->_options['package'] = $this->_oldPackageXml['package'];
+        $this->_options['summary'] = $this->_oldPackageXml['summary'];
+        $this->_options['description'] = $this->_oldPackageXml['description'];
+        $this->_options['date'] = $this->_oldPackageXml['release_date'];
+        $this->_options['version'] = $this->_oldPackageXml['version'];
+        $this->_options['license'] = $this->_oldPackageXml['release_license'];
+        $this->_options['state'] = $this->_oldPackageXml['release_state'];
+        $this->_options['notes'] = $this->_oldPackageXml['release_notes'];
+        if (isset($this->_oldPackagexml['release_deps'])) {
+            $this->_options['deps'] = $this->_oldPackageXml['release_deps'];
         }
-        $this->_options['maintainers'] = $this->_packagexml['maintainers'];
+        $this->_options['maintainers'] = $this->_oldPackageXml['maintainers'];
+        return true;
     }
 
     /**
