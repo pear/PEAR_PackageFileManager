@@ -1,7 +1,7 @@
 <?php
 
 /**
- * API Unit tests for Games_Chess package.
+ * API Unit tests for PEAR_PackageFileManager package.
  * 
  * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org> portions from HTML_CSS
