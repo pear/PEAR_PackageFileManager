@@ -1,5 +1,5 @@
 --TEST--
-PEAR_PackageFileManager->_getExistingPackageXML, invalid test, wrong output directory
+PEAR_PackageFileManager->addReplacement, invalid
 --SKIPIF--
 --FILE--
 <?php
