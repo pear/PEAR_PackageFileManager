@@ -117,7 +117,7 @@ class PEAR_PackageFileManager_File_TestCase_getFileList extends PHPUnit_TestCase
     
     function test_valid()
     {
-        if (!$this->_methodExists('dirList')) {
+        if (!$this->_methodExists('getFileList')) {
             return;
         }
         $this->packagexml->_options['ignore'] =
