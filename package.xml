@@ -63,13 +63,14 @@ Features include
       <file role="php" baseinstalldir="PEAR" md5sum="d2a9735d0d3321285af4f4c69c44f0c0" name="PackageFileManager/File.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="66b8173f17d40343769505477561a51e" name="tests/HTML_TestListener.php"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="222120258f2c4c061de14f23b49d582d" name="tests/PEAR_PackageFileManager_TestCase_addRole.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="756f4e87daa38686888517621ee750b4" name="tests/PEAR_PackageFileManager_TestCase_addReplacement.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="338b0877c5d9a8687009d6ccd6f783c4" name="tests/PEAR_PackageFileManager_TestCase_addRole.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="82674f4e004b9edc68f797b9e5819e87" name="tests/PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="2e72c840e1527597b17d36cc77743490" name="tests/PEAR_PackageFileManager_TestCase_getExistingPackageXML.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="bc33f9ae47809c31ed393f8bd063c938" name="tests/PEAR_PackageFileManager_TestCase_setOptions.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="576820df16c6366b1112fc3b7d63047e" name="tests/stylesheet.css"/>
       <file role="test" baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml"/>
-      <file role="test" baseinstalldir="PEAR" md5sum="d41e77cd93b676cd84930c09b3a2ec79" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" md5sum="a11303959670accbc1c44e5276035a78" name="tests/testsuite.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="991373ae7e4a9d4fe00c08d75873a785" name="tests/TestUnit.php"/>
       <file role="test" baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php"/>
       <file role="php" baseinstalldir="PEAR" md5sum="bbe30712fb13fd64b1c321158f3ca11c" name="PackageFileManager.php"/>
