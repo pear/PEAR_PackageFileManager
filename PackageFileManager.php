@@ -349,7 +349,8 @@ class PEAR_PackageFileManager
      * - simpleoutput: True if the package.xml should not contain md5sum or <provides />
      *                 for readability
      * - addhiddenfiles: True if you wish to add hidden files/directories that begin with .
-     *                   like .bashrc
+     *                   like .bashrc.  This is only used by the File generator.  The CVS
+     *                   generator will use all files in CVS regardless of format
      *
      * package.xml simple options:
      * - baseinstalldir: The base directory to install this package in.  For
