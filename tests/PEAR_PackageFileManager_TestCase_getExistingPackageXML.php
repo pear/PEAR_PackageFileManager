@@ -144,6 +144,7 @@ class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_Tes
         if (!$this->_methodExists('_getExistingPackageXML')) {
             return;
         }
+        $this->packagexml->_options['pearcommonclass'] = 'PEAR_Common';
         $res = $this->packagexml->_getExistingPackageXML(dirname(__FILE__) . '/', 'test1_package.xml');
         $this->assertFalse(is_object($res), 'returned error');
         $PEAR_Common = $this->packagexml->_options['pearcommonclass'];
@@ -162,6 +163,7 @@ class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_Tes
         if (!$this->_methodExists('_getExistingPackageXML')) {
             return;
         }
+        $this->packagexml->_options['pearcommonclass'] = 'PEAR_Common';
         $this->packagexml->_options['deps'] =
             array(
                 array('name' => 'pork', 'rel' => 'ge', 'version' => '1.0.0',
@@ -188,6 +190,7 @@ class PEAR_PackageFileManager_TestCase_getExistingPackageXML extends PHPUnit_Tes
         if (!$this->_methodExists('_getExistingPackageXML')) {
             return;
         }
+        $this->packagexml->_options['pearcommonclass'] = 'PEAR_Common';
         $this->packagexml->_options['maintainers'] =
             array(
                 array('name' => 'Gerg', 'email' => 'foo@example.com',
