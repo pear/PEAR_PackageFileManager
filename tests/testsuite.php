@@ -12,6 +12,7 @@
 require_once 'TestUnit.php';
 require_once 'HTML_TestListener.php';
 require_once 'PEAR/PackageFileManager.php';
+require_once 'PEAR/PackageFileManager/File.php';
 
 $title = 'PhpUnit test run, PEAR_PackageFileManager package';
 ?>
@@ -54,6 +55,7 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
     	    'PEAR_PackageFileManager_TestCase_addMaintainer',
     	    'PEAR_PackageFileManager_TestCase_addConfigureOption',
     	    'PEAR_PackageFileManager_TestCase_addDependency',
+            'PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString',
 	);
 
 	
