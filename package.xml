@@ -67,6 +67,34 @@ PEAR_PackageFileManager is fully unit tested.
      <file role="php" name="XMLOutput.php"/>
     </dir> <!-- /PackageFileManager -->
     <dir name="tests">
+     <dir name="addConfigureOption">
+      <file role="test" name="test_invalid_nosetoptions.phpt"/>
+      <file role="test" name="test_valid_add1.phpt"/>
+      <file role="test" name="test_valid_add2.phpt"/>
+      <file role="test" name="test_valid_replace.phpt"/>
+     </dir> <!-- /tests/addConfigureOption -->
+     <dir name="addDependency">
+      <file role="test" name="test_invalid_nosetoptions.phpt"/>
+      <file role="test" name="test_invalid_phppkg.phpt"/>
+      <file role="test" name="test_valid_add_php.phpt"/>
+      <file role="test" name="test_valid_add_pkg_explicit.phpt"/>
+      <file role="test" name="test_valid_add_pkg_implicit.phpt"/>
+      <file role="test" name="test_valid_replace.phpt"/>
+     </dir> <!-- /tests/addDependency -->
+     <dir name="addMaintainer">
+      <file role="test" name="test_invalid_nosetoptions.phpt"/>
+      <file role="test" name="test_invalid_wrongrole.phpt"/>
+      <file role="test" name="test_valid_add.phpt"/>
+      <file role="test" name="test_valid_replace.phpt"/>
+     </dir> <!-- /tests/addMaintainer -->
+     <dir name="addReplacement">
+      <file role="test" name="test_invalid_replacement.phpt"/>
+      <file role="test" name="test_valid_replacement.phpt"/>
+     </dir> <!-- /tests/addReplacement -->
+     <dir name="addRole">
+      <file role="test" name="test_invalid_role.phpt"/>
+      <file role="test" name="test_valid_role.phpt"/>
+     </dir> <!-- /tests/addRole -->
      <dir name="footest">
       <dir name="blarfoo">
        <file role="test" name="blartest.txt"/>
@@ -183,24 +211,28 @@ PEAR_PackageFileManager is fully unit tested.
       </dir> <!-- /tests/PEAR_PackageFileManager_File/setupIgnore -->
       <file role="test" name="setup.php.inc"/>
      </dir> <!-- /tests/PEAR_PackageFileManager_File -->
+     <dir name="PEAR_PackageFileManager_XMLOutput">
+      <file role="test" name="test_valid1.phpt"/>
+     </dir> <!-- /tests/PEAR_PackageFileManager_XMLOutput -->
+     <dir name="setOptions">
+      <file role="test" name="test_invalid_badfilelistgenerator1.phpt"/>
+      <file role="test" name="test_invalid_badfilelistgenerator2.phpt"/>
+      <file role="test" name="test_invalid_badfilelistgenerator3.phpt"/>
+      <file role="test" name="test_invalid_filelistgeneratorcustom.phpt"/>
+      <file role="test" name="test_invalid_nobaseinstalldir.phpt"/>
+      <file role="test" name="test_invalid_nopackagedir.phpt"/>
+      <file role="test" name="test_invalid_nostate.phpt"/>
+      <file role="test" name="test_invalid_noversion.phpt"/>
+      <file role="test" name="test_valid_filelistgeneratorcustom.phpt"/>
+      <file role="test" name="test_valid_filelistgeneratorcvs.phpt"/>
+      <file role="test" name="test_valid_filelistgeneratorfile.phpt"/>
+     </dir> <!-- /tests/setOptions -->
      <file role="test" name="Bad_file.php"/>
-     <file role="test" name="HTML_TestListener.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_addDependency.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_addMaintainer.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_addReplacement.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_addRole.php"/>
-     <file role="test" name="PEAR_PackageFileManager_TestCase_setOptions.php"/>
-     <file role="test" name="PEAR_PackageFileManager_XMLOutput_TestCase_1.php"/>
      <file role="test" name="phpt_test.php.inc"/>
      <file role="test" name="setup.php.inc"/>
-     <file role="test" name="stylesheet.css"/>
      <file role="test" name="test1_package.xml"/>
-     <file role="test" name="testsuite.php"/>
-     <file role="test" name="TestUnit.php"/>
      <file role="test" name="Test_file.php"/>
     </dir> <!-- /tests -->
-    <file role="php" name="package.php"/>
     <file role="php" name="PackageFileManager.php"/>
    </dir> <!-- / -->
   </filelist>
