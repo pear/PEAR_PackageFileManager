@@ -60,6 +60,7 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
             'PEAR_PackageFileManager_File_TestCase_checkIgnore',
             'PEAR_PackageFileManager_File_TestCase_dirList',
             'PEAR_PackageFileManager_File_TestCase_getFileList',
+            'PEAR_PackageFileManager_File_TestCase_setupDirs',
 	);
 
 	
