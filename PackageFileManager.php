@@ -686,15 +686,16 @@ class PEAR_PackageFileManager
      *   'pkg', 'ext', 'php', 'prog', 'os', 'sapi', or 'zend'
      * @param boolean true if dependency is optional
      * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
+     * @throws PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE
      * @return void|PEAR_Error
      */
     function addDependency($name, $version = false, $operator = 'ge', $type = 'pkg', $optional = false)
     {
-        if ((strtolower($name) == 'php') && (strtolower($type) == 'pkg')) {
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE);
-        }
         if (!$this->_packageXml) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
+        }
+        if ((strtolower($name) == 'php') && (strtolower($type) == 'pkg')) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE);
         }
         if (!isset($this->_packageXml['release_deps'])) {
             $this->_packageXml['release_deps'] = array();
@@ -720,10 +721,10 @@ class PEAR_PackageFileManager
         if ($type == 'php') {
             unset($dep['name']);
         }
-        if ($version) {
-            $dep['version'] = $version;
-            if ($operator) {
-                $dep['rel'] = $operator;
+        if ($operator) {
+            $dep['rel'] = $operator;
+            if ($dep['rel'] != 'has' && $version) {
+                $dep['version'] = $version;
             }
         }
         
