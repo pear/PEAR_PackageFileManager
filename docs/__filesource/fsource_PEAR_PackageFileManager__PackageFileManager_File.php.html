@@ -88,14 +88,14 @@
 <a name="a62"></a><br />63                <font color="blue">if</font> <strong>(</strong><strong>!</strong><strong><font color="#008000">$path</font></strong><strong>)</strong> <strong>{</strong>
 <a name="a63"></a><br />64                    <strong><font color="#008000">$path</font></strong> = <font color="#ff702b">'/'</font>;
 <a name="a64"></a><br />65                <strong>}</strong>
-<a name="a65"></a><br />66                <strong><font color="#008000">$file</font></strong> = <a href="http://www.php.net/basename">basename</a><strong>(</strong><strong><font color="#008000">$file</font></strong><strong>)</strong>;
-<a name="a66"></a><br />67                <strong><font color="#008000">$ext</font></strong> = <a href="http://www.php.net/array_pop">array_pop</a><strong>(</strong><a href="http://www.php.net/explode">explode</a><strong>(</strong><font color="#ff702b">'.'</font><strong>,</strong> <strong><font color="#008000">$file</font></strong><strong>)</strong><strong>)</strong>;
-<a name="a67"></a><br />68                <font color="blue">if</font> <strong>(</strong><a href="http://www.php.net/strlen">strlen</a><strong>(</strong><strong><font color="#008000">$ext</font></strong><strong>)</strong> == <a href="http://www.php.net/strlen">strlen</a><strong>(</strong><strong><font color="#008000">$file</font></strong><strong>)</strong><strong>)</strong> <strong>{</strong>
-<a name="a68"></a><br />69                    <strong><font color="#008000">$ext</font></strong> = <font color="#ff702b">''</font>;
-<a name="a69"></a><br />70                <strong>}</strong>
-<a name="a70"></a><br />71                <strong><font color="#008000">$struc</font></strong><strong>[</strong><strong><font color="#008000">$path</font></strong><strong>]</strong><strong>[</strong><strong>]</strong> = array<strong>(</strong><font color="#ff702b">'file'</font> =&gt; <strong><font color="#008000">$file</font></strong><strong>,</strong>
-<a name="a71"></a><br />72                                        <font color="#ff702b">'ext'</font> =&gt; <strong><font color="#008000">$ext</font></strong><strong>,</strong>
-<a name="a72"></a><br />73                                        <font color="#ff702b">'path'</font> =&gt; <strong>(</strong><strong>(</strong><strong><font color="#008000">$path</font></strong> == <font color="#ff702b">'/'</font><strong>)</strong> ? <strong><font color="#008000">$file</font></strong> : <strong><font color="#008000">$path</font></strong> . <font color="#ff702b">'/'</font> . <strong><font color="#008000">$file</font></strong><strong>)</strong><strong>)</strong>;
+<a name="a65"></a><br />66                <strong><font color="#008000">$ext</font></strong> = <a href="http://www.php.net/array_pop">array_pop</a><strong>(</strong><a href="http://www.php.net/explode">explode</a><strong>(</strong><font color="#ff702b">'.'</font><strong>,</strong> <strong><font color="#008000">$file</font></strong><strong>)</strong><strong>)</strong>;
+<a name="a66"></a><br />67                <font color="blue">if</font> <strong>(</strong><a href="http://www.php.net/strlen">strlen</a><strong>(</strong><strong><font color="#008000">$ext</font></strong><strong>)</strong> == <a href="http://www.php.net/strlen">strlen</a><strong>(</strong><strong><font color="#008000">$file</font></strong><strong>)</strong><strong>)</strong> <strong>{</strong>
+<a name="a67"></a><br />68                    <strong><font color="#008000">$ext</font></strong> = <font color="#ff702b">''</font>;
+<a name="a68"></a><br />69                <strong>}</strong>
+<a name="a69"></a><br />70                <strong><font color="#008000">$struc</font></strong><strong>[</strong><strong><font color="#008000">$path</font></strong><strong>]</strong><strong>[</strong><strong>]</strong> = array<strong>(</strong><font color="#ff702b">'file'</font> =&gt; <a href="http://www.php.net/basename">basename</a><strong>(</strong><strong><font color="#008000">$file</font></strong><strong>)</strong><strong>,</strong>
+<a name="a70"></a><br />71                                        <font color="#ff702b">'ext'</font> =&gt; <strong><font color="#008000">$ext</font></strong><strong>,</strong>
+<a name="a71"></a><br />72                                        <font color="#ff702b">'path'</font> =&gt; <strong>(</strong><strong>(</strong><strong><font color="#008000">$path</font></strong> == <font color="#ff702b">'/'</font><strong>)</strong> ? <a href="http://www.php.net/basename">basename</a><strong>(</strong><strong><font color="#008000">$file</font></strong><strong>)</strong> : <strong><font color="#008000">$path</font></strong> . <font color="#ff702b">'/'</font> . <a href="http://www.php.net/basename">basename</a><strong>(</strong><strong><font color="#008000">$file</font></strong><strong>)</strong><strong>)</strong><strong>,</strong>
+<a name="a72"></a><br />73                                        <font color="#ff702b">'fullpath'</font> =&gt; <strong><font color="#008000">$file</font></strong><strong>)</strong>;
 <a name="a73"></a><br />74            <strong>}</strong>
 <a name="a74"></a><br />75            <a href="http://www.php.net/uksort">uksort</a><strong>(</strong><strong><font color="#008000">$struc</font></strong><strong>,</strong><font color="#ff702b">'strnatcasecmp'</font><strong>)</strong>;
 <a name="a75"></a><br />76            <font color="blue">foreach</font><strong>(</strong><strong><font color="#008000">$struc</font></strong> as <strong><font color="#008000">$key</font></strong> =&gt; <strong><font color="#008000">$ind</font></strong><strong>)</strong> <strong>{</strong>
@@ -310,7 +310,7 @@
 </div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Mon, 21 Jul 2003 17:14:18 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
+		    Documentation generated on Mon, 21 Jul 2003 20:16:09 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
 	      </div>
       </td></tr></table>
     </td>

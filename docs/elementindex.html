@@ -62,8 +62,12 @@
 	<div>
 		<h2>a</h2>
 		<dl>
+							<dt><b>addConfigureOption</b></dt>
+				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddConfigureOption">PEAR_PackageFileManager::addConfigureOption()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add an install-time configuration option for building of source</dd>
 							<dt><b>addDependency</b></dt>
 				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddDependency">PEAR_PackageFileManager::addDependency()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add a dependency on another package, or an extension/php</dd>
+							<dt><b>addMaintainer</b></dt>
+				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddMaintainer">PEAR_PackageFileManager::addMaintainer()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add a maintainer to the list of maintainers.</dd>
 							<dt><b>addRole</b></dt>
 				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddRole">PEAR_PackageFileManager::addRole()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Add an extension/role mapping to the role mapping option</dd>
 					</dl>
@@ -143,6 +147,8 @@
 				<dd>in file PackageFileManager.php, class <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html">PEAR_PackageFileManager</a><br>&nbsp;&nbsp;&nbsp;&nbsp;PEAR :: PackageGenerate updates the &lt;filelist&gt;&lt;/filelist&gt; section  of a PEAR package.xml file to reflect the current files in  preparation for a release.</dd>
 							<dt><b>PEAR_PackageFileManager</b></dt>
 				<dd>in file PackageFileManager.php, method <a href="PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodPEAR_PackageFileManager">PEAR_PackageFileManager::PEAR_PackageFileManager()</a></dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS">PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE">PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE</b></dt>
@@ -167,16 +173,24 @@
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOBASEDIR">PEAR_PACKAGEFILEMANAGER_NOBASEDIR</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOCVSENTRIES">PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_NODESC</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NODESC">PEAR_PACKAGEFILEMANAGER_NODESC</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_NOPACKAGE</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOPACKAGE">PEAR_PACKAGEFILEMANAGER_NOPACKAGE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_NOPKGDIR</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOPKGDIR">PEAR_PACKAGEFILEMANAGER_NOPKGDIR</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_NOSTATE</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOSTATE">PEAR_PACKAGEFILEMANAGER_NOSTATE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_NOSUMMARY</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOSUMMARY">PEAR_PACKAGEFILEMANAGER_NOSUMMARY</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_NOVERSION</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_NOVERSION">PEAR_PACKAGEFILEMANAGER_NOVERSION</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST">PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 							<dt><b>PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS</b></dt>
 				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS">PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
+							<dt><b>PEAR_PACKAGEFILEMANAGER_WRONG_MROLE</b></dt>
+				<dd>in file PackageFileManager.php, constant <a href="PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html#definePEAR_PACKAGEFILEMANAGER_WRONG_MROLE">PEAR_PACKAGEFILEMANAGER_WRONG_MROLE</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Error Codes</dd>
 					</dl>
 	</div>
 	<a name="r"></a>
@@ -220,7 +234,7 @@
 	</div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Mon, 21 Jul 2003 17:14:17 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
+		    Documentation generated on Mon, 21 Jul 2003 20:16:08 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
 	      </div>
       </td></tr></table>
     </td>

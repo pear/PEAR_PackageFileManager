@@ -63,14 +63,14 @@ class PEAR_PackageFileManager_File {
         	if (!$path) {
                 $path = '/';
             }
-        	$file = basename($file);
         	$ext = array_pop(explode('.', $file));
         	if (strlen($ext) == strlen($file)) {
                 $ext = '';
             }
-        	$struc[$path][] = array('file' => $file,
+        	$struc[$path][] = array('file' => basename($file),
                                     'ext' => $ext,
-                                    'path' => (($path == '/') ? $file : $path . '/' . $file));
+                                    'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
+                                    'fullpath' => $file);
         }
         uksort($struc,'strnatcasecmp');
         foreach($struc as $key => $ind) {

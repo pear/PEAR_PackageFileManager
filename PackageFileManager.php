@@ -42,6 +42,11 @@ define('PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST', 10);
 define('PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES', 11);
 define('PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST', 12);
 define('PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS', 13);
+define('PEAR_PACKAGEFILEMANAGER_NOPACKAGE', 14);
+define('PEAR_PACKAGEFILEMANAGER_WRONG_MROLE', 15);
+define('PEAR_PACKAGEFILEMANAGER_NOSUMMARY', 16);
+define('PEAR_PACKAGEFILEMANAGER_NODESC', 17);
+define('PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS', 18);
 /**#@-*/
 /**
  * Error messages
@@ -52,13 +57,15 @@ array(
     'en' =>
     array(
         PEAR_PACKAGEFILEMANAGER_NOSTATE =>
-            'Release State (option \'state\' must by specified in PEAR_PackageFileManager constructor (alpha|beta|stable)',
+            'Release State (option \'state\') must by specified in PEAR_PackageFileManager setOptions (alpha|beta|stable)',
         PEAR_PACKAGEFILEMANAGER_NOVERSION =>
-            'Release Version (option \'version\') must be specified in PEAR_PackageFileManager constructor',
+            'Release Version (option \'version\') must be specified in PEAR_PackageFileManager setOptions',
         PEAR_PACKAGEFILEMANAGER_NOPKGDIR =>
-            'Package source base directory (option \'packagedirectory\') must be specified in PEAR_PackageFileManager constructor',
+            'Package source base directory (option \'packagedirectory\') must be ' .
+            'specified in PEAR_PackageFileManager setOptions',
         PEAR_PACKAGEFILEMANAGER_NOPKGDIR =>
-            'Package install base directory (option \'baseinstalldir\') must be specified in PEAR_PackageFileManager constructor',
+            'Package install base directory (option \'baseinstalldir\') must be ' .
+            'specified in PEAR_PackageFileManager setOptions',
         PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND =>
             'Base class "%s" can\'t be located',
         PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE =>
@@ -79,6 +86,19 @@ array(
             'Package source base directory "%s" doesn\'t exist or isn\'t a directory',
         PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS =>
             'Run $managerclass->setOptions() before any other methods',
+        PEAR_PACKAGEFILEMANAGER_NOPACKAGE =>
+            'Package Name (option \'package\') must by specified in PEAR_PackageFileManager '.
+            'setOptions to create a new package.xml',
+        PEAR_PACKAGEFILEMANAGER_NOSUMMARY =>
+            'Package Summary (option \'summary\') must by specified in PEAR_PackageFileManager' .
+            ' setOptions to create a new package.xml',
+        PEAR_PACKAGEFILEMANAGER_NODESC =>
+            'Detailed Package Description (option \'description\') must be' .
+            ' specified in PEAR_PackageFileManager constructor to create a new package.xml',
+        PEAR_PACKAGEFILEMANAGER_WRONG_MROLE =>
+            'Maintainer role must be one of "%s"',
+        PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS =>
+            'Add maintainers to a package before generating the package.xml',
         ),
         // other language translations go here
      );
@@ -135,6 +155,10 @@ array(
  *     die();
  * }
  * ?>
+ *
+ * In addition, a package.xml file can now be generated from
+ * scratch, with the usage of new options package, summary, description, and
+ * the use of the {@link addMaintainer()} method
  * </code>
  * @package PEAR_PackageFileManager
  */
@@ -154,6 +178,12 @@ class PEAR_PackageFileManager
      * @access private
      */
     var $_packageXml = false;
+    
+    /**
+     * @access private
+     * @var PEAR_Common
+     */
+    var $_pear;
     
     /**
      * @access private
@@ -184,6 +214,7 @@ class PEAR_PackageFileManager
                       'outputdirectory' => false,
                       'pathtopackagefile' => false,
                       'lang' => 'en',
+                      'configure_options' => array(),
                       );
     
     function PEAR_PackageFileManager()
@@ -257,6 +288,87 @@ class PEAR_PackageFileManager
     }
     
     /**
+     * Add a maintainer to the list of maintainers.
+     *
+     * Every maintainer must have a valid account at pear.php.net.  The
+     * first parameter is the account name (for instance, cellog is the
+     * handle for Greg Beaver at pear.php.net).  Every maintainer has
+     * one of four possible roles:
+     * - lead: the primary maintainer
+     * - developer: an important developer on the project
+     * - contributor: self-explanatory
+     * - helper: ditto
+     *
+     * Finally, specify the name and email of the maintainer
+     * @param string username on pear.php.net of maintainer
+     * @param lead|developer|contributor|helper role of maintainer
+     * @param string full name of maintainer
+     * @param string email address of maintainer
+     */
+    function addMaintainer($handle, $role, $name, $email)
+    {
+        if (!$this->_packageXml) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
+        }
+        if (!in_array($role, $GLOBALS['_PEAR_Common_maintainer_roles'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_WRONG_MROLE,
+                implode(', ', $GLOBALS['_PEAR_Common_maintainer_roles']));
+        }
+        if (!isset($this->_packageXml['maintainers'])) {
+            $this->_packageXml['maintainers'] = array();
+        }
+        $found = false;
+        foreach($this->_packageXml['maintainers'] as $index => $maintainer) {
+            if ($maintainer['handle'] == $handle) {
+                $found = $index;
+                break;
+            }
+        }
+        $maintainer =
+            array('handle' => $handle, 'role' => $role, 'name' => $name, 'email' => $email);
+        if ($found !== false) {
+            $this->_packageXml['maintainers'][$found] = $maintainer;
+        } else {
+            $this->_packageXml['maintainers'][] = $maintainer;
+        }
+    }
+    
+    /**
+     * Add an install-time configuration option for building of source
+     *
+     * This option is only useful to PECL projects that are built upon
+     * installation
+     * @param string name of the option
+     * @param string prompt to display to the user
+     * @param string default value
+     */
+    function addConfigureOption($name, $prompt, $default = null)
+    {
+        if (!$this->_packageXml) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
+        }
+        if (!isset($this->_packageXml['configure_options'])) {
+            $this->_packageXml['configure_options'] = array();
+        }
+        $found = false;
+        foreach($this->_packageXml['configure_options'] as $index => $option) {
+            if ($option['name'] == $name) {
+                $found = $index;
+                break;
+            }
+        }
+        $option = array('name' => $name, 'prompt' => $prompt);
+        if (isset($default)) {
+            $option['default'] = $default;
+        }
+        if ($found !== false) {
+            $this->_packageXml['configure_options'][$found] = $option;
+        } else {
+            $this->_packageXml['configure_options'][] = $option;
+        }
+    }
+    
+    /**
      * Add a dependency on another package, or an extension/php
      *
      * This will overwrite an existing dependency if it is found.  In
@@ -309,19 +421,26 @@ class PEAR_PackageFileManager
         if (!$this->_packageXml) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
         }
+        if (!isset($this->_packageXml['maintainers'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS);
+        }
         extract($this->_options);
         $date = date('Y-m-d');
         $this->_packageXml['release_date'] = $date;
-        $this->_packageXml['release_version'] = $version;
+        $this->_packageXml['version'] = $version;
         $this->_packageXml['release_state'] = $state;
         $this->_packageXml['release_notes'] = $notes;
+        $this->_pear = new PEAR_Common;
         $this->_packageXml['filelist'] = $this->_getFileList();
         if (PEAR::isError($this->_packageXml['filelist'])) {
             return $this->_packageXml['filelist'];
         }
+        if (isset($this->_pear->pkginfo['provides'])) {
+            $this->_packageXml['provides'] = $this->_pear->pkginfo['provides'];
+        }
         $this->_packageXml['release_deps'] = $this->_getDependencies();
         $this->_updateChangeLog();
-        $common = new PEAR_Common;
+        $common = &$this->_pear;
         $packagexml = $common->xmlFromInfo($this->_packageXml);
         if (isset($debuginterface)) {
             if ($debuginterface) {
@@ -376,6 +495,18 @@ class PEAR_PackageFileManager
         return PEAR::raiseError('PEAR_PackageFileManager Error: ' .
                     sprintf($GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS'][$this->_options['lang']][$code],
                     $i1, $i2));
+    }
+    
+    /**
+     * Uses {@link PEAR_Common::analyzeSourceCode()} and {@link PEAR_Common::buildProvidesArray()}
+     * to create the <provides></provides> section of the package.xml
+     * @param PEAR_Common
+     * @param string path to source file
+     * @access private
+     */
+    function _addProvides(&$pear, $file)
+    {
+        $pear->buildProvidesArray($pear->analyzeSourceCode($file));
     }
     
     /**
@@ -438,6 +569,9 @@ class PEAR_PackageFileManager
                         $bi = $baseinstalldir;
                     }
     				$ret[$files['path']] = array('role' => $myrole, 'baseinstalldir' => $bi);
+                    if ($myrole == 'php') {
+                        $this->_addProvides($this->_pear, $files['fullpath']);
+                    }
     			}
     		}
     	}
@@ -494,10 +628,13 @@ class PEAR_PackageFileManager
         if (@is_dir($path)) {
             $contents = @file_get_contents($path . $packagefile);
             if (!$contents) {
-                return false;
+                return $this->_generateNewPackageXML();
             } else {
                 $common = new PEAR_Common;
                 $this->_packageXml = $common->infoFromString($contents);
+                if (PEAR::isError($this->_packageXml)) {
+                    return $this->_packageXml;
+                }
                 unset($this->_packageXml['filelist']);
             }
             return true;
@@ -505,6 +642,29 @@ class PEAR_PackageFileManager
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST,
                 $path);
         }
+    }
+    
+    /**
+     * Create the structure for a new package.xml
+     * @access private
+     */
+    function _generateNewPackageXML()
+    {
+        if (!isset($this->_options['package'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
+        }
+        if (!isset($this->_options['summary'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOSUMMARY);
+        }
+        if (!isset($this->_options['description'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NODESC);
+        }
+        $this->_packageXml = array();
+        $this->_packageXml['package'] = $this->_options['package'];
+        $this->_packageXml['summary'] = $this->_options['summary'];
+        $this->_packageXml['description'] = $this->_options['description'];
+        $this->_packageXml['changelog'] = array();
+        return true;
     }
 }
 

@@ -67,9 +67,9 @@ Source Location: Program_Root/PackageFileManager.php<br /><br />
 
 		<p align="center" class="short-description"><strong>PEAR :: PackageGenerate updates the &lt;filelist&gt;&lt;/filelist&gt; section  of a PEAR package.xml file to reflect the current files in  preparation for a release.
 </strong></p>
-<span class="description"><p>The PEAR_PackageGenerate class uses a plugin system to generate the  list of files in a package.  This allows both standard recursive  directory parsing (plugin type file) and more intelligent options  such as the CVS browser <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html">PEAR_PackageFileManager_Cvs</a>, which  grabs all files in a local CVS checkout to create the list, ignoring  any other local files.</p><p>Other options include specifying roles for file extensions (all .php  files are role=&quot;php&quot;, for example), roles for directories (all directories  named &quot;tests&quot; are given role=&quot;tests&quot; by default), and exceptions.  Exceptions are specific pathnames with * and ? wildcards that match  a default role, but should have another.  For example, perhaps  a debug.tpl template would normally be data, but should be included  in the docs role.  Along these lines, to exclude files entirely,  use the ignore option.</p><p>Required options for a release include version, baseinstalldir, state,  and packagedirectory (the full path to the local location of the  package to create a package.xml file for)</p><p>Example usage:  <pre><br />1      &lt;?php<br />2      <font color="#800000">require_once</font><strong>(</strong><font color="#ff702b">'PEAR/PackageFileManager.php'</font><strong>)</strong>;<br />3      <strong><font color="#008000">$packagexml</font></strong> = new <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodPEAR_PackageFileManager">PEAR_PackageFileManager</a>;<br />4      <strong><font color="#008000">$e</font></strong> = <strong><font color="#008000">$packagexml</font></strong><strong>-&gt;</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodsetOptions">setOptions</a><strong>(</strong><br />5      array<strong>(</strong><font color="#ff702b">'baseinstalldir'</font> =&gt; <font color="#ff702b">'PhpDocumentor'</font><strong>,</strong><br />6       <font color="#ff702b">'version'</font> =&gt; <font color="#ff702b">'1.2.1'</font><strong>,</strong><br />7       <font color="#ff702b">'packagedirectory'</font> =&gt; <font color="#ff702b">'C:/Web Pages/chiara/phpdoc2/'</font><strong>,</strong><br />8       <font color="#ff702b">'state'</font> =&gt; <font color="#ff702b">'stable'</font><strong>,</strong><br />9       <font color="#ff702b">'filelistgenerator'</font> =&gt; <font color="#ff702b">'cvs'</font><strong>,</strong> <font color="#a0a0a4">// generate from cvs, use file for directory</font><br />10      <font color="#ff702b">'notes'</font> =&gt; <font color="#ff702b">'We\'ve implemented many new and exciting features'</font><strong>,</strong><br />11      <font color="#ff702b">'ignore'</font> =&gt; array<strong>(</strong><font color="#ff702b">'TODO'</font><strong>,</strong> <font color="#ff702b">'tests/'</font><strong>)</strong><strong>,</strong> <font color="#a0a0a4">// ignore TODO, all files in tests/</font><br />12      <font color="#ff702b">'installexceptions'</font> =&gt; array<strong>(</strong><font color="#ff702b">'phpdoc'</font> =&gt; <font color="#ff702b">'/*'</font><strong>)</strong><strong>,</strong> <font color="#a0a0a4">// baseinstalldir =&quot;/&quot; for phpdoc</font><br />13      <font color="#ff702b">'dir_roles'</font> =&gt; array<strong>(</strong><font color="#ff702b">'tutorials'</font> =&gt; <font color="#ff702b">'doc'</font><strong>)</strong><strong>,</strong><br />14      <font color="#ff702b">'exceptions'</font> =&gt; array<strong>(</strong><font color="#ff702b">'README'</font> =&gt; <font color="#ff702b">'doc'</font><strong>,</strong> <font color="#a0a0a4">// README would be data, now is doc</font><br />15                            <font color="#ff702b">'PHPLICENSE.txt'</font> =&gt; <font color="#ff702b">'doc'</font><strong>)</strong><strong>)</strong><strong>)</strong>; <font color="#a0a0a4">// same for the license</font><br />16     <font color="blue">if</font> <strong>(</strong>PEAR<strong>::</strong>isError<strong>(</strong><strong><font color="#008000">$e</font></strong><strong>)</strong><strong>)</strong> <strong>{</strong><br />17         echo <strong><font color="#008000">$e</font></strong><strong>-&gt;</strong>getMessage<strong>(</strong><strong>)</strong>;<br />18         die<strong>(</strong><strong>)</strong>;<br />19     <strong>}</strong><br />20     <strong><font color="#008000">$packagexml</font></strong><strong>-&gt;</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddRole">addRole</a><strong>(</strong><font color="#ff702b">'pkg'</font><strong>,</strong> <font color="#ff702b">'doc'</font><strong>)</strong>; <font color="#a0a0a4">// add a new role mapping</font><br />21     <strong><font color="#008000">$e</font></strong> = <strong><font color="#008000">$packagexml</font></strong><strong>-&gt;</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodwritePackageFile">writePackageFile</a><strong>(</strong><strong>)</strong>;<br />22     <font color="blue">if</font> <strong>(</strong>PEAR<strong>::</strong>isError<strong>(</strong><strong><font color="#008000">$e</font></strong><strong>)</strong><strong>)</strong> <strong>{</strong><br />23         echo <strong><font color="#008000">$e</font></strong><strong>-&gt;</strong>getMessage<strong>(</strong><strong>)</strong>;<br />24         die<strong>(</strong><strong>)</strong>;<br />25     <strong>}</strong><br />26     <strong>?&gt;</strong></pre></p></span>
+<span class="description"><p>The PEAR_PackageGenerate class uses a plugin system to generate the  list of files in a package.  This allows both standard recursive  directory parsing (plugin type file) and more intelligent options  such as the CVS browser <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html">PEAR_PackageFileManager_Cvs</a>, which  grabs all files in a local CVS checkout to create the list, ignoring  any other local files.</p><p>Other options include specifying roles for file extensions (all .php  files are role=&quot;php&quot;, for example), roles for directories (all directories  named &quot;tests&quot; are given role=&quot;tests&quot; by default), and exceptions.  Exceptions are specific pathnames with * and ? wildcards that match  a default role, but should have another.  For example, perhaps  a debug.tpl template would normally be data, but should be included  in the docs role.  Along these lines, to exclude files entirely,  use the ignore option.</p><p>Required options for a release include version, baseinstalldir, state,  and packagedirectory (the full path to the local location of the  package to create a package.xml file for)</p><p>Example usage:  <pre><br />1      &lt;?php<br />2      <font color="#800000">require_once</font><strong>(</strong><font color="#ff702b">'PEAR/PackageFileManager.php'</font><strong>)</strong>;<br />3      <strong><font color="#008000">$packagexml</font></strong> = new <a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodPEAR_PackageFileManager">PEAR_PackageFileManager</a>;<br />4      <strong><font color="#008000">$e</font></strong> = <strong><font color="#008000">$packagexml</font></strong><strong>-&gt;</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodsetOptions">setOptions</a><strong>(</strong><br />5      array<strong>(</strong><font color="#ff702b">'baseinstalldir'</font> =&gt; <font color="#ff702b">'PhpDocumentor'</font><strong>,</strong><br />6       <font color="#ff702b">'version'</font> =&gt; <font color="#ff702b">'1.2.1'</font><strong>,</strong><br />7       <font color="#ff702b">'packagedirectory'</font> =&gt; <font color="#ff702b">'C:/Web Pages/chiara/phpdoc2/'</font><strong>,</strong><br />8       <font color="#ff702b">'state'</font> =&gt; <font color="#ff702b">'stable'</font><strong>,</strong><br />9       <font color="#ff702b">'filelistgenerator'</font> =&gt; <font color="#ff702b">'cvs'</font><strong>,</strong> <font color="#a0a0a4">// generate from cvs, use file for directory</font><br />10      <font color="#ff702b">'notes'</font> =&gt; <font color="#ff702b">'We\'ve implemented many new and exciting features'</font><strong>,</strong><br />11      <font color="#ff702b">'ignore'</font> =&gt; array<strong>(</strong><font color="#ff702b">'TODO'</font><strong>,</strong> <font color="#ff702b">'tests/'</font><strong>)</strong><strong>,</strong> <font color="#a0a0a4">// ignore TODO, all files in tests/</font><br />12      <font color="#ff702b">'installexceptions'</font> =&gt; array<strong>(</strong><font color="#ff702b">'phpdoc'</font> =&gt; <font color="#ff702b">'/*'</font><strong>)</strong><strong>,</strong> <font color="#a0a0a4">// baseinstalldir =&quot;/&quot; for phpdoc</font><br />13      <font color="#ff702b">'dir_roles'</font> =&gt; array<strong>(</strong><font color="#ff702b">'tutorials'</font> =&gt; <font color="#ff702b">'doc'</font><strong>)</strong><strong>,</strong><br />14      <font color="#ff702b">'exceptions'</font> =&gt; array<strong>(</strong><font color="#ff702b">'README'</font> =&gt; <font color="#ff702b">'doc'</font><strong>,</strong> <font color="#a0a0a4">// README would be data, now is doc</font><br />15                            <font color="#ff702b">'PHPLICENSE.txt'</font> =&gt; <font color="#ff702b">'doc'</font><strong>)</strong><strong>)</strong><strong>)</strong>; <font color="#a0a0a4">// same for the license</font><br />16     <font color="blue">if</font> <strong>(</strong>PEAR<strong>::</strong>isError<strong>(</strong><strong><font color="#008000">$e</font></strong><strong>)</strong><strong>)</strong> <strong>{</strong><br />17         echo <strong><font color="#008000">$e</font></strong><strong>-&gt;</strong>getMessage<strong>(</strong><strong>)</strong>;<br />18         die<strong>(</strong><strong>)</strong>;<br />19     <strong>}</strong><br />20     <strong><font color="#008000">$packagexml</font></strong><strong>-&gt;</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddRole">addRole</a><strong>(</strong><font color="#ff702b">'pkg'</font><strong>,</strong> <font color="#ff702b">'doc'</font><strong>)</strong>; <font color="#a0a0a4">// add a new role mapping</font><br />21     <strong><font color="#008000">$e</font></strong> = <strong><font color="#008000">$packagexml</font></strong><strong>-&gt;</strong><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodwritePackageFile">writePackageFile</a><strong>(</strong><strong>)</strong>;<br />22     <font color="blue">if</font> <strong>(</strong>PEAR<strong>::</strong>isError<strong>(</strong><strong><font color="#008000">$e</font></strong><strong>)</strong><strong>)</strong> <strong>{</strong><br />23         echo <strong><font color="#008000">$e</font></strong><strong>-&gt;</strong>getMessage<strong>(</strong><strong>)</strong>;<br />24         die<strong>(</strong><strong>)</strong>;<br />25     <strong>}</strong><br />26     <strong>?&gt;</strong><br />27    <br />28     In addition, a package.xml file can now be generated from<br />29     scratch, with the usage of new options package, summary, description, and<br />30     the use of the  method</pre></p></span>
 		<p class="notes">
-			Located in <a class="field" href="_PackageFileManager_PackageFileManager_php.html">Program_Root/PackageFileManager.php</a> [<span class="field">line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a141">141</a></span>]
+			Located in <a class="field" href="_PackageFileManager_PackageFileManager_php.html">Program_Root/PackageFileManager.php</a> [<span class="field">line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a165">165</a></span>]
 		</p>
 
 		
@@ -85,7 +85,9 @@ Source Location: Program_Root/PackageFileManager.php<br /><br />
 		<p align="center" class="short-description"><strong><a href="#sec_methods">Methods</a></strong></p>
 		<ul>
 		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodPEAR_PackageFileManager">PEAR_PackageFileManager</a></li>
+		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddConfigureOption">addConfigureOption</a></li>
 		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddDependency">addDependency</a></li>
+		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddMaintainer">addMaintainer</a></li>
 		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodaddRole">addRole</a></li>
 		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methoddebugPackageFile">debugPackageFile</a></li>
 		  		  <li><a href="../PEAR_PackageFileManager/PEAR_PackageFileManager.html#methodraiseError">raiseError</a></li>
@@ -119,8 +121,18 @@ Source Location: Program_Root/PackageFileManager.php<br /><br />
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#addConfigureOption" title="details" class="method-name">addConfigureOption</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Add an install-time configuration option for building of source</td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#addDependency" title="details" class="method-name">addDependency</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">Add a dependency on another package, or an extension/php</td></tr>
+				</div>
+								<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#addMaintainer" title="details" class="method-name">addMaintainer</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">Add a maintainer to the list of maintainers.</td></tr>
 				</div>
 								<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
@@ -167,7 +179,7 @@ Source Location: Program_Root/PackageFileManager.php<br /><br />
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor PEAR_PackageFileManager</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a189">189</a>]</span>
+	<span class="method-title">Constructor PEAR_PackageFileManager</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a220">220</a>]</span>
 </div>
 <br />
 
@@ -187,11 +199,63 @@ Source Location: Program_Root/PackageFileManager.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
-<a name="methodaddDependency" id="addDependency"><!-- --></a>
+<a name="methodaddConfigureOption" id="addConfigureOption"><!-- --></a>
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">addDependency</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a273">273</a>]</span>
+	<span class="method-title">addConfigureOption</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a345">345</a>]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void addConfigureOption(
+string
+$name, string
+$prompt, [string
+$default = null]&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Add an install-time configuration option for building of source
+</strong></p>
+<span class="description"><p>This option is only useful to PECL projects that are built upon  installation</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$name:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> name of the option</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$prompt:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> prompt to display to the user</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$default:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> default value</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodaddDependency" id="addDependency"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">addDependency</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a385">385</a>]</span>
 </div>
 <br />
 
@@ -246,11 +310,70 @@ $type = 'pkg']&nbsp;
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methodaddMaintainer" id="addMaintainer"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">addMaintainer</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a308">308</a>]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void addMaintainer(
+string
+$handle, lead|developer|contributor|helper
+$role, string
+$name, string
+$email&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>Add a maintainer to the list of maintainers.
+</strong></p>
+<span class="description"><p>Every maintainer must have a valid account at pear.php.net.  The  first parameter is the account name (for instance, cellog is the  handle for Greg Beaver at pear.php.net).  Every maintainer has  one of four possible roles: <ul><li>lead: the primary maintainer</li><li>developer: an important developer on the project</li><li>contributor: self-explanatory</li><li>helper: ditto</li></ul> Finally, specify the name and email of the maintainer</p></span>
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$handle:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> username on pear.php.net of maintainer</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">lead|developer|contributor|helper</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$role:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> role of maintainer</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$name:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> full name of maintainer</span>			</td></tr>
+					<tr><td class="indent">
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$email:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> email address of maintainer</span>			</td></tr>
+				</table>
+
+	<br />
+	
+
+	
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodaddRole" id="addRole"><!-- --></a>
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">addRole</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a254">254</a>]</span>
+	<span class="method-title">addRole</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a285">285</a>]</span>
 </div>
 <br />
 
@@ -295,7 +418,7 @@ $role&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">debugPackageFile</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a364">364</a>]</span>
+	<span class="method-title">debugPackageFile</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a483">483</a>]</span>
 </div>
 <br />
 
@@ -329,7 +452,7 @@ $role&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">raiseError</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a374">374</a>]</span>
+	<span class="method-title">raiseError</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a493">493</a>]</span>
 </div>
 <br />
 
@@ -366,7 +489,7 @@ $i2 = '']&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">setOptions</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a197">197</a>]</span>
+	<span class="method-title">setOptions</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a228">228</a>]</span>
 </div>
 <br />
 
@@ -402,7 +525,7 @@ $options = array()]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">writePackageFile</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a307">307</a>]</span>
+	<span class="method-title">writePackageFile</span>&nbsp;&nbsp;<span class="smalllinenumber">[line <a href="..//__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html#a419">419</a>]</span>
 </div>
 <br />
 
@@ -448,7 +571,7 @@ $debuginterface = null]&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Mon, 21 Jul 2003 17:14:19 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
+		    Documentation generated on Mon, 21 Jul 2003 20:16:10 -0400 by <a href="http://www.phpdoc.org">phpDocumentor 1.2.1</a>
 	      </div>
       </td></tr></table>
     </td>
