@@ -136,6 +136,11 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
         if (!$this->_methodExists('dirList')) {
             return;
         }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_setupIgnore(false, 0);
+        $this->packagexml->_setupIgnore(false, 1);
         $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
         $this->assertEquals(
             array(
