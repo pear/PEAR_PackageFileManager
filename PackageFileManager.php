@@ -611,7 +611,8 @@ class PEAR_PackageFileManager
         }
         if (!in_array($role, $GLOBALS['_PEAR_Common_maintainer_roles'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_WRONG_MROLE,
-                implode(', ', PEAR_Common::getUserRoles()),
+                implode(', ', call_user_func(array($this->_options['pearcommonclass'],
+                    'getUserRoles'))),
                 $role);
         }
         if (!isset($this->_packageXml['maintainers'])) {
