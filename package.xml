@@ -33,7 +33,7 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
     <date>2004-02-07</date>
     <license>PHP License</license>
     <state>stable</state>
-    <notes>*fully* unit-tested with 1 new feature: simpleoutput
+    <notes>*fully* unit-tested with 2 new features: simpleoutput and addhiddenfiles
 
 - new feature, &quot;simpleoutput&quot; option.  This eliminates output of
   md5sum and provides tags for readability, and outputs &lt;dir&gt; tags.
@@ -316,7 +316,7 @@ No changes from 0.15</notes>
       <date>2004-02-07</date>
       <license>PHP License</license>
       <state>stable</state>
-      <notes>*fully* unit-tested with 1 new feature: simpleoutput
+      <notes>*fully* unit-tested with 2 new features: simpleoutput and addhiddenfiles
 
 - new feature, &quot;simpleoutput&quot; option.  This eliminates output of
   md5sum and provides tags for readability, and outputs &lt;dir&gt; tags.
