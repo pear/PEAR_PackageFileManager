@@ -1235,7 +1235,8 @@ class PEAR_PackageFileManager
             }
             // the parsing of the release notes adds a \n for some reason
         }
-        if (!$hasoldversion && $oldchangelog && count($oldchangelog)) {
+        if (!$hasoldversion && $oldchangelog && count($oldchangelog)
+              && $oldchangelog['version'] != $this->_options['version']) {
             $this->_packageXml['changelog'][] = $oldchangelog;
         }
         $notes = ($this->_options['changelognotes'] ?
