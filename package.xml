@@ -29,18 +29,11 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
     </maintainer>
   </maintainers>
   <release>
-    <version>1.2.0</version>
-    <date>2004-02-07</date>
+    <version>1.2.1</version>
+    <date>2004-04-27</date>
     <license>PHP License</license>
     <state>stable</state>
-    <notes>*fully* unit-tested with 2 new features: simpleoutput and addhiddenfiles
-
-- new feature, &quot;simpleoutput&quot; option.  This eliminates output of
-  md5sum and provides tags for readability, and outputs &lt;dir&gt; tags.
-- each &lt;/dir&gt; close tag has a &lt;!-- comment --&gt; containing the full
-  directory name that was concluded
-- new feature, &quot;addhiddenfiles&quot; option.  This allows addition of
-  files that begin with . like .bashrc</notes>
+    <notes>Fix bug 1217: file listing stops on files or directories named 0</notes>
     <deps>
       <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
     </deps>
@@ -100,6 +93,12 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
           <file role="test" name="testEntries.Extra"/>
          </dir> <!-- tests/footest/testCVS -->
         </dir> <!-- tests/footest -->
+        <dir name="test_bug1217">
+         <file role="test" name="0"/>
+         <file role="test" name="firstfile.php"/>
+         <file role="test" name="fourthfile.php"/>
+         <file role="test" name="secondfile.php"/>
+        </dir> <!-- tests/test_bug1217 -->
        </dir> <!-- tests -->
        <file role="php" name="PackageFileManager.php"/>
       </dir> <!-- / -->
@@ -325,6 +324,13 @@ No changes from 0.15</notes>
   directory name that was concluded
 - new feature, &quot;addhiddenfiles&quot; option.  This allows addition of
   files that begin with . like .bashrc</notes>
+    </release>
+    <release>
+      <version>1.2.1</version>
+      <date>2004-04-27</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>Fix bug 1217: file listing stops on files or directories named 0</notes>
     </release>
   </changelog>
 </package>

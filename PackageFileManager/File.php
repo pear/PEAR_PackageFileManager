@@ -152,7 +152,7 @@ class PEAR_PackageFileManager_File {
         if (@is_dir($directory)) {
             $ret = array();
             $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
-            while($d && $entry=$d->read()) {
+            while($d && false !== ($entry=$d->read())) {
                 if ($this->_testFile($directory, $entry)) {
                     if (is_file($directory . '/' . $entry)) {
                         // if include option was set, then only pass included files

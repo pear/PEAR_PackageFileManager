@@ -235,6 +235,30 @@ class PEAR_PackageFileManager_File_TestCase_dirList extends PHPUnit_TestCase
             'incorrect dir structure');
         $this->assertFalse($this->errorThrown, 'error thrown');
     }
+    
+    function test_bug1217()
+    {
+        if (!$this->_methodExists('dirList')) {
+            return;
+        }
+        if (!$this->_methodExists('_setupIgnore')) {
+            return;
+        }
+        $this->packagexml->_options['addhiddenfiles'] = false;
+        $this->packagexml->_setupIgnore(false, 0);
+        $this->packagexml->_setupIgnore(false, 1);
+        $res = $this->packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217');
+        $this->assertEquals(
+            array(
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/0',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/firstfile.php',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/fourthfile.php',
+                dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/secondfile.php',
+            ),
+            $res,
+            'incorrect dir structure');
+        $this->assertFalse($this->errorThrown, 'error thrown');
+    }
 }
 
 ?>
