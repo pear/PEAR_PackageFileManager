@@ -75,6 +75,7 @@ As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
         <file role="test" name="PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
         <file role="test" name="PEAR_PackageFileManager_TestCase_getExistingPackageXML.php"/>
         <file role="test" name="PEAR_PackageFileManager_TestCase_setOptions.php"/>
+        <file role="test" name="PEAR_PackageFileManager_XMLOutput_TestCase_1.php"/>
         <file role="test" name="stylesheet.css"/>
         <file role="test" name="test1_package.xml"/>
         <file role="test" name="testsuite.php"/>

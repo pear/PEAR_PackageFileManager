@@ -120,7 +120,7 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
     {
         $ret = '';
         foreach ($filelist as $file => $fa) {
-            if (isset($fa['files'])) {
+            if (isset($fa['##files'])) {
                 $ret .= "$indent      <dir";
             } else {
                 $ret .= "$indent      <file";
@@ -144,13 +144,13 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
                     htmlspecialchars($fa['install-as']) . '"';
             }
             $ret .= ' name="' . htmlspecialchars($file) . '"';
-            if (isset($fa['files'])) {
+            if (isset($fa['##files'])) {
                 $ret .= ">\n";
                 $recurdir = $curdir;
                 if ($recurdir == '///') {
                     $recurdir = '';
                 }
-                $ret .= $this->_doFileList("$indent ", $fa['files'], $recurdir . $file . '/');
+                $ret .= $this->_doFileList("$indent ", $fa['##files'], $recurdir . $file . '/');
                 $displaydir = $curdir;
                 if ($displaydir == '///' || $displaydir == '/') {
                     $displaydir = '';

@@ -1007,7 +1007,7 @@ class PEAR_PackageFileManager
                 }
                 return array(
                     'baseinstalldir' => $this->_options['baseinstalldir'],
-                    'files' => $this->_getSimpleDirTag($struc[$dir], $role, ''),
+                    '##files' => $this->_getSimpleDirTag($struc[$dir], $role, ''),
                     'name' => '/');
     		} else {
     			if (!isset($files['file'])) {
@@ -1025,7 +1025,7 @@ class PEAR_PackageFileManager
                     if ($recurdir == '//') {
                         $recurdir = '';
                     }
-                    $ret[$dir]['files'] = $this->_getSimpleDirTag($files, $myrole, $recurdir);
+                    $ret[$dir]['##files'] = $this->_getSimpleDirTag($files, $myrole, $recurdir);
     			} else {
     				$myrole = '';
     				if (!$role)

@@ -13,6 +13,8 @@ require_once 'TestUnit.php';
 require_once 'HTML_TestListener.php';
 require_once 'PEAR/PackageFileManager.php';
 require_once 'PEAR/PackageFileManager/File.php';
+require_once 'PEAR/PackageFileManager/CVS.php';
+require_once 'PEAR/PackageFileManager/XMLOutput.php';
 
 $title = 'PhpUnit test run, PEAR_PackageFileManager package';
 ?>
@@ -64,6 +66,7 @@ $title = 'PhpUnit test run, PEAR_PackageFileManager package';
             'PEAR_PackageFileManager_File_TestCase_setDir',
             'PEAR_PackageFileManager_Cvs_TestCase_dirList',
             'PEAR_PackageFileManager_Cvs_TestCase_general',
+            'PEAR_PackageFileManager_XMLOutput_TestCase_1',
 	);
 
 	
