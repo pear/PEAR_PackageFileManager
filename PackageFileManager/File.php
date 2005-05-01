@@ -274,6 +274,7 @@ class PEAR_PackageFileManager_File {
     
     /**
      * Construct the {@link $ignore} array
+     * 
      * @param array strings of files/paths/wildcards to ignore
      * @param 0|1 0 = files to include, 1 = files to ignore
      * @access private
@@ -309,6 +310,7 @@ class PEAR_PackageFileManager_File {
     
     /**
      * Converts $s into a string that can be used with preg_match
+     * 
      * @param string $s string with wildcards ? and *
      * @return string converts * to .*, ? to ., etc.
      * @access private
