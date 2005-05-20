@@ -141,6 +141,9 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
         foreach ($list as $file => $attributes) {
             $this->_addDir($this->_dirs, explode('/', dirname($file)), $file, $attributes);
         }
+        if (!isset($this->_dirs['dirs'])) {
+            $this->_dirs['dirs'] = array();
+        }
         if (count($this->_dirs['dirs']) != 1 || isset($this->_dirs['files'])) {
             $this->_dirs = array('dirs' => array('/' => $this->_dirs));
         }
