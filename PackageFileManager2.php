@@ -1,6 +1,6 @@
 <?php
 /**
- * Here is a sample file that demonstrates all of PEAR_PackageFile2Manager's features.
+ * Here is a sample file that demonstrates all of PEAR_PackageFileManager2's features.
  *
  * First, a subpackage is created that is then automatically processed with the parent package
  * Next, the parent package is created.  Finally, a compatible PEAR_PackageFileManager object is
@@ -13,13 +13,13 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   pear
- * @package    PEAR_PackageFile2Manager
+ * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFile2Manager
- * @since      File available since Release 0.1.0
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      File available since Release 1.6.0
  */
 /**
  * PEAR Packagefile parser
@@ -32,99 +32,99 @@ require_once 'PEAR/PackageFile/v2/rw.php';
 /**#@+
  * Error Codes
  */
-define('PEAR_PACKAGEFILE2MANAGER_NOPKGDIR', 3);
-define('PEAR_PACKAGEFILE2MANAGER_NOBASEDIR', 4);
-define('PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND', 5);
-define('PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND_ANYWHERE', 6);
-define('PEAR_PACKAGEFILE2MANAGER_CANTWRITE_PKGFILE', 7);
-define('PEAR_PACKAGEFILE2MANAGER_DEST_UNWRITABLE', 8);
-define('PEAR_PACKAGEFILE2MANAGER_CANTCOPY_PKGFILE', 9);
-define('PEAR_PACKAGEFILE2MANAGER_CANTOPEN_TMPPKGFILE', 10);
-define('PEAR_PACKAGEFILE2MANAGER_PATH_DOESNT_EXIST', 11);
-define('PEAR_PACKAGEFILE2MANAGER_NOCVSENTRIES', 12);
-define('PEAR_PACKAGEFILE2MANAGER_DIR_DOESNT_EXIST', 13);
-define('PEAR_PACKAGEFILE2MANAGER_RUN_SETOPTIONS', 14);
-define('PEAR_PACKAGEFILE2MANAGER_NO_FILES', 20);
-define('PEAR_PACKAGEFILE2MANAGER_IGNORED_EVERYTHING', 21);
-define('PEAR_PACKAGEFILE2MANAGER_INVALID_PACKAGE', 22);
-define('PEAR_PACKAGEFILE2MANAGER_INVALID_REPLACETYPE', 23);
-define('PEAR_PACKAGEFILE2MANAGER_CVS_PACKAGED', 26);
-define('PEAR_PACKAGEFILE2MANAGER_NO_PHPCOMPATINFO', 27);
+define('PEAR_PACKAGEFILEMANAGER2_NOPKGDIR', 3);
+define('PEAR_PACKAGEFILEMANAGER2_NOBASEDIR', 4);
+define('PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND', 5);
+define('PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE', 6);
+define('PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE', 7);
+define('PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE', 8);
+define('PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE', 9);
+define('PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE', 10);
+define('PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST', 11);
+define('PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES', 12);
+define('PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST', 13);
+define('PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS', 14);
+define('PEAR_PACKAGEFILEMANAGER2_NO_FILES', 20);
+define('PEAR_PACKAGEFILEMANAGER2_IGNORED_EVERYTHING', 21);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE', 22);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE', 23);
+define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED', 26);
+define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
 /**#@-*/
 /**
  * Error messages
- * @global array $GLOBALS['_PEAR_PACKAGEFILE2MANAGER_ERRORS']
+ * @global array $GLOBALS['_PEAR_PACKAGEFILEMANAGER2_ERRORS']
  * @access private
  */
-$GLOBALS['_PEAR_PACKAGEFILE2MANAGER_ERRORS'] =
+$GLOBALS['_PEAR_PACKAGEFILEMANAGER2_ERRORS'] =
 array(
     'en' =>
     array(
-        PEAR_PACKAGEFILE2MANAGER_NOPKGDIR =>
+        PEAR_PACKAGEFILEMANAGER2_NOPKGDIR =>
             'Package source base directory (option \'packagedirectory\') must be ' .
-            'specified in PEAR_PackageFile2Manager setOptions',
-        PEAR_PACKAGEFILE2MANAGER_NOBASEDIR =>
+            'specified in PEAR_PackageFileManager2 setOptions',
+        PEAR_PACKAGEFILEMANAGER2_NOBASEDIR =>
             'Package install base directory (option \'baseinstalldir\') must be ' .
-            'specified in PEAR_PackageFile2Manager setOptions',
-        PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND =>
+            'specified in PEAR_PackageFileManager2 setOptions',
+        PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND =>
             'Base class "%s" can\'t be located',
-        PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND_ANYWHERE =>
+        PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE =>
             'Base class "%s" can\'t be located in default or user-specified directories',
-        PEAR_PACKAGEFILE2MANAGER_CANTWRITE_PKGFILE =>
+        PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE =>
             'Failed to write package.xml file to destination directory',
-        PEAR_PACKAGEFILE2MANAGER_DEST_UNWRITABLE =>
+        PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE =>
             'Destination directory "%s" is unwritable',
-        PEAR_PACKAGEFILE2MANAGER_CANTCOPY_PKGFILE =>
+        PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE =>
             'Failed to copy package.xml.tmp file to package.xml',
-        PEAR_PACKAGEFILE2MANAGER_CANTOPEN_TMPPKGFILE =>
+        PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE =>
             'Failed to open temporary file "%s" for writing',
-        PEAR_PACKAGEFILE2MANAGER_PATH_DOESNT_EXIST =>
+        PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST =>
             'package.xml file path "%s" doesn\'t exist or isn\'t a directory',
-        PEAR_PACKAGEFILE2MANAGER_NOCVSENTRIES =>
+        PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES =>
             'Directory "%s" is not a CVS directory (it must have the CVS/Entries file)',
-        PEAR_PACKAGEFILE2MANAGER_DIR_DOESNT_EXIST =>
+        PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST =>
             'Package source base directory "%s" doesn\'t exist or isn\'t a directory',
-        PEAR_PACKAGEFILE2MANAGER_RUN_SETOPTIONS =>
+        PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS =>
             'Run $managerclass->setOptions() before any other methods',
-        PEAR_PACKAGEFILE2MANAGER_NO_FILES =>
+        PEAR_PACKAGEFILEMANAGER2_NO_FILES =>
             'No files found, check the path "%s"',
-        PEAR_PACKAGEFILE2MANAGER_IGNORED_EVERYTHING =>
+        PEAR_PACKAGEFILEMANAGER2_IGNORED_EVERYTHING =>
             'No files left, check the path "%s" and ignore option "%s"',
-        PEAR_PACKAGEFILE2MANAGER_INVALID_PACKAGE =>
+        PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE =>
             'Package validation failed:%s%s',
-        PEAR_PACKAGEFILE2MANAGER_INVALID_REPLACETYPE =>
+        PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE =>
             'Replacement Type must be one of "%s", was passed "%s"',
-        PEAR_PACKAGEFILE2MANAGER_CVS_PACKAGED =>
+        PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED =>
             'path "%path%" contains CVS directory',
-        PEAR_PACKAGEFILE2MANAGER_NO_PHPCOMPATINFO =>
+        PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO =>
             'PHP_Compat is not installed, cannot detect dependencies',
        ),
         // other language translations go here
      );
 /**
- * PEAR :: PackageFile2Manager, like PEAR_PackageFileManager, is designed to
- * create and manipulate package.xml files.
+ * PEAR_PackageFile2Manager, like PEAR_PackageFileManager, is designed to
+ * create and manipulate package.xml version 2.0.
  *
- * The PEAR_PackageFile2Manager class can work directly with PEAR_PackageFileManager
+ * The PEAR_PackageFileManager2 class can work directly with PEAR_PackageFileManager
  * to create parallel package.xml files, version 1.0 and 2.0, that represent the
  * same project, but take advantage of package.xml 2.0-specific features.
  *
- * Like PEAR_PackageFileManager, The PEAR_PackageFile2Manager class uses a plugin system
+ * Like PEAR_PackageFileManager, The PEAR_PackageFileManager2 class uses a plugin system
  * to generate the list of files in a package.  This allows both standard recursive
  * directory parsing (plugin type file) and more intelligent options
- * such as the CVS browser {@link PEAR_PackageFile2Manager_Cvs}, which
+ * such as the CVS browser {@link PEAR_PackageFileManager_Cvs}, which
  * grabs all files in a local CVS checkout to create the list, ignoring
  * any other local files.
  *
  * Example usage is similar to PEAR_PackageFileManager:
  * <code>
  * <?php
- * require_once('PEAR/PackageFile2Manager.php');
+ * require_once('PEAR/PackageFileManager2.php');
  * PEAR::setErrorHandling(PEAR_ERROR_DIE);
  * //require_once 'PEAR/Config.php';
  * //PEAR_Config::singleton('/path/to/unusualpearconfig.ini');
  * // use the above lines if the channel information is not validating
- * $packagexml = new PEAR_PackageFile2Manager;
+ * $packagexml = new PEAR_PackageFileManager2;
  * $e = $packagexml->setOptions(
  * array('baseinstalldir' => 'PhpDocumentor',
  *  'packagedirectory' => 'C:/Web Pages/chiara/phpdoc2/',
@@ -174,15 +174,15 @@ array(
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addLead(), addDeveloper(), addContributor(), addHelper()} methods
  * @category   pear
- * @package    PEAR_PackageFile2Manager
+ * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @PEAR-VER@
  * @link       http://pear.php.net/package/PEAR
- * @since      Class available since Release 1.4.0a1
+ * @since      Class available since Release 1.6.0
  */
-class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
+class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 {
     /**
      * Format: array(array(regexp-ready string to search for whole path,
@@ -279,7 +279,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      * return a PEAR_Error from setOptions
      * @see setOptions()
      */
-    function PEAR_PackageFile2Manager()
+    function PEAR_PackageFileManager2()
     {
         parent::PEAR_PackageFile_v2();
         $config = &PEAR_Config::singleton();
@@ -370,10 +370,10 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      * @see PEAR_PackageFileManager_File
      * @see PEAR_PackageFileManager_CVS
      * @return void|PEAR_Error
-     * @throws PEAR_PACKAGEFILE2MANAGER_NOPKGDIR
-     * @throws PEAR_PACKAGEFILE2MANAGER_NOBASEDIR
-     * @throws PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND_ANYWHERE
-     * @throws PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND
+     * @throws PEAR_PACKAGEFILEMANAGER2_NOPKGDIR
+     * @throws PEAR_PACKAGEFILEMANAGER2_NOBASEDIR
+     * @throws PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE
+     * @throws PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND
      * @param array
      */
     function setOptions($options = array(), $internal = false)
@@ -397,7 +397,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
             }
         }
         if (!isset($options['baseinstalldir'])) {
-            return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_NOBASEDIR);
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
         
@@ -436,11 +436,11 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                         $this->_options['filelistgenerator'] . '.php');
                 }
                 if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
-                    return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND_ANYWHERE,
+                    return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE,
                             'PEAR_PackageFileManager_' . $this->_options['filelistgenerator']);
                 }
             } else {
-                return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_GENERATOR_NOTFOUND,
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND,
                         'PEAR_PackageFileManager_' . $this->_options['filelistgenerator']);
             }
         }
@@ -452,7 +452,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      * In many cases, a subpackage is developed in the same directory
      * as the parent package, and the files should be excluded from the package.xml
      * version 2.0.
-     * @param PEAR_PackageFile2Manager object representing the subpackage's package.xml
+     * @param PEAR_PackageFileManager2 object representing the subpackage's package.xml
      * @param boolean dependency type to add, use true for a package dependency, false for a
                       subpackage dependency
      * @param boolean whether the dependency should be required or optional
@@ -580,26 +580,28 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
         if ($pf->getPackagexmlVersion() == '1.0') {
             $packagefile = &$pf;
         }
-        return PEAR_PackageFile2Manager::importOptions($packagefile, $options);
+        return PEAR_PackageFileManager2::importOptions($packagefile, $options);
     }
 
     /**
      * Import options from an existing package.xml
      *
-     * @return PEAR_PackageFile2Manager|PEAR_Error
+     * @return PEAR_PackageFileManager2|PEAR_Error
      * @static
      */
     function &importOptions($packagefile, $options = array())
     {
         if (is_a($packagefile, 'PEAR_PackageFile_v1')) {
             $gen = &$packagefile->getDefaultGenerator();
-            $res = $gen->toV2('PEAR_PackageFile2Manager');
+            $res = $gen->toV2('PEAR_PackageFileManager2');
             $packagefile = $packagefile->getPackageFile();
         }
-        if (PEAR::isError($res = 
-              &PEAR_PackageFile2Manager::_getExistingPackageXML(dirname($packagefile) .
-              DIRECTORY_SEPARATOR, basename($packagefile)))) {
-            return $res;
+        if (!isset($res)) {
+            if (PEAR::isError($res = 
+                  &PEAR_PackageFileManager2::_getExistingPackageXML(dirname($packagefile) .
+                  DIRECTORY_SEPARATOR, basename($packagefile)))) {
+                return $res;
+            }
         }
         if (PEAR::isError($ret = $res->_importOptions($packagefile, $options))) {
             return $ret;
@@ -652,7 +654,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
         require_once 'PEAR/Installer/Role.php';
         $roles = PEAR_Installer_Role::getValidRoles($this->getPackageType());
         if (!in_array($role, $roles)) {
-            return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_INVALID_ROLE, implode($roles, ', '), $role);
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE, implode($roles, ', '), $role);
         }
         $this->_options['roles'][$extension] = $role;
     }
@@ -685,7 +687,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
         $task = new PEAR_Task_Replace_rw($this, $this->_config, $l, '');
         $task->setInfo($from, $to, $type);
         if (is_array($res = $task->validate())) {
-            return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_INVALID_REPLACETYPE,
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
                 $res);
         }
         $this->_options['globalreplacements'][] = $task;
@@ -718,7 +720,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
         $task = new PEAR_Task_Replace_rw($this, $this->_config, $l, '');
         $task->setInfo($from, $to, $type);
         if (is_array($res = $task->validate())) {
-            return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_INVALID_REPLACETYPE,
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
                 $res);
         }
         $this->_options['replacements'][$path][] = $task;
@@ -811,7 +813,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                 $ret .= $err['level'] . ': ' . $msg . $nl;
             }
             if ($haserror) {
-                return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_INVALID_PACKAGE, $nl, $ret);
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE, $nl, $ret);
             }
         }
         $gen = &$this->getDefaultGenerator();
@@ -832,21 +834,21 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                 $written = @fwrite($fp, $packagexml);
                 @fclose($fp);
                 if ($written === false) {
-                    return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_CANTWRITE_PKGFILE);
+                    return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE);
                 }
                 if (!@copy($outputdir . $this->_options['packagefile'] . '.tmp',
                         $outputdir . $this->_options['packagefile'])) {
-                    return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_CANTCOPY_PKGFILE);
+                    return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE);
                 } else {
                     @unlink($outputdir . $this->_options['packagefile'] . '.tmp');
                     return true;
                 }
             } else {
-                return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_CANTOPEN_TMPPKGFILE,
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE,
                     $outputdir . $this->_options['packagefile'] . '.tmp');
             }
         } else {
-            return $this->raiseError(PEAR_PACKAGEFILE2MANAGER_DEST_UNWRITABLE, $outputdir);
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE, $outputdir);
         }
     }
     
@@ -892,7 +894,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      */
     function _getMessage($code, $info)
     {
-        $msg = $GLOBALS['_PEAR_PACKAGEFILE2MANAGER_ERRORS'][$this->_options['lang']][$code];
+        $msg = $GLOBALS['_PEAR_PACKAGEFILEMANAGER2_ERRORS'][$this->_options['lang']][$code];
         foreach ($info as $name => $value) {
             $msg = str_replace('%' . $name . '%', $value, $msg);
         }
@@ -908,8 +910,8 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      */
     function raiseError($code, $i1 = '', $i2 = '')
     {
-        return PEAR::raiseError('PEAR_PackageFile2Manager Error: ' .
-                    sprintf($GLOBALS['_PEAR_PACKAGEFILE2MANAGER_ERRORS'][$this->_options['lang']][$code],
+        return PEAR::raiseError('PEAR_PackageFileManager2 Error: ' .
+                    sprintf($GLOBALS['_PEAR_PACKAGEFILEMANAGER2_ERRORS'][$this->_options['lang']][$code],
                     $i1, $i2), $code);
     }
 
@@ -1005,7 +1007,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                     $test = explode('/', $files['path']);
                     foreach ($test as $subpath) {
                         if ($subpath == 'CVS') {
-                            $this->pushWarning(PEAR_PACKAGEFILE2MANAGER_CVS_PACKAGED,
+                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED,
                                 array('path' => $files['path']));
                         }
                     }
@@ -1088,7 +1090,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                     $test = explode('/', $files['path']);
                     foreach ($test as $subpath) {
                         if ($subpath == 'CVS') {
-                            $this->pushWarning(PEAR_PACKAGEFILE2MANAGER_CVS_PACKAGED,
+                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED,
                                 array('path' => $files['path']));
                         }
                     }
@@ -1222,7 +1224,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
 
     function setOld()
     {
-        $this->_old = new PEAR_PackageFile_v2;
+        $this->_old = new PEAR_PackageFile_v2_rw;
         $this->_old->fromArray($this->getArray());
     }
 
@@ -1232,7 +1234,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      *       calls this to create a new one
      * @param string full path to package file
      * @param string name of package file
-     * @throws PEAR_PACKAGEFILE2MANAGER_PATH_DOESNT_EXIST
+     * @throws PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST
      * @access private
      * @static
      */
@@ -1244,15 +1246,15 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                 $contents = file_get_contents($path . $packagefile);
             }
             if (!$contents) {
-                return PEAR_PackageFile2Manager::_generateNewPackageXML();
+                return PEAR_PackageFileManager2::_generateNewPackageXML();
             } else {
                 require_once 'PEAR/PackageFile/Parser/v2.php';
                 $pkg = &new PEAR_PackageFile_Parser_v2;
                 $z = &PEAR_Config::singleton();
                 $pkg->setConfig($z);
-                $pf = &$pkg->parse($contents, $path . $packagefile, false, 'PEAR_PackageFile2Manager');
+                $pf = &$pkg->parse($contents, $path . $packagefile, false, 'PEAR_PackageFileManager2');
                 if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
-                    return $pf->raiseError(PEAR_PACKAGEFILE2MANAGER_INVALID_PACKAGE);
+                    return $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE);
                 }
                 if (PEAR::isError($pf)) {
                     return $pf;
@@ -1267,7 +1269,7 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
                 $path = gettype($path);
             }
             require_once 'PEAR.php';
-            return PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILE2MANAGER_PATH_DOESNT_EXIST);
+            return PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST);
         }
     }
     
@@ -1277,14 +1279,14 @@ class PEAR_PackageFile2Manager extends PEAR_PackageFile_v2_rw
      * @uses $_packageXml emulates reading in a package.xml
      *       by using the package, summary and description
      *       options
-     * @return PEAR_PackageFile2Manager
+     * @return PEAR_PackageFileManager2
      * @access private
      * @static
      */
     function &_generateNewPackageXML()
     {
         $this->_old = false;
-        $pf = &new PEAR_PackageFile2Manager;
+        $pf = &new PEAR_PackageFileManager2;
         return $pf;
     }
 }
