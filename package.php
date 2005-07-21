@@ -48,7 +48,8 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'packagedirectory' => dirname(__FILE__),
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('Add capability to manage package.xml version 2.0');
+$packagexml->setNotes('Bugfix release
+* fix bug #4478: Notice error on File.php (generator)');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
