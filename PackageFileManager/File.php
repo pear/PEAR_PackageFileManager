@@ -50,7 +50,7 @@ class PEAR_PackageFileManager_File {
      * @access private
      * @var array|false
      */
-    var $_ignore = false;
+    var $ignore = false;
 
     /**
      * Set up the File filelist generator
@@ -105,7 +105,8 @@ class PEAR_PackageFileManager_File {
         	if (!$path) {
                 $path = '/';
             }
-        	$ext = array_pop(explode('.', $file));
+            $stupidassphp5_1 = explode('.', $file);
+        	$ext = array_pop($stupidassphp5_1);
         	if (strlen($ext) == strlen($file)) {
                 $ext = '';
             }
