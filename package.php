@@ -49,12 +49,13 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('Bugfix release
-* fix bug #4478: Notice error on File.php (generator)');
+* fix bug #4478: Notice error on File.php (generator)
+* fix Bug #4743: PHP 5.1 pass-by-reference error');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 $packagexml->setChannel('pear.php.net');
-$packagexml->setReleaseVersion('1.6.0a1');
+$packagexml->setReleaseVersion('1.6.0a2');
 $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
