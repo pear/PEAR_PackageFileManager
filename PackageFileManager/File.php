@@ -99,18 +99,18 @@ class PEAR_PackageFileManager_File {
         }
         $struc = array();
         foreach($allfiles as $file) {
-        	$path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR, 
+            $path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR, 
                                                               '/',
                                                               realpath($package_directory))) + 1);
-        	if (!$path) {
+            if (!$path) {
                 $path = '/';
             }
             $stupidassphp5_1 = explode('.', $file);
-        	$ext = array_pop($stupidassphp5_1);
-        	if (strlen($ext) == strlen($file)) {
+            $ext = array_pop($stupidassphp5_1);
+            if (strlen($ext) == strlen($file)) {
                 $ext = '';
             }
-        	$struc[$path][] = array('file' => basename($file),
+            $struc[$path][] = array('file' => basename($file),
                                     'ext' => $ext,
                                     'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
                                     'fullpath' => $file);
@@ -122,8 +122,8 @@ class PEAR_PackageFileManager_File {
         }
         uksort($struc,'strnatcasecmp');
         foreach($struc as $key => $ind) {
-        	usort($ind, array($this, 'sortfiles'));
-        	$struc[$key] = $ind;
+            usort($ind, array($this, 'sortfiles'));
+            $struc[$key] = $ind;
         }
 
         $tempstruc = $struc;
@@ -133,11 +133,11 @@ class PEAR_PackageFileManager_File {
         $struc = array('/' => $tempstruc['/']);
         $bv = 0;
         foreach($tempstruc as $key => $ind) {
-        	$save = $key;
-        	if ($key != '/')
-        	{
+            $save = $key;
+            if ($key != '/')
+            {
                 $struc['/'] = $this->_setupDirs($struc['/'], explode('/',$key), $tempstruc[$key]);
-        	}
+            }
         }
         uksort($struc['/'], array($this, 'mystrucsort'));
 
