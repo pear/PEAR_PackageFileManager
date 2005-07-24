@@ -125,6 +125,8 @@ array(
  * //PEAR_Config::singleton('/path/to/unusualpearconfig.ini');
  * // use the above lines if the channel information is not validating
  * $packagexml = new PEAR_PackageFileManager2;
+ * // for an existing package.xml use
+ * // $packagexml = {@link importOptions()} instead
  * $e = $packagexml->setOptions(
  * array('baseinstalldir' => 'PhpDocumentor',
  *  'packagedirectory' => 'C:/Web Pages/chiara/phpdoc2/',
