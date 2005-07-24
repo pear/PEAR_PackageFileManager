@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
-<package packagerversion="1.4.0a12" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.0a13" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -25,9 +22,7 @@ Features include
  - can specify a different name for the package.xml file
  
 PEAR_PackageFileManager is fully unit tested.
-The new PEAR_PackageFileManager2 class is not.
- 
- </description>
+The new PEAR_PackageFileManager2 class is not.</description>
  <lead>
   <name>Greg Beaver</name>
   <user>cellog</user>
@@ -40,10 +35,10 @@ The new PEAR_PackageFileManager2 class is not.
   <email>arnaud@limbourg.com</email>
   <active>yes</active>
  </developer>
- <date>2005-05-28</date>
- <time>17:27:42</time>
+ <date>2005-07-24</date>
+ <time>15:59:01</time>
  <version>
-  <release>1.6.0a1</release>
+  <release>1.6.0a2</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -51,7 +46,13 @@ The new PEAR_PackageFileManager2 class is not.
   <api>alpha</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>Add capability to manage package.xml version 2.0</notes>
+ <notes>Bugfix release
+* fix many bugs in PackageFileManager2, particularly in relation
+  to package.xml 1.0 import and export, replacements
+* fix bug #4478: Notice error on File.php (generator)
+* fix Bug #4525: Update inline package generation example
+* fix Bug #4604: validatePackageInfo implementation error
+* fix Bug #4743: PHP 5.1 pass-by-reference error</notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
    <dir name="examples">
@@ -491,522 +492,30 @@ The new PEAR_PackageFileManager2 class is not.
     <min>4.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0a12</min>
+    <min>1.4.0a13</min>
    </pearinstaller>
-   <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-    <min>1.1</min>
-   </package>
   </required>
-  <optional>
-   <package>
-    <name>PHP_CompatInfo</name>
-    <channel>pear.php.net</channel>
-    <min>1.0.0RC1</min>
-   </package>
-   <package>
-    <name>XML_Tree</name>
-    <channel>pear.php.net</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease />
  <changelog>
   <release>
    <version>
-    <release>0.1</release>
-    <api>0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-21</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>First release of PEAR_PackageFileManager
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.2</release>
-    <api>0.2</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-21</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Generation of package.xml from scratch is now supported.  In addition,
-generation of &lt;provides&gt; is supported and so is addition of
-maintainers and configure options
-
-- Fixed a bug in &lt;release&gt; generation
-- Added _addProvides() to generate a &lt;provides&gt; section
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.3</release>
-    <api>0.3</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-22</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>bugfix release
-
-- &lt;!DOCTYPE package SYSTEM &quot;http://pear.php.net/dtd/package-1.0&quot;&gt; is added
-  if it isn&apos;t present
-- fixed ignoring of license option
-- added documentation of the options
-- if package, summary or description are passed in the options,
-  they will overwrite the existing ones even if the package.xml
-  already exists
-- fixed progressive addition of newlines to changelog release notes
-  due to bug in the package.xml parser
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.4</release>
-    <api>0.4</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-23</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- Fixed bug in testing of output
-- new option allows specifying the doctype,
-  default is &quot;http://pear.php.net/dtd/package-1.0&quot;
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.5</release>
-    <api>0.5</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-23</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- Fixed bug in type=&quot;php&quot; dependency generation,
-- Fixed bug if the package.xml doesn&apos;t yet exist
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.6</release>
-    <api>0.6</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-23</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- When reading in an existing package.xml, if a file
-  has been removed, several warnings were emitted by
-  PEAR_Common attempting to examine the source of a
-  non-existent file
-- Fixed warning if release notes were empty in a
-  previous changelog
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.7</release>
-    <api>0.7</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-23</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- Fixed bug in CVS reading, if files have been added/removed
-  but not yet committed, it would try to add them to the package.xml
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.8</release>
-    <api>0.8</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-23</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- Fixed bug in ignore, ignoring an explicit full path with
-  or without wildcards would not work
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.9</release>
-    <api>0.9</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-07-24</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- Fixed bug in reading a package.xml with no changelog entry, it now
-  auto-generates a changelog entry from the existing &lt;release&gt; tag if
-  there never was a changelog
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.10</release>
-    <api>0.10</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-07-25</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>With the release of 0.10, PEAR_PackageFileManager is
-essentially feature-complete.  It handles all possible package.xml settings
-for PEAR, and is extensible through the &apos;pearcommonclass&apos; option
-
-- changed to using strnatcasecmp for version numbers
-  in the search through ChangeLog, so 0.10 &gt; 0.1
-- added md5sum attribute to filelist
-- added use of PEAR_Common::validatePackage() to catch odd
-  errors
-- fixed incorrect handling of PEAR_Error in File::getFileList()
-- added handling of filelist platform attribute
-- added handling of filelist install-as attribute
-- added handling of filelist replacements options
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.11</release>
-    <api>0.11</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-07-25</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- exceptions option should be matching relative path of a file, not just the filename
-- exceptions were ignored if dir_roles was specified for the directory containing the file
-- fixed documentation error
-- added validation of file role
-- fixed directory role so that it checks values passed in before using the parent
-  directory&apos;s role
-- removed stupid use of eval, replaced with call_user_func
-- added new complex example that uses almost every option
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.12</release>
-    <api>0.12</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-07-28</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- added fix, if no existing changelog for current package.xml,
-  but has old changelog, a new one is auto-generated from the release.
-- added new switch to specify order of changelog entries
-  &quot;changelogoldtonew&quot; default true.  Set to false to have the
-  newest entry listed first
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.13</release>
-    <api>0.13</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-08-02</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- add warning if you attempt to add a dependency on PHP as a package
-- switched to usage of PEAR_Common::getUserRoles()
-
-- added optional dependency support
-- added script phase support (unimplemented in PEAR)
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.14</release>
-    <api>0.14</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-08-04</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- fix warning if you attempt to add a dependency on PHP as a package
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.15</release>
-    <api>0.15</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2003-08-06</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-
-- erroneous blank &lt;release&gt; tag in changelog for generation of a new
-package.xml
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.0</release>
-    <api>1.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-08-21</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>First stable release
-
-No changes from 0.15
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.1.0</release>
-    <api>1.1.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2003-12-11</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>unit-tested with 1 new feature: include
-
-- fixed #8: notices if a package has no dependencies
-- fixed #261: package.xml files shouldn&apos;t be included in the package file list
-- fixed #155: warning emitted if CVS/ is packaged
-- fixed #260: .cvsignore files should be excluded from package file lists
-- new feature, &quot;include&quot; option.  This works just like &quot;ignore&quot; except it
-  excludes all files that do not match the names passed in.  &quot;ignore&quot; includes
-  only files that do not match the names passed in.  Suggested by Stan Lemon
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.2.0</release>
-    <api>1.2.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2004-02-07</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>*fully* unit-tested with 2 new features: simpleoutput and addhiddenfiles
-
-- new feature, &quot;simpleoutput&quot; option.  This eliminates output of
-  md5sum and provides tags for readability, and outputs &lt;dir&gt; tags.
-- each &lt;/dir&gt; close tag has a &lt;!-- comment --&gt; containing the full
-  directory name that was concluded
-- new feature, &quot;addhiddenfiles&quot; option.  This allows addition of
-  files that begin with . like .bashrc
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.3.0</release>
-    <api>1.3.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2004-02-08</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Add detectDependencies() - uses PHP_CompatInfo to detect deps.
-Also added cleardependencies option to setOptions(), which will
-clear all existing dependencies from package.xml before starting
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.2.1</release>
-    <api>1.2.1</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2004-04-27</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Fix bug 1217: file listing stops on files or directories named 0
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.4.0</release>
-    <api>1.4.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2005-02-20</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Add addGlobalReplacement() - applies the replacement to every file in the
-package.xml
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.5.0</release>
-    <api>1.5.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2005-03-28</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>New features and bugfixes
-* fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead
-* implement Request #3747 getOptions() method
-* Migrate all unit tests to .phpt, run
-  &quot;pear run-tests -p PEAR_PackageFileManager&quot; in PEAR 1.4.0 to run tests
-  post-installation
-* add dependency on XML_Tree (used by SVN driver)
-* add package2.xml to the list of auto-ignored files
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.5.1</release>
-    <api>1.5.1</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2005-04-06</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-* fix Bug #4003 importOptions() won&apos;t work until setOptions() is called
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.5.2</release>
-    <api>1.5.2</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2005-05-20</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-* fix notice if simpleoutput is used, and there are no subdirectories
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.5.3</release>
-    <api>1.5.3</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2005-05-28</date>
-   <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Bugfix release
-* fix notice if simpleoutput is used, and there are no subdirectories
-    
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.6.0a1</release>
+    <release>1.6.0a2</release>
     <api>1.6.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2005-05-28</date>
+   <date>2005-07-24</date>
    <license>PHP License</license>
-   <notes>Add capability to manage package.xml version 2.0</notes>
+   <notes>Bugfix release
+* fix many bugs in PackageFileManager2, particularly in relation
+  to package.xml 1.0 import and export, replacements
+* fix bug #4478: Notice error on File.php (generator)
+* fix Bug #4525: Update inline package generation example
+* fix Bug #4604: validatePackageInfo implementation error
+* fix Bug #4743: PHP 5.1 pass-by-reference error</notes>
   </release>
  </changelog>
 </package>
