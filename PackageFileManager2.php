@@ -135,6 +135,8 @@ array(
  *  'exceptions' => array('README' => 'doc', // README would be data, now is doc
  *                        'PHPLICENSE.txt' => 'doc'))); // same for the license
  * $packagexml->setPackage('MyPackage');
+ * $packagexml->setSummary('this is my package');
+ * $packagexml->setDescription('this is my package description');
  * $packagexml->setChannel('mychannel.example.com');
  * $packagexml->setAPIVersion('1.0.0');
  * $packagexml->setReleaseVersion('1.2.1');
@@ -244,6 +246,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       'packagefile' => 'package.xml',
                       'filelistgenerator' => 'file',
                       'license' => 'PHP License',
+                      'baseinstalldir' => '',
                       'changelogoldtonew' => true,
                       'roles' =>
                         array(
@@ -509,6 +512,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     {
         if ($this->_options['packagefile'] == 'package.xml') {
             $this->_options['packagefile'] = 'package2.xml';
+            if (!is_array($this->_options['ignore'])) {
+                $this->_options['ignore'] = array();
+            }
+            $this->_options['ignore'][] = 'package2.xml';
         }
         require_once 'PEAR/PackageFileManager.php';
         $greplace = $replaces = false;
@@ -521,15 +528,15 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
         if (@$this->_options['replacements']) {
             $replaces = array();
-            foreach ($this->_options['replacements'] as $path => $replaces) {
-                foreach ($replaces as $replaceobj) {
+            foreach ($this->_options['replacements'] as $path => $replaceobjs) {
+                foreach ($replaceobjs as $replaceobj) {
                     $atts = $replaceobj->getXml();
                     $replaces[$path][] = $atts['attribs'];
                 }
             }
         }
         $pf = new PEAR_PackageFileManager;
-        $pf->setOptions(array_merge($this->_options, array(
+        $options = array_merge(array(
                 'packagefile' => 'package.xml',
                 'package' => $this->getPackage(),
                 'version' => $this->getVersion(),
@@ -544,7 +551,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 'state' => $this->getState(),
                 'globalreplacements' => $greplace,
                 'replacements' => $replaces,
-            ), $options));
+            ), $options);
+        $pf->setOptions(array_merge($this->_options, $options));
         $this->setDate(date('Y-m-d')); // to avoid failed validation
         $maintainers = $this->getMaintainers();
         if ($maintainers) {
@@ -568,6 +576,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * @param string
      * @param array
+     * @static
      */
     function &importFromPackageFile1($packagefile, $options = array())
     {
@@ -580,7 +589,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if ($pf->getPackagexmlVersion() == '1.0') {
             $packagefile = &$pf;
         }
-        return PEAR_PackageFileManager2::importOptions($packagefile, $options);
+        $a = &PEAR_PackageFileManager2::importOptions($packagefile, $options);
+        return $a;
     }
 
     /**
@@ -721,7 +731,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $task->setInfo($from, $to, $type);
         if (is_array($res = $task->validate())) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
-                $res);
+                implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
         }
         $this->_options['replacements'][$path][] = $task;
     }

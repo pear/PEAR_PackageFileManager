@@ -49,7 +49,10 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('Bugfix release
+* fix many bugs in PackageFileManager2, particularly in relation
+  to package.xml 1.0 import and export, replacements
 * fix bug #4478: Notice error on File.php (generator)
+* fix Bug #4525: Update inline package generation example
 * fix Bug #4743: PHP 5.1 pass-by-reference error');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
