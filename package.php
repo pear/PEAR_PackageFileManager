@@ -53,6 +53,7 @@ $packagexml->setNotes('Bugfix release
   to package.xml 1.0 import and export, replacements
 * fix bug #4478: Notice error on File.php (generator)
 * fix Bug #4525: Update inline package generation example
+* fix Bug #4604: validatePackageInfo implementation error
 * fix Bug #4743: PHP 5.1 pass-by-reference error');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
@@ -63,7 +64,7 @@ $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
 $packagexml->setPhpDep('4.2.0');
-$packagexml->setPearinstallerDep('1.4.0a12');
+$packagexml->setPearinstallerDep('1.4.0a13');
 $packagexml->addGlobalReplacement('package-info', '@PEAR-VER@', 'version');
 $packagexml->generateContents();
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {

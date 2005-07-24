@@ -968,7 +968,7 @@ class PEAR_PackageFileManager
             $common->setPackageFileManagerOptions($this->_options);
         }
         $packagexml = $common->xmlFromInfo($this->_packageXml);
-        $common->validatePackageInfo($packagexml, $warnings, $errors,
+        $common->validatePackageInfo($packagexml, $errors, $warnings,
             $this->_options['packagedirectory']);
         if (count($errors)) {
             $ret = '';
@@ -1301,7 +1301,7 @@ class PEAR_PackageFileManager
                     if (isset($replacements[$files['path']])) {
                         $ret[$files['path']]['replacements'] = $replacements[$files['path']];
                     }
-                    if (isset($globalreplacements)) {
+                    if (isset($globalreplacements) && is_array($globalreplacements)) {
                         if (!isset($ret[$files['path']]['replacements'])) {
                             $ret[$files['path']]['replacements'] = array();
                         }
