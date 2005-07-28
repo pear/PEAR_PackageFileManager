@@ -256,6 +256,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                             'c' => 'src',
                             'm4' => 'src',
                             'w32' => 'src',
+                            'dll' => 'ext',
             				'php' => 'php',
             				'html' => 'doc',
             				'*' => 'data',

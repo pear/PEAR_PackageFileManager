@@ -272,6 +272,7 @@ class PEAR_PackageFileManager
                             'c' => 'src',
                             'm4' => 'src',
                             'w32' => 'src',
+                            'dll' => 'ext',
             				'php' => 'php',
             				'html' => 'doc',
             				'*' => 'data',
