@@ -273,15 +273,15 @@ class PEAR_PackageFileManager
                             'm4' => 'src',
                             'w32' => 'src',
                             'dll' => 'ext',
-            				'php' => 'php',
-            				'html' => 'doc',
-            				'*' => 'data',
+                            'php' => 'php',
+                            'html' => 'doc',
+                            '*' => 'data',
                              ),
                       'dir_roles' =>
                         array(
-        					'docs' => 'doc',
-        					'examples' => 'doc',
-        					'tests' => 'test',
+                            'docs' => 'doc',
+                            'examples' => 'doc',
+                            'tests' => 'test',
                              ),
                       'exceptions' => array(),
                       'installexceptions' => array(),
@@ -1144,8 +1144,8 @@ class PEAR_PackageFileManager
         }
         extract($this->_options);
         $ret = array();
-    	foreach($struc as $dir => $files) {
-    		if (false && $dir === '/') {
+        foreach($struc as $dir => $files) {
+            if (false && $dir === '/') {
                 // global directory role? overrides all exceptions except file exceptions
                 if (isset($dir_roles['/'])) {
                     $role = $dir_roles['/'];
@@ -1154,8 +1154,8 @@ class PEAR_PackageFileManager
                     'baseinstalldir' => $this->_options['baseinstalldir'],
                     '##files' => $this->_getSimpleDirTag($struc[$dir], $role, ''),
                     'name' => '/');
-    		} else {
-    			if (!isset($files['file'])) {
+            } else {
+                if (!isset($files['file'])) {
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
                     } else {
@@ -1171,23 +1171,23 @@ class PEAR_PackageFileManager
                         $recurdir = '';
                     }
                     $ret[$dir]['##files'] = $this->_getSimpleDirTag($files, $myrole, $recurdir);
-    			} else {
-    				$myrole = '';
-    				if (!$role)
-    				{
-    					$myrole = false;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					} elseif (isset($roles[$files['ext']])) {
-    						$myrole = $roles[$files['ext']];
-    					} else {
+                } else {
+                    $myrole = '';
+                    if (!$role)
+                    {
+                        $myrole = false;
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        } elseif (isset($roles[$files['ext']])) {
+                            $myrole = $roles[$files['ext']];
+                        } else {
                             $myrole = $roles['*'];
                         }
-    				} else {
+                    } else {
                         $myrole = $role;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					}
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        }
                     }
                     $test = explode('/', $files['path']);
                     foreach ($test as $subpath) {
@@ -1196,7 +1196,7 @@ class PEAR_PackageFileManager
                                 array('path' => $files['path']));
                         }
                     }
-    				$ret[$files['file']] = array('role' => $myrole);
+                    $ret[$files['file']] = array('role' => $myrole);
                     if (isset($installexceptions[$files['path']])) {
                         $ret[$files['file']]['baseinstalldir'] =
                             $installexceptions[$files['path']];
@@ -1217,10 +1217,10 @@ class PEAR_PackageFileManager
                         $ret[$files['file']]['replacements'] = array_merge(
                             $ret[$files['file']]['replacements'], $globalreplacements);
                     }
-    			}
-    		}
-    	}
-    	return $ret;
+                }
+            }
+        }
+        return $ret;
     }
     
     /**
@@ -1240,39 +1240,39 @@ class PEAR_PackageFileManager
         }
         extract($this->_options);
         $ret = array();
-    	foreach($struc as $dir => $files) {
-    		if ($dir === '/') {
+        foreach($struc as $dir => $files) {
+            if ($dir === '/') {
                 // global directory role? overrides all exceptions except file exceptions
                 if (isset($dir_roles['/'])) {
                     $role = $dir_roles['/'];
                 }
                 return $this->_getDirTag($struc[$dir], $role, '');
-    		} else {
-    			if (!isset($files['file'])) {
-    				$myrole = '';
+            } else {
+                if (!isset($files['file'])) {
+                    $myrole = '';
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
                     } elseif ($role) {
                         $myrole = $role;
                     }
                     $ret = array_merge($ret, $this->_getDirTag($files, $myrole, $_curdir . $dir . '/'));
-    			} else {
-    				$myrole = '';
-    				if (!$role)
-    				{
-    					$myrole = false;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					} elseif (isset($roles[$files['ext']])) {
-    						$myrole = $roles[$files['ext']];
-    					} else {
+                } else {
+                    $myrole = '';
+                    if (!$role)
+                    {
+                        $myrole = false;
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        } elseif (isset($roles[$files['ext']])) {
+                            $myrole = $roles[$files['ext']];
+                        } else {
                             $myrole = $roles['*'];
                         }
-    				} else {
+                    } else {
                         $myrole = $role;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					}
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        }
                     }
                     if (isset($installexceptions[$files['path']])) {
                         $bi = $installexceptions[$files['path']];
@@ -1285,7 +1285,7 @@ class PEAR_PackageFileManager
                             $this->pushWarning(PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED, array('path' => $files['path']));
                         }
                     }
-    				$ret[$files['path']] =
+                    $ret[$files['path']] =
                         array('role' => $myrole,
                               'baseinstalldir' => $bi,
                               );
@@ -1316,10 +1316,10 @@ class PEAR_PackageFileManager
                     if ($myrole == 'php' && !$this->_options['simpleoutput']) {
                         $this->_addProvides($this->_pear, $files['fullpath']);
                     }
-    			}
-    		}
-    	}
-    	return $ret;
+                }
+            }
+        }
+        return $ret;
     }
 
     /**

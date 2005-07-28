@@ -257,15 +257,15 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                             'm4' => 'src',
                             'w32' => 'src',
                             'dll' => 'ext',
-            				'php' => 'php',
-            				'html' => 'doc',
-            				'*' => 'data',
+                            'php' => 'php',
+                            'html' => 'doc',
+                            '*' => 'data',
                              ),
                       'dir_roles' =>
                         array(
-        					'docs' => 'doc',
-        					'examples' => 'doc',
-        					'tests' => 'test',
+                            'docs' => 'doc',
+                            'examples' => 'doc',
+                            'tests' => 'test',
                              ),
                       'exceptions' => array(),
                       'installexceptions' => array(),
@@ -981,17 +981,17 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
         extract($this->_options);
         $ret = array();
-    	foreach($struc as $dir => $files) {
-    		if (false && $dir === '/') {
+        foreach($struc as $dir => $files) {
+            if (false && $dir === '/') {
                 // global directory role? overrides all exceptions except file exceptions
                 if (isset($dir_roles['/'])) {
                     $role = $dir_roles['/'];
                 }
                 return $this->_getSimpleDirTag($struc[$dir], $role, '');
-    		} else {
-    		    // directory
-    			if (!isset($files['file'])) {
-    			    // contains only directories
+            } else {
+                // directory
+                if (!isset($files['file'])) {
+                    // contains only directories
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
                     } else {
@@ -1002,24 +1002,24 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                         $recurdir = '';
                     }
                     $this->_getSimpleDirTag($files, $myrole, $recurdir);
-    			} else {
-    			    // contains files
-    				$myrole = '';
-    				if (!$role)
-    				{
-    					$myrole = false;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					} elseif (isset($roles[$files['ext']])) {
-    						$myrole = $roles[$files['ext']];
-    					} else {
+                } else {
+                    // contains files
+                    $myrole = '';
+                    if (!$role)
+                    {
+                        $myrole = false;
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        } elseif (isset($roles[$files['ext']])) {
+                            $myrole = $roles[$files['ext']];
+                        } else {
                             $myrole = $roles['*'];
                         }
-    				} else {
+                    } else {
                         $myrole = $role;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					}
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        }
                     }
                     $test = explode('/', $files['path']);
                     foreach ($test as $subpath) {
@@ -1028,8 +1028,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                                 array('path' => $files['path']));
                         }
                     }
-    				$atts = array('role' => $myrole);
-    				$diradd = dirname($files['path']);
+                    $atts = array('role' => $myrole);
+                    $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
                     if (isset($replacements[$files['path']])) {
                         foreach ($replacements[$files['path']] as $task) {
@@ -1041,10 +1041,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                             $this->addTaskToFile($files['path'], $task);
                         }
                     }
-    			}
-    		}
-    	}
-    	return;
+                }
+            }
+        }
+        return;
     }
     
     /**
@@ -1063,41 +1063,41 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $struc;
         }
         extract($this->_options);
-    	foreach($struc as $dir => $files) {
-    		if ($dir === '/') {
+        foreach($struc as $dir => $files) {
+            if ($dir === '/') {
                 // global directory role? overrides all exceptions except file exceptions
                 if (isset($dir_roles['/'])) {
                     $role = $dir_roles['/'];
                 }
                 return $this->_getDirTag($struc[$dir], $role, '');
-    		} else {
-    		    // non-global directory
-    			if (!isset($files['file'])) {
-    			    // contains only other directories
-    				$myrole = '';
+            } else {
+                // non-global directory
+                if (!isset($files['file'])) {
+                    // contains only other directories
+                    $myrole = '';
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
                     } elseif ($role) {
                         $myrole = $role;
                     }
                     $this->_getDirTag($files, $myrole, $_curdir . $dir . '/');
-    			} else {
-    			    // contains files
-    				$myrole = '';
-    				if (!$role) {
-    					$myrole = false;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					} elseif (isset($roles[$files['ext']])) {
-    						$myrole = $roles[$files['ext']];
-    					} else {
+                } else {
+                    // contains files
+                    $myrole = '';
+                    if (!$role) {
+                        $myrole = false;
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        } elseif (isset($roles[$files['ext']])) {
+                            $myrole = $roles[$files['ext']];
+                        } else {
                             $myrole = $roles['*'];
                         }
-    				} else {
+                    } else {
                         $myrole = $role;
-    					if (isset($exceptions[$files['path']])) {
-    						$myrole = $exceptions[$files['path']];
-    					}
+                        if (isset($exceptions[$files['path']])) {
+                            $myrole = $exceptions[$files['path']];
+                        }
                     }
                     if (isset($installexceptions[$files['path']])) {
                         $bi = $installexceptions[$files['path']];
@@ -1111,7 +1111,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                                 array('path' => $files['path']));
                         }
                     }
-    				$atts =
+                    $atts =
                         array('role' => $myrole,
                               'baseinstalldir' => $bi,
                               );
@@ -1121,7 +1121,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                             $atts['md5sum'] = $md5sum;
                         }
                     }
-    				$diradd = dirname($files['path']);
+                    $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
                     if (isset($replacements[$files['path']])) {
                         foreach ($replacements[$files['path']] as $task) {
@@ -1133,10 +1133,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                             $this->addTaskToFile($files['path'], $task);
                         }
                     }
-    			}
-    		}
-    	}
-    	return;
+                }
+            }
+        }
+        return;
     }
 
     /**
