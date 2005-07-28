@@ -252,6 +252,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       'changelogoldtonew' => true,
                       'roles' =>
                         array(
+                            'h' => 'src',
+                            'c' => 'src',
+                            'm4' => 'src',
+                            'w32' => 'src',
             				'php' => 'php',
             				'html' => 'doc',
             				'*' => 'data',

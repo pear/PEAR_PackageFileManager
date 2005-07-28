@@ -268,6 +268,10 @@ class PEAR_PackageFileManager
                       'changelogoldtonew' => true,
                       'roles' =>
                         array(
+                            'h' => 'src',
+                            'c' => 'src',
+                            'm4' => 'src',
+                            'w32' => 'src',
             				'php' => 'php',
             				'html' => 'doc',
             				'*' => 'data',
