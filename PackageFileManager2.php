@@ -48,6 +48,7 @@ define('PEAR_PACKAGEFILEMANAGER2_NO_FILES', 20);
 define('PEAR_PACKAGEFILEMANAGER2_IGNORED_EVERYTHING', 21);
 define('PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE', 22);
 define('PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE', 23);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE', 24);
 define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
 /**#@-*/
@@ -94,6 +95,8 @@ array(
             'Package validation failed:%s%s',
         PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE =>
             'Replacement Type must be one of "%s", was passed "%s"',
+        PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE =>
+            'Invalid file role passed to addRole, must be one of "%s", was passed "%s"',
         PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED =>
             'path "%path%" contains CVS directory',
         PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO =>
@@ -202,14 +205,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @access private
      */
     var $_packageXml = false;
-    
-    /**
-     * Contents of the original package.xml file, if any
-     * @var PEAR_PackageFile_v2
-     * @access private
-     */
-    var $_oldPackageXml = false;
-    
+
     /**
      * @access private
      * @var array
@@ -228,7 +224,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @var PEAR_PackageFile_v2|false
      * @access private
      */
-    var $_old = false;
+    var $_oldPackageFile = false;
 
     /**
      * Collection of subpackages
@@ -295,7 +291,44 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $config = &PEAR_Config::singleton();
         $this->setConfig($config);
     }
-    
+
+    /**
+     * Add a pattern to include when generating the file list.
+     *
+     * If any include options are specified, all files that do not match the
+     * inclusion patterns will be ignored
+     * @param string
+     * @param bool if true, the include array will be reset (useful for cloned packagefiles)
+     */
+    function addInclude($include, $clear = false)
+    {
+        if ($clear) {
+            $this->_options['include'] = array();
+        }
+        if (is_array($include)) {
+            $this->_options['include'] = $include;
+            return;
+        }
+        $this->_options['include'][] = $include;
+    }
+
+    /**
+     * Add a pattern or patterns to ignore when generating the file list
+     * @param string|array
+     * @param bool if true, the include array will be reset (useful for cloned packagefiles)
+     */
+    function addIgnore($ignore, $clear = false)
+    {
+        if ($clear) {
+            $this->_options['ignore'] = array();
+        }
+        if (is_array($ignore)) {
+            $this->_options['ignore'] = $ignore;
+            return;
+        }
+        $this->_options['ignore'][] = $ignore;
+    }
+
     /**
      * Set package.xml generation options
      *
@@ -420,6 +453,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                   $this->_options['packagefile']))) {
                 return $res;
             }
+            $this->_oldPackageFile = $res;
         }
         if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
             // attempt to load the interface from the standard PEAR location
@@ -1182,8 +1216,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function _updateChangeLog()
     {
-        if ($this->_old) {
-            $changelog = $this->_old->getChangelog();
+        if ($this->_oldPackageFile) {
+            $changelog = $this->_oldPackageFile->getChangelog();
         } else {
             $changelog = false;
         }
@@ -1241,8 +1275,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 
     function setOld()
     {
-        $this->_old = new PEAR_PackageFile_v2_rw;
-        $this->_old->fromArray($this->getArray());
+        $this->_oldPackageFile = new PEAR_PackageFile_v2_rw;
+        $this->_oldPackageFile->fromArray($this->getArray());
     }
 
     /**
@@ -1302,7 +1336,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function &_generateNewPackageXML()
     {
-        $this->_old = false;
+        $this->_oldPackageFile = false;
         $pf = &new PEAR_PackageFileManager2;
         return $pf;
     }

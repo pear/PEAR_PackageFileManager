@@ -49,9 +49,11 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('Bugfix release
+* add addIgnore()/addInclude()
 * fix many bugs in PackageFileManager2, particularly in relation
   to package.xml 1.0 import and export, replacements
 * fix bug #4478: Notice error on File.php (generator)
+* fix Bug #4499: 1.6.0a1: Generated package2.xml does not carry over changelog
 * fix Bug #4525: Update inline package generation example
 * fix Bug #4604: validatePackageInfo implementation error
 * fix Bug #4743: PHP 5.1 pass-by-reference error');
