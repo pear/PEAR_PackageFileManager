@@ -66,7 +66,7 @@ $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
 $packagexml->setPhpDep('4.2.0');
-$packagexml->setPearinstallerDep('1.4.0a13');
+$packagexml->setPearinstallerDep('1.4.0b1');
 $packagexml->addGlobalReplacement('package-info', '@PEAR-VER@', 'version');
 $packagexml->generateContents();
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
