@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package packagerversion="1.4.0a13" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.0b1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -35,10 +35,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>yes</active>
  </developer>
- <date>2005-07-24</date>
- <time>19:30:34</time>
+ <date>2005-09-06</date>
+ <time>18:18:44</time>
  <version>
-  <release>1.6.0a2</release>
+  <release>1.6.0a3</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -47,12 +47,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>Bugfix release
-* fix many bugs in PackageFileManager2, particularly in relation
-  to package.xml 1.0 import and export, replacements
-* fix bug #4478: Notice error on File.php (generator)
-* fix Bug #4525: Update inline package generation example
-* fix Bug #4604: validatePackageInfo implementation error
-* fix Bug #4743: PHP 5.1 pass-by-reference error</notes>
+* add addIgnoreToRelease() to replace PEAR_PackageFile_v2_rw::addIgnore()</notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
    <dir name="examples">
@@ -854,6 +849,20 @@ The new PEAR_PackageFileManager2 class is not.</description>
 * fix Bug #4525: Update inline package generation example
 * fix Bug #4604: validatePackageInfo implementation error
 * fix Bug #4743: PHP 5.1 pass-by-reference error</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a3</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-09-06</date>
+   <license>PHP License</license>
+   <notes>Bugfix release
+* add addIgnoreToRelease() to replace PEAR_PackageFile_v2_rw::addIgnore()</notes>
   </release>
  </changelog>
 </package>
