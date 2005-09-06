@@ -313,6 +313,16 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
+     * add an <ignore> tag to a <phprelease> tag
+     * @param string
+     * @see PEAR_PackageFile_v2_rw::addIgnore()
+     */
+    function addIgnoreToRelease($path)
+    {
+        return parent::addIgnore($path);
+    }
+
+    /**
      * Add a pattern or patterns to ignore when generating the file list
      * @param string|array
      * @param bool if true, the include array will be reset (useful for cloned packagefiles)
