@@ -627,6 +627,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * @param string
      * @param array
+     * @return PEAR_PackageFileManager2
      * @static
      */
     function &importFromPackageFile1($packagefile, $options = array())
@@ -1346,8 +1347,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function &_generateNewPackageXML()
     {
-        $this->_oldPackageFile = false;
         $pf = &new PEAR_PackageFileManager2;
+        $pf->_oldPackageFile = false;
         return $pf;
     }
 }
