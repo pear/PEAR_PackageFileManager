@@ -836,7 +836,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     {
         require_once 'PEAR/Task/Postinstallscript/rw.php';
         $task = new PEAR_Task_Postinstallscript_rw($this, $this->_config, $l,
-            array('attribs' => array('name' => $path, 'role' => 'php')));
+            array('name' => $path, 'role' => 'php'));
         return $task;
     }
 
