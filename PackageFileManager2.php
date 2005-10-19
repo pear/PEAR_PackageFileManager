@@ -51,6 +51,7 @@ define('PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE', 23);
 define('PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE', 24);
 define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT', 28);
 /**#@-*/
 /**
  * Error messages
@@ -95,6 +96,8 @@ array(
             'Package validation failed:%s%s',
         PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE =>
             'Replacement Type must be one of "%s", was passed "%s"',
+        PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT =>
+            'Invalid post-install script task: %s',
         PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE =>
             'Invalid file role passed to addRole, must be one of "%s", was passed "%s"',
         PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED =>
@@ -771,6 +774,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @param string variable type, either php-const, pear-config or package-info
      * @param string text to replace in the source file
      * @param string variable name to use for replacement
+     * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE
      */
     function addReplacement($path, $type, $from, $to)
     {
@@ -784,6 +788,75 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (is_array($res = $task->validate())) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
                 implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
+        }
+        $this->_options['replacements'][$path][] = $task;
+    }
+
+    /**
+     * Convert a file to windows line endings on installation
+     *
+     * @param string relative path of file (relative to packagedirectory option)
+     */
+    function addWindowsEol($path)
+    {
+        if (!isset($this->_options['replacements'])) {
+            $this->_options['replacements'] = array();
+        }
+        require_once 'PEAR/Task/Windowseol/rw.php';
+        $l = null;
+        $task = new PEAR_Task_Windowseol_rw($this, $this->_config, $l, '');
+        // we'll use this because it will still work
+        $this->_options['replacements'][$path][] = $task;
+    }
+
+    /**
+     * Convert a file to unix line endings on installation
+     *
+     * @param string relative path of file (relative to packagedirectory option)
+     */
+    function addUnixEol($path)
+    {
+        if (!isset($this->_options['replacements'])) {
+            $this->_options['replacements'] = array();
+        }
+        require_once 'PEAR/Task/Unixeol/rw.php';
+        $l = null;
+        $task = new PEAR_Task_Unixeol_rw($this, $this->_config, $l, '');
+        // we'll use this because it will still work
+        $this->_options['replacements'][$path][] = $task;
+    }
+
+    /**
+     * Get a post-installation task object for manipulation prior to adding it
+     *
+     * @param string relative path of file (relative to packagedirectory option)
+     * @return PEAR_Task_Postinstallscript_rw
+     */ 
+    function &initPostinstallScript($path)
+    {
+        require_once 'PEAR/Task/Postinstallscript/rw.php';
+        $task = new PEAR_Task_Postinstallscript_rw($this, $this->_config, $l,
+            array('attribs' => array('name' => $path, 'role' => 'php')));
+        return $task;
+    }
+
+    /**
+     * Add post-installation script task to a post-install script.
+     * 
+     * The script must have been created with {@link initPostinstallScript()} and
+     * then populated using the API of PEAR_Task_Postinstallscript_rw.
+     * @param PEAR_Task_Postinstallscript_rw
+     * @param string relative path of file (relative to packagedirectory option)
+     * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT
+     */
+    function addPostinstallTask($task, $path)
+    {
+        if (is_array($res = $task->validate())) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT,
+                $res[1]);
+        }
+        if (!isset($this->_options['replacements'])) {
+            $this->_options['replacements'] = array();
         }
         $this->_options['replacements'][$path][] = $task;
     }

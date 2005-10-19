@@ -48,18 +48,18 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'packagedirectory' => dirname(__FILE__),
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('Bugfix release
-* add addIgnoreToRelease() to replace PEAR_PackageFile_v2_rw::addIgnore()');
+$packagexml->setNotes('New features
+* add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 $packagexml->setChannel('pear.php.net');
-$packagexml->setReleaseVersion('1.6.0a3');
+$packagexml->setReleaseVersion('1.6.0a4');
 $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
 $packagexml->setPhpDep('4.2.0');
-$packagexml->setPearinstallerDep('1.4.0b1');
+$packagexml->setPearinstallerDep('1.4.3');
 $packagexml->addGlobalReplacement('package-info', '@PEAR-VER@', 'version');
 $packagexml->generateContents();
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
