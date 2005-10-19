@@ -851,6 +851,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function addPostinstallTask($task, $path)
     {
+        // necessary for validation
+        $this->addFile('', $path, array('role' => 'php', 'name' => $path));
+        $this->setPackagefile($this->_options['packagedirectory'] .
+            DIRECTORY_SEPARATOR . $this->_options['packagefile']);
         if (is_array($res = $task->validate())) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT,
                 $res[1]);
@@ -1149,13 +1153,13 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $atts = array('role' => $myrole);
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
-                    if (isset($replacements[$files['path']])) {
-                        foreach ($replacements[$files['path']] as $task) {
+                    if (isset($globalreplacements)) {
+                        foreach ($globalreplacements as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
                     }
-                    if (isset($globalreplacements)) {
-                        foreach ($globalreplacements as $task) {
+                    if (isset($replacements[$files['path']])) {
+                        foreach ($replacements[$files['path']] as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
                     }
@@ -1241,13 +1245,13 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     }
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
-                    if (isset($replacements[$files['path']])) {
-                        foreach ($replacements[$files['path']] as $task) {
+                    if (isset($globalreplacements)) {
+                        foreach ($globalreplacements as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
                     }
-                    if (isset($globalreplacements)) {
-                        foreach ($globalreplacements as $task) {
+                    if (isset($replacements[$files['path']])) {
+                        foreach ($replacements[$files['path']] as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
                     }
