@@ -1381,7 +1381,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $contents = file_get_contents($path . $packagefile);
             }
             if (!$contents) {
-                return PEAR_PackageFileManager2::_generateNewPackageXML();
+                $a = PEAR_PackageFileManager2::_generateNewPackageXML();
+                return $a;
             } else {
                 require_once 'PEAR/PackageFile/Parser/v2.php';
                 $pkg = &new PEAR_PackageFile_Parser_v2;
@@ -1389,7 +1390,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $pkg->setConfig($z);
                 $pf = &$pkg->parse($contents, $path . $packagefile, false, 'PEAR_PackageFileManager2');
                 if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
-                    return $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE);
+                    $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE);
+                    return $a;
                 }
                 if (PEAR::isError($pf)) {
                     return $pf;
@@ -1404,7 +1406,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $path = gettype($path);
             }
             require_once 'PEAR.php';
-            return PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST);
+            $a = PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST);
+            return $a;
         }
     }
     
