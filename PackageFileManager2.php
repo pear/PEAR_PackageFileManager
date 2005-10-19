@@ -584,6 +584,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $replaces = array();
             foreach ($this->_options['replacements'] as $path => $replaceobjs) {
                 foreach ($replaceobjs as $replaceobj) {
+                    if (!is_a($replaceobj, 'PEAR_Task_Replace')) {
+                        continue; // skip non-standard tasks
+                    }
                     $atts = $replaceobj->getXml();
                     $replaces[$path][] = $atts['attribs'];
                 }
