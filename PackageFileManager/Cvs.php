@@ -72,7 +72,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
             return parent::dirList($directory);
         }
         if (!$entries || !is_array($entries)) {
-            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES, $directory);
+            return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES, $directory);
         }
         return $this->_readCVSEntries($entries);
     }

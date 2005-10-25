@@ -94,7 +94,7 @@ class PEAR_PackageFileManager_File {
             return $allfiles;
         }
         if (!count($allfiles)) {
-            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_NO_FILES,
+            return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_NO_FILES,
                 substr($package_directory, 0, strlen($package_directory) - 1));
         }
         $struc = array();
