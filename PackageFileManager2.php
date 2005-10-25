@@ -1395,9 +1395,16 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $pkg = &new PEAR_PackageFile_Parser_v2;
                 $z = &PEAR_Config::singleton();
                 $pkg->setConfig($z);
-                $pf = &$pkg->parse($contents, $path . $packagefile, false, 'PEAR_PackageFileManager2');
+                $pf = &$pkg->parse($contents, $path . $packagefile, false,
+                    'PEAR_PackageFileManager2');
                 if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
-                    $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE);
+                    $errors = '';
+                    foreach ($pf->getValidationWarnings() as $warning) {
+                        $errors .= "\n" . ucfirst($warning['level']) . ' ' .
+                            $warning['message'];
+                    }
+                    $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE,
+                        $errors);
                     return $a;
                 }
                 if (PEAR::isError($pf)) {
