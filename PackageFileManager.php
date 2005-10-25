@@ -590,6 +590,7 @@ class PEAR_PackageFileManager
             $this->_options['deps'] = $this->_oldPackageXml['release_deps'];
         }
         $this->_options['maintainers'] = $this->_oldPackageXml['maintainers'];
+        $this->setOptions($options, true);
         return true;
     }
 
