@@ -53,6 +53,7 @@ define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
 define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT', 28);
 define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL', 29);
+define('PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL', 30);
 /**#@-*/
 /**
  * Error messages
@@ -68,6 +69,9 @@ array(
             'specified in PEAR_PackageFileManager2 setOptions',
         PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL =>
             'Package source base directory (option \'packagedirectory\') must be ' .
+            'an existing directory (was "%s")',
+        PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL =>
+            'output directory (option \'outputdirectory\') must be ' .
             'an existing directory (was "%s")',
         PEAR_PACKAGEFILEMANAGER2_NOBASEDIR =>
             'Package install base directory (option \'baseinstalldir\') must be ' .
@@ -458,6 +462,18 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                                                      realpath($options['pathtopackagefile']));
             if ($options['pathtopackagefile']{strlen($options['pathtopackagefile']) - 1} != '/') {
                 $options['pathtopackagefile'] .= '/';
+            }
+        }
+        if (isset($options['outputdirectory']) && $options['outputdirectory']) {
+            if (!file_exists($options['outputdirectory'])) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL,
+                    $options['outputdirectory']);
+            }
+            $options['outputdirectory'] = str_replace(DIRECTORY_SEPARATOR,
+                                                     '/',
+                                                     realpath($options['outputdirectory']));
+            if ($options['outputdirectory']{strlen($options['outputdirectory']) - 1} != '/') {
+                $options['outputdirectory'] .= '/';
             }
         }
         if (!isset($options['baseinstalldir']) || !$options['baseinstalldir']) {
