@@ -52,7 +52,8 @@ $packagexml->setNotes('New features/bugfix release
 * add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
 * fix invalid package validation in PFM2::importOptions() - no error messages printed
 * fix fatal error if no files are found by the filelist generator using PFM2
-* fix Bug #5243: importOptions() won\'t work with 2nd arg filled');
+* fix Bug #5243: importOptions() won\'t work with 2nd arg filled
+* fix Bug #5072: If channel not registered, addMaintainers() fails?');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
