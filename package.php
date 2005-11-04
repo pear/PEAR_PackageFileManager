@@ -1,27 +1,4 @@
 <?php
-//require_once 'PEAR/PackageFileManager.php';
-//$pf = new PEAR_PackageFileManager;
-//PEAR::setErrorHandling(PEAR_ERROR_DIE);
-//$pf->setOptions(array(
-//'state' => 'stable',
-//'version' => '1.5.3',
-//'license' => 'PHP License',
-//'notes' => 'Bugfix release
-//* fix notice if simpleoutput is used, and there are no subdirectories
-//',
-//'packagedirectory' => dirname(__FILE__),
-//'baseinstalldir' => 'PEAR',
-//'filelistgenerator' => 'CVS',
-//'simpleoutput' => true,
-//'ignore' => array('package.php'),
-//));
-//if (isset($_GET['make']) || isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == 'make') {
-//    $pf->writePackageFile();
-//} else {
-//    $pf->debugPackageFile();
-//}
-?>
-<?php
 /**
  * This is the package.xml generator for PEAR_PackageFileManager
  *
@@ -49,6 +26,9 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('New features/bugfix release
+
+Still more unit testing to do, but enough is fixed to warrant a new release
+
 * add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
 * fix invalid package validation in PFM2::importOptions() - no error messages printed
 * fix fatal error if no files are found by the filelist generator using PFM2

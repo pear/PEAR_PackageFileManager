@@ -36,7 +36,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <active>yes</active>
  </developer>
  <date>2005-11-04</date>
- <time>17:39:05</time>
+ <time>17:52:07</time>
  <version>
   <release>1.6.0a4</release>
   <api>1.6.0</api>
@@ -47,6 +47,9 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
  <notes>New features/bugfix release
+
+Still more unit testing to do, but enough is fixed to warrant a new release
+
 * add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
 * fix invalid package validation in PFM2::importOptions() - no error messages printed
 * fix fatal error if no files are found by the filelist generator using PFM2
@@ -951,6 +954,9 @@ The new PEAR_PackageFileManager2 class is not.</description>
    <date>2005-11-04</date>
    <license>PHP License</license>
    <notes>New features/bugfix release
+
+Still more unit testing to do, but enough is fixed to warrant a new release
+
 * add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
 * fix invalid package validation in PFM2::importOptions() - no error messages printed
 * fix fatal error if no files are found by the filelist generator using PFM2
