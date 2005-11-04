@@ -52,6 +52,7 @@ define('PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE', 24);
 define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
 define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT', 28);
+define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL', 29);
 /**#@-*/
 /**
  * Error messages
@@ -65,6 +66,9 @@ array(
         PEAR_PACKAGEFILEMANAGER2_NOPKGDIR =>
             'Package source base directory (option \'packagedirectory\') must be ' .
             'specified in PEAR_PackageFileManager2 setOptions',
+        PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL =>
+            'Package source base directory (option \'packagedirectory\') must be ' .
+            'an existing directory (was "%s")',
         PEAR_PACKAGEFILEMANAGER2_NOBASEDIR =>
             'Package install base directory (option \'baseinstalldir\') must be ' .
             'specified in PEAR_PackageFileManager2 setOptions',
@@ -434,9 +438,13 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function setOptions($options = array(), $internal = false)
     {
-        if (!isset($options['packagedirectory'])) {
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOPKGDIR);
+        if (!isset($options['packagedirectory']) || !$options['packagedirectory']) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOPKGDIR);
         } else {
+            if (!file_exists($options['packagedirectory'])) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL,
+                    $options['packagedirectory']);
+            }
             $options['packagedirectory'] = str_replace(DIRECTORY_SEPARATOR,
                                                      '/',
                                                      realpath($options['packagedirectory']));
@@ -452,7 +460,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $options['pathtopackagefile'] .= '/';
             }
         }
-        if (!isset($options['baseinstalldir'])) {
+        if (!isset($options['baseinstalldir']) || !$options['baseinstalldir']) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
@@ -462,7 +470,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $this->_options['filelistgenerator'] =
             ucfirst(strtolower($this->_options['filelistgenerator']));
         if (!$internal) {
-            if (PEAR::isError($res = $this->_getExistingPackageXML($path,
+            if (PEAR::isError($res = PEAR_PackageFileManager2::_getExistingPackageXML($path,
                   $this->_options['packagefile']))) {
                 return $res;
             }

@@ -48,8 +48,11 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'packagedirectory' => dirname(__FILE__),
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('New features
-* add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()');
+$packagexml->setNotes('New features/bugfix release
+* add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
+* fix invalid package validation in PFM2::importOptions() - no error messages printed
+* fix fatal error if no files are found by the filelist generator using PFM2
+* fix Bug #5243: importOptions() won\'t work with 2nd arg filled');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
