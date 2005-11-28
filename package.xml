@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.3" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.5" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -35,10 +35,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>yes</active>
  </developer>
- <date>2005-11-04</date>
- <time>17:52:07</time>
+ <date>2005-11-27</date>
+ <time>00:12:36</time>
  <version>
-  <release>1.6.0a4</release>
+  <release>1.6.0a5</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -46,15 +46,8 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <api>alpha</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>New features/bugfix release
-
-Still more unit testing to do, but enough is fixed to warrant a new release
-
-* add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
-* fix invalid package validation in PFM2::importOptions() - no error messages printed
-* fix fatal error if no files are found by the filelist generator using PFM2
-* fix Bug #5243: importOptions() won&apos;t work with 2nd arg filled
-* fix Bug #5072: If channel not registered, addMaintainers() fails?</notes>
+ <notes>Bugfix release
+* fix Bug #6037: Directories named &quot;file&quot; make problems</notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
    <dir name="examples">
@@ -962,6 +955,20 @@ Still more unit testing to do, but enough is fixed to warrant a new release
 * fix fatal error if no files are found by the filelist generator using PFM2
 * fix Bug #5243: importOptions() won&apos;t work with 2nd arg filled
 * fix Bug #5072: If channel not registered, addMaintainers() fails?</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a5</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-27</date>
+   <license>PHP License</license>
+   <notes>Bugfix release
+* fix Bug #6037: Directories named &quot;file&quot; make problems</notes>
   </release>
  </changelog>
 </package>

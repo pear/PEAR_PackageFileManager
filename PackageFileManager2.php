@@ -1139,7 +1139,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 return $this->_getSimpleDirTag($struc[$dir], $role, '');
             } else {
                 // directory
-                if (!isset($files['file'])) {
+                if (!isset($files['file']) || is_array($files['file'])) {
                     // contains only directories
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
@@ -1221,7 +1221,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 return $this->_getDirTag($struc[$dir], $role, '');
             } else {
                 // non-global directory
-                if (!isset($files['file'])) {
+                if (!isset($files['file']) || is_array($files['file'])) {
                     // contains only other directories
                     $myrole = '';
                     if (isset($dir_roles[$_curdir . $dir])) {

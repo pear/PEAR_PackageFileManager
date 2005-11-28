@@ -25,20 +25,13 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'packagedirectory' => dirname(__FILE__),
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('New features/bugfix release
-
-Still more unit testing to do, but enough is fixed to warrant a new release
-
-* add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
-* fix invalid package validation in PFM2::importOptions() - no error messages printed
-* fix fatal error if no files are found by the filelist generator using PFM2
-* fix Bug #5243: importOptions() won\'t work with 2nd arg filled
-* fix Bug #5072: If channel not registered, addMaintainers() fails?');
+$packagexml->setNotes('Bugfix release
+* fix Bug #6037: Directories named "file" make problems');
 $packagexml->addIgnore('*.tgz');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 $packagexml->setChannel('pear.php.net');
-$packagexml->setReleaseVersion('1.6.0a4');
+$packagexml->setReleaseVersion('1.6.0a5');
 $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
