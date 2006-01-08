@@ -1,10 +1,7 @@
 <?php
 /**
- * Here is a sample file that demonstrates all of PEAR_PackageFileManager2's features.
- *
- * First, a subpackage is created that is then automatically processed with the parent package
- * Next, the parent package is created.  Finally, a compatible PEAR_PackageFileManager object is
- * automatically created from the parent package in order to maintain two copies of the same file.
+ * PEAR_PackageFileManager2, like PEAR_PackageFileManager, is designed to
+ * create and manipulate package.xml version 2.0.
  *
  * LICENSE: This source file is subject to version 3.0 of the PHP license
  * that is available through the world-wide-web at the following URI:
@@ -15,7 +12,7 @@
  * @category   pear
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005 The PHP Group
+ * @copyright  2005-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
@@ -54,6 +51,7 @@ define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
 define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT', 28);
 define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL', 29);
 define('PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL', 30);
+define('PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL', 31);
 /**#@-*/
 /**
  * Error messages
@@ -69,6 +67,9 @@ array(
             'specified in PEAR_PackageFileManager2 setOptions',
         PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL =>
             'Package source base directory (option \'packagedirectory\') must be ' .
+            'an existing directory (was "%s")',
+        PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL =>
+            'Path to a Package file to read in (option \'pathtopackagefile\') must be ' .
             'an existing directory (was "%s")',
         PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL =>
             'output directory (option \'outputdirectory\') must be ' .
@@ -116,7 +117,7 @@ array(
         // other language translations go here
      );
 /**
- * PEAR_PackageFile2Manager, like PEAR_PackageFileManager, is designed to
+ * PEAR_PackageFileManager2, like PEAR_PackageFileManager, is designed to
  * create and manipulate package.xml version 2.0.
  *
  * The PEAR_PackageFileManager2 class can work directly with PEAR_PackageFileManager
@@ -187,17 +188,18 @@ array(
  * }
  * ?>
  * </code>
- * 
+ *
  * In addition, a package.xml file can now be generated from
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addLead(), addDeveloper(), addContributor(), addHelper()} methods
+ *
  * @category   pear
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005 The PHP Group
+ * @copyright  2005-2006 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      Class available since Release 1.6.0
  */
 class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
@@ -209,7 +211,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @access private
      */
     var $_ignore = false;
-    
+
     /**
      * Contents of the package.xml file
      * @var PEAR_PackageFile_v2
@@ -288,7 +290,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       'simpleoutput' => false,
                       'addhiddenfiles' => false,
                       );
-    
+
     /**
      * Does nothing, use factory
      *
@@ -457,6 +459,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
         }
         if (isset($options['pathtopackagefile'])) {
+            if (!file_exists($options['pathtopackagefile'])) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL,
+                    $options['pathtopackagefile']);
+            }
             $options['pathtopackagefile'] = str_replace(DIRECTORY_SEPARATOR,
                                                      '/',
                                                      realpath($options['pathtopackagefile']));
@@ -480,7 +486,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
-        
+
         $path = ($this->_options['pathtopackagefile'] ?
                     $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);
         $this->_options['filelistgenerator'] =
@@ -689,7 +695,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $packagefile = $packagefile->getPackageFile();
         }
         if (!isset($res)) {
-            if (PEAR::isError($res = 
+            if (PEAR::isError($res =
                   &PEAR_PackageFileManager2::_getExistingPackageXML(dirname($packagefile) .
                   DIRECTORY_SEPARATOR, basename($packagefile)))) {
                 return $res;
@@ -729,7 +735,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * Roles influence both where a file is installed and how it is installed.
      * Files with role="data" are in a completely different directory hierarchy
      * from the program files of role="php"
-     * 
+     *
      * In PEAR 1.3b2, these roles are
      * - php (most common)
      * - data
@@ -858,7 +864,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      *
      * @param string relative path of file (relative to packagedirectory option)
      * @return PEAR_Task_Postinstallscript_rw
-     */ 
+     */
     function &initPostinstallScript($path)
     {
         require_once 'PEAR/Task/Postinstallscript/rw.php';
@@ -869,7 +875,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 
     /**
      * Add post-installation script task to a post-install script.
-     * 
+     *
      * The script must have been created with {@link initPostinstallScript()} and
      * then populated using the API of PEAR_Task_Postinstallscript_rw.
      * @param PEAR_Task_Postinstallscript_rw
@@ -1017,7 +1023,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE, $outputdir);
         }
     }
-    
+
     /**
      * ALWAYS use this to test output before overwriting your package.xml!!
      *
@@ -1032,7 +1038,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $webinterface = (php_sapi_name() != 'cli');
         return $this->writePackageFile($webinterface);
     }
-    
+
     /**
      * Store a warning on the warning stack
      */
@@ -1041,7 +1047,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $this->_warningStack[] = array('code' => $code,
                                        'message' => $this->_getMessage($code, $info));
     }
-    
+
     /**
      * Retrieve the list of warnings
      * @return array
@@ -1052,7 +1058,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $this->_warningStack = array();
         return $a;
     }
-    
+
     /**
      * Retrieve an error message from a code
      * @access private
@@ -1066,7 +1072,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
         return $msg;
     }
-    
+
     /**
      * Utility function to shorten error generation code
      *
@@ -1109,7 +1115,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
         $this->clearContents($this->_options['baseinstalldir']);
-        return $this->_getDirTag($this->_struc = $generator->getFileList()); 
+        return $this->_getDirTag($this->_struc = $generator->getFileList());
     }
 
     /**
@@ -1195,7 +1201,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
         return;
     }
-    
+
     /**
      * Recursively generate the <filelist> section's <dir> and <file> tags
      * @param array|PEAR_Error the sorted directory structure, or an error
@@ -1362,7 +1368,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
         }
     }
-    
+
     /**
      * @static
      * @access private
@@ -1448,7 +1454,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $a;
         }
     }
-    
+
     /**
      * Create the structure for a new package.xml
      *
