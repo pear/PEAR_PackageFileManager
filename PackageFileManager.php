@@ -207,7 +207,7 @@ array(
  * }
  * ?>
  * </code>
- * 
+ *
  * In addition, a package.xml file can now be generated from
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addMaintainer()} method
@@ -222,27 +222,27 @@ class PEAR_PackageFileManager
      * @access private
      */
     var $_ignore = false;
-    
+
     /**
      * Contents of the package.xml file
      * @var string
      * @access private
      */
     var $_packageXml = false;
-    
+
     /**
      * Contents of the original package.xml file, if any
      * @var string
      * @access private
      */
     var $_oldPackageXml = false;
-    
+
     /**
      * @access private
      * @var PEAR_Common
      */
     var $_pear;
-    
+
     /**
      * @access private
      * @var array
@@ -255,7 +255,7 @@ class PEAR_PackageFileManager
      * @access private
      */
     var $_detectDependencies = false;
-    
+
     /**
      * @access private
      * @var string
@@ -304,7 +304,7 @@ class PEAR_PackageFileManager
                       'addhiddenfiles' => false,
                       'cleardependencies' => false,
                       );
-    
+
     /**
      * Does nothing, use setOptions
      *
@@ -315,7 +315,7 @@ class PEAR_PackageFileManager
     function PEAR_PackageFileManager()
     {
     }
-    
+
     /**
      * Set package.xml generation options
      *
@@ -503,7 +503,7 @@ class PEAR_PackageFileManager
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
-        
+
         if (!class_exists($this->_options['pearcommonclass'])) {
             if ($this->_options['simpleoutput']) {
                 if ($this->isIncludeable('PEAR/PackageFile/Generator/v1.php')) {
@@ -589,7 +589,7 @@ class PEAR_PackageFileManager
         if (isset($this->_oldPackagexml['release_deps'])) {
             $this->_options['deps'] = $this->_oldPackageXml['release_deps'];
         }
-        $this->_options['maintainers'] = $this->_oldPackageXml['maintainers'];
+        $options['maintainers'] = $this->_options['maintainers'] = $this->_oldPackageXml['maintainers'];
         $this->setOptions($options, true);
         return true;
     }
@@ -609,7 +609,7 @@ class PEAR_PackageFileManager
      * Roles influence both where a file is installed and how it is installed.
      * Files with role="data" are in a completely different directory hierarchy
      * from the program files of role="php"
-     * 
+     *
      * In PEAR 1.3b2, these roles are
      * - php (most common)
      * - data
@@ -629,7 +629,7 @@ class PEAR_PackageFileManager
         }
         $this->_options['roles'][$extension] = $role;
     }
-    
+
     /**
      * Add an install-time platform conditional install for a file
      *
@@ -715,7 +715,7 @@ class PEAR_PackageFileManager
         }
         $this->_options['replacements'][$path][] = array('type' => $type, 'from' => $from, 'to' => $to);
     }
-    
+
     /**
      * Add a maintainer to the list of maintainers.
      *
@@ -763,7 +763,7 @@ class PEAR_PackageFileManager
             $this->_packageXml['maintainers'][] = $maintainer;
         }
     }
-    
+
     /**
      * Add an install-time configuration option for building of source
      *
@@ -891,7 +891,7 @@ class PEAR_PackageFileManager
                 $dep['version'] = $version;
             }
         }
-        
+
         if ($optional) {
             $dep['optional'] = 'yes';
         } else {
@@ -967,7 +967,7 @@ class PEAR_PackageFileManager
         }
         $this->_packageXml['release_deps'] = $this->_getDependencies();
         $this->_updateChangeLog();
-        
+
         $common = &$this->_pear;
         $warnings = $errors = array();
         if (method_exists($common, 'setPackageFileManagerOptions')) {
@@ -1032,7 +1032,7 @@ class PEAR_PackageFileManager
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE, $outputdir);
         }
     }
-    
+
     /**
      * ALWAYS use this to test output before overwriting your package.xml!!
      *
@@ -1047,7 +1047,7 @@ class PEAR_PackageFileManager
         $webinterface = php_sapi_name() != 'cli';
         return $this->writePackageFile($webinterface);
     }
-    
+
     /**
      * Store a warning on the warning stack
      */
@@ -1056,7 +1056,7 @@ class PEAR_PackageFileManager
         $this->_warningStack[] = array('code' => $code,
                                        'message' => $this->_getMessage($code, $info));
     }
-    
+
     /**
      * Retrieve the list of warnings
      * @return array
@@ -1067,7 +1067,7 @@ class PEAR_PackageFileManager
         $this->_warningStack = array();
         return $a;
     }
-    
+
     /**
      * Retrieve an error message from a code
      * @access private
@@ -1081,7 +1081,7 @@ class PEAR_PackageFileManager
         }
         return $msg;
     }
-    
+
     /**
      * Utility function to shorten error generation code
      *
@@ -1095,7 +1095,7 @@ class PEAR_PackageFileManager
                     sprintf($GLOBALS['_PEAR_PACKAGEFILEMANAGER_ERRORS'][$this->_options['lang']][$code],
                     $i1, $i2), $code);
     }
-    
+
     /**
      * Uses {@link PEAR_Common::analyzeSourceCode()} and {@link PEAR_Common::buildProvidesArray()}
      * to create the <provides></provides> section of the package.xml
@@ -1111,7 +1111,7 @@ class PEAR_PackageFileManager
             $pear->buildProvidesArray($a);
         }
     }
-    
+
     /**
      * @uses getDirTag() generate the xml from the array
      * @return string
@@ -1124,9 +1124,9 @@ class PEAR_PackageFileManager
         if ($this->_options['simpleoutput'] && is_a($this->_pear, 'PEAR_Common')) {
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
-        return $this->_getDirTag($this->_struc = $generator->getFileList()); 
+        return $this->_getDirTag($this->_struc = $generator->getFileList());
     }
-    
+
     /**
      * Recursively generate the <filelist> section's <dir> and <file> tags, but with
      * simple human-readable output
@@ -1223,7 +1223,7 @@ class PEAR_PackageFileManager
         }
         return $ret;
     }
-    
+
     /**
      * Recursively generate the <filelist> section's <dir> and <file> tags
      * @param array|PEAR_Error the sorted directory structure, or an error
@@ -1413,7 +1413,7 @@ class PEAR_PackageFileManager
         }
         $hasoldversion = false;
         foreach($this->_packageXml['changelog'] as $index => $changelog) {
-            if ($oldchangelog && isset($oldchangelog['version']) 
+            if ($oldchangelog && isset($oldchangelog['version'])
                     && strnatcasecmp($oldchangelog['version'], $changelog['version']) == 0) {
                 $hasoldversion = true;
             }
@@ -1444,7 +1444,7 @@ class PEAR_PackageFileManager
         }
         usort($this->_packageXml['changelog'], array($this, '_changelogsort'));
     }
-    
+
     /**
      * @static
      * @access private
@@ -1543,7 +1543,7 @@ class PEAR_PackageFileManager
                 $path);
         }
     }
-    
+
     /**
      * Create the structure for a new package.xml
      *
