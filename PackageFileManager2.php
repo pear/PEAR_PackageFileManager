@@ -1425,7 +1425,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $pkg = &new PEAR_PackageFile_Parser_v2;
                 $z = &PEAR_Config::singleton();
                 $pkg->setConfig($z);
-                $pf = &$pkg->parse($contents, $path . $packagefile, false,
+                $pf = $pkg->parse($contents, $path . $packagefile, false,
                     'PEAR_PackageFileManager2');
                 if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
                     $errors = '';
