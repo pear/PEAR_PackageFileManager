@@ -967,7 +967,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 
         $outputdir = ($this->_options['outputdirectory'] ?
                         $this->_options['outputdirectory'] : $this->_options['packagedirectory']);
-        $this->setPackagefile($outputdir . $this->_options['packagefile']);
+        $this->setPackagefile($this->_options['packagedirectory'] . $this->_options['packagefile']);
         if (!$this->validate($state)) {
             $errors = $this->getValidationWarnings();
             $ret = '';
