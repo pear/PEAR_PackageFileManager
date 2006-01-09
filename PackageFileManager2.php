@@ -982,7 +982,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 } else {
                     $msg = $err['message'];
                 }
-                $ret .= $err['level'] . ': ' . $msg . $nl;
+                $ret .= ucfirst($err['level']) . ': ' . $msg . $nl;
             }
             if ($haserror) {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE, $nl, $ret);
@@ -1430,8 +1430,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
                     $errors = '';
                     foreach ($pf->getValidationWarnings() as $warning) {
-                        $errors .= "\n" . ucfirst($warning['level']) . ' ' .
+                        $errors .= "\n" . ucfirst($warning['level']) . ': ' .
                             $warning['message'];
+                    }
+                    if (php_sapi_name() != 'cli') {
+                        $errors = nl2br(htmlspecialchars($errors));
                     }
                     $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE,
                         $errors);
