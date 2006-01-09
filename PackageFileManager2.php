@@ -486,6 +486,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
+        if (!isset($this->_options['roles']['*'])) {
+            $this->_options['roles']['*'] = 'data';
+        }
 
         $path = ($this->_options['pathtopackagefile'] ?
                     $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);

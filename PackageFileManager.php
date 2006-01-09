@@ -503,6 +503,9 @@ class PEAR_PackageFileManager
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOBASEDIR);
         }
         $this->_options = array_merge($this->_options, $options);
+        if (!isset($this->_options['roles']['*'])) {
+            $this->_options['roles']['*'] = 'data';
+        }
 
         if (!class_exists($this->_options['pearcommonclass'])) {
             if ($this->_options['simpleoutput']) {
