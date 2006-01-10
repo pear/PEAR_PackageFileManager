@@ -458,7 +458,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $options['packagedirectory'] .= '/';
             }
         }
-        if (isset($options['pathtopackagefile'])) {
+        if (isset($options['pathtopackagefile']) && $options['pathtopackagefile']) {
             if (!file_exists($options['pathtopackagefile'])) {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL,
                     $options['pathtopackagefile']);
