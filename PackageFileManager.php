@@ -1159,7 +1159,7 @@ class PEAR_PackageFileManager
                     '##files' => $this->_getSimpleDirTag($struc[$dir], $role, ''),
                     'name' => '/');
             } else {
-                if (!isset($files['file'])) {
+                if (!isset($files['file']) || is_array($files['file'])) {
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
                     } else {
@@ -1252,7 +1252,7 @@ class PEAR_PackageFileManager
                 }
                 return $this->_getDirTag($struc[$dir], $role, '');
             } else {
-                if (!isset($files['file'])) {
+                if (!isset($files['file']) || is_array($files['file'])) {
                     $myrole = '';
                     if (isset($dir_roles[$_curdir . $dir])) {
                         $myrole = $dir_roles[$_curdir . $dir];
