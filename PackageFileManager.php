@@ -575,7 +575,7 @@ class PEAR_PackageFileManager
      */
     function importOptions($packagefile, $options = array())
     {
-        $options['cleardependencies'] = $options['deps'] = $options['maintainers'] = false;
+        $options['deps'] = $options['maintainers'] = false;
         $this->setOptions($options, true);
         if (PEAR::isError($res = $this->_getExistingPackageXML(dirname($packagefile) .
               DIRECTORY_SEPARATOR, basename($packagefile)))) {
@@ -589,11 +589,11 @@ class PEAR_PackageFileManager
         $this->_options['license'] = $this->_oldPackageXml['release_license'];
         $this->_options['state'] = $this->_oldPackageXml['release_state'];
         $this->_options['notes'] = $this->_oldPackageXml['release_notes'];
-        if (isset($this->_oldPackagexml['release_deps'])) {
-            $this->_options['deps'] = $this->_oldPackageXml['release_deps'];
-        }
-        $options['maintainers'] = $this->_options['maintainers'] = $this->_oldPackageXml['maintainers'];
         $this->setOptions($options, true);
+        if (isset($this->_packageXml['release_deps'])) {
+            $this->_options['deps'] = $this->_packageXml['release_deps'];
+        }
+        $this->_options['maintainers'] = $this->_oldPackageXml['maintainers'];
         return true;
     }
 
