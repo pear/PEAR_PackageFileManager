@@ -695,6 +695,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (is_a($packagefile, 'PEAR_PackageFile_v1')) {
             $gen = &$packagefile->getDefaultGenerator();
             $res = $gen->toV2('PEAR_PackageFileManager2');
+            $res->setOld();
+            $res->clearDeps();
+            $res->clearContents();
             $packagefile = $packagefile->getPackageFile();
         }
         if (!isset($res)) {
