@@ -289,6 +289,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       'replacements' => array(),
                       'simpleoutput' => false,
                       'addhiddenfiles' => false,
+                      'cleardependencies' => false,
                       );
 
     /**
@@ -496,7 +497,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             ucfirst(strtolower($this->_options['filelistgenerator']));
         if (!$internal) {
             if (PEAR::isError($res = PEAR_PackageFileManager2::_getExistingPackageXML($path,
-                  $this->_options['packagefile']))) {
+                  $this->_options['packagefile'], array('cleardependencies' => true)))) {
                 return $res;
             }
             $this->_oldPackageFile = $res;
@@ -696,13 +697,16 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $gen = &$packagefile->getDefaultGenerator();
             $res = $gen->toV2('PEAR_PackageFileManager2');
             $res->setOld();
+            if ($options['cleardependencies']) {
+                $res->clearDeps();
+            }
             $res->clearContents();
             $packagefile = $packagefile->getPackageFile();
         }
         if (!isset($res)) {
             if (PEAR::isError($res =
                   &PEAR_PackageFileManager2::_getExistingPackageXML(dirname($packagefile) .
-                  DIRECTORY_SEPARATOR, basename($packagefile)))) {
+                  DIRECTORY_SEPARATOR, basename($packagefile), $options))) {
                 return $res;
             }
         }
@@ -1415,7 +1419,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @access private
      * @static
      */
-    function &_getExistingPackageXML($path, $packagefile = 'package.xml')
+    function &_getExistingPackageXML($path, $packagefile = 'package.xml', $options = array())
     {
         if (is_string($path) && is_dir($path)) {
             $contents = false;
@@ -1449,7 +1453,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     return $pf;
                 }
                 $pf->setOld();
-                $pf->clearDeps();
+                if ($options['cleardependencies']) {
+                    $pf->clearDeps();
+                }
                 $pf->clearContents();
             }
             return $pf;
