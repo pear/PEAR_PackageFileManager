@@ -661,6 +661,22 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 }
             }
         }
+        if ($this->_oldPackageFile) {
+            $changelogV2 = $this->_oldPackageFile->getChangelog();
+            if (!isset($changelogV2['release'][0])) {
+                $changelogV2['release'] = array($changelogV2['release']);
+            }
+            foreach($changelogV2['release'] as $index => $changelog) {
+                $changelogV1 = array(
+                    'version' => $changelog['version']['release'],
+                    'release_date' => $changelog['date'],
+                    'release_license' => is_array($changelog['license']) ? $changelog['license']['_content'] : $changelog['license'],
+                    'release_state' => $changelog['stability']['release'],
+                    'release_notes' => $changelog['notes'],
+                    );
+                $pf->_packageXml['changelog'][] = $changelogV1;
+            }
+        }
         return $pf;
     }
 
