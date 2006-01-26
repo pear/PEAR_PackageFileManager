@@ -626,7 +626,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 }
             }
         }
-        $pf = new PEAR_PackageFileManager;
+        $pf = &new PEAR_PackageFileManager();
         $options = array_merge(array(
                 'packagefile' => 'package.xml',
                 'package' => $this->getPackage(),
@@ -1405,7 +1405,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 
     function setOld()
     {
-        $this->_oldPackageFile = new PEAR_PackageFile_v2_rw;
+        $this->_oldPackageFile = new PEAR_PackageFile_v2_rw();
         $this->_oldPackageFile->fromArray($this->getArray());
     }
 
@@ -1431,10 +1431,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 return $a;
             } else {
                 require_once 'PEAR/PackageFile/Parser/v2.php';
-                $pkg = &new PEAR_PackageFile_Parser_v2;
+                $pkg = &new PEAR_PackageFile_Parser_v2();
                 $z = &PEAR_Config::singleton();
                 $pkg->setConfig($z);
-                $pf = $pkg->parse($contents, $path . $packagefile, false,
+                $pf = &$pkg->parse($contents, $path . $packagefile, false,
                     'PEAR_PackageFileManager2');
                 if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
                     $errors = '';
@@ -1481,7 +1481,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function &_generateNewPackageXML()
     {
-        $pf = &new PEAR_PackageFileManager2;
+        $pf = &new PEAR_PackageFileManager2();
         $pf->_oldPackageFile = false;
         return $pf;
     }
