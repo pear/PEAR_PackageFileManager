@@ -26,23 +26,30 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('* bugs fixed
-- Bug #6028: incompatability with php5
-- Bug #6037: Directories named "file" make problems
-- Bug #6175: incomplete error message with sapi interface only
-- Bug #6191: notice error with wrong "pathtopackagefile" option
-- Bug #6379: Generic mapping role (*=>data) should exist for PFM1 and PFM2
-- Bug #6434: files list validation error with simpleouput = false
+$packagexml->setNotes('* news
+- new option "cleardependencies" will erase any existing dependencies
+  on import package.xml (v1 or v2) if set to true
 
-* news
-- Laurent Laville was added as lead 
+* bugs fixed
+- Bug #6507: deps are lost after importing a package v1
+- Bug #6594: export compatible V1 lost changelog when import existing package v2
+
+Some other bugs need a new release of PEAR (1.4.7 ?)
+- Bug #6075: exportCompatiblePackageFile1 lose maintenainers list
+- Bug #6076: exportCompatiblePackageFile1 raise a notice error
+- Bug #6077: assigned by reference notice error with importOptions()
+- Bug #6383: incomplete PEAR::Error message on addReplacement()
+- Bug #6510: status active of a maintainer cannot be change
+- Bug #6537: wrong export compatible v1 dependencies list with exclude limit
+- Bug #6576: PFM2 run in trouble with sessions
+
 ');
 $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
-$packagexml->addMaintainer('lead', 'farell', 'Laurent Laville', 'pear@laurent-laville.org');
+//$packagexml->addMaintainer('lead', 'farell', 'Laurent Laville', 'pear@laurent-laville.org');
 $packagexml->addRelease();
 $packagexml->setChannel('pear.php.net');
-$packagexml->setReleaseVersion('1.6.0a5');
+$packagexml->setReleaseVersion('1.6.0a6');
 $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('alpha');
 $packagexml->setAPIStability('alpha');
