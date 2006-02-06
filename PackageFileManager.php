@@ -56,6 +56,8 @@ define('PEAR_PACKAGEFILEMANAGER_INVALID_ROLE', 24);
 define('PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE', 25);
 define('PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO', 27);
+define('PEAR_PACKAGEFILEMANAGER_NONOTES', 28);
+define('PEAR_PACKAGEFILEMANAGER_NOLICENSE', 29);
 /**#@-*/
 /**
  * Error messages
@@ -124,6 +126,10 @@ array(
             'path "%path%" contains CVS directory',
         PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO =>
             'PHP_Compat is not installed, cannot detect dependencies',
+        PEAR_PACKAGEFILEMANAGER_NONOTES =>
+            'Release Notes (option \'notes\') must be specified in PEAR_PackageFileManager setOptions',
+        PEAR_PACKAGEFILEMANAGER_NOLICENSE =>
+            'Release License (option \'license\') must be specified in PEAR_PackageFileManager setOptions',
         ),
         // other language translations go here
      );
@@ -474,10 +480,10 @@ class PEAR_PackageFileManager
     function setOptions($options = array(), $internal = false)
     {
         if (!$internal) {
-            if (!isset($options['state'])) {
+            if (!isset($options['state']) || empty($options['state'])) {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOSTATE);
             }
-            if (!isset($options['version'])) {
+            if (!isset($options['version']) || empty($options['version'])) {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOVERSION);
             }
         }
@@ -929,6 +935,12 @@ class PEAR_PackageFileManager
         }
         if (!isset($this->_packageXml['maintainers']) || empty($this->_packageXml['maintainers'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS);
+        }
+        if (!isset($this->_options['notes']) || empty($this->_options['notes'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NONOTES);
+        }
+        if (!isset($this->_options['license']) || empty($this->_options['license'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOLICENSE);
         }
         extract($this->_options);
         $date = date('Y-m-d');
@@ -1559,13 +1571,13 @@ class PEAR_PackageFileManager
     function _generateNewPackageXML()
     {
         $this->_oldPackageXml = false;
-        if (!isset($this->_options['package'])) {
+        if (!isset($this->_options['package']) || empty($this->_options['package'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOPACKAGE);
         }
-        if (!isset($this->_options['summary'])) {
+        if (!isset($this->_options['summary']) || empty($this->_options['summary'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOSUMMARY);
         }
-        if (!isset($this->_options['description'])) {
+        if (!isset($this->_options['description']) || empty($this->_options['description'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NODESC);
         }
         $this->_packageXml = array();
