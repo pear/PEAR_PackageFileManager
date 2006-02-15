@@ -1219,7 +1219,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
                     if (isset($globalreplacements) &&
-                          !isset($globalreplaceexceptions[$files['path']])) {
+                          !in_array($files['path'], $globalreplaceexceptions, true)) {
                         foreach ($globalreplacements as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
@@ -1312,7 +1312,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
                     if (isset($globalreplacements) &&
-                          !isset($globalreplaceexceptions[$files['path']])) {
+                          !in_array($files['path'], $globalreplaceexceptions, true)) {
                         foreach ($globalreplacements as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
