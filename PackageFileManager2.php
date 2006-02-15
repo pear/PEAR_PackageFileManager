@@ -287,6 +287,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       'lang' => 'en',
                       'configure_options' => array(),
                       'replacements' => array(),
+                      'globalreplacements' => array(),
+                      'globalreplaceexceptions' => array(),
                       'simpleoutput' => false,
                       'addhiddenfiles' => false,
                       'cleardependencies' => false,
@@ -434,6 +436,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      *               matching the exact name of a file to a role as in "file.ext" => "role"
      * - globalreplacements: a list of replacements that should be performed on every single file.
      *                       The format is the same as replacements
+     * - globalreplaceexceptions: a list of exact filenames that should not have global
+     *                            replacements performed (useful for images and large files)
+     *                            note that this is not exported to package.xml 1.0!!
      * @see PEAR_PackageFileManager_File
      * @see PEAR_PackageFileManager_CVS
      * @return void|PEAR_Error
@@ -1213,7 +1218,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $atts = array('role' => $myrole);
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
-                    if (isset($globalreplacements)) {
+                    if (isset($globalreplacements) &&
+                          !isset($globalreplaceexceptions[$files['path']])) {
                         foreach ($globalreplacements as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }
@@ -1305,7 +1311,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     }
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
-                    if (isset($globalreplacements)) {
+                    if (isset($globalreplacements) &&
+                          !isset($globalreplaceexceptions[$files['path']])) {
                         foreach ($globalreplacements as $task) {
                             $this->addTaskToFile($files['path'], $task);
                         }

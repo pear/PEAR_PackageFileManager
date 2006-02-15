@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.7" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -41,10 +41,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>yes</active>
  </developer>
- <date>2006-01-27</date>
- <time>09:37:52</time>
+ <date>2006-02-14</date>
+ <time>22:08:49</time>
  <version>
-  <release>1.6.0a6</release>
+  <release>1.6.0a7</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -53,21 +53,8 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </stability>
  <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
  <notes>* news
-- new option &quot;cleardependencies&quot; will erase any existing dependencies
-  on import package.xml (v1 or v2) if set to true
-
-* bugs fixed
-- Bug #6507: deps are lost after importing a package v1
-- Bug #6594: export compatible V1 lost changelog when import existing package v2
-
-Some other bugs need a new release of PEAR (1.4.7 ?)
-- Bug #6075: exportCompatiblePackageFile1 lose maintenainers list
-- Bug #6076: exportCompatiblePackageFile1 raise a notice error
-- Bug #6077: assigned by reference notice error with importOptions()
-- Bug #6383: incomplete PEAR::Error message on addReplacement()
-- Bug #6510: status active of a maintainer cannot be change
-- Bug #6537: wrong export compatible v1 dependencies list with exclude limit
-- Bug #6576: PFM2 run in trouble with sessions</notes>
+- add &quot;globalreplaceexceptions&quot; option to exclude files from global replacements
+ </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
    <dir name="examples">
@@ -305,6 +292,21 @@ Some other bugs need a new release of PEAR (1.4.7 ?)
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.6.0a7</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-02-14</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>* news
+- add &quot;globalreplaceexceptions&quot; option to exclude files from global replacements
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.6.0a6</release>
