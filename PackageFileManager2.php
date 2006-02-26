@@ -723,7 +723,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if ($options['cleardependencies']) {
                 $res->clearDeps();
             }
-            $res->clearContents();
+            if (!isset($options['clearcontents']) || $options['clearcontents']) {
+                $res->clearContents();
+            }
             $packagefile = $packagefile->getPackageFile();
         }
         if (!isset($res)) {
@@ -1481,7 +1483,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 if ($options['cleardependencies']) {
                     $pf->clearDeps();
                 }
-                $pf->clearContents();
+                if (!isset($options['clearcontents']) || $options['clearcontents']) {
+                    $pf->clearContents();
+                }
             }
             return $pf;
         } else {
