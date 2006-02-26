@@ -28,6 +28,11 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'simpleoutput' => true));
 $packagexml->setNotes('* news
 - add "globalreplaceexceptions" option to exclude files from global replacements
+- add "clearcontents" option to give ability to keep filelist with replaces tasks
+on import function with package v1 or v2
+- fix a notice error with exportCompatiblePackageFile1() method, when you create
+for first time a package.xml v2.0 and want a v1 version.
+Notice: strtotime(): Called with empty time parameter
 ');
 $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
