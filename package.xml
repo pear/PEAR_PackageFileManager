@@ -41,8 +41,8 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>yes</active>
  </developer>
- <date>2006-02-14</date>
- <time>22:08:49</time>
+ <date>2006-02-28</date>
+ <time>22:18:56</time>
  <version>
   <release>1.6.0a7</release>
   <api>1.6.0</api>
@@ -54,6 +54,11 @@ The new PEAR_PackageFileManager2 class is not.</description>
  <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
  <notes>* news
 - add &quot;globalreplaceexceptions&quot; option to exclude files from global replacements
+- add &quot;clearcontents&quot; option to give ability to keep filelist with replaces tasks
+on import function with package v1 or v2
+- fix a notice error with exportCompatiblePackageFile1() method, when you create
+for first time a package.xml v2.0 and want a v1 version.
+Notice: strtotime(): Called with empty time parameter
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -301,10 +306,15 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-02-14</date>
+   <date>2006-02-28</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
    <notes>* news
 - add &quot;globalreplaceexceptions&quot; option to exclude files from global replacements
+- add &quot;clearcontents&quot; option to give ability to keep filelist with replaces tasks
+on import function with package v1 or v2
+- fix a notice error with exportCompatiblePackageFile1() method, when you create
+for first time a package.xml v2.0 and want a v1 version.
+Notice: strtotime(): Called with empty time parameter
    </notes>
   </release>
   <release>
