@@ -164,10 +164,10 @@ array(
  * $packagexml->addRelease(); // set up a release section
  * $packagexml->setOSInstallCondition('windows');
  * $packagexml->addInstallAs('pear-phpdoc.bat', 'phpdoc.bat');
- * $packagexml->addIgnore('pear-phpdoc');
+ * $packagexml->addIgnoreToRelease('pear-phpdoc');
  * $packagexml->addRelease(); // add another release section for all other OSes
  * $packagexml->addInstallAs('pear-phpdoc', 'phpdoc');
- * $packagexml->addIgnore('pear-phpdoc.bat');
+ * $packagexml->addIgnoreToRelease('pear-phpdoc.bat');
  * $packagexml->addRole('pkg', 'doc'); // add a new role mapping
  * $packagexml->setPhpDep('4.2.0');
  * $packagexml->setPearinstallerDep('1.4.0a12');
