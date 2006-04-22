@@ -820,7 +820,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $task->setInfo($from, $to, $type);
         if (is_array($res = $task->validate())) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
-                $res);
+                implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
         }
         $this->_options['globalreplacements'][] = $task;
     }
