@@ -3,9 +3,9 @@
  * PEAR_PackageFileManager2, like PEAR_PackageFileManager, is designed to
  * create and manipulate package.xml version 2.0.
  *
- * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
@@ -13,7 +13,7 @@
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      File available since Release 1.6.0
@@ -197,7 +197,7 @@ array(
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    Release: @PEAR-VER@
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      Class available since Release 1.6.0
