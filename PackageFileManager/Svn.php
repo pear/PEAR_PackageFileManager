@@ -79,11 +79,11 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         }
         return $this->_readSVNEntries($entries);
     }
-    
+
     /**
      * Iterate over the SVN Entries files, and retrieve every
      * file in the repository
-     * 
+     *
      * @uses _getSVNEntries()
      * @param array array of full paths to .svn/entries files
      * @access private
@@ -109,7 +109,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             }
             foreach($d as $entry) {
                 if ($ignore) {
-                	if ($this->_checkIgnore($entry,
+                    if ($this->_checkIgnore($entry,
                           $directory . '/' . $entry, 1)) {
                         continue;
                     }
@@ -125,7 +125,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         }
         return $ret;
     }
-    
+
     /**
      * Retrieve the entries in a .svn/entries file
      *
@@ -133,7 +133,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      *
      * It keeps only files, excluding directories. It also
      * makes sure no deleted file in included.
-     * 
+     *
      * @return array  an array with full paths to files
      * @uses   PEAR::XML_Tree
      * @param  string full path to a .svn/entries file

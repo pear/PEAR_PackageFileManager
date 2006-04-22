@@ -76,7 +76,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
         }
         return $this->_readCVSEntries($entries);
     }
-    
+
     /**
      * Iterate over the CVS Entries files, and retrieve every
      * file in the repository
@@ -106,7 +106,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
             }
             foreach($d as $entry) {
                 if ($ignore) {
-                	if ($this->_checkIgnore($this->_getCVSFileName($entry),
+                    if ($this->_checkIgnore($this->_getCVSFileName($entry),
                           $directory . '/' . $this->_getCVSFileName($entry), 1)) {
     //                    print 'Ignoring '.$file."<br>\n";
                         continue;
@@ -126,7 +126,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
         }
         return $ret;
     }
-    
+
     /**
      * Retrieve the filename from an entry
      *
@@ -142,7 +142,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
         array_shift($stuff);
         return array_shift($stuff);
     }
-    
+
     /**
      * Retrieve the entries in a CVS/Entries file
      * @return array each line of the entries file, output of file()
@@ -159,7 +159,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File {
             return false;
         }
     }
-    
+
     /**
      * Check whether an entry is a file or a directory
      * @return boolean
