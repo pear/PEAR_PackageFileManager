@@ -1,34 +1,38 @@
 <?php
-//
-// +------------------------------------------------------------------------+
-// | PEAR :: Package File Manager                                           |
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2004 Gregory Beaver                                      |
-// | Email         cellog@phpdoc.org                                        |
-// +------------------------------------------------------------------------+
-// | This source file is subject to version 3.00 of the PHP License,        |
-// | that is available at http://www.php.net/license/3_0.txt.               |
-// | If you did not receive a copy of the PHP license and are unable to     |
-// | obtain it through the world-wide-web, please send a note to            |
-// | license@php.net so we can mail you a copy immediately.                 |
-// +------------------------------------------------------------------------+
-// | Portions of this code based on phpDocumentor                           |
-// | Web           http://www.phpdoc.org                                    |
-// | Mirror        http://phpdocu.sourceforge.net/                          |
-// +------------------------------------------------------------------------+
-// $Id$
-//
+/**
+ * Class for XML output
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   pear
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2004-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      File available since Release 1.2.0
+ */
 
 /**
  * Class for XML output
  *
- * @author Greg Beaver <cellog@php.net>
- * @since 1.2.0
- * @copyright 2003
- * @package PEAR_PackageFileManager
+ * @category   pear
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2004-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    Release: @PEAR-VER@
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      Class available since Release 1.2.0
  */
-class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
 
+class PEAR_PackageFileManager_XMLOutput extends PEAR_Common
+{
     /**
      * Generate part of an XML description with release information.
      *
@@ -174,7 +178,5 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common {
         }
         return $ret;
     }
-    
 }
-
 ?>
