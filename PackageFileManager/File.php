@@ -1,27 +1,24 @@
 <?php
-//
-// +------------------------------------------------------------------------+
-// | PEAR :: Package File Manager                                           |
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2003-2004 Gregory Beaver                                 |
-// | Email         cellog@phpdoc.org                                        |
-// +------------------------------------------------------------------------+
-// | This source file is subject to version 3.00 of the PHP License,        |
-// | that is available at http://www.php.net/license/3_0.txt.               |
-// | If you did not receive a copy of the PHP license and are unable to     |
-// | obtain it through the world-wide-web, please send a note to            |
-// | license@php.net so we can mail you a copy immediately.                 |
-// +------------------------------------------------------------------------+
-// | Portions of this code based on phpDocumentor                           |
-// | Web           http://www.phpdoc.org                                    |
-// | Mirror        http://phpdocu.sourceforge.net/                          |
-// +------------------------------------------------------------------------+
-// $Id$
-//
 /**
- * Retrieve the files from a directory listing
- * @package PEAR_PackageFileManager
+ * The File list plugin generator for both PEAR_PackageFileManager,
+ * and PEAR_PackageFileManager2 classes.
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   pear
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2003-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      File available since Release 0.1
  */
+
 /**
  * Retrieve the files from a directory listing
  *
@@ -29,14 +26,24 @@
  * listing.  Use the {@link PEAR_PackageFileManager_CVS}
  * class to only retrieve the contents of a cvs
  * repository when generating the package.xml
- * @package PEAR_PackageFileManager
+ *
+ * @category   pear
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2003-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    Release: @PEAR-VER@
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      Class available since Release 0.1
  */
-class PEAR_PackageFileManager_File {
+
+class PEAR_PackageFileManager_File
+{
     /**
      * @var array
      * @access private
      */
-    var $_options = 
+    var $_options =
             array(
                  );
 
@@ -66,7 +73,7 @@ class PEAR_PackageFileManager_File {
         $this->_parent = &$parent;
         $this->_options = array_merge($this->_options, $options);
     }
-    
+
     /**
      * Generate the <filelist></filelist> section
      * of the package file.
@@ -99,7 +106,7 @@ class PEAR_PackageFileManager_File {
         }
         $struc = array();
         foreach($allfiles as $file) {
-            $path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR, 
+            $path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR,
                                                               '/',
                                                               realpath($package_directory))) + 1);
             if (!$path) {
@@ -143,7 +150,7 @@ class PEAR_PackageFileManager_File {
 
         return $struc;
     }
-    
+
     /**
      * Retrieve a listing of every file in $directory and
      * all subdirectories.
@@ -195,10 +202,10 @@ class PEAR_PackageFileManager_File {
         }
         return $ret;
     }
-    
+
     /**
      * Test whether an entry should be processed.
-     * 
+     *
      * Normally, it ignores all files and directories that begin with "."  addhiddenfiles option
      * instead only ignores "." and ".." entries
      * @access private
@@ -272,10 +279,10 @@ class PEAR_PackageFileManager_File {
         }
         return !$return;
     }
-    
+
     /**
      * Construct the {@link $ignore} array
-     * 
+     *
      * @param array strings of files/paths/wildcards to ignore
      * @param 0|1 0 = files to include, 1 = files to ignore
      * @access private
@@ -308,10 +315,10 @@ class PEAR_PackageFileManager_File {
             }
         } else $this->ignore[$index] = false;
     }
-    
+
     /**
      * Converts $s into a string that can be used with preg_match
-     * 
+     *
      * @param string $s string with wildcards ? and *
      * @return string converts * to .*, ? to ., etc.
      * @access private
@@ -331,7 +338,7 @@ class PEAR_PackageFileManager_File {
         }
         return $x;
     }
-    
+
     /**
      * Recursively move contents of $struc into associative array
      *
@@ -374,7 +381,6 @@ class PEAR_PackageFileManager_File {
         return $struc;
     }
 
-    
     /**
      * Recursively add all the subdirectories of $contents to $dir without erasing anything in
      * $dir
@@ -395,7 +401,6 @@ class PEAR_PackageFileManager_File {
         return $dir;
     }
 
-    
     /**#@+
      * Sorting functions for the file list
      * @param string
@@ -406,7 +411,7 @@ class PEAR_PackageFileManager_File {
     {
         return strnatcasecmp($a['file'],$b['file']);
     }
-    
+
     function mystrucsort($a, $b)
     {
         if (is_numeric($a) && is_string($b)) return 1;
