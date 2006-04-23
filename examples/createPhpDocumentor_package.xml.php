@@ -1,24 +1,34 @@
 <?php
 /**
  * A complex example
- * @package PEAR_PackageFileManager
+ *
+ * @category   PEAR
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2003-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      File available since Release 0.12
  */
-/**
- * Include the package file manager
- */
-require_once('PEAR/PackageFileManager.php');
-$test = new PEAR_PackageFileManager;
+
+require_once 'PEAR/PackageFileManager.php';
+PEAR::setErrorHandling(PEAR_ERROR_DIE);
+
+$test = new PEAR_PackageFileManager();
 
 // directory that phpDocumentor 1.2.2 CVS is located in
 $packagedir = 'C:/Web Pages/chiara/phpdoc';
 
-$e = $test->setOptions(
-array('baseinstalldir' => 'PhpDocumentor',
-'version' => '1.2.2',
-'packagedirectory' => $packagedir,
-'state' => 'stable',
-'filelistgenerator' => 'cvs',
-'notes' => 'Bugfix release
+$test->setOptions(array(
+    'summary' => 'phpDocumentor package provides automatic documenting of php api directly from the source',
+    'description' => 'phpDocumentor tool is a standalone auto-documentor similar to JavaDoc written in PHP',
+    'baseinstalldir' => 'PhpDocumentor',
+    'version' => '1.2.2',
+    'packagedirectory' => $packagedir,
+    'state' => 'stable',
+    'filelistgenerator' => 'cvs',
+    'notes' => 'Bugfix release
 
 - DocBook/peardoc2 converter outputs valid DocBook
 - fixed Page-Level DocBlock issues, now a page-level
@@ -32,10 +42,9 @@ array('baseinstalldir' => 'PhpDocumentor',
  [ 768947 ] Multiple vars not recognised
  [ 772441 ] nested arrays fail parser
 ',
-'package' => 'PhpDocumentor',
-'dir_roles' => array('Documentation' => 'doc', 'Documentation/tests' => 'test'),
-'exceptions' =>
-    array(
+    'package' => 'PhpDocumentor',
+    'dir_roles' => array('Documentation' => 'doc', 'Documentation/tests' => 'test'),
+    'exceptions' => array(
         'index.html' => 'php',
         'docbuilder/index.html' => 'php',
         'docbuilder/blank.html' => 'php',
@@ -57,40 +66,18 @@ array('baseinstalldir' => 'PhpDocumentor',
         'pear-phpdoc' => 'script',
         'pear-phpdoc.bat' => 'script',
         ),
-'ignore' => array('package.xml', "$packagedir/phpdoc", 'phpdoc.bat', 'LICENSE'),
-'installas' => array('pear-phpdoc' => 'phpdoc', 'pear-phpdoc.bat' => 'phpdoc.bat'),
-'installexceptions' => array('pear-phpdoc' => '/', 'pear-phpdoc.bat' => '/', 'scripts/makedoc.sh' => '/'),
-));
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
-    exit;
-}
-$e = $test->addPlatformException('pear-phpdoc', '(*ix|*ux)');
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
-    exit;
-}
-$e = $test->addPlatformException('pear-phpdoc.bat', 'windows');
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
-    exit;
-}
-$e = $test->addDependency('php', '4.1.0', 'ge', 'php');
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
-    exit;
-}
+    'ignore' => array('package.xml', "$packagedir/phpdoc", 'phpdoc.bat', 'LICENSE'),
+    'installas' => array('pear-phpdoc' => 'phpdoc', 'pear-phpdoc.bat' => 'phpdoc.bat'),
+    'installexceptions' => array('pear-phpdoc' => '/', 'pear-phpdoc.bat' => '/', 'scripts/makedoc.sh' => '/'),
+    ));
+$test->addMaintainer('cellog', 'lead', 'Gregory Beaver', 'cellog@php.net');
+
+$test->addPlatformException('pear-phpdoc', '(*ix|*ux)');
+$test->addPlatformException('pear-phpdoc.bat', 'windows');
+$test->addDependency('php', '4.1.0', 'ge', 'php');
 // replace @PHP-BIN@ in this file with the path to php executable!  pretty neat
-$e = $test->addReplacement('pear-phpdoc', 'pear-config', '@PHP-BIN@', 'php_bin');
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
-    exit;
-}
-$e = $test->addReplacement('pear-phpdoc.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
-    exit;
-}
+$test->addReplacement('pear-phpdoc', 'pear-config', '@PHP-BIN@', 'php_bin');
+$test->addReplacement('pear-phpdoc.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
 // hack until they get their shit in line with docroot role
 $test->addRole('tpl', 'php');
 $test->addRole('png', 'php');
@@ -106,12 +93,9 @@ $test->addRole('cls', 'doc');
 $test->addRole('proc', 'doc');
 $test->addRole('sh', 'script');
 if (isset($_GET['make'])) {
-    $e = $test->writePackageFile();
+    $test->writePackageFile();
 } else {
-    $e = $test->debugPackageFile();
-}
-if (PEAR::isError($e)) {
-    echo $e->getMessage();
+    $test->debugPackageFile();
 }
 if (!isset($_GET['make'])) {
     echo '<a href="' . $_SERVER['PHP_SELF'] . '?make=1">Make this file</a>';
