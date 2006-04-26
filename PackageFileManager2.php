@@ -1218,6 +1218,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                         }
                     }
                     $atts = array('role' => $myrole);
+                    if (isset($installexceptions[$files['path']])) {
+                        $atts['baseinstalldir'] = $installexceptions[$files['path']];
+                    }
                     $diradd = dirname($files['path']);
                     $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
                     if (isset($globalreplacements) &&

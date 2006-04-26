@@ -27,8 +27,9 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('* bugs fixed
-- #6357: Notice Errors with PFM2 1.6.0a4 and CVS plugin
+- #6357 : Notice Errors with PFM2 1.6.0a4 and CVS plugin
 - #7393 : addGlobalReplacement() error reporting throws error
+- #7496 : simpleoutput ignores installexceptions option
 
 * quality assurance
 - updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )
@@ -37,6 +38,7 @@ $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
 //$packagexml->addMaintainer('lead', 'farell', 'Laurent Laville', 'pear@laurent-laville.org');
 $packagexml->addRelease();
+$packagexml->clearDeps();
 $packagexml->setChannel('pear.php.net');
 $packagexml->setReleaseVersion('1.6.0b1');
 $packagexml->setAPIVersion('1.6.0');

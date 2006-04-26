@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.7" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.5.0a1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -41,10 +41,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>yes</active>
  </developer>
- <date>2006-02-28</date>
- <time>22:18:56</time>
+ <date>2006-04-26</date>
+ <time>16:05:35</time>
  <version>
-  <release>1.6.0a7</release>
+  <release>1.6.0b1</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -52,13 +52,13 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <api>alpha</api>
  </stability>
  <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
- <notes>* news
-- add &quot;globalreplaceexceptions&quot; option to exclude files from global replacements
-- add &quot;clearcontents&quot; option to give ability to keep filelist with replaces tasks
-on import function with package v1 or v2
-- fix a notice error with exportCompatiblePackageFile1() method, when you create
-for first time a package.xml v2.0 and want a v1 version.
-Notice: strtotime(): Called with empty time parameter
+ <notes>* bugs fixed
+- #6357: Notice Errors with PFM2 1.6.0a4 and CVS plugin
+- #7393 : addGlobalReplacement() error reporting throws error
+- #7496 : simpleoutput ignores installexceptions option
+
+* quality assurance
+- updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -68,12 +68,24 @@ Notice: strtotime(): Called with empty time parameter
     <file name="makepackage.php" role="doc" />
    </dir> <!-- /examples -->
    <dir name="PackageFileManager">
-    <file name="Cvs.php" role="php" />
-    <file name="File.php" role="php" />
-    <file name="Perforce.php" role="php" />
-    <file name="SimpleGenerator.php" role="php" />
-    <file name="Svn.php" role="php" />
-    <file name="XMLOutput.php" role="php" />
+    <file name="Cvs.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="File.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="Perforce.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="SimpleGenerator.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="Svn.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="XMLOutput.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
    </dir> <!-- /PackageFileManager -->
    <dir name="tests">
     <dir name="addConfigureOption">
@@ -299,6 +311,26 @@ Notice: strtotime(): Called with empty time parameter
  <changelog>
   <release>
    <version>
+    <release>1.6.0b1</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-04-26</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>* bugs fixed
+- #6357: Notice Errors with PFM2 1.6.0a4 and CVS plugin
+- #7393 : addGlobalReplacement() error reporting throws error
+- #7496 : simpleoutput ignores installexceptions option
+
+* quality assurance
+- updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>1.6.0a7</release>
     <api>1.6.0</api>
    </version>
@@ -314,8 +346,7 @@ Notice: strtotime(): Called with empty time parameter
 on import function with package v1 or v2
 - fix a notice error with exportCompatiblePackageFile1() method, when you create
 for first time a package.xml v2.0 and want a v1 version.
-Notice: strtotime(): Called with empty time parameter
-   </notes>
+Notice: strtotime(): Called with empty time parameter</notes>
   </release>
   <release>
    <version>
