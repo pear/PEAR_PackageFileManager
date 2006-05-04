@@ -27,6 +27,7 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('* bugs fixed
+- #6843 : don\'t rely on XML/Tree (PEAR_PackageFileManager_Svn)
 - #6357 : Notice Errors with PFM2 1.6.0a4 and CVS plugin
 - #7393 : addGlobalReplacement() error reporting throws error
 - #7496 : simpleoutput ignores installexceptions option

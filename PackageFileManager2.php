@@ -1483,7 +1483,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     return $pf;
                 }
                 $pf->setOld();
-                if ($options['cleardependencies']) {
+                if (isset($options['cleardependencies']) && $options['cleardependencies']) {
                     $pf->clearDeps();
                 }
                 if (!isset($options['clearcontents']) || $options['clearcontents']) {
