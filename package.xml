@@ -9,10 +9,11 @@ Features include
  - manages the new package.xml 2.0 format in PEAR 1.4.0
  - can detect PHP and extension dependencies using PHP_CompatInfo
  - reads in an existing package.xml file, and only changes the release/changelog
- - a plugin system for retrieving files in a directory.  Currently two plugins
-   exist, one for standard recursive directory content listing, and one that
+ - a plugin system for retrieving files in a directory.  Currently four plugins
+   exist, one for standard recursive directory content listing, one that
    reads the CVS/Entries files and generates a file listing based on the contents
-   of a checked out CVS repository
+   of a checked out CVS repository, one that reads Subversion entries files, and
+   one that queries a Perforce repository.
  - incredibly flexible options for assigning install roles to files/directories
  - ability to ignore any file based on a * ? wildcard-enabled string(s)
  - ability to include only files that match a * ? wildcard-enabled string(s)
@@ -39,28 +40,20 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <name>Arnaud Limbourg</name>
   <user>Arnaud</user>
   <email>arnaud@limbourg.com</email>
-  <active>yes</active>
+  <active>no</active>
  </developer>
  <date>2006-05-03</date>
- <time>22:28:02</time>
+ <time>22:41:48</time>
  <version>
   <release>1.6.0b1</release>
   <api>1.6.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
- <notes>* bugs fixed
-- #6843 : don&apos;t rely on XML/Tree (PEAR_PackageFileManager_Svn)
-- #6357 : Notice Errors with PFM2 1.6.0a4 and CVS plugin
-- #7393 : addGlobalReplacement() error reporting throws error
-- #7496 : simpleoutput ignores installexceptions option
-
-* quality assurance
-- updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )
- </notes>
+ <notes>Move to beta</notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
    <dir name="examples">
@@ -316,6 +309,19 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <api>1.6.0</api>
    </version>
    <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-05-03</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>Move to beta</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a8</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
@@ -328,8 +334,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
 - #7496 : simpleoutput ignores installexceptions option
 
 * quality assurance
-- updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )
-   </notes>
+- updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )</notes>
   </release>
   <release>
    <version>

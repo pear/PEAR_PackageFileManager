@@ -26,25 +26,16 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('* bugs fixed
-- #6843 : don\'t rely on XML/Tree (PEAR_PackageFileManager_Svn)
-- #6357 : Notice Errors with PFM2 1.6.0a4 and CVS plugin
-- #7393 : addGlobalReplacement() error reporting throws error
-- #7496 : simpleoutput ignores installexceptions option
-
-* quality assurance
-- updated headers comment block ( http://pear.php.net/pepr/pepr-proposal-show.php?id=128 )
-');
+$packagexml->setNotes('Move to beta');
 $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
-//$packagexml->addMaintainer('lead', 'farell', 'Laurent Laville', 'pear@laurent-laville.org');
 $packagexml->addRelease();
 $packagexml->clearDeps();
 $packagexml->setChannel('pear.php.net');
 $packagexml->setReleaseVersion('1.6.0b1');
 $packagexml->setAPIVersion('1.6.0');
-$packagexml->setReleaseStability('alpha');
-$packagexml->setAPIStability('alpha');
+$packagexml->setReleaseStability('beta');
+$packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.2.0');
 $packagexml->setPearinstallerDep('1.4.3');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
