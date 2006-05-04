@@ -11,7 +11,7 @@
  *
  * @category   pear
  * @package    PEAR_PackageFileManager
- * @author     Arnaud Limbour <arnaud@limbourg.com>
+ * @author     Arnaud Limbourg <arnaud@limbourg.com>
  * @copyright  2005-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    CVS: $Id$
@@ -32,7 +32,7 @@ require_once 'PEAR/PackageFileManager/File.php';
  *
  * @category   pear
  * @package    PEAR_PackageFileManager
- * @author     Arnaud Limbour <arnaud@limbourg.com>
+ * @author     Arnaud Limbourg <arnaud@limbourg.com>
  * @copyright  2005-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    Release: @PEAR-VER@
@@ -172,7 +172,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             require_once 'XML/Tree.php';
             $parser  = &new XML_Tree($svnentriesfilename);
             $tree    = &$parser->getTreeFromFile();
-    
+
             // loop through the xml tree and keep only valid entries being files
             $entries = array();
             foreach ($tree->children as $entry) {
@@ -184,7 +184,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                     array_push($entries, $entry->attributes['name']);
                 }
             }
-    
+
             unset($parser, $tree);
         }
 
