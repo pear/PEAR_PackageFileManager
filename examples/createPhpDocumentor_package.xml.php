@@ -10,6 +10,7 @@
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      File available since Release 0.12
+ * @ignore
  */
 
 require_once 'PEAR/PackageFileManager.php';

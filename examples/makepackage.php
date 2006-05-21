@@ -20,6 +20,7 @@
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      File available since Release 1.6.0
+ * @ignore
  */
 /**
  * This is the only setup function needed
