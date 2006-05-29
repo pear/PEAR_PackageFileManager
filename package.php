@@ -8,7 +8,7 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
+ * @category   PEAR
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
  * @copyright  2005-2006 The PHP Group
@@ -21,12 +21,18 @@ require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIRECTORY_SEPARATOR .
     'package.xml', array(
+      'exceptions' => array(
+          'ChangeLog' => 'doc',
+          'NEWS' => 'doc'),
       'filelistgenerator' => 'cvs',
       'packagedirectory' => dirname(__FILE__),
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('Move to beta');
+$packagexml->setNotes('- after 8 alpha relases on PackageFileManager2, move to first beta,
+  for first anniversary of 1.6.0 version
+- introduces ChangeLog and NEWS files for history and quality assurance
+- upgrades license from PHP 3.0 to 3.01');
 $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
