@@ -43,7 +43,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <active>no</active>
  </developer>
  <date>2006-05-29</date>
- <time>10:07:56</time>
+ <time>10:23:07</time>
  <version>
   <release>1.6.0b1</release>
   <api>1.6.0</api>
@@ -289,6 +289,8 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <file name="test1_package.xml" role="test" />
     <file name="Test_file.php" role="test" />
    </dir> <!-- /tests -->
+   <file name="ChangeLog" role="doc" />
+   <file name="NEWS" role="doc" />
    <file name="PackageFileManager.php" role="php" />
    <file name="PackageFileManager2.php" role="php">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
