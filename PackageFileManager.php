@@ -989,8 +989,21 @@ class PEAR_PackageFileManager
             $common->setPackageFileManagerOptions($this->_options);
         }
         $packagexml = $common->xmlFromInfo($this->_packageXml);
-        $common->validatePackageInfo($packagexml, $errors, $warnings,
-            $this->_options['packagedirectory']);
+        if (PEAR::isError($packagexml)) {
+            $errs = $packagexml->getUserinfo();
+            if (is_array($errs)) {
+                foreach ($errs as $error) {
+                    if ($error['level'] == 'error') {
+                        $errors[] = $error['message'];
+                    } else {
+                        $warnings[] = $error['message'];
+                    }
+                }
+            }
+        } else {
+            $common->validatePackageInfo($packagexml, $warnings, $errors,
+                $this->_options['packagedirectory']);
+        }
         if (count($errors)) {
             $ret = '';
             $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
