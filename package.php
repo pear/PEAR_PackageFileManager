@@ -29,22 +29,19 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('- after 8 alpha relases on PackageFileManager2, move to first beta,
-  for first anniversary of 1.6.0 version
-- introduces ChangeLog and NEWS files for history and quality assurance
-- upgrades license from PHP 3.0 to 3.01');
+$packagexml->setNotes('fixed Bug #7769 : writePackageFile()/debugPackageFile() return false');
 $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 $packagexml->clearDeps();
 $packagexml->setChannel('pear.php.net');
 $packagexml->setLicense('PHP License 3.01', 'http://www.php.net/license/3_01.txt');
-$packagexml->setReleaseVersion('1.6.0b1');
+$packagexml->setReleaseVersion('1.6.0b2');
 $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('beta');
 $packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.2.0');
-$packagexml->setPearinstallerDep('1.4.3');
+$packagexml->setPearinstallerDep('1.4.10');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
