@@ -360,6 +360,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
 - add &quot;globalreplaceexceptions&quot; option to exclude files from global replacements
 - add &quot;clearcontents&quot; option to give ability to keep filelist with replaces tasks
 on import function with package v1 or v2
+- fixed Bug #5874 : Fails generation on missing "notes" element without error message.
 - fix a notice error with exportCompatiblePackageFile1() method, when you create
 for first time a package.xml v2.0 and want a v1 version.
 Notice: strtotime(): Called with empty time parameter</notes>

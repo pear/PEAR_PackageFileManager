@@ -28,6 +28,8 @@
   - fix a notice error with exportCompatiblePackageFile1() method, when you create
     for first time a package.xml v2.0 and want a v1 version.
     Notice: strtotime(): Called with empty time parameter
+  - fixed Bug #5874 : Fails generation on missing "notes" element without error message.
+    problem may occurs also with "package", "summary", "description", "version", "state", "license" elements.
 
 2006-01-27 Greg Beaver, Laurent Laville
 
