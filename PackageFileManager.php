@@ -365,8 +365,9 @@ class PEAR_PackageFileManager
      * - doctype: Specifies the DTD of the package.xml file.  Default is
      *            http://pear.php.net/dtd/package-1.0
      * - pearcommonclass: Specifies the name of the class to instantiate, default
-     *                    is PEAR_Common, but users can override this with a custom
-     *                    class that implements PEAR_Common's method interface
+     *                    is PEAR_PackageFileManager_ComplexGenerator or PEAR_Common, but users can
+     *                    override this with a custom class that implements
+     *                    PEAR_Common's method interface
      * - changelogoldtonew: True if the ChangeLog should list from oldest entry to
      *                      newest.  Set to false if you would like new entries first
      * - simpleoutput: True if the package.xml should not contain md5sum or <provides />
@@ -523,7 +524,12 @@ class PEAR_PackageFileManager
                     $this->_options['pearcommonclass'] = 'PEAR_PackageFileManager_XMLOutput';
                 }
             } else {
-                $this->_options['pearcommonclass'] = 'PEAR_Common';
+                if ($this->isIncludeable('PEAR/PackageFile/Generator/v1.php')) {
+                    include_once 'PEAR/PackageFileManager/ComplexGenerator.php';
+                    $this->_options['pearcommonclass'] = 'PEAR_PackageFileManager_ComplexGenerator';
+                } else {
+                    $this->_options['pearcommonclass'] = 'PEAR_Common';
+                }
             }
         }
         $path = ($this->_options['pathtopackagefile'] ?

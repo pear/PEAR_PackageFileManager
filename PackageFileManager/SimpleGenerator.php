@@ -71,7 +71,11 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
         $packagefile = &new PEAR_PackageFile($config);
         $pf = &$packagefile->fromArray($pkginfo);
         parent::PEAR_PackageFile_Generator_v1($pf);
-        return $this->toXml();
+        $ret = $this->toXml();
+        if (!$ret) {
+            $errors = $pf->getValidationWarnings();
+            return PEAR::raiseError('Invalid package.xml file', null, null, null, $errors);
+        }
     }
 
     function getFileRoles()

@@ -41,7 +41,7 @@ $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability('beta');
 $packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.2.0');
-$packagexml->setPearinstallerDep('1.4.10');
+$packagexml->setPearinstallerDep('1.4.3');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
