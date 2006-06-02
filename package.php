@@ -29,7 +29,7 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
-$packagexml->setNotes('fixed Bug #7769 : writePackageFile()/debugPackageFile() return false');
+$packagexml->setNotes('fixed Bug #7769 : writePackageFile()/debugPackageFile() return false (farell/cellog)');
 $packagexml->addIgnore(array('package.php','*.tgz'));
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
