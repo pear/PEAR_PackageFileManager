@@ -1,27 +1,24 @@
 <?php
-//
-// +------------------------------------------------------------------------+
-// | PEAR :: Package File Manager                                           |
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2003-2004 Gregory Beaver                                 |
-// | Email         cellog@phpdoc.org                                        |
-// +------------------------------------------------------------------------+
-// | This source file is subject to version 3.00 of the PHP License,        |
-// | that is available at http://www.php.net/license/3_0.txt.               |
-// | If you did not receive a copy of the PHP license and are unable to     |
-// | obtain it through the world-wide-web, please send a note to            |
-// | license@php.net so we can mail you a copy immediately.                 |
-// +------------------------------------------------------------------------+
-// | Portions of this code based on phpDocumentor                           |
-// | Web           http://www.phpdoc.org                                    |
-// | Mirror        http://phpdocu.sourceforge.net/                          |
-// +------------------------------------------------------------------------+
-// $Id$
-//
-
 /**
- * @package PEAR_PackageFileManager
+ * PEAR_PackageFileManager is designed to create and manipulate
+ * package.xml version 1.0 only.
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   PEAR
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2003-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      File available since Release 0.1
  */
+
 /**
  * PEAR installer
  */
@@ -217,7 +214,15 @@ array(
  * In addition, a package.xml file can now be generated from
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addMaintainer()} method
- * @package PEAR_PackageFileManager
+ *
+ * @category   PEAR
+ * @package    PEAR_PackageFileManager
+ * @author     Greg Beaver <cellog@php.net>
+ * @copyright  2003-2006 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    Release: @PEAR-VER@
+ * @link       http://pear.php.net/package/PEAR_PackageFileManager
+ * @since      Class available since Release 0.1
  */
 class PEAR_PackageFileManager
 {
