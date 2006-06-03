@@ -76,6 +76,7 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
             $errors = $pf->getValidationWarnings();
             return PEAR::raiseError('Invalid package.xml file', null, null, null, $errors);
         }
+        return $ret;
     }
 
     function getFileRoles()
