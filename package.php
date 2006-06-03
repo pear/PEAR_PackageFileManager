@@ -20,7 +20,8 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIRECTORY_SEPARATOR .
-    'package.xml', array(
+    'package2.xml', array(
+      'packagefile' => 'package2.xml',
       'exceptions' => array(
           'ChangeLog' => 'doc',
           'NEWS' => 'doc'),
@@ -30,7 +31,7 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true));
 $packagexml->setNotes('fixed Bug #7769 : writePackageFile()/debugPackageFile() return false (farell/cellog)');
-$packagexml->addIgnore(array('package.php','*.tgz'));
+$packagexml->addIgnore(array('package.php','*.tgz','package.xml'));
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 $packagexml->clearDeps();
@@ -42,6 +43,7 @@ $packagexml->setReleaseStability('beta');
 $packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.2.0');
 $packagexml->setPearinstallerDep('1.4.3');
+$packagexml->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
@@ -49,6 +51,7 @@ $packagexml->addReplacement('PackageFileManager/Perforce.php', 'package-info', '
 $packagexml->addReplacement('PackageFileManager/Svn.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/SimpleGenerator.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/XMLOutput.php', 'package-info', '@PEAR-VER@', 'version');
+$packagexml->addReplacement('PackageFileManager/ComplexGenerator.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->generateContents();
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
     $packagexml->writePackageFile();
