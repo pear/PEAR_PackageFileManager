@@ -52,10 +52,10 @@
   * VERSION: Version 1.6.0a5 (alpha) released.
 
   - Bug #6028: incompatability with php5
-  - Bug #6037: Directories named &quot;file&quot; make problems
+  - Bug #6037: Directories named "file" make problems
   - Bug #6175: incomplete error message with sapi interface only
-  - Bug #6191: notice error with wrong &quot;pathtopackagefile&quot; option
-  - Bug #6379: Generic mapping role (*=&gt;data) should exist for PFM1 and PFM2
+  - Bug #6191: notice error with wrong "pathtopackagefile" option
+  - Bug #6379: Generic mapping role (*=>data) should exist for PFM1 and PFM2
   - Bug #6434: files list validation error with simpleouput = false
 
 2005-11-04 Greg Beaver
@@ -65,7 +65,7 @@
   - add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
   - fix invalid package validation in PFM2::importOptions() - no error messages printed
   - fix fatal error if no files are found by the filelist generator using PFM2
-  - fix Bug #5243: importOptions() won&apos;t work with 2nd arg filled
+  - fix Bug #5243: importOptions() won't work with 2nd arg filled
   - fix Bug #5072: If channel not registered, addMaintainers() fails
 
 2005-09-06 Greg Beaver
