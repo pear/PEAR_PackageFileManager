@@ -8,14 +8,14 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
+ * @category   PEAR
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005-2006 The PHP Group
+ * @copyright  2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 1.3.0
+ * @since      File available since Release 1.5.3
  */
 
 require_once 'PEAR/PackageFile/Generator/v1.php';
@@ -23,14 +23,14 @@ require_once 'PEAR/PackageFile/Generator/v1.php';
 /**
  * Class for XML output
  *
- * @category   pear
+ * @category   PEAR
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
+ * @copyright  2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    Release: @PEAR-VER@
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 1.3.0
+ * @since      Class available since Release 1.5.3
  */
 
 class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generator_v1
