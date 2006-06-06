@@ -1,4 +1,10 @@
 
+2006-06-06 Greg Beaver, Laurent Laville
+
+  * VERSION: Version 1.6.0b2 (beta) released.
+
+  - Bug #7769 : writePackageFile()/debugPackageFile() return false (farell/cellog)
+
 2006-05-29 Laurent Laville
 
   * VERSION: Version 1.6.0b1 (beta) released.

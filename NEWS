@@ -1,4 +1,8 @@
 
+Changes since version 1.6.0b1 (2006-05-29)
+
+  - fixed only one bug (#7769)
+
 Changes since version 1.6.0a8 (2006-05-03)
 
   - introduces ChangeLog and NEWS files for history and quality assurance
