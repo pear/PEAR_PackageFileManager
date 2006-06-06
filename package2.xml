@@ -42,8 +42,8 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2006-06-01</date>
- <time>21:07:03</time>
+ <date>2006-06-06</date>
+ <time>19:07:41</time>
  <version>
   <release>1.6.0b2</release>
   <api>1.6.0</api>
@@ -63,7 +63,9 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <file name="makepackage.php" role="doc" />
    </dir> <!-- /examples -->
    <dir name="PackageFileManager">
-    <file name="ComplexGenerator.php" role="php" />
+    <file name="ComplexGenerator.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
     <file name="Cvs.php" role="php">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
@@ -289,7 +291,9 @@ The new PEAR_PackageFileManager2 class is not.</description>
    </dir> <!-- /tests -->
    <file name="ChangeLog" role="doc" />
    <file name="NEWS" role="doc" />
-   <file name="PackageFileManager.php" role="php" />
+   <file name="PackageFileManager.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
    <file name="PackageFileManager2.php" role="php">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
@@ -316,7 +320,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <release>beta</release>
     <api>stable</api>
    </stability>
-   <date>2006-06-01</date>
+   <date>2006-06-06</date>
    <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
    <notes>fixed Bug #7769 : writePackageFile()/debugPackageFile() return false (farell/cellog)</notes>
   </release>
