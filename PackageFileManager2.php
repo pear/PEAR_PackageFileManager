@@ -706,6 +706,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
         }
         if ($this->_oldPackageFile) {
+            $pf->_packageXml['changelog'] = array();
             $changelogV2 = $this->_oldPackageFile->getChangelog();
             if ($changelogV2) {
                 if (!isset($changelogV2['release'][0])) {
