@@ -1,4 +1,15 @@
 
+2006-08-15 Laurent Laville
+
+  * VERSION: Version 1.6.0b3 (beta) released.
+
+  - exportCompatiblePackageFile1() generates dupplicate entry in changelog with existing package
+  - improved phpdoc tags : add @access and @since espacially for functions, vars history)
+  - more PEAR CS
+  - fixed typo error on @throw phpdoc tags of PackageFileManager2 class
+  - simplify detectDependencies()
+  - new example to keep up-to-date an existing package (see examples/updatepackage.php)
+
 2006-06-06 Greg Beaver, Laurent Laville
 
   * VERSION: Version 1.6.0b2 (beta) released.

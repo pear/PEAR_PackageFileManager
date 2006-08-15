@@ -1,4 +1,9 @@
 
+Changes since version 1.6.0b2 (2006-06-06)
+
+  - fixed only one bug in PackageFileManager2 class
+    exportCompatiblePackageFile1() generates dupplicate entry in changelog with existing package
+
 Changes since version 1.6.0b1 (2006-05-29)
 
   - fixed only one bug (#7769)
