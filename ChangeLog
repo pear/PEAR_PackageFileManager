@@ -1,4 +1,12 @@
 
+2006-08-19 Laurent Laville
+
+  * VERSION: Version 1.6.0b4 (beta) released.
+
+  - package.xml and package2.xml are now ignored before the generateContents() call.
+  - bugfixe on addIgnore() function; allow now to keep previous content
+    when an array is given as parameter.
+
 2006-08-15 Laurent Laville
 
   * VERSION: Version 1.6.0b3 (beta) released.
