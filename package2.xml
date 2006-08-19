@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.10" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -42,10 +42,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2006-08-15</date>
- <time>21:04:43</time>
+ <date>2006-08-19</date>
+ <time>16:03:57</time>
  <version>
-  <release>1.6.0b3</release>
+  <release>1.6.0b4</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -54,16 +54,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
  <notes>* bugs
-- exportCompatiblePackageFile1() generates dupplicate entry in changelog with existing package
+- addIgnore() and addInclude() functions allow now to keep previous content when an array is given as parameter #1.
 
 * news
-- simplify detectDependencies()
-- add new example to keep up-to-date an existing package (see examples/updatepackage.php)
-
-* Quality Assurance
-- improved phpdoc tags : add @access and @since espacially for functions, vars history)
-- more PEAR CS
-- fixed typo error on @throw phpdoc tags of PackageFileManager2 class
+- package.xml and package2.xml are now ignored, by default, before the generateContents() call.
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -329,6 +323,24 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.6.0b4</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-08-19</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- addIgnore() and addInclude() functions allow now to keep previous content when an array is given as parameter #1.
+
+* news
+- package.xml and package2.xml are now ignored, by default, before the generateContents() call.
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.6.0b3</release>
