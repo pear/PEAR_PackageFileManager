@@ -373,7 +373,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $this->_options['ignore'] = array();
         }
         if (is_array($ignore)) {
-            $this->_options['ignore'] = $ignore;
+            foreach ($ignore as $fn) {
+                if (is_string($fn)) {
+                    $this->_options['ignore'][] = $fn;
+                }
+            }
             return;
         }
         $this->_options['ignore'][] = $ignore;
@@ -1238,6 +1242,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function generateContents()
     {
+        $this->addIgnore(array('package.xml', 'package2.xml'));
         $options = $this->_options;
         if (count($this->_subpackages)) {
             if (!is_array($options['ignore'])) {
