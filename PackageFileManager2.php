@@ -338,7 +338,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $this->_options['include'] = array();
         }
         if (is_array($include)) {
-            $this->_options['include'] = $include;
+            foreach ($include as $fn) {
+                if (is_string($fn)) {
+                    $this->_options['include'][] = $fn;
+                }
+            }
             return;
         }
         $this->_options['include'][] = $include;
