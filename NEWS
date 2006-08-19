@@ -2,7 +2,7 @@
 Changes since version 1.6.0b3 (2006-08-15)
 
   - fixed only one bug in PackageFileManager2 class
-    addIgnore() function allow now to keep previous content with an array as parameter #1
+    addIgnore() and addInclude() functions allow now to keep previous content with an array as parameter #1
   - package.xml and package2.xml are now ignored by default.
 
 Changes since version 1.6.0b2 (2006-06-06)
