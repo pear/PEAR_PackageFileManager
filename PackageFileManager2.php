@@ -1240,7 +1240,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 
     /**
      * @uses   getDirTag() generate the xml from the array
-     * @return string
+     * @return void|PEAR_Error
      * @access private
      * @since  1.6.0a1
      */
@@ -1263,11 +1263,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
         $generator = new $generatorclass($this, $options);
+        $this->clearContents($this->_options['baseinstalldir']);
         if ($this->_options['simpleoutput']) {
-            $this->clearContents($this->_options['baseinstalldir']);
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
-        $this->clearContents($this->_options['baseinstalldir']);
         return $this->_getDirTag($this->_struc = $generator->getFileList());
     }
 
