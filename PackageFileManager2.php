@@ -546,10 +546,17 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
             $this->_oldPackageFile = $res;
         }
-        if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
+
+        // file generator ressource to load
+        $ressource = 'PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php';
+        // file generator class name
+        $className = substr($ressource, 0, -4);
+        $className = str_replace('/', '_', $className);
+
+        if (!class_exists($className)) {
             // attempt to load the interface from the standard PEAR location
-            if ($this->isIncludeable('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php')) {
-                include_once('PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php');
+            if ($this->isIncludeable($ressource)) {
+                include_once $ressource;
             } elseif (isset($this->_options['usergeneratordir'])) {
                 // attempt to load from a user-specified directory
                 if (is_dir(realpath($this->_options['usergeneratordir']))) {
@@ -563,20 +570,18 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 } else {
                     $this->_options['usergeneratordir'] = '////';
                 }
-                if (file_exists($this->_options['usergeneratordir'] .
-                      $this->_options['filelistgenerator'] . '.php') &&
-                      is_readable($this->_options['usergeneratordir'] .
-                      $this->_options['filelistgenerator'] . '.php')) {
-                    include_once($this->_options['usergeneratordir'] .
-                        $this->_options['filelistgenerator'] . '.php');
+                $usergenerator = $this->_options['usergeneratordir'] .
+                    $this->_options['filelistgenerator'] . '.php';
+                if (file_exists($usergenerator) && is_readable($usergenerator)) {
+                    include_once $usergenerator;
                 }
-                if (!class_exists('PEAR_PackageFileManager_' . $this->_options['filelistgenerator'])) {
+                if (!class_exists($className)) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE,
-                            'PEAR_PackageFileManager_' . $this->_options['filelistgenerator']);
+                        $className);
                 }
             } else {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND,
-                        'PEAR_PackageFileManager_' . $this->_options['filelistgenerator']);
+                    $className);
             }
         }
     }
@@ -1660,17 +1665,17 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 }
 
 if (!function_exists('file_get_contents')) {
-/**
- * @ignore
- */
-function file_get_contents($path, $use_include_path = null, $context = null)
-{
-    $a = @file($path, $use_include_path, $context);
-    if (is_array($a)) {
-        return implode('', $a);
-    } else {
-        return false;
+    /**
+     * @ignore
+     */
+    function file_get_contents($path, $use_include_path = null, $context = null)
+    {
+        $a = @file($path, $use_include_path, $context);
+        if (is_array($a)) {
+            return implode('', $a);
+        } else {
+            return false;
+        }
     }
-}
 }
 ?>
