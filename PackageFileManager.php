@@ -564,16 +564,16 @@ class PEAR_PackageFileManager
             }
         }
 
-        // file generator ressource to load
-        $ressource = 'PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php';
+        // file generator resource to load
+        $resource = 'PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php';
         // file generator class name
-        $className = substr($ressource, 0, -4);
+        $className = substr($resource, 0, -4);
         $className = str_replace('/', '_', $className);
 
         if (!class_exists($className)) {
             // attempt to load the interface from the standard PEAR location
-            if ($this->isIncludeable($ressource)) {
-                include_once $ressource;
+            if ($this->isIncludeable($resource)) {
+                include_once $resource;
             } elseif (isset($this->_options['usergeneratordir'])) {
                 // attempt to load from a user-specified directory
                 if (is_dir(realpath($this->_options['usergeneratordir']))) {
