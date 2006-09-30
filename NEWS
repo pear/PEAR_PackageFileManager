@@ -1,4 +1,9 @@
 
+Changes since version 1.6.0b4 (2006-08-19)
+
+  - detectDependencies() works now with PHP_CompatInfo >= 1.4.0
+    See new script pattern, based on HTML-AJAX 0.5.0 distribution: examples/detectDependencies.php
+
 Changes since version 1.6.0b3 (2006-08-15)
 
   - fixed only one bug in PackageFileManager2 class

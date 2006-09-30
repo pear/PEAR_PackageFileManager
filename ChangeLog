@@ -1,4 +1,10 @@
 
+2006-09-30 Laurent Laville
+
+  * VERSION: Version 1.6.0b5 (beta)
+
+  - detectDependencies() method allow now to use all options of PHP_CompatInfo ( >= 1.4.0 )
+
 2006-08-19 Laurent Laville
 
   * VERSION: Version 1.6.0b4 (beta) released.
