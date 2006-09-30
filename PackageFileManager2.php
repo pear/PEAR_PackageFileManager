@@ -789,6 +789,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
             if (!isset($options['clearcontents']) || $options['clearcontents']) {
                 $res->clearContents();
+            } else {
+                $res->getTaskFiles($options);
             }
             $packagefile = $packagefile->getPackageFile();
         }
@@ -1584,6 +1586,63 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
+     * @param  array list of generation options
+     * @return array PEAR_Task_* object
+     * @since  1.6.0b5
+     */
+    function getTaskFiles($options)
+    {
+        $filelist = $this->getFilelist(true);
+        $kroles = array_keys($this->_options['roles']);
+        $vroles = array_values($this->_options['roles']);
+
+        foreach ($filelist as $file => $contents) {
+            $atts = $contents['attribs'];
+            unset($contents['attribs']);
+            // check for tasks replacement, eol
+            if (count($contents)) {
+                foreach ($contents as $tag => $raw) {
+                    $taskNs = $this->getTasksNs();
+                    $task = str_replace("$taskNs:", '', $tag);
+                    if ($task == 'replace') {
+                        if (!isset($raw[0])) {
+                            $raw = array($raw);
+                        }
+                        foreach ($raw as $attrs) {
+                            $a = $attrs['attribs'];
+                            $this->addReplacement($file, $a['type'], $a['from'], $a['to']);
+                        }
+
+                    } elseif ($task == 'windowseol') {
+                        $this->addWindowsEol($file);
+
+                    } elseif ($task == 'unixeol') {
+                        $this->addUnixEol($file);
+                    }
+                }
+            }
+            // check for role attribute
+            if (isset($atts['role'])) {
+                $myrole = $atts['role'];
+                if (!in_array($myrole, $vroles)) {
+                    $this->_options['exceptions'][$file] = $myrole;
+                } else {
+                    $inf = pathinfo($file);
+                    if (isset($inf['extension']) && $kroles[$inf['extension']] != $myrole) {
+                        $this->_options['exceptions'][$file] = $myrole;
+                    }
+                }
+            }
+            // check for baseinstalldir attribute
+            if (isset($options['baseinstalldir'])
+                && $atts['baseinstalldir'] != $options['baseinstalldir']) {
+                $this->_options['installexceptions'][$file] = $atts['baseinstalldir'];
+            }
+        }
+        return $this->_options['replacements'];
+    }
+
+    /**
      * @return true|PEAR_Error
      * @uses   _generateNewPackageXML() if no package.xml is found, it
      *          calls this to create a new one
@@ -1635,6 +1694,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 }
                 if (!isset($options['clearcontents']) || $options['clearcontents']) {
                     $pf->clearContents();
+                } else {
+                    $pf->getTaskFiles($options);
                 }
             }
             return $pf;
