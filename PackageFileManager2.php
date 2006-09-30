@@ -1023,6 +1023,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Uses PEAR::PHP_CompatInfo package to detect dependencies (extensions, php version)
      *
+     * @param  bool|array  $options  (optional) array of parser options for PHP_CompatInfo,
+     *                               or false if none
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS
      * @throws PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO
@@ -1031,14 +1033,14 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function detectDependencies()
     {
-        if (!$this->_packageXml) {
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS);
-        }
         if (!$this->isIncludeable('PHP/CompatInfo.php')) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO);
         } else {
             include_once 'PHP/CompatInfo.php';
-            $this->_detectDependencies = true;
+            if (!is_array($options)) {
+                $options = array();
+            }
+            $this->_detectDependencies = $options;
         }
     }
 
@@ -1488,8 +1490,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if ($this->_detectDependencies) {
             $this->_traverseFileArray($this->_struc, $ret);
             $compatinfo = new PHP_CompatInfo();
-            $info = $compatinfo->parseArray($ret);
-            $ret = $this->setPhpDep($info['version']);
+            $info = $compatinfo->parseArray($ret, $this->_detectDependencies);
+            $max_version = (empty($info['max_version'])) ? false : $info['max_version'];
+            $ret = $this->setPhpDep($info['version'], $max_version);
             if (is_a($ret, 'PEAR_Error')) {
                 return $ret;
             }
