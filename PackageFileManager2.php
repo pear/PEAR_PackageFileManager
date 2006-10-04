@@ -1593,7 +1593,6 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     function getTaskFiles($options)
     {
         $filelist = $this->getFilelist(true);
-        $kroles = array_keys($this->_options['roles']);
         $vroles = array_values($this->_options['roles']);
 
         foreach ($filelist as $file => $contents) {
@@ -1628,7 +1627,16 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $this->_options['exceptions'][$file] = $myrole;
                 } else {
                     $inf = pathinfo($file);
-                    if ($kroles[$inf['extension']] != $myrole) {
+                    if (isset($inf['extension'])) {
+                        if (isset($this->_options['roles'][$inf['extension']])) {
+                            $role = $this->_options['roles'][$inf['extension']];
+                        } else {
+                            $role = $this->_options['roles']['*'];
+                        }
+                        if ($role != $myrole) {
+                            $this->_options['exceptions'][$file] = $myrole;
+                        }
+                    } else {
                         $this->_options['exceptions'][$file] = $myrole;
                     }
                 }
