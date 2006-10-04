@@ -1628,7 +1628,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $this->_options['exceptions'][$file] = $myrole;
                 } else {
                     $inf = pathinfo($file);
-                    if (isset($inf['extension']) && $kroles[$inf['extension']] != $myrole) {
+                    if ($kroles[$inf['extension']] != $myrole) {
                         $this->_options['exceptions'][$file] = $myrole;
                     }
                 }
