@@ -1643,6 +1643,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
             // check for baseinstalldir attribute
             if (isset($options['baseinstalldir'])
+                && isset($atts['baseinstalldir'])
                 && $atts['baseinstalldir'] != $options['baseinstalldir']) {
                 $this->_options['installexceptions'][$file] = $atts['baseinstalldir'];
             }
