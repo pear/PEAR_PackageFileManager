@@ -30,6 +30,8 @@ $options = array('filelistgenerator' => 'cvs',
     'baseinstalldir' => 'HTML',
     'outputdirectory' => 'c:/php/pear',
     'simpleoutput' => true,
+    'clearcontents' => false,  // import also tasks, and roles files exceptions
+                               // required PEAR_PackageFileManager 1.6.0b5 or better
     'changelogoldtonew' => false
     );
 
@@ -47,14 +49,9 @@ $p2->setNotes('bugfixe for dupplicates entry in package xml 1.0 export');
 //$p2->setPhpDep('4.2.0');
 //$p2->setPearinstallerDep('1.4.3');
 
-// get a compatible version 1.0 of package xml
-$pkg = &$p2->exportCompatiblePackageFile1();
-
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
-    $pkg->writePackageFile();
     $p2->writePackageFile();
 } else {
-    $pkg->debugPackageFile();
     $p2->debugPackageFile();
 }
 ?>
