@@ -1,9 +1,12 @@
 
-2006-09-30 Laurent Laville
+2006-10-xx Laurent Laville
 
   * VERSION: Version 1.6.0b5 (beta)
 
   - detectDependencies() method allow now to use all options of PHP_CompatInfo ( >= 1.4.0 )
+  - exportCompatiblePackageFile1() method is maked as deprecated,
+    because package xml 1.0 will not be supported with stable version 1.6.0
+  - method getTaskFiles() renamed to _importTasks() and declared as private.
 
 2006-08-19 Laurent Laville
 

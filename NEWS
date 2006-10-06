@@ -3,6 +3,9 @@ Changes since version 1.6.0b4 (2006-08-19)
 
   - detectDependencies() works now with PHP_CompatInfo >= 1.4.0
     See new script pattern, based on HTML-AJAX 0.5.0 distribution: examples/detectDependencies.php
+  - option (clearcontents => false) allow now to import all previous options
+    of an existing package xml. That means you get tasks files (postinstallscript,
+    replace, eol) but also role file exceptions.
 
 Changes since version 1.6.0b3 (2006-08-15)
 
