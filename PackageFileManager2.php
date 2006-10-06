@@ -652,6 +652,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @return PEAR_PackageFileManager
      * @access public
      * @since  1.6.0a1
+     * @deprecated  package xml 1.0 will not be supported with stable version 1.6.0
      */
     function &exportCompatiblePackageFile1($options = array())
     {
@@ -790,7 +791,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if (!isset($options['clearcontents']) || $options['clearcontents']) {
                 $res->clearContents();
             } else {
-                $res->getTaskFiles($options);
+                $res->_importTasks($options);
             }
             $packagefile = $packagefile->getPackageFile();
         }
@@ -1587,11 +1588,15 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
+     * Import tasks options and files roles (if exceptions)
+     * from an existing package.xml
+     *
      * @param  array list of generation options
-     * @return array PEAR_Task_* object
+     * @return void|PEAR_Error
+     * @access private
      * @since  1.6.0b5
      */
-    function getTaskFiles($options)
+    function _importTasks($options)
     {
         $filelist = $this->getFilelist(true);
         $vroles = array_values($this->_options['roles']);
@@ -1618,6 +1623,35 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 
                     } elseif ($task == 'unixeol') {
                         $this->addUnixEol($file);
+
+                    } elseif ($task == 'postinstallscript') {
+                        $script = &$this->initPostinstallScript($file);
+                        $raw = $this->_stripNamespace($raw);
+
+                        foreach ($raw['paramgroup'] as $paramgroup) {
+                            if (isset($paramgroup['instructions'])) {
+                                $instructions = $paramgroup['instructions'];
+                            } else {
+                                $instructions = false;
+                            }
+
+                            if (isset($paramgroup['param'][0])) {
+                                $params = $paramgroup['param'];
+                            } else {
+                                $params = array($paramgroup['param']);
+                            }
+                            $param = array();
+                            foreach ($params as $p) {
+                                $default = isset($p['default']) ? $p['default'] : null;
+                                $param[] = $script->getParam($p['name'],
+                                    $p['prompt'], $p['type'], $default);
+                            }
+                            $script->addParamGroup($paramgroup['id'], $param, $instructions);
+                        }
+                        $ret = $this->addPostinstallTask($script, $file);
+                        if (PEAR::isError($ret)) {
+                            return $ret;
+                        }
                     }
                 }
             }
@@ -1649,7 +1683,26 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $this->_options['installexceptions'][$file] = $atts['baseinstalldir'];
             }
         }
-        return $this->_options['replacements'];
+    }
+
+    /**
+     * Strip namespace from postinstallscript task array
+     *
+     * @param  array  tasks options
+     * @return array
+     * @access private
+     * @since  1.6.0b5
+     */
+    function _stripNamespace($params)
+    {
+        $newparams = array();
+        foreach ($params as $i => $param) {
+            if (is_array($param)) {
+                $param = $this->_stripNamespace($param);
+            }
+            $newparams[str_replace($this->getTasksNs() . ':', '', $i)] = $param;
+        }
+        return $newparams;
     }
 
     /**
@@ -1705,7 +1758,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 if (!isset($options['clearcontents']) || $options['clearcontents']) {
                     $pf->clearContents();
                 } else {
-                    $pf->getTaskFiles($options);
+                    // merge options is required to use PEAR_PackageFileManager2::addPostinstallTask()
+                    if (PEAR::isError($ret = $pf->_importOptions($packagefile, $options))) {
+                        return $ret;
+                    }
+                    $pf->_importTasks($options);
                 }
             }
             return $pf;
