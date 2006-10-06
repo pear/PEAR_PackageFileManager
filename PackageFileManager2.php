@@ -810,6 +810,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * @param  string name of package file
      * @param  array  list of generation options
+     * @return void|PEAR_Error
      * @access private
      * @since  1.6.0a1
      */
@@ -1002,6 +1003,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      *
      * @param  PEAR_Task_Postinstallscript_rw
      * @param  string relative path of file (relative to packagedirectory option)
+     * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT
      * @access public
      * @since  1.6.0a1
@@ -1086,7 +1088,6 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function writePackageFile($debuginterface = null)
     {
-        extract($this->_options);
         $warnings = $this->_stack->getErrors(true);
         $this->setDate(date('Y-m-d'));
         if (count($warnings)) {
