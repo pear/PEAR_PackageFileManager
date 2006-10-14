@@ -827,7 +827,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * Get the existing options
      *
      * @param  bool  $withTasks  (optional) Returns full options (=false)
-     *                                      or with replacements (=true)
+     *                                      or without replacements (=true)
      * @return array
      * @access public
      * @since  1.6.0a1
