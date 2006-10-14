@@ -105,7 +105,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
-        foreach($entries as $cvsentry) {
+        foreach ($entries as $cvsentry) {
             $directory = @dirname(@dirname($cvsentry));
             if (!$directory) {
                 continue;
@@ -114,7 +114,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
             if (!is_array($d)) {
                 continue;
             }
-            foreach($d as $entry) {
+            foreach ($d as $entry) {
                 if ($ignore) {
                     if ($this->_checkIgnore($this->_getCVSFileName($entry),
                           $directory . '/' . $this->_getCVSFileName($entry), 1)) {

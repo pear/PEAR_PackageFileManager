@@ -53,8 +53,7 @@ class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
     {
         /* Return an error if the directory does not exist. */
         if (@is_dir($directory) === false) {
-            return $this->_parent->raiseError(
-                            PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST,
+            return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST,
                             $directory);
         }
 

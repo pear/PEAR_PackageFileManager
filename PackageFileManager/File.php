@@ -105,7 +105,7 @@ class PEAR_PackageFileManager_File
                 substr($package_directory, 0, strlen($package_directory) - 1));
         }
         $struc = array();
-        foreach($allfiles as $file) {
+        foreach ($allfiles as $file) {
             $path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR,
                                                               '/',
                                                               realpath($package_directory))) + 1);
@@ -127,8 +127,8 @@ class PEAR_PackageFileManager_File
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING,
                 substr($package_directory, 0, strlen($package_directory) - 1), $newig);
         }
-        uksort($struc,'strnatcasecmp');
-        foreach($struc as $key => $ind) {
+        uksort($struc, 'strnatcasecmp');
+        foreach ($struc as $key => $ind) {
             usort($ind, array($this, 'sortfiles'));
             $struc[$key] = $ind;
         }
@@ -139,11 +139,10 @@ class PEAR_PackageFileManager_File
         }
         $struc = array('/' => $tempstruc['/']);
         $bv = 0;
-        foreach($tempstruc as $key => $ind) {
+        foreach ($tempstruc as $key => $ind) {
             $save = $key;
-            if ($key != '/')
-            {
-                $struc['/'] = $this->_setupDirs($struc['/'], explode('/',$key), $tempstruc[$key]);
+            if ($key != '/') {
+                $struc['/'] = $this->_setupDirs($struc['/'], explode('/', $key), $tempstruc[$key]);
             }
         }
         uksort($struc['/'], array($this, 'mystrucsort'));
@@ -167,7 +166,7 @@ class PEAR_PackageFileManager_File
         if (@is_dir($directory)) {
             $ret = array();
             $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
-            while($d && false !== ($entry=$d->read())) {
+            while ($d && false !== ($entry = $d->read())) {
                 if ($this->_testFile($directory, $entry)) {
                     if (is_file($directory . '/' . $entry)) {
                         // if include option was set, then only pass included files
@@ -187,7 +186,7 @@ class PEAR_PackageFileManager_File
                     if (is_dir($directory . '/' . $entry)) {
                         $tmp = $this->dirList($directory . '/' . $entry);
                         if (is_array($tmp)) {
-                            foreach($tmp as $ent) {
+                            foreach ($tmp as $ent) {
                                 $ret[] = $ent;
                             }
                         }
@@ -240,11 +239,11 @@ class PEAR_PackageFileManager_File
             $path = realpath($path);
         }
         if (is_array($this->ignore[$return])) {
-            foreach($this->ignore[$return] as $match) {
+            foreach ($this->ignore[$return] as $match) {
                 // match is an array if the ignore parameter was a /path/to/pattern
                 if (is_array($match)) {
                     // check to see if the path matches with a path delimiter appended
-                    preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path) . '/',$find);
+                    preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path) . '/', $find);
                     if (!count($find)) {
                         // check to see if it matches without an appended path delimiter
                         preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path), $find);
@@ -291,9 +290,9 @@ class PEAR_PackageFileManager_File
     {
         $ig = array();
         if (is_array($ignore)) {
-            for($i=0; $i<count($ignore);$i++) {
+            for ($i=0; $i<count($ignore);$i++) {
                 $ignore[$i] = strtr($ignore[$i], "\\", "/");
-                $ignore[$i] = str_replace('//','/',$ignore[$i]);
+                $ignore[$i] = str_replace('//', '/', $ignore[$i]);
 
                 if (!empty($ignore[$i])) {
                     if (!is_numeric(strpos($ignore[$i], '/'))) {
@@ -330,8 +329,8 @@ class PEAR_PackageFileManager_File
             $y = '\\\\';
         }
         $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
-        $x = strtr($s, array('?' => '.','*' => '.*','.' => '\\.','\\' => '\\\\','/' => '\\/',
-                                '[' => '\\[',']' => '\\]','-' => '\\-'));
+        $x = strtr($s, array('?' => '.', '*' => '.*', '.' => '\\.', '\\' => '\\\\', '/' => '\\/',
+                             '[' => '\\[', ']' => '\\]', '-' => '\\-'));
         if (strpos($s, DIRECTORY_SEPARATOR) !== false &&
               strrpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {
             $x = "(?:.*$y$x?.*|$x.*)";
@@ -355,7 +354,7 @@ class PEAR_PackageFileManager_File
     function _setupDirs($struc, $dir, $contents)
     {
         if (!count($dir)) {
-            foreach($contents as $dir => $files) {
+            foreach ($contents as $dir => $files) {
                 if (is_string($dir)) {
                     if (strpos($dir, '/')) {
                         $test = true;
@@ -391,7 +390,7 @@ class PEAR_PackageFileManager_File
      */
     function _setDir($dir, $contents)
     {
-        while(list($one,$two) = each($contents)) {
+        while (list($one,$two) = each($contents)) {
             if (isset($dir[$one])) {
                 $dir[$one] = $this->_setDir($dir[$one], $contents[$one]);
             } else {
@@ -409,20 +408,19 @@ class PEAR_PackageFileManager_File
      */
     function sortfiles($a, $b)
     {
-        return strnatcasecmp($a['file'],$b['file']);
+        return strnatcasecmp($a['file'], $b['file']);
     }
 
     function mystrucsort($a, $b)
     {
         if (is_numeric($a) && is_string($b)) return 1;
         if (is_numeric($b) && is_string($a)) return -1;
-        if (is_numeric($a) && is_numeric($b))
-        {
+        if (is_numeric($a) && is_numeric($b)) {
             if ($a > $b) return 1;
             if ($a < $b) return -1;
             if ($a == $b) return 0;
         }
-        return strnatcasecmp($a,$b);
+        return strnatcasecmp($a, $b);
     }
     /**#@-*/
 }

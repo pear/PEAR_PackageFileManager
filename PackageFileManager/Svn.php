@@ -112,7 +112,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
-        foreach($entries as $cvsentry) {
+        foreach ($entries as $cvsentry) {
             $directory = @dirname(@dirname($cvsentry));
             if (!$directory) {
                 continue;
@@ -121,7 +121,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             if (!is_array($d)) {
                 continue;
             }
-            foreach($d as $entry) {
+            foreach ($d as $entry) {
                 if ($ignore) {
                     if ($this->_checkIgnore($entry,
                           $directory . '/' . $entry, 1)) {
