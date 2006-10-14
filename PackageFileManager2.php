@@ -826,13 +826,20 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Get the existing options
      *
+     * @param  bool  $withTasks  (optional) Returns full options (=false)
+     *                                      or with replacements (=true)
      * @return array
      * @access public
      * @since  1.6.0a1
      */
-    function getOptions()
+    function getOptions($withTasks = false)
     {
-        return $this->_options;
+        if ($withTasks === false) {
+            return $this->_options;
+        }
+        $opt = $this->_options;
+        unset($opt['replacements']);
+        return $opt;
     }
 
     /**
