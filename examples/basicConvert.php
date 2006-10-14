@@ -10,7 +10,7 @@
 
 require_once 'PEAR/PackageFileManager2.php';
 
-//PEAR::setErrorHandling(PEAR_ERROR_DIE);
+PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
 // Configuration of PEAR::PackageFileManager
 $optionsUpdate = array(
@@ -18,14 +18,13 @@ $optionsUpdate = array(
     'clearcontents'     => false,
     'baseinstalldir'    => 'HTML',
     'simpleoutput'      => true,
-    'filelistgenerator' => 'cvs',
+    'filelistgenerator' => 'file',
     'changelogoldtonew' => false,
     'packagefile'       => 'package2.xml'
 );
 
 // Location of your package.xml 1.0 version
-$packagefile = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package_DB-1.7.6.xml';
-$packagefile = 'D:\php\pear\HTML_Progress2\package.xml';
+$packagefile = 'C:\PEAR\HTML\HTML_AJAX-0.5.0\package.xml';
 
 $packagefileExists = file_exists($packagefile);
 
