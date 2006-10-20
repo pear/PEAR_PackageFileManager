@@ -652,7 +652,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @return PEAR_PackageFileManager
      * @access public
      * @since  1.6.0a1
-     * @deprecated  package xml 1.0 will not be supported with stable version 1.6.0
+     * @deprecated  package xml 1.0 will not be needed for much longer and is deprecated
      */
     function &exportCompatiblePackageFile1($options = array())
     {
