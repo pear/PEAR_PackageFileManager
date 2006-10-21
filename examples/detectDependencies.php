@@ -32,14 +32,13 @@ $optionsUpdate = array(
         'test.bat', 'build.php', 'DeveloperNotes.txt', '*cssQuery-src*'
         ),
     'simpleoutput' => true,
-    'cleardependencies' => false,     // for convert package xml 1.0 to 2.0
-    'clearcontents' => false,         // for convert package xml 1.0 to 2.0
+    'cleardependencies' => false,
+    'clearcontents' => false,
     'changelogoldtonew' => false,
     'outputdirectory' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'tmp'
 );
 
 $packagedirectory = 'c:/pear/HTML/HTML_AJAX-0.5.0';
-#packagedirectory = dirname(__FILE__);
 $packagefile  = $packagedirectory . DIRECTORY_SEPARATOR . 'package.xml';
 
 // if you are NOT sure to have a package xml 2.0 in your directory,
@@ -47,7 +46,7 @@ $packagefile  = $packagedirectory . DIRECTORY_SEPARATOR . 'package.xml';
 $package = &PEAR_PackageFileManager2::importFromPackageFile1($packagefile, $optionsUpdate);
 
 // if you are sure to have a package xml 2.0 in your directory
-#$package = PEAR_PackageFileManager2::importOptions($packagefile, $optionsUpdate);
+// use instead:  $package = PEAR_PackageFileManager2::importOptions($packagefile, $optionsUpdate);
 
 $package->setReleaseVersion($version);
 $package->setNotes($notes);
@@ -72,7 +71,8 @@ if (PEAR::isError($available)) {
 PEAR::popErrorHandling();
 
 $package->setPearInstallerDep('1.4.3');
-#$package->addPackageDepWithChannel('required', 'PEAR', 'pear.php.net', '1.4.11');
+// any additional customization depending of your new release
+// for example: $package->addPackageDepWithChannel('required', 'PEAR', 'pear.php.net', '1.4.11');
 
 $package->generateContents();
 
