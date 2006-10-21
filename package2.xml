@@ -42,10 +42,10 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2006-08-19</date>
- <time>16:03:57</time>
+ <date>2006-10-21</date>
+ <time>19:29:40</time>
  <version>
-  <release>1.6.0b4</release>
+  <release>1.6.0b5</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -53,17 +53,24 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <api>stable</api>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
- <notes>* bugs
-- addIgnore() and addInclude() functions allow now to keep previous content when an array is given as parameter #1.
+ <notes>THIS VERSION IS THE LAST ONE BEFORE FINAL STABLE 1.6.0
 
 * news
-- package.xml and package2.xml are now ignored, by default, before the generateContents() call.
+- First major change is ability to import all tasks files (replace, eol, postscriptinstall) of an existing package xml (1.0 or 2.0), with just one option &quot;clearcontents&quot;.
+- The second major change is ability to use all options of PHP_CompatInfo 1.4.0 (or better) to detect easily all dependencies (PHP version and PHP extensions used).
+- &quot;exportCompatiblePackageFile1&quot; method is now deprecated. Produces only a simple version of package xml 1.0 without tasks files
+
+* Quality Assurance
+- my website page (http://pear.laurent-laville.org) related to PEAR_PackageFileManager
+was updated : FAQ and  Examples tabs. Please Visit it to read more information
+in waiting for the User Guide and Tutorial you will get with stable 1.6.0 version.
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
    <dir name="examples">
     <file name="basicConvert.php" role="doc" />
     <file name="createPhpDocumentor_package.xml.php" role="doc" />
+    <file name="detectDependencies.php" role="doc" />
     <file name="generatePackage.xml.php" role="doc" />
     <file name="makepackage.php" role="doc" />
     <file name="updatepackage.php" role="doc" />
@@ -320,9 +327,40 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <min>1.4.3</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>PHP_CompatInfo</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+  </optional>
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.6.0b5</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-10-21</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>THIS VERSION IS THE LAST ONE BEFORE FINAL STABLE 1.6.0
+
+* news
+- First major change is ability to import all tasks files (replace, eol, postscriptinstall) of an existing package xml (1.0 or 2.0), with just one option &quot;clearcontents&quot;.
+- The second major change is ability to use all options of PHP_CompatInfo 1.4.0 (or better) to detect easily all dependencies (PHP version and PHP extensions used).
+- &quot;exportCompatiblePackageFile1&quot; method is now deprecated. Produces only a simple version of package xml 1.0 without tasks files
+
+* Quality Assurance
+- my website page (http://pear.laurent-laville.org) related to PEAR_PackageFileManager
+was updated : FAQ and  Examples tabs. Please Visit it to read more information
+in waiting for the User Guide and Tutorial you will get with stable 1.6.0 version.
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.6.0b4</release>
@@ -338,8 +376,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
 - addIgnore() and addInclude() functions allow now to keep previous content when an array is given as parameter #1.
 
 * news
-- package.xml and package2.xml are now ignored, by default, before the generateContents() call.
-   </notes>
+- package.xml and package2.xml are now ignored, by default, before the generateContents() call.</notes>
   </release>
   <release>
    <version>
@@ -362,8 +399,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
 * Quality Assurance
 - improved phpdoc tags : add @access and @since espacially for functions, vars history)
 - more PEAR CS
-- fixed typo error on @throw phpdoc tags of PackageFileManager2 class
-   </notes>
+- fixed typo error on @throw phpdoc tags of PackageFileManager2 class</notes>
   </release>
   <release>
    <version>
