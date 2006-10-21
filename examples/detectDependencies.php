@@ -35,7 +35,7 @@ $optionsUpdate = array(
     'cleardependencies' => false,
     'clearcontents' => false,
     'changelogoldtonew' => false,
-    'outputdirectory' => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'tmp'
+    'packagefile' => 'htmlajax.xml'
 );
 
 $packagedirectory = 'c:/pear/HTML/HTML_AJAX-0.5.0';
