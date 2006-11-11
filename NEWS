@@ -1,4 +1,10 @@
 
+Changes since version 1.6.0b5 (2006-10-21)
+
+  - new option "clearchangelog" to remove full contents of <changelog> tag.
+    Allow to generate a package xml version without changelog entries.
+    (feedback of Mark Wiesemann).
+
 Changes since version 1.6.0b4 (2006-08-19)
 
   - detectDependencies() works now with PHP_CompatInfo >= 1.4.0

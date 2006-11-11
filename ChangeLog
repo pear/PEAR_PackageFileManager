@@ -1,4 +1,10 @@
 
+2006-11-21 Laurent Laville
+
+  * VERSION: Version 1.6.0 (stable)
+
+  - new option "clearchangelog" to remove full contents of <changelog> tag.
+
 2006-10-21 Laurent Laville
 
   * VERSION: Version 1.6.0b5 (beta)
