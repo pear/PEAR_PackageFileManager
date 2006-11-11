@@ -301,6 +301,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       'simpleoutput' => false,
                       'addhiddenfiles' => false,
                       'cleardependencies' => false,
+                      'clearcontents' => true,
+                      'clearchangelog' => false,
                       );
 
     /**
@@ -1110,8 +1112,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $state = PEAR_VALIDATE_PACKAGING;
         }
         $this->_getDependencies();
-        $this->_updateChangeLog();
-
+        if ($this->_options['clearchangelog']) {
+            $this->clearChangeLog();
+        } else {
+            $this->_updateChangeLog();
+        }
         $outputdir = ($this->_options['outputdirectory'] ?
                         $this->_options['outputdirectory'] : $this->_options['packagedirectory']);
         $this->setPackagefile($this->_options['packagedirectory'] . $this->_options['packagefile']);
