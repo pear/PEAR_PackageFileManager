@@ -25,16 +25,16 @@ Features include
 PEAR_PackageFileManager is fully unit tested.
 The new PEAR_PackageFileManager2 class is not.</description>
  <lead>
-  <name>Greg Beaver</name>
-  <user>cellog</user>
-  <email>cellog@php.net</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Laurent Laville</name>
   <user>farell</user>
   <email>pear@laurent-laville.org</email>
   <active>yes</active>
+ </lead>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>no</active>
  </lead>
  <developer>
   <name>Arnaud Limbourg</name>
