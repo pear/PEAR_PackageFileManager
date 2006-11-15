@@ -19,8 +19,22 @@
  */
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
-$packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIRECTORY_SEPARATOR .
-    'package2.xml', array(
+
+$release_version = '1.6.0';
+$release_state   = 'stable';
+$release_notes   = <<<EOS
+FINAL STABLE VERSION 1.6.0
+that manages the new package.xml 2.0 format in PEAR 1.4.0
+
+changes since 1.6.0b5:
+- added new option "clearchangelog" that allow to remove full changelog section
+on generating the new package xml version (on feedback from Mark Wiesemann).
+
+EOS;
+
+$packagexml = &PEAR_PackageFileManager2::importOptions(
+    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package2.xml',
+    array(
       'packagefile' => 'package2.xml',
       'exceptions' => array(
           'ChangeLog' => 'doc',
@@ -29,17 +43,19 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(dirname(__FILE__) . DIREC
       'packagedirectory' => dirname(__FILE__),
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',
-      'simpleoutput' => true));
-$packagexml->setNotes('fixed Bug #7769 : writePackageFile()/debugPackageFile() return false (farell/cellog)');
-$packagexml->addIgnore(array('package.php','*.tgz','package.xml'));
+      'simpleoutput' => true
+      ));
+$packagexml->setNotes($release_notes);
+$packagexml->addIgnore(array('package.php', '*.tgz'));
 $packagexml->setPackageType('php');
+$packagexml->updateMaintainer('lead', 'farell', 'Laurent Laville', 'farell@php.net', 'no');
 $packagexml->addRelease();
 $packagexml->clearDeps();
 $packagexml->setChannel('pear.php.net');
 $packagexml->setLicense('PHP License 3.01', 'http://www.php.net/license/3_01.txt');
-$packagexml->setReleaseVersion('1.6.0b2');
+$packagexml->setReleaseVersion($release_version);
 $packagexml->setAPIVersion('1.6.0');
-$packagexml->setReleaseStability('beta');
+$packagexml->setReleaseStability($release_state);
 $packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.2.0');
 $packagexml->setPearinstallerDep('1.4.3');
