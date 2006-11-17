@@ -25,15 +25,15 @@ Features include
 PEAR_PackageFileManager is fully unit tested.
 The new PEAR_PackageFileManager2 class is not.</description>
  <lead>
-  <name>Laurent Laville</name>
-  <user>farell</user>
-  <email>pear@laurent-laville.org</email>
-  <active>yes</active>
- </lead>
- <lead>
   <name>Greg Beaver</name>
   <user>cellog</user>
   <email>cellog@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>farell@php.net</email>
   <active>no</active>
  </lead>
  <developer>
@@ -42,28 +42,23 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2006-10-21</date>
- <time>19:29:40</time>
+ <date>2006-11-17</date>
+ <time>20:44:31</time>
  <version>
-  <release>1.6.0b5</release>
+  <release>1.6.0</release>
   <api>1.6.0</api>
  </version>
  <stability>
-  <release>beta</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
- <notes>THIS VERSION IS THE LAST ONE BEFORE FINAL STABLE 1.6.0
+ <notes>FINAL STABLE VERSION 1.6.0
+that manages the new package.xml 2.0 format in PEAR 1.4.0
 
-* news
-- First major change is ability to import all tasks files (replace, eol, postscriptinstall) of an existing package xml (1.0 or 2.0), with just one option &quot;clearcontents&quot;.
-- The second major change is ability to use all options of PHP_CompatInfo 1.4.0 (or better) to detect easily all dependencies (PHP version and PHP extensions used).
-- &quot;exportCompatiblePackageFile1&quot; method is now deprecated. Produces only a simple version of package xml 1.0 without tasks files
-
-* Quality Assurance
-- my website page (http://pear.laurent-laville.org) related to PEAR_PackageFileManager
-was updated : FAQ and  Examples tabs. Please Visit it to read more information
-in waiting for the User Guide and Tutorial you will get with stable 1.6.0 version.
+changes since 1.6.0b5:
+- added new option &quot;clearchangelog&quot; that allow to remove full changelog section
+on generating the new package xml version (on feedback from Mark Wiesemann).
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -71,6 +66,7 @@ in waiting for the User Guide and Tutorial you will get with stable 1.6.0 versio
     <file name="basicConvert.php" role="doc" />
     <file name="createPhpDocumentor_package.xml.php" role="doc" />
     <file name="detectDependencies.php" role="doc" />
+    <file name="easyMigration.php" role="doc" />
     <file name="generatePackage.xml.php" role="doc" />
     <file name="makepackage.php" role="doc" />
     <file name="updatepackage.php" role="doc" />
@@ -169,16 +165,10 @@ in waiting for the User Guide and Tutorial you will get with stable 1.6.0 versio
     </dir> <!-- /tests/importOptions -->
     <dir name="PEAR_PackageFileManager2">
      <dir name="importFromPackageFile1">
-      <dir name="packagefiles">
-       <file name="package.xml" role="test" />
-      </dir> <!-- /tests/PEAR_PackageFileManager2/importFromPackageFile1/packagefiles -->
       <file name="setup.php.inc" role="test" />
       <file name="test.phpt" role="test" />
      </dir> <!-- /tests/PEAR_PackageFileManager2/importFromPackageFile1 -->
      <dir name="importOptions">
-      <dir name="packagefiles">
-       <file name="package.xml" role="test" />
-      </dir> <!-- /tests/PEAR_PackageFileManager2/importOptions/packagefiles -->
       <file name="setup.php.inc" role="test" />
       <file name="test.phpt" role="test" />
      </dir> <!-- /tests/PEAR_PackageFileManager2/importOptions -->
@@ -339,6 +329,25 @@ in waiting for the User Guide and Tutorial you will get with stable 1.6.0 versio
  <changelog>
   <release>
    <version>
+    <release>1.6.0</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-11-17</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>FINAL STABLE VERSION 1.6.0
+that manages the new package.xml 2.0 format in PEAR 1.4.0
+
+changes since 1.6.0b5:
+- added new option &quot;clearchangelog&quot; that allow to remove full changelog section
+on generating the new package xml version (on feedback from Mark Wiesemann).
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>1.6.0b5</release>
     <api>1.6.0</api>
    </version>
@@ -358,8 +367,7 @@ in waiting for the User Guide and Tutorial you will get with stable 1.6.0 versio
 * Quality Assurance
 - my website page (http://pear.laurent-laville.org) related to PEAR_PackageFileManager
 was updated : FAQ and  Examples tabs. Please Visit it to read more information
-in waiting for the User Guide and Tutorial you will get with stable 1.6.0 version.
-   </notes>
+in waiting for the User Guide and Tutorial you will get with stable 1.6.0 version.</notes>
   </release>
   <release>
    <version>
