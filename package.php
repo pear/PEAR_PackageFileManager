@@ -59,6 +59,7 @@ $packagexml->setReleaseStability($release_state);
 $packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.2.0');
 $packagexml->setPearinstallerDep('1.4.3');
+$packagexml->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
 $packagexml->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
