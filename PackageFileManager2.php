@@ -332,6 +332,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * If any include options are specified, all files that do not match the
      * inclusion patterns will be ignored
      *
+     * Note that to match partial path entries, you must start with a *,
+     * so to match "data/README" you need to use "*data/README"
      * @param  string  file pattern to include
      * @param  bool if true, the include array will be reset (useful for cloned packagefiles)
      * @return void
