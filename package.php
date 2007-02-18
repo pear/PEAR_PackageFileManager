@@ -24,6 +24,7 @@ $release_version = '1.6.1';
 $release_state   = 'stable';
 $release_notes   = '
 * fix Bug #9560: PPFM1 constants used in PPFM2
+* fix Bug #9559: files not included under certain conditions
 ';
 
 $packagexml = &PEAR_PackageFileManager2::importOptions(
