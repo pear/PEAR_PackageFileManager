@@ -23,6 +23,10 @@
  */
 require_once 'PEAR/PackageFile.php';
 /**
+ * needed for error constants
+ */
+require_once 'PEAR/PackageFileManager.php';
+/**
  * PEAR Packagefile version 2.0
  */
 require_once 'PEAR/PackageFile/v2/rw.php';

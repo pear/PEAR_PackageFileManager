@@ -20,17 +20,11 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.6.0';
+$release_version = '1.6.1';
 $release_state   = 'stable';
-$release_notes   = <<<EOS
-FINAL STABLE VERSION 1.6.0
-that manages the new package.xml 2.0 format in PEAR 1.4.0
-
-changes since 1.6.0b5:
-- added new option "clearchangelog" that allow to remove full changelog section
-on generating the new package xml version (on feedback from Mark Wiesemann).
-
-EOS;
+$release_notes   = '
+* fix Bug #9560: PPFM1 constants used in PPFM2
+';
 
 $packagexml = &PEAR_PackageFileManager2::importOptions(
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package2.xml',
