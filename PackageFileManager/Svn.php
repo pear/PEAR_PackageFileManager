@@ -50,7 +50,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                     ' in PHP 5+.  PHP 4 uses XML_Tree');
             }
         }
-        parent::PEAR_PackageFileManager_File(&$parent, $options);
+        parent::PEAR_PackageFileManager_File($parent, $options);
     }
 
     /**
@@ -155,7 +155,40 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      */
     function _getSVNEntries($svnentriesfilename)
     {
-        if (function_exists('simplexml_load_string')) {
+        $stuff = file_get_contents($svnentriesfilename);
+
+        if (substr($stuff, 0, 5) != '<?xml') {
+            // Not XML; assume newer (>= SVN 1.4) SVN entries format
+
+            // Look for hex GUID (xxxx-xxxx-xxxx-xxxx-xxxx)
+            // The list of files follows this
+            if (preg_match('/([a-f0-9]+-){4}[a-f0-9]+\n(.*)$/ms', $stuff, $matches)) {
+                $file_list = $matches[2];
+                $files = explode("\x0c", trim($file_list));
+
+                // Each file entry seems to look something like this:
+                // [filename]
+                // [type of file e.g. "dir", "file"]
+                // [varying number of \n]
+                // [optional "deleted" string]
+                foreach ($files as $file) {
+                    $lines = explode("\n", trim($file));
+                    if (isset($lines[1]) && $lines[1] == 'file') {
+                        $deleted = false;
+                        foreach ($lines as $line) {
+                            // 'deleted' means it's already gone
+                            // 'delete' means it's marked as ready to delete
+                            if ($line == 'deleted' || $line == 'delete') {
+                                $deleted = true;
+                            }
+                        }
+                        if (!$deleted) {
+                            $entries[] = $lines[0];
+                        }
+                    }
+                }
+            }        
+        } elseif (function_exists('simplexml_load_string')) {
             // this breaks simplexml because "svn:" is an invalid namespace, so strip it
             $stuff = str_replace('xmlns="svn:"', '', file_get_contents($svnentriesfilename));
             $all = simplexml_load_string($stuff);
@@ -169,6 +202,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                 }
             }
         } else {
+            unset($stuff);
             require_once 'XML/Tree.php';
             $parser  = &new XML_Tree($svnentriesfilename);
             $tree    = &$parser->getTreeFromFile();
@@ -188,7 +222,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             unset($parser, $tree);
         }
 
-        if (is_array($entries)) {
+        if (isset($entries) && is_array($entries)) {
             return $entries;
         } else {
             return false;
