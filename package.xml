@@ -31,6 +31,12 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <active>no</active>
  </lead>
  <lead>
+  <name>Tim Jackson</name>
+  <user>timj</user>
+  <email>timj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
   <name>Laurent Laville</name>
   <user>farell</user>
   <email>farell@php.net</email>
