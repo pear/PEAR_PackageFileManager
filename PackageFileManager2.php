@@ -1026,6 +1026,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function addPostinstallTask($task, $path)
     {
+        if (!is_a($task, 'PEAR_Task_Postinstallscript')) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT,
+                'Task passed in is not a PEAR_Task_Postinstallscript task');
+        }
         // necessary for validation
         $this->addFile('', $path, array('role' => 'php', 'name' => $path));
         $this->setPackagefile($this->_options['packagedirectory'] .
