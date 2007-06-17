@@ -23,14 +23,19 @@ PEAR::setErrorHandling(PEAR_ERROR_DIE);
 $release_version = '1.6.1';
 $release_state   = 'stable';
 $release_notes   = '
-* fix Bug #9560: PPFM1 constants used in PPFM2
-* fix Bug #9559: files not included under certain conditions
+ * Fix Bug #9560: PPFM1 constants used in PPFM2 [cellog]
+ * Fix Bug #10409: Subversion 1.4.x entries files not supported [timj]
+ * Fix Bug #10410: SVN module passes arguments by reference [timj]
+ * Fix Bug #10490: Bad error handling with some XML errors [timj]
+ * Fix Bug #10971: Missing error check [timj]
+ * Fix Bug #10995: addPostInstallTask() should validate incoming tasks [cellog]
+ * Implement Feature #9559: files not included under certain conditions [cellog]
 ';
 
 $packagexml = &PEAR_PackageFileManager2::importOptions(
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package2.xml',
+    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package.xml',
     array(
-      'packagefile' => 'package2.xml',
+      'packagefile' => 'package.xml',
       'exceptions' => array(
           'ChangeLog' => 'doc',
           'NEWS' => 'doc'),
@@ -43,7 +48,6 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(
 $packagexml->setNotes($release_notes);
 $packagexml->addIgnore(array('package.php', '*.tgz'));
 $packagexml->setPackageType('php');
-$packagexml->updateMaintainer('lead', 'farell', 'Laurent Laville', 'farell@php.net', 'no');
 $packagexml->addRelease();
 $packagexml->clearDeps();
 $packagexml->setChannel('pear.php.net');
