@@ -160,10 +160,12 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         if (substr($stuff, 0, 5) != '<?xml') {
             // Not XML; assume newer (>= SVN 1.4) SVN entries format
 
-            // Look for hex GUID (xxxx-xxxx-xxxx-xxxx-xxxx)
+            // The directory entries are seperated by #0c; look for the first #0c
+            // The hex GUID (xxxx-xxxx-xxxx-xxxx-xxxx) may not always be set
             // The list of files follows this
-            if (preg_match('/([a-f0-9]+-){4}[a-f0-9]+\n(.*)$/ms', $stuff, $matches)) {
-                $file_list = $matches[2];
+            if (preg_match('/\x0c\n(.*)$/ms', $stuff, $matches)) {
+                $file_list = $matches[1];
+
                 $files = explode("\x0c", trim($file_list));
 
                 // Each file entry seems to look something like this:
