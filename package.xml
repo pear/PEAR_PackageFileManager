@@ -301,7 +301,6 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <file name="Test_file.php" role="test" />
    </dir> <!-- /tests -->
    <file name="ChangeLog" role="doc" />
-   <file name="NEWS" role="doc" />
    <file name="PackageFileManager.php" role="php">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
    </file>
