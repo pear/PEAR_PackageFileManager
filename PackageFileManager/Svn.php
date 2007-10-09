@@ -12,7 +12,8 @@
  * @category   pear
  * @package    PEAR_PackageFileManager
  * @author     Arnaud Limbourg <arnaud@limbourg.com>
- * @copyright  2005-2006 The PHP Group
+ * @author     Tim Jackson <tim@timj.co.uk>
+ * @copyright  2005-2007 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
@@ -33,7 +34,8 @@ require_once 'PEAR/PackageFileManager/File.php';
  * @category   pear
  * @package    PEAR_PackageFileManager
  * @author     Arnaud Limbourg <arnaud@limbourg.com>
- * @copyright  2005-2006 The PHP Group
+ * @author     Tim Jackson <tim@timj.co.uk>
+ * @copyright  2005-2007 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    Release: @PEAR-VER@
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
