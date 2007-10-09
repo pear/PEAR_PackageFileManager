@@ -60,13 +60,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
  <notes>
- * Fix Bug #9560: PPFM1 constants used in PPFM2 [cellog]
- * Fix Bug #10409: Subversion 1.4.x entries files not supported [timj]
- * Fix Bug #10410: SVN module passes arguments by reference [timj]
- * Fix Bug #10490: Bad error handling with some XML errors [timj]
- * Fix Bug #10971: Missing error check [timj]
- * Fix Bug #10995: addPostInstallTask() should validate incoming tasks [cellog]
- * Implement Feature #9559: files not included under certain conditions [cellog]
+ * Fix Bug #12202: SVN 'entries' file parser (SVN >= 1.4) sometimes omits files
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -335,6 +329,21 @@ The new PEAR_PackageFileManager2 class is not.</description>
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.6.2</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-10-09</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>
+ * Fix Bug #12202: SVN 'entries' file parser (SVN >= 1.4) sometimes omits files
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.6.1</release>
