@@ -3,20 +3,22 @@
  * PEAR_PackageFileManager is designed to create and manipulate
  * package.xml version 1.0 only.
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   PEAR
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 0.1
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 0.1
  */
 
 /**
@@ -216,14 +218,14 @@ array(
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addMaintainer()} method
  *
- * @category   PEAR
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 0.1
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 0.1
  */
 class PEAR_PackageFileManager
 {
@@ -485,6 +487,9 @@ class PEAR_PackageFileManager
      * - configure_options: array specifies build options for PECL packages (you should probably
      *                      use PECL_Gen instead, but it's here for completeness)
      *
+     * @param array   $options  (optional) list of generation options
+     * @param boolean $internal (optional) private function call
+     *
      * @see    PEAR_PackageFileManager_File
      * @see    PEAR_PackageFileManager_CVS
      * @return void|PEAR_Error
@@ -494,8 +499,6 @@ class PEAR_PackageFileManager
      * @throws PEAR_PACKAGEFILEMANAGER_NOBASEDIR
      * @throws PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND_ANYWHERE
      * @throws PEAR_PACKAGEFILEMANAGER_GENERATOR_NOTFOUND
-     * @param  array list of generation options
-     * @param  boolean  private function call
      * @access public
      * @since  0.1
      */
@@ -555,6 +558,7 @@ class PEAR_PackageFileManager
         }
         $path = ($this->_options['pathtopackagefile'] ?
                     $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);
+
         $this->_options['filelistgenerator'] =
             ucfirst(strtolower($this->_options['filelistgenerator']));
         if (!$internal) {
@@ -607,8 +611,9 @@ class PEAR_PackageFileManager
     /**
      * Import options from an existing package.xml
      *
-     * @param  string name of package file
-     * @param  array list of generation options
+     * @param string $packagefile name of package file
+     * @param array  $options     (optional) list of generation options
+     *
      * @return true|PEAR_Error
      * @access public
      * @since  1.5.0
@@ -621,14 +626,14 @@ class PEAR_PackageFileManager
               DIRECTORY_SEPARATOR, basename($packagefile)))) {
             return $res;
         }
-        $this->_options['package'] = $this->_oldPackageXml['package'];
-        $this->_options['summary'] = $this->_oldPackageXml['summary'];
+        $this->_options['package']     = $this->_oldPackageXml['package'];
+        $this->_options['summary']     = $this->_oldPackageXml['summary'];
         $this->_options['description'] = $this->_oldPackageXml['description'];
-        $this->_options['date'] = $this->_oldPackageXml['release_date'];
-        $this->_options['version'] = $this->_oldPackageXml['version'];
-        $this->_options['license'] = $this->_oldPackageXml['release_license'];
-        $this->_options['state'] = $this->_oldPackageXml['release_state'];
-        $this->_options['notes'] = $this->_oldPackageXml['release_notes'];
+        $this->_options['date']        = $this->_oldPackageXml['release_date'];
+        $this->_options['version']     = $this->_oldPackageXml['version'];
+        $this->_options['license']     = $this->_oldPackageXml['release_license'];
+        $this->_options['state']       = $this->_oldPackageXml['release_state'];
+        $this->_options['notes']       = $this->_oldPackageXml['release_notes'];
         $this->setOptions($options, true);
         if (isset($this->_packageXml['release_deps'])) {
             $this->_options['deps'] = $this->_packageXml['release_deps'];
@@ -664,8 +669,9 @@ class PEAR_PackageFileManager
      * - script (gives the file an executable attribute)
      * - src
      *
-     * @param  string file extension
-     * @param  string role
+     * @param string $extension file extension
+     * @param string $role      role
+     *
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER_INVALID_ROLE
      * @access public
@@ -693,8 +699,9 @@ class PEAR_PackageFileManager
      * This information is based on eyeing the source for OS/Guess.php, so
      * if you are unsure of what to do, read that file.
      *
-     * @param  string relative path of file (relative to packagedirectory option)
-     * @param  string platform descriptor string
+     * @param string $path     relative path of file (relative to packagedirectory option)
+     * @param string $platform platform descriptor string
+     *
      * @return void
      * @access public
      * @since  0.10
@@ -720,9 +727,10 @@ class PEAR_PackageFileManager
      * type is package-info, then $to must be the name of a section from
      * the package.xml file used to install this file.
      *
-     * @param  string variable type, either php-const, pear-config or package-info
-     * @param  string text to replace in the source file
-     * @param  string variable name to use for replacement
+     * @param string $type variable type, either php-const, pear-config or package-info
+     * @param string $from text to replace in the source file
+     * @param string $to   variable name to use for replacement
+     *
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE
      * @access public
@@ -755,10 +763,11 @@ class PEAR_PackageFileManager
      * type is package-info, then $to must be the name of a section from
      * the package.xml file used to install this file.
      *
-     * @param  string relative path of file (relative to packagedirectory option)
-     * @param  string variable type, either php-const, pear-config or package-info
-     * @param  string text to replace in the source file
-     * @param  string variable name to use for replacement
+     * @param string $path relative path of file (relative to packagedirectory option)
+     * @param string $type variable type, either php-const, pear-config or package-info
+     * @param string $from text to replace in the source file
+     * @param string $to   variable name to use for replacement
+     *
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE
      * @access public
@@ -791,10 +800,11 @@ class PEAR_PackageFileManager
      *
      * Finally, specify the name and email of the maintainer
      *
-     * @param  string username on pear.php.net of maintainer
-     * @param  lead|developer|contributor|helper role of maintainer
-     * @param  string full name of maintainer
-     * @param  string email address of maintainer
+     * @param string $handle username on pear.php.net of maintainer
+     * @param string $role   lead|developer|contributor|helper role of maintainer
+     * @param string $name   full name of maintainer
+     * @param string $email  email address of maintainer
+     *
      * @return void|PEAR_Error
      * @access public
      * @since  0.9
@@ -835,9 +845,10 @@ class PEAR_PackageFileManager
      * This option is only useful to PECL projects that are built upon
      * installation
      *
-     * @param  string name of the option
-     * @param  string prompt to display to the user
-     * @param  string default value
+     * @param string $name    name of the option
+     * @param string $prompt  prompt to display to the user
+     * @param string $default (optional) default value
+     *
      * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
      * @return void|PEAR_Error
      * @access public
@@ -894,7 +905,8 @@ class PEAR_PackageFileManager
     /**
      * Returns whether or not a file is in the include path.
      *
-     * @param  string  path to filename
+     * @param string $file path to filename
+     *
      * @return boolean true if the file is in the include path, false otherwise
      * @access public
      * @since  1.3.0
@@ -921,13 +933,14 @@ class PEAR_PackageFileManager
      * addDependency('php', '4.3.0', 'ge', 'php') is called, the existing
      * dependency on PHP 4.1.0 will be overwritten with the new one on PHP 4.3.0
      *
-     * @param string Dependency element name
-     * @param string Dependency version
-     * @param string A specific operator for the version, this can be one of:
+     * @param string  $name     Dependency element name
+     * @param string  $version  (optional) Dependency version
+     * @param string  $operator A specific operator for the version, this can be one of:
      *   'has', 'not', 'lt', 'le', 'eq', 'ne', 'ge', or 'gt'
-     * @param string Dependency type.  This can be one of:
+     * @param string  $type     (optional) Dependency type.  This can be one of:
      *   'pkg', 'ext', 'php', 'prog', 'os', 'sapi', or 'zend'
-     * @param boolean true if dependency is optional
+     * @param boolean $optional (optional) true if dependency is optional
+     *
      * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
      * @throws PEAR_PACKAGEFILEMANAGER_PHP_NOT_PACKAGE
      * @return void|PEAR_Error
@@ -992,7 +1005,8 @@ class PEAR_PackageFileManager
      * ALWAYS use {@link debugPackageFile} to verify that output is correct before
      * overwriting your package.xml
      *
-     * @param boolean null if no debugging, true if web interface, false if command-line
+     * @param boolean $debuginterface (optional) null if no debugging, true if web interface, false if command-line
+     *
      * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
      * @throws PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS
      * @throws PEAR_PACKAGEFILEMANAGER_NONOTES
@@ -1031,17 +1045,19 @@ class PEAR_PackageFileManager
         if (isset($description)) {
             $this->_packageXml['description'] = $description;
         }
-        $this->_packageXml['release_date'] = $date;
-        $this->_packageXml['version'] = $version;
+        $this->_packageXml['release_date']    = $date;
+        $this->_packageXml['version']         = $version;
         $this->_packageXml['release_license'] = $license;
-        $this->_packageXml['release_state'] = $state;
-        $this->_packageXml['release_notes'] = $notes;
+        $this->_packageXml['release_state']   = $state;
+        $this->_packageXml['release_notes']   = $notes;
+
         $PEAR_Common = $this->_options['pearcommonclass'];
         $this->_pear = new $PEAR_Common;
         if (method_exists($this->_pear, 'setPackageFileManager')) {
             $this->_pear->setPackageFileManager($this);
         }
         $this->_packageXml['filelist'] = $this->_getFileList();
+
         $warnings = $this->getWarnings();
         if (count($warnings)) {
             $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
@@ -1061,7 +1077,7 @@ class PEAR_PackageFileManager
         $this->_packageXml['release_deps'] = $this->_getDependencies();
         $this->_updateChangeLog();
 
-        $common = &$this->_pear;
+        $common   = &$this->_pear;
         $warnings = $errors = array();
         if (method_exists($common, 'setPackageFileManagerOptions')) {
             $common->setPackageFileManagerOptions($this->_options);
@@ -1084,7 +1100,7 @@ class PEAR_PackageFileManager
         }
         if (count($errors)) {
             $ret = '';
-            $nl = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
+            $nl  = (isset($debuginterface) && $debuginterface ? '<br />' : "\n");
             foreach ($errors as $errmsg) {
                 $ret .= $errmsg . $nl;
             }
@@ -1161,8 +1177,9 @@ class PEAR_PackageFileManager
     /**
      * Store a warning on the warning stack
      *
-     * @param  integer error code
-     * @param  array   additional specific error info
+     * @param integer $code error code
+     * @param array   $info additional specific error info
+     *
      * @return void
      * @access public
      * @since  1.1.0
@@ -1190,8 +1207,9 @@ class PEAR_PackageFileManager
     /**
      * Retrieve an error message from a code
      *
-     * @param  integer error code
-     * @param  array   additional specific error info
+     * @param integer $code error code
+     * @param array   $info additional specific error info
+     *
      * @return string Error message
      * @access private
      * @since  1.1.0
@@ -1209,9 +1227,11 @@ class PEAR_PackageFileManager
      * Utility function to shorten error generation code
      *
      * {@source}
-     * @param  integer error code
-     * @param  string  additional specific error info #1
-     * @param  string  additional specific error info #2
+     *
+     * @param integer $code error code
+     * @param string  $i1   (optional) additional specific error info #1
+     * @param string  $i2   (optional) additional specific error info #2
+     *
      * @return PEAR_Error
      * @static
      * @access public
@@ -1228,8 +1248,9 @@ class PEAR_PackageFileManager
      * Uses {@link PEAR_Common::analyzeSourceCode()} and {@link PEAR_Common::buildProvidesArray()}
      * to create the <provides></provides> section of the package.xml
      *
-     * @param  PEAR_Common
-     * @param  string path to source file
+     * @param object &$pear PEAR_Common
+     * @param string $file  path to source file
+     *
      * @return void
      * @access private
      * @since  0.9
@@ -1254,7 +1275,7 @@ class PEAR_PackageFileManager
     function _getFileList()
     {
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
-        $generator = new $generatorclass($this, $this->_options);
+        $generator      = new $generatorclass($this, $this->_options);
         if ($this->_options['simpleoutput'] && is_a($this->_pear, 'PEAR_Common')) {
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
@@ -1265,11 +1286,12 @@ class PEAR_PackageFileManager
      * Recursively generate the <filelist> section's <dir> and <file> tags, but with
      * simple human-readable output
      *
-     * @param  array|PEAR_Error the sorted directory structure, or an error
-     *                         from filelist generation
-     * @param  false|string whether the parent directory has a role this should
+     * @param array|PEAR_Error $struc   the sorted directory structure, or an error
+     *                        from filelist generation
+     * @param false|string     $role    whether the parent directory has a role this should
      *                         inherit
-     * @param  string indentation level
+     * @param string           $_curdir indentation level
+     *
      * @return array|PEAR_Error
      * @access private
      * @since  1.2.0
@@ -1303,6 +1325,7 @@ class PEAR_PackageFileManager
                         $ret[$dir]['baseinstalldir'] = $this->_options['baseinstalldir'];
                     }
                     $ret[$dir]['name'] = $dir;
+
                     $recurdir = ($_curdir == '') ? $dir . '/' : $_curdir . $dir . '/';
                     if ($recurdir == '//') {
                         $recurdir = '';
@@ -1362,11 +1385,12 @@ class PEAR_PackageFileManager
     /**
      * Recursively generate the <filelist> section's <dir> and <file> tags
      *
-     * @param  array|PEAR_Error the sorted directory structure, or an error
+     * @param array|PEAR_Error $struc   the sorted directory structure, or an error
      *                         from filelist generation
-     * @param  false|string whether the parent directory has a role this should
+     * @param false|string     $role    whether the parent directory has a role this should
      *                         inherit
-     * @param  string indentation level
+     * @param string           $_curdir indentation level
+     *
      * @return array|PEAR_Error
      * @access private
      * @since  0.1
@@ -1460,8 +1484,10 @@ class PEAR_PackageFileManager
     }
 
     /**
-     * @param  array
-     * @param  array
+     * @param array $files
+     * @param array &$ret
+     *
+     * @return array
      * @access private
      * @since  1.3.0
      */
@@ -1488,7 +1514,8 @@ class PEAR_PackageFileManager
         if ($this->_detectDependencies) {
             $this->_traverseFileArray($this->_struc, $ret);
             $compatinfo = new PHP_CompatInfo();
-            $info = $compatinfo->parseArray($ret);
+            $info       = $compatinfo->parseArray($ret);
+
             $ret = $this->addDependency('php', $info['version'], 'ge', 'php', false);
             if (is_a($ret, 'PEAR_Error')) {
                 return $ret;
@@ -1599,13 +1626,13 @@ class PEAR_PackageFileManager
     function _changelogsort($a, $b)
     {
         if ($this->_options['changelogoldtonew']) {
-            $c = strtotime($a['release_date']);
-            $d = strtotime($b['release_date']);
+            $c  = strtotime($a['release_date']);
+            $d  = strtotime($b['release_date']);
             $v1 = $a['version'];
             $v2 = $b['version'];
         } else {
-            $d = strtotime($a['release_date']);
-            $c = strtotime($b['release_date']);
+            $d  = strtotime($a['release_date']);
+            $c  = strtotime($b['release_date']);
             $v2 = $a['version'];
             $v1 = $b['version'];
         }
@@ -1618,11 +1645,12 @@ class PEAR_PackageFileManager
     }
 
     /**
+     * @param string $path        full path to package file
+     * @param string $packagefile (optional) name of package file
+     *
      * @return true|PEAR_Error
      * @uses   _generateNewPackageXML() if no package.xml is found, it
      *          calls this to create a new one
-     * @param  string full path to package file
-     * @param  string name of package file
      * @throws PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS
      * @throws PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST
      * @access private
@@ -1647,7 +1675,7 @@ class PEAR_PackageFileManager
                     $this->_oldPackageXml =
                     $this->_packageXml = $common->infoFromString($contents);
                 } else { // new way
-                    require_once 'PEAR/PackageFile.php';
+                    include_once 'PEAR/PackageFile.php';
                     $z = &PEAR_Config::singleton();
                     $pkg = &new PEAR_PackageFile($z);
                     $pf = &$pkg->fromXmlString($contents, PEAR_VALIDATE_DOWNLOADING, $path . $packagefile);
@@ -1715,11 +1743,11 @@ class PEAR_PackageFileManager
         if (!isset($this->_options['description']) || empty($this->_options['description'])) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NODESC);
         }
-        $this->_packageXml = array();
-        $this->_packageXml['package'] = $this->_options['package'];
-        $this->_packageXml['summary'] = $this->_options['summary'];
+        $this->_packageXml                = array();
+        $this->_packageXml['package']     = $this->_options['package'];
+        $this->_packageXml['summary']     = $this->_options['summary'];
         $this->_packageXml['description'] = $this->_options['description'];
-        $this->_packageXml['changelog'] = array();
+        $this->_packageXml['changelog']   = array();
         if ($this->_options['deps'] !== false) {
             $this->_packageXml['release_deps'] = $this->_options['deps'];
         } else {
@@ -1731,21 +1759,6 @@ class PEAR_PackageFileManager
             $this->_packageXml['maintainers'] = $this->_options['maintainers'] = array();
         }
         return true;
-    }
-}
-
-if (!function_exists('file_get_contents')) {
-    /**
-     * @ignore
-     */
-    function file_get_contents($path, $use_include_path = null, $context = null)
-    {
-        $a = @file($path, $use_include_path, $context);
-        if (is_array($a)) {
-            return implode('', $a);
-        } else {
-            return false;
-        }
     }
 }
 ?>
