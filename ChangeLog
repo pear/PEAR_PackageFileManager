@@ -1,7 +1,13 @@
+2007-10-09 Tim Jackson
+
+  * VERSION: Version 1.6.2 (stable)
+
+  - Fix Bug #12202: SVN 'entries' file parser (SVN >= 1.4) sometimes omits files
+
 2007-06-17 Greg Beaver
 
   * VERSION: Version 1.6.1 (stable)
-  
+
   - Fix Bug #9560: PPFM1 constants used in PPFM2 [cellog]
   - Fix Bug #10409: Subversion 1.4.x entries files not supported [timj]
   - Fix Bug #10410: SVN module passes arguments by reference [timj]
