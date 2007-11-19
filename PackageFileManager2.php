@@ -3,20 +3,22 @@
  * PEAR_PackageFileManager2, like PEAR_PackageFileManager, is designed to
  * create and manipulate package.xml version 2.0.
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 1.6.0
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2005-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 1.6.0
  */
 /**
  * PEAR Packagefile parser
@@ -197,14 +199,14 @@ array(
  * scratch, with the usage of new options package, summary, description, and
  * the use of the {@link addLead(), addDeveloper(), addContributor(), addHelper()} methods
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 1.6.0
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2005-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 1.6.0
  */
 class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
 {
@@ -334,8 +336,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      *
      * Note that to match partial path entries, you must start with a *,
      * so to match "data/README" you need to use "*data/README"
-     * @param  string  file pattern to include
-     * @param  bool if true, the include array will be reset (useful for cloned packagefiles)
+     *
+     * @param string $include file pattern to include
+     * @param bool   $clear   (optional) if true, the include array will be reset
+     *                        (useful for cloned packagefiles)
+     *
      * @return void
      * @access public
      * @since  1.6.0a2
@@ -359,7 +364,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Add an <ignore> tag to a <phprelease> tag
      *
-     * @param  string full path to filename to ignore
+     * @param string $path full path to filename to ignore
+     *
      * @return void
      * @access public
      * @see    PEAR_PackageFile_v2_rw::addIgnore()
@@ -373,8 +379,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Add a pattern or patterns to ignore when generating the file list
      *
-     * @param  string|array
-     * @param  bool if true, the include array will be reset (useful for cloned packagefiles)
+     * @param string|array $ignore file pattern to ignore
+     * @param bool         $clear  (optional) if true, the include array will be reset
+     *                             (useful for cloned packagefiles)
+     *
      * @return void
      * @access public
      * @since  1.6.0a2
@@ -480,6 +488,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      *                            replacements performed (useful for images and large files)
      *                            note that this is not exported to package.xml 1.0!!
      *
+     * @param array   $options  (optional) list of generation options
+     * @param boolean $internal (optional) private function call
+     *
      * @see    PEAR_PackageFileManager_File
      * @see    PEAR_PackageFileManager_CVS
      * @return void|PEAR_Error
@@ -490,8 +501,6 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @throws PEAR_PACKAGEFILEMANAGER2_NOBASEDIR
      * @throws PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE
      * @throws PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND
-     * @param  array list of generation options
-     * @param  boolean  private function call
      * @access public
      * @since  1.6.0a1
      */
@@ -601,10 +610,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * as the parent package, and the files should be excluded from the package.xml
      * version 2.0.
      *
-     * @param  PEAR_PackageFileManager2 object representing the subpackage's package.xml
-     * @param  boolean dependency type to add, use true for a package dependency,
+     * @param object  &$pm        PEAR_PackageFileManager2 object representing the subpackage's package.xml
+     * @param boolean $dependency dependency type to add, use true for a package dependency,
      *                 false for a subpackage dependency
-     * @param  boolean whether the dependency should be required or optional
+     * @param boolean $required   (optional) whether the dependency should be required or optional
+     *
      * @return void|false
      * @access public
      * @since  1.6.0a1
@@ -656,7 +666,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * to package2.xml, and the package.xml version 1.0 will be output as package.xml.
      * This simplifies the process of automatic packaging
      *
-     * @param  array list of generation options
+     * @param array $options (optional) array list of generation options
+     *
      * @return PEAR_PackageFileManager
      * @access public
      * @since  1.6.0a1
@@ -671,7 +682,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
             $this->_options['ignore'][] = 'package2.xml';
         }
-        require_once 'PEAR/PackageFileManager.php';
+        include_once 'PEAR/PackageFileManager.php';
         $greplace = $replaces = false;
         if (@$this->_options['globalreplacements']) {
             $greplace = array();
@@ -752,8 +763,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Convert a package xml 1.0 to 2.0 with user and default options
      *
-     * @param  string name of package file
-     * @param  array  list of generation options
+     * @param string $packagefile name of package file
+     * @param array  $options     (optional) list of generation options
+     *
      * @return PEAR_PackageFileManager2|PEAR_Error
      * @static
      * @access public
@@ -777,8 +789,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Import options from an existing package.xml
      *
-     * @param  string name of package file
-     * @param  array  list of generation options
+     * @param string $packagefile name of package file
+     * @param array  $options     (optional) list of generation options
+     *
      * @return PEAR_PackageFileManager2|PEAR_Error
      * @static
      * @access public
@@ -817,8 +830,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
-     * @param  string name of package file
-     * @param  array  list of generation options
+     * Import options from an existing package.xml 2.0
+     *
+     * @param string $packagefile name of package file
+     * @param array  $options     list of generation options
+     *
      * @return void|PEAR_Error
      * @access private
      * @since  1.6.0a1
@@ -834,8 +850,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Get the existing options
      *
-     * @param  bool  $withTasks  (optional) Returns full options (=false)
-     *                                      or without replacements (=true)
+     * @param bool $withTasks (optional) Returns full options (=false)
+     *                                   or without replacements (=true)
+     *
      * @return array
      * @access public
      * @since  1.6.0a1
@@ -865,15 +882,17 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * - script (gives the file an executable attribute)
      * - src
      *
-     * @param  string file extension
-     * @param  string role
+     * @param string $extension file extension
+     * @param string $role      file role
+     *
+     * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE
      * @access public
      * @since  1.6.0a1
      */
     function addRole($extension, $role)
     {
-        require_once 'PEAR/Installer/Role.php';
+        include_once 'PEAR/Installer/Role.php';
         $roles = PEAR_Installer_Role::getValidRoles($this->getPackageType());
         if (!in_array($role, $roles)) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE, implode($roles, ', '), $role);
@@ -894,16 +913,18 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * type is package-info, then $to must be the name of a section from
      * the package.xml file used to install this file.
      *
-     * @param  string variable type, either php-const, pear-config or package-info
-     * @param  string text to replace in the source file
-     * @param  string variable name to use for replacement
+     * @param string $type variable type, either php-const, pear-config or package-info
+     * @param string $from text to replace in the source file
+     * @param string $to   variable name to use for replacement
+     *
+     * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE
      * @access public
      * @since  1.6.0a1
      */
     function addGlobalReplacement($type, $from, $to)
     {
-        require_once 'PEAR/Task/Replace/rw.php';
+        include_once 'PEAR/Task/Replace/rw.php';
         if (!isset($this->_options['globalreplacements'])) {
             $this->_options['globalreplacements'] = array();
         }
@@ -930,10 +951,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * type is package-info, then $to must be the name of a section from
      * the package.xml file used to install this file.
      *
-     * @param  string relative path of file (relative to packagedirectory option)
-     * @param  string variable type, either php-const, pear-config or package-info
-     * @param  string text to replace in the source file
-     * @param  string variable name to use for replacement
+     * @param string $path relative path of file (relative to packagedirectory option)
+     * @param string $type variable type, either php-const, pear-config or package-info
+     * @param string $from text to replace in the source file
+     * @param string $to   variable name to use for replacement
+     *
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE
      * @access public
@@ -944,7 +966,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (!isset($this->_options['replacements'])) {
             $this->_options['replacements'] = array();
         }
-        require_once 'PEAR/Task/Replace/rw.php';
+        include_once 'PEAR/Task/Replace/rw.php';
         $l = null;
         $task = new PEAR_Task_Replace_rw($this, $this->_config, $l, '');
         $task->setInfo($from, $to, $type);
@@ -958,7 +980,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Convert a file to windows line endings on installation
      *
-     * @param  string relative path of file (relative to packagedirectory option)
+     * @param string $path relative path of file (relative to packagedirectory option)
+     *
      * @return void
      * @access public
      * @since  1.6.0a1
@@ -968,7 +991,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (!isset($this->_options['replacements'])) {
             $this->_options['replacements'] = array();
         }
-        require_once 'PEAR/Task/Windowseol/rw.php';
+        include_once 'PEAR/Task/Windowseol/rw.php';
         $l = null;
         $task = new PEAR_Task_Windowseol_rw($this, $this->_config, $l, '');
         // we'll use this because it will still work
@@ -978,7 +1001,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Convert a file to unix line endings on installation
      *
-     * @param  string relative path of file (relative to packagedirectory option)
+     * @param string $path relative path of file (relative to packagedirectory option)
+     *
      * @return void
      * @access public
      * @since  1.6.0a1
@@ -988,7 +1012,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (!isset($this->_options['replacements'])) {
             $this->_options['replacements'] = array();
         }
-        require_once 'PEAR/Task/Unixeol/rw.php';
+        include_once 'PEAR/Task/Unixeol/rw.php';
         $l = null;
         $task = new PEAR_Task_Unixeol_rw($this, $this->_config, $l, '');
         // we'll use this because it will still work
@@ -998,14 +1022,15 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Get a post-installation task object for manipulation prior to adding it
      *
-     * @param  string relative path of file (relative to packagedirectory option)
+     * @param string $path relative path of file (relative to packagedirectory option)
+     *
      * @return PEAR_Task_Postinstallscript_rw
      * @access public
      * @since  1.6.0a1
      */
     function &initPostinstallScript($path)
     {
-        require_once 'PEAR/Task/Postinstallscript/rw.php';
+        include_once 'PEAR/Task/Postinstallscript/rw.php';
         $task = new PEAR_Task_Postinstallscript_rw($this, $this->_config, $l,
             array('name' => $path, 'role' => 'php'));
         return $task;
@@ -1017,8 +1042,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * The script must have been created with {@link initPostinstallScript()} and
      * then populated using the API of PEAR_Task_Postinstallscript_rw.
      *
-     * @param  PEAR_Task_Postinstallscript_rw
-     * @param  string relative path of file (relative to packagedirectory option)
+     * @param object $task PEAR_Task_Postinstallscript_rw
+     * @param string $path relative path of file (relative to packagedirectory option)
+     *
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT
      * @access public
@@ -1047,15 +1073,15 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Uses PEAR::PHP_CompatInfo package to detect dependencies (extensions, php version)
      *
-     * @param  bool|array  $options  (optional) array of parser options for PHP_CompatInfo,
-     *                               or false if none
+     * @param array $options (optional) parser options for PHP_CompatInfo
+     *
      * @return void|PEAR_Error
      * @throws PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS
      * @throws PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO
      * @access public
      * @since  1.6.0a1
      */
-    function detectDependencies()
+    function detectDependencies($options = array())
     {
         if (!$this->isIncludeable('PHP/CompatInfo.php')) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO);
@@ -1071,7 +1097,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Returns whether or not a file is in the include path.
      *
-     * @param  string  path to filename
+     * @param string $file path to filename
+     *
      * @return boolean true if the file is in the include path, false otherwise
      * @access public
      * @since  1.6.0a1
@@ -1096,7 +1123,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * ALWAYS use {@link debugPackageFile} to verify that output is correct before
      * overwriting your package.xml
      *
-     * @param boolean null if no debugging, true if web interface, false if command-line
+     * @param boolean $debuginterface null if no debugging, true if web interface, false if command-line
+     *
      * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE
      * @throws PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE
      * @throws PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE
@@ -1208,8 +1236,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Store a warning on the warning stack
      *
-     * @param  integer error code
-     * @param  array   additional specific error info
+     * @param integer $code error code
+     * @param array   $info additional specific error info
+     *
      * @return void
      * @access public
      * @since  1.6.0a1
@@ -1237,8 +1266,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Retrieve an error message from a code
      *
-     * @param  integer error code
-     * @param  array   additional specific error info
+     * @param integer $code error code
+     * @param array   $info additional specific error info
+     *
      * @return string Error message
      * @access private
      * @since  1.6.0a1
@@ -1256,9 +1286,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * Utility function to shorten error generation code
      *
      * {@source}
-     * @param  integer error code
-     * @param  string  additional specific error info #1
-     * @param  string  additional specific error info #2
+     *
+     * @param integer $code error code
+     * @param string  $i1   (optional) additional specific error info #1
+     * @param string  $i2   (optional) additional specific error info #2
+     *
      * @return PEAR_Error
      * @static
      * @access public
@@ -1272,7 +1304,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
-     * @uses   getDirTag() generate the xml from the array
+     * Generates file list contents of package.xml
+     *
+     * @uses _getDirTag()     generate the xml from the array
+     * @uses _getSimpleDirTag generate the xml from the array for human reading
      * @return void|PEAR_Error
      * @access private
      * @since  1.6.0a1
@@ -1307,11 +1342,12 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * Recursively generate the <filelist> section's <dir> and <file> tags, but with
      * simple human-readable output
      *
-     * @param  array|PEAR_Error the sorted directory structure, or an error
-     *                         from filelist generation
-     * @param  false|string whether the parent directory has a role this should
+     * @param array|PEAR_Error $struc   the sorted directory structure, or an error
+     *                                  from filelist generation
+     * @param false|string     $role    (optional) whether the parent directory has a role this should
      *                         inherit
-     * @param  string indentation level
+     * @param string           $_curdir (optional) indentation level
+     *
      * @return array|PEAR_Error
      * @access private
      * @since  1.6.0a1
@@ -1395,16 +1431,17 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Recursively generate the <filelist> section's <dir> and <file> tags
      *
-     * @param  array|PEAR_Error the sorted directory structure, or an error
+     * @param array|PEAR_Error $struc   the sorted directory structure, or an error
      *                         from filelist generation
-     * @param  false|string whether the parent directory has a role this should
+     * @param false|string     $role    (optional) whether the parent directory has a role this should
      *                         inherit
-     * @param  string indentation level
+     * @param string           $_curdir (optional) indentation level
+     *
      * @return array|PEAR_Error
      * @access private
      * @since  1.6.0a1
      */
-    function _getDirTag($struc, $role=false, $_curdir = '')
+    function _getDirTag($struc, $role = false, $_curdir = '')
     {
         if (PEAR::isError($struc)) {
             return $struc;
@@ -1488,8 +1525,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
-     * @param  array
-     * @param  array
+     * @param array $files
+     * @param array &$ret
+     *
+     * @return array
      * @access private
      * @since  1.6.0a1
      */
@@ -1574,6 +1613,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * User-defined comparison function to sort changelog array
      *
+     * @param array $a first array to compare items
+     * @param array $b second array to compare items
+     *
      * @return integer sort comparaison result (-1, 0, +1) of two elements $a and $b
      * @access private
      * @since  1.6.0a1
@@ -1613,7 +1655,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * Import tasks options and files roles (if exceptions)
      * from an existing package.xml
      *
-     * @param  array list of generation options
+     * @param array $options list of generation options
+     *
      * @return void|PEAR_Error
      * @access private
      * @since  1.6.0b5
@@ -1710,7 +1753,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     /**
      * Strip namespace from postinstallscript task array
      *
-     * @param  array  tasks options
+     * @param array $params tasks options
+     *
      * @return array
      * @access private
      * @since  1.6.0b5
@@ -1728,14 +1772,15 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
+     * @param string $path        full path to package file
+     * @param string $packagefile (optional) name of package file
+     * @param array  $options     (optional) list of generation options
+     *
+     * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE
+     * @throws PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST
      * @return true|PEAR_Error
      * @uses   _generateNewPackageXML() if no package.xml is found, it
      *          calls this to create a new one
-     * @param  string full path to package file
-     * @param  string name of package file
-     * @param  array list of generation options
-     * @throws PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE
-     * @throws PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST
      * @access private
      * @static
      * @since  1.6.0a1
@@ -1751,7 +1796,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $a = PEAR_PackageFileManager2::_generateNewPackageXML();
                 return $a;
             } else {
-                require_once 'PEAR/PackageFile/Parser/v2.php';
+                include_once 'PEAR/PackageFile/Parser/v2.php';
                 $pkg = &new PEAR_PackageFile_Parser_v2();
                 $z = &PEAR_Config::singleton();
                 $pkg->setConfig($z);
@@ -1792,7 +1837,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if (!is_string($path)) {
                 $path = gettype($path);
             }
-            require_once 'PEAR.php';
+            include_once 'PEAR.php';
             $a = PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST);
             return $a;
         }
@@ -1814,21 +1859,6 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $pf = &new PEAR_PackageFileManager2();
         $pf->_oldPackageFile = false;
         return $pf;
-    }
-}
-
-if (!function_exists('file_get_contents')) {
-    /**
-     * @ignore
-     */
-    function file_get_contents($path, $use_include_path = null, $context = null)
-    {
-        $a = @file($path, $use_include_path, $context);
-        if (is_array($a)) {
-            return implode('', $a);
-        } else {
-            return false;
-        }
     }
 }
 ?>
