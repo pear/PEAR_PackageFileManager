@@ -3,20 +3,22 @@
  * The Perforce plugin generator for both PEAR_PackageFileManager,
  * and PEAR_PackageFileManager2 classes.
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Jon Parise <jon@php.net>
- * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 1.3.0
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Jon Parise <jon@php.net>
+ * @copyright 2005-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 1.3.0
  */
 
 require_once 'PEAR/PackageFileManager/File.php';
@@ -29,14 +31,14 @@ require_once 'PEAR/PackageFileManager/File.php';
  * connection to the Perforce server.  Specifically, the 'p4 have' command
  * is used to determine which local files are under Perforce's control.
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Jon Parise <jon@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 1.3.0
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Jon Parise <jon@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 1.3.0
  */
 
 class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
@@ -44,10 +46,10 @@ class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
     /**
      * Build a list of files based on the output of the 'p4 have' command.
      *
-     * @param   string  $directory  The directory in which to list the files.
+     * @param string $directory The directory in which to list the files.
      *
-     * @return  mixed   An array of full filenames or a PEAR_Error value if
-     *                  $directory does not exist.
+     * @return mixed An array of full filenames or a PEAR_Error value if
+     *               $directory does not exist.
      */
     function dirList($directory)
     {
@@ -79,11 +81,10 @@ class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
     /**
      * Determine whether a given file should be excluded from the file list.
      *
-     * @param   string  $file       The full pathname of file to check.
+     * @param string $file The full pathname of file to check.
      *
-     * @return  bool    True if the specified file should be included.
-     *
-     * @access  private
+     * @return bool  True if the specified file should be included.
+     * @access private
      */
     function _includeFilter($file)
     {
@@ -94,11 +95,10 @@ class PEAR_PackageFileManager_Perforce extends PEAR_PackageFileManager_File
      * Determine whether a given file should be included (i.e., not ignored)
      * from the file list.
      *
-     * @param   string  $file       The full pathname of file to check.
+     * @param string $file The full pathname of file to check.
      *
-     * @return  bool    True if the specified file should be included.
-     *
-     * @access  private
+     * @return bool  True if the specified file should be included.
+     * @access private
      */
     function _ignoreFilter($file)
     {

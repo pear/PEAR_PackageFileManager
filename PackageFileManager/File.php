@@ -3,20 +3,22 @@
  * The File list plugin generator for both PEAR_PackageFileManager,
  * and PEAR_PackageFileManager2 classes.
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 0.1
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 0.1
  */
 
 /**
@@ -27,14 +29,14 @@
  * class to only retrieve the contents of a cvs
  * repository when generating the package.xml
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 0.1
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 0.1
  */
 
 class PEAR_PackageFileManager_File
@@ -65,12 +67,15 @@ class PEAR_PackageFileManager_File
      * 'ignore' and 'include' are the only options that this class uses.  See
      * {@link PEAR_PackageFileManager::setOptions()} for
      * more information and formatting of this option
-     * @param PEAR_PackageFileManager
-     * @param array
+     *
+     * @param object &$parent PEAR_PackageFileManager
+     * @param array  $options list of generation options
+     *
+     * @return void
      */
     function PEAR_PackageFileManager_File(&$parent, $options)
     {
-        $this->_parent = &$parent;
+        $this->_parent  = &$parent;
         $this->_options = array_merge($this->_options, $options);
     }
 
@@ -80,6 +85,7 @@ class PEAR_PackageFileManager_File
      *
      * This function performs the backend generation of the array
      * containing all files in this package
+     *
      * @return array
      */
     function getFileList()
@@ -155,9 +161,11 @@ class PEAR_PackageFileManager_File
      * all subdirectories.
      *
      * The return format is an array of full paths to files
+     *
+     * @param string $directory full path to the directory you want the list of
+     *
      * @access protected
      * @return array list of files in a directory
-     * @param string $directory full path to the directory you want the list of
      * @throws PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST
      */
     function dirList($directory)
@@ -207,9 +215,12 @@ class PEAR_PackageFileManager_File
      *
      * Normally, it ignores all files and directories that begin with "."  addhiddenfiles option
      * instead only ignores "." and ".." entries
+     *
+     * @param string $directory directory name of entry
+     * @param string $entry     name
+     *
+     * @return bool
      * @access private
-     * @param string directory name of entry
-     * @param string name
      */
     function _testFile($directory, $entry)
     {
@@ -224,13 +235,14 @@ class PEAR_PackageFileManager_File
      * Tell whether to ignore a file or a directory
      * allows * and ? wildcards
      *
-     * @param    string  $file    just the file name of the file or directory,
+     * @param string $file   just the file name of the file or directory,
      *                          in the case of directories this is the last dir
-     * @param    string  $path    the full path
-     * @param    1|0    $return  value to return if regexp matches.  Set this to
+     * @param string $path   the full path
+     * @param bool   $return value to return if regexp matches.  Set this to
      *                            false to include only matches, true to exclude
      *                            all matches
-     * @return   bool    true if $path should be ignored, false if it should not
+     *
+     * @return bool  true if $path should be ignored, false if it should not
      * @access private
      */
     function _checkIgnore($file, $path, $return = 1)
@@ -282,8 +294,10 @@ class PEAR_PackageFileManager_File
     /**
      * Construct the {@link $ignore} array
      *
-     * @param array strings of files/paths/wildcards to ignore
-     * @param 0|1 0 = files to include, 1 = files to ignore
+     * @param array $ignore strings of files/paths/wildcards to ignore
+     * @param bool  $index  0 = files to include, 1 = files to ignore
+     *
+     * @return void
      * @access private
      */
     function _setupIgnore($ignore, $index)
@@ -312,13 +326,16 @@ class PEAR_PackageFileManager_File
             } else {
                 $this->ignore[$index] = false;
             }
-        } else $this->ignore[$index] = false;
+        } else {
+            $this->ignore[$index] = false;
+        }
     }
 
     /**
      * Converts $s into a string that can be used with preg_match
      *
      * @param string $s string with wildcards ? and *
+     *
      * @return string converts * to .*, ? to ., etc.
      * @access private
      */
@@ -344,9 +361,12 @@ class PEAR_PackageFileManager_File
      * The contents of $struc have many indexes like 'dir/subdir/subdir2'.
      * This function converts them to
      * array('dir' => array('subdir' => array('subdir2')))
-     * @param array struc is array('dir' => array of files in dir,
+     *
+     * @param array $struc    is array('dir' => array of files in dir,
      *              'dir/subdir' => array of files in dir/subdir,...)
-     * @param array array form of 'dir/subdir/subdir2' array('dir','subdir','subdir2')
+     * @param array $dir      array form of 'dir/subdir/subdir2' array('dir','subdir','subdir2')
+     * @param array $contents
+     *
      * @return array same as struc but with array('dir' =>
      *              array(file1,file2,'subdir' => array(file1,...)))
      * @access private
@@ -381,10 +401,12 @@ class PEAR_PackageFileManager_File
     }
 
     /**
-     * Recursively add all the subdirectories of $contents to $dir without erasing anything in
-     * $dir
-     * @param array
-     * @param array
+     * Recursively add all the subdirectories of $contents to $dir
+     * without erasing anything in $dir
+     *
+     * @param array $dir
+     * @param array $contents
+     *
      * @return array processed $dir
      * @access private
      */
@@ -402,8 +424,10 @@ class PEAR_PackageFileManager_File
 
     /**#@+
      * Sorting functions for the file list
-     * @param string
-     * @param string
+     *
+     * @param string $a
+     * @param string $b
+     *
      * @access private
      */
     function sortfiles($a, $b)

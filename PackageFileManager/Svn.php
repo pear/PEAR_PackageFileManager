@@ -3,21 +3,23 @@
  * The SVN list plugin generator for both PEAR_PackageFileManager,
  * and PEAR_PackageFileManager2 classes.
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Arnaud Limbourg <arnaud@limbourg.com>
- * @author     Tim Jackson <tim@timj.co.uk>
- * @copyright  2005-2007 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 1.3.0
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Arnaud Limbourg <arnaud@limbourg.com>
+ * @author    Tim Jackson <tim@timj.co.uk>
+ * @copyright 2005-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 1.3.0
  */
 
 require_once 'PEAR/PackageFileManager/File.php';
@@ -31,15 +33,15 @@ require_once 'PEAR/PackageFileManager/File.php';
  * Note that this will <b>NOT</b> work on a
  * repository, only on a checked out Subversion module
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Arnaud Limbourg <arnaud@limbourg.com>
- * @author     Tim Jackson <tim@timj.co.uk>
- * @copyright  2005-2007 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 1.3.0
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Arnaud Limbourg <arnaud@limbourg.com>
+ * @author    Tim Jackson <tim@timj.co.uk>
+ * @copyright 2005-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 1.3.0
  */
 
 class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
@@ -67,9 +69,10 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      * made to see if they have been modified, but removed files
      * are ignored.
      *
+     * @param string $directory full path to the directory you want the list of
+     *
      * @access protected
      * @return array list of files in a directory
-     * @param  string $directory full path to the directory you want the list of
      * @uses   _recurDirList()
      * @uses   _readSVNEntries()
      */
@@ -100,8 +103,10 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      * Iterate over the SVN Entries files, and retrieve every
      * file in the repository
      *
+     * @param array $entries array of full paths to .svn/entries files
+     *
+     * @return array
      * @uses _getSVNEntries()
-     * @param array array of full paths to .svn/entries files
      * @access private
      */
     function _readSVNEntries($entries)
@@ -150,9 +155,10 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      * It keeps only files, excluding directories. It also
      * makes sure no deleted file in included.
      *
-     * @return array  an array with full paths to files
+     * @param string $svnentriesfilename full path to a .svn/entries file
+     *
+     * @return array an array with full paths to files
      * @uses   PEAR::XML_Tree
-     * @param  string full path to a .svn/entries file
      * @access private
      */
     function _getSVNEntries($svnentriesfilename)
@@ -191,7 +197,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                         }
                     }
                 }
-            }        
+            }
         } elseif (function_exists('simplexml_load_string')) {
             // this breaks simplexml because "svn:" is an invalid namespace, so strip it
             $stuff = str_replace('xmlns="svn:"', '', file_get_contents($svnentriesfilename));
@@ -207,7 +213,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             }
         } else {
             unset($stuff);
-            require_once 'XML/Tree.php';
+            include_once 'XML/Tree.php';
             $parser  = &new XML_Tree($svnentriesfilename);
             $tree    = &$parser->getTreeFromFile();
 
@@ -216,9 +222,9 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             foreach ($tree->children as $entry) {
                 if ($entry->name == 'entry'
                     && $entry->attributes['kind'] == 'file') {
-                        if (isset($entry->attributes['deleted'])) {
-                            continue;
-                        }
+                    if (isset($entry->attributes['deleted'])) {
+                        continue;
+                    }
                     array_push($entries, $entry->attributes['name']);
                 }
             }

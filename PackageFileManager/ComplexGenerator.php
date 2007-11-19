@@ -2,20 +2,22 @@
 /**
  * Class for XML output
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   PEAR
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 1.5.3
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2006-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 1.5.3
  */
 
 require_once 'PEAR/PackageFile/Generator/v1.php';
@@ -23,14 +25,14 @@ require_once 'PEAR/PackageFile/Generator/v1.php';
 /**
  * Class for XML output
  *
- * @category   PEAR
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 1.5.3
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2006-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 1.5.3
  */
 
 class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generator_v1
@@ -46,7 +48,9 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
     }
 
     /**
-     * @param array
+     * @param array $opts list of generation options
+     *
+     * @return void
      */
     function setPackageFileManagerOptions($opts)
     {
@@ -57,10 +61,9 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
      * Return an XML document based on the package info (as returned
      * by the PEAR_Common::infoFrom* methods).
      *
-     * @param array  $pkginfo  package info
+     * @param array $pkginfo package info
      *
      * @return string XML data
-     *
      * @access public
      * @deprecated use a PEAR_PackageFile_v* object's generator instead
      */
@@ -100,12 +103,13 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
     /**
      * Validate XML package definition file.
      *
-     * @param  string $info Filename of the package archive or of the
-     *                package definition file
-     * @param  array $errors Array that will contain the errors
-     * @param  array $warnings Array that will contain the warnings
-     * @param  string $dir_prefix (optional) directory where source files
-     *                may be found, or empty if they are not available
+     * @param string $info       Filename of the package archive or of the
+     *                           package definition file
+     * @param array  &$errors    Array that will contain the errors
+     * @param array  &$warnings  Array that will contain the warnings
+     * @param string $dir_prefix (optional) directory where source files
+     *                           may be found, or empty if they are not available
+     *
      * @access public
      * @return boolean
      * @deprecated use the validation of PEAR_PackageFile objects

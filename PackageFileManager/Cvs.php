@@ -3,20 +3,22 @@
  * The CVS list plugin generator for both PEAR_PackageFileManager,
  * and PEAR_PackageFileManager2 classes.
  *
+ * PHP versions 4 and 5
+ *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
  * that is available through the world-wide-web at the following URI:
  * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      File available since Release 0.1
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     File available since Release 0.1
  */
 
 require_once 'PEAR/PackageFileManager/File.php';
@@ -27,14 +29,14 @@ require_once 'PEAR/PackageFileManager/File.php';
  * Note that this will <b>NOT</b> work on a
  * repository, only on a checked out CVS module
  *
- * @category   pear
- * @package    PEAR_PackageFileManager
- * @author     Greg Beaver <cellog@php.net>
- * @copyright  2003-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: @PEAR-VER@
- * @link       http://pear.php.net/package/PEAR_PackageFileManager
- * @since      Class available since Release 0.1
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager
+ * @author    Greg Beaver <cellog@php.net>
+ * @copyright 2003-2007 The PHP Group
+ * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager
+ * @since     Class available since Release 0.1
  */
 
 class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
@@ -58,8 +60,10 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
      * that are a part of the CVS repository.  No check is
      * made to see if they have been modified, but newly
      * added or removed files are ignored.
-     * @return array list of files in a directory
+     *
      * @param string $directory full path to the directory you want the list of
+     *
+     * @return array list of files in a directory
      * @uses _recurDirList()
      * @uses _readCVSEntries()
      */
@@ -71,13 +75,14 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
             $this->_setupIgnore(array('*/CVS/Entries'), 0);
             $this->_setupIgnore(array(), 1);
             $in_recursion = true;
-            $entries = parent::dirList($directory);
+            $entries      = parent::dirList($directory);
             $in_recursion = false;
         } else {
             return parent::dirList($directory);
         }
         if (!$entries || !is_array($entries)) {
-            if (strcasecmp(get_class($this->_parent), 'PEAR_PackageFileManager') == 0) {
+            if (strcasecmp(get_class($this->_parent),
+                'PEAR_PackageFileManager') == 0) {
                 $code = PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES;
             } else {
                 $code = PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES;
@@ -90,18 +95,22 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
     /**
      * Iterate over the CVS Entries files, and retrieve every
      * file in the repository
+     *
+     * @param array $entries array of full paths to CVS/Entries files
+     *
      * @uses _getCVSEntries()
      * @uses _isCVSFile()
-     * @param array array of full paths to CVS/Entries files
+     * @return array
      * @access private
      */
     function _readCVSEntries($entries)
     {
-        $ret = array();
+        $ret    = array();
         $ignore = array_merge((array) $this->_options['ignore'], $this->_cvsIgnore);
         // implicitly ignore packagefile
         $ignore[] = $this->_options['packagefile'];
-        $include = $this->_options['include'];
+        $include  = $this->_options['include'];
+
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
@@ -140,7 +149,9 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
      *
      * This method assumes that the entry is a file,
      * use _isCVSFile() to verify before calling
-     * @param string a line in a CVS/Entries file
+     *
+     * @param string $cvsentry a line in a CVS/Entries file
+     *
      * @return string the filename (no path information)
      * @access private
      */
@@ -153,9 +164,11 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
 
     /**
      * Retrieve the entries in a CVS/Entries file
+     *
+     * @param string $cvsentryfilename full path to a CVS/Entries file
+     *
      * @return array each line of the entries file, output of file()
      * @uses function file()
-     * @param string full path to a CVS/Entries file
      * @access private
      */
     function _getCVSEntries($cvsentryfilename)
@@ -170,13 +183,16 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
 
     /**
      * Check whether an entry is a file or a directory
+     *
+     * @param string $cvsentry a line in a CVS/Entries file
+     *
      * @return boolean
-     * @param string a line in a CVS/Entries file
      * @access private
      */
     function _isCVSFile($cvsentry)
     {
-        // make sure we ignore entries that have either been removed or added, but not committed yet
+        // make sure we ignore entries that have either been removed or added,
+        // but not committed yet
         return $cvsentry{0} == '/' && !strpos($cvsentry, 'dummy timestamp');
     }
 }
