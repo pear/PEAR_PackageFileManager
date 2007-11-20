@@ -20,16 +20,18 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.6.1';
+$release_version = '1.6.3';
 $release_state   = 'stable';
-$release_notes   = '
- * Fix Bug #9560: PPFM1 constants used in PPFM2 [cellog]
- * Fix Bug #10409: Subversion 1.4.x entries files not supported [timj]
- * Fix Bug #10410: SVN module passes arguments by reference [timj]
- * Fix Bug #10490: Bad error handling with some XML errors [timj]
- * Fix Bug #10971: Missing error check [timj]
- * Fix Bug #10995: addPostInstallTask() should validate incoming tasks [cellog]
- * Implement Feature #9559: files not included under certain conditions [cellog]
+$release_notes   = '* bugs
+ - Fix Bug #12023: substr() miss around $package_directory in getFileList()
+   Thanks to Lorenzo Alberton (quipo) for the simple patch
+ - Fix missing "$options" argument of detectDependencies()
+   that allow to customize auto PHP detection by PEAR::PHP_CompatInfo
+ - Fix lot of Coding Standard (errors/warnings) by PEAR::PHP_CodeSniffer
+
+* changes
+ - PHP minimum set to 4.3.0 (removed compatfunction file_get_contents)
+ - PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
 ';
 
 $packagexml = &PEAR_PackageFileManager2::importOptions(
@@ -56,8 +58,8 @@ $packagexml->setReleaseVersion($release_version);
 $packagexml->setAPIVersion('1.6.0');
 $packagexml->setReleaseStability($release_state);
 $packagexml->setAPIStability('stable');
-$packagexml->setPhpDep('4.2.0');
-$packagexml->setPearinstallerDep('1.4.3');
+$packagexml->setPhpDep('4.3.0');
+$packagexml->setPearinstallerDep('1.5.4');
 $packagexml->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
 $packagexml->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
