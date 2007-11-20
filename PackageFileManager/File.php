@@ -111,10 +111,14 @@ class PEAR_PackageFileManager_File
                 substr($package_directory, 0, strlen($package_directory) - 1));
         }
         $struc = array();
+        $package_directory_realpath = realpath($package_directory);
+        if (DIRECTORY_SEPARATOR != substr($package_directory_realpath, -1, 1)) {
+            $package_directory_realpath .= DIRECTORY_SEPARATOR;
+        }
         foreach ($allfiles as $file) {
             $path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR,
                                                               '/',
-                                                              realpath($package_directory))) + 1);
+                                                              $package_directory_realpath)));
             if (!$path) {
                 $path = '/';
             }
