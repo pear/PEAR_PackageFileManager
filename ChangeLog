@@ -1,3 +1,13 @@
+2007-11-20 Laurent Laville
+
+  * VERSION: Version 1.6.3 (stable)
+
+  - Fix Bug #12023: substr() miss around $package_directory in getFileList()
+    Thanks to Lorenzo Alberton (quipo) for the simple patch
+  - Fix missing "$options" argument of detectDependencies()
+    that allow to customize auto PHP detection by PEAR::PHP_CompatInfo
+  - Fix lot of Coding Standard (errors/warnings) by PEAR::PHP_CodeSniffer
+
 2007-10-09 Tim Jackson
 
   * VERSION: Version 1.6.2 (stable)
