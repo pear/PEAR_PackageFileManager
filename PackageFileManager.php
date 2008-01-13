@@ -292,6 +292,7 @@ class PEAR_PackageFileManager
                         array(
                             'h' => 'src',
                             'c' => 'src',
+                            'cpp' => 'src',
                             'm4' => 'src',
                             'w32' => 'src',
                             'dll' => 'ext',
