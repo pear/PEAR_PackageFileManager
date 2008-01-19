@@ -4,12 +4,12 @@ PEAR_PackageFileManager_Cvs->dirList, invalid test
 --FILE--
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['ignore'] = 
+$packagexml->_options['ignore'] = array();
 $packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
 $res = $packagexml->dirList('fargusblurbe[]--#/"');
 $phpunit->assertErrors(array(
-    array('package' => 'PEAR_Error', 
+    array('package' => 'PEAR_Error',
     'message' => 'PEAR_PackageFileManager Error: Directory "fargusblurbe[]--#/"" is ' .
     'not a CVS directory (it must have the CVS/Entries file)'),
     array('package' => 'PEAR_Error',
