@@ -515,7 +515,8 @@ class PEAR_PackageFileManager
         }
         if (!isset($options['packagedirectory']) && !$internal) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_NOPKGDIR);
-        } elseif (isset($options['packagedirectory'])) {
+        } elseif (isset($options['packagedirectory'])
+            && is_string($options['packagedirectory']) ) {
             $options['packagedirectory'] = str_replace(DIRECTORY_SEPARATOR,
                                                      '/',
                                                      realpath($options['packagedirectory']));
@@ -523,7 +524,8 @@ class PEAR_PackageFileManager
                 $options['packagedirectory'] .= '/';
             }
         }
-        if (isset($options['pathtopackagefile'])) {
+        if (isset($options['pathtopackagefile'])
+            && is_string($options['pathtopackagefile'])) {
             $options['pathtopackagefile'] = str_replace(DIRECTORY_SEPARATOR,
                                                      '/',
                                                      realpath($options['pathtopackagefile']));
@@ -557,12 +559,13 @@ class PEAR_PackageFileManager
                 }
             }
         }
-        $path = ($this->_options['pathtopackagefile'] ?
-                    $this->_options['pathtopackagefile'] : $this->_options['packagedirectory']);
 
         $this->_options['filelistgenerator'] =
             ucfirst(strtolower($this->_options['filelistgenerator']));
         if (!$internal) {
+            $path = (is_dir($this->_options['pathtopackagefile']) ?
+                        $this->_options['pathtopackagefile'] :
+                        $this->_options['packagedirectory']);
             if (PEAR::isError($res =
                   $this->_getExistingPackageXML($path, $this->_options['packagefile']))) {
                 return $res;
@@ -621,20 +624,24 @@ class PEAR_PackageFileManager
      */
     function importOptions($packagefile, $options = array())
     {
+        if (count($options) == 0) {
+            // uses default options, when no custom given
+            $options = $this->_options;
+        }
         $options['deps'] = $options['maintainers'] = false;
         $this->setOptions($options, true);
         if (PEAR::isError($res = $this->_getExistingPackageXML(dirname($packagefile) .
               DIRECTORY_SEPARATOR, basename($packagefile)))) {
             return $res;
         }
-        $this->_options['package']     = $this->_oldPackageXml['package'];
-        $this->_options['summary']     = $this->_oldPackageXml['summary'];
-        $this->_options['description'] = $this->_oldPackageXml['description'];
-        $this->_options['date']        = $this->_oldPackageXml['release_date'];
-        $this->_options['version']     = $this->_oldPackageXml['version'];
-        $this->_options['license']     = $this->_oldPackageXml['release_license'];
-        $this->_options['state']       = $this->_oldPackageXml['release_state'];
-        $this->_options['notes']       = $this->_oldPackageXml['release_notes'];
+        $options['package']     = $this->_oldPackageXml['package'];
+        $options['summary']     = $this->_oldPackageXml['summary'];
+        $options['description'] = $this->_oldPackageXml['description'];
+        $options['date']        = $this->_oldPackageXml['release_date'];
+        $options['version']     = $this->_oldPackageXml['version'];
+        $options['license']     = $this->_oldPackageXml['release_license'];
+        $options['state']       = $this->_oldPackageXml['release_state'];
+        $options['notes']       = $this->_oldPackageXml['release_notes'];
         $this->setOptions($options, true);
         if (isset($this->_packageXml['release_deps'])) {
             $this->_options['deps'] = $this->_packageXml['release_deps'];
