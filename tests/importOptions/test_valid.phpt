@@ -12,40 +12,46 @@ $phpunit->assertEquals(array (
   'filelistgenerator' => 'File',
   'license' => 'PHP License',
   'changelogoldtonew' => true,
-  'roles' => 
+  'roles' =>
   array (
+    'h' => 'src',
+    'c' => 'src',
+    'cpp' => 'src',
+    'm4' => 'src',
+    'w32' => 'src',
+    'dll' => 'ext',
     'php' => 'php',
     'html' => 'doc',
     '*' => 'data',
   ),
-  'dir_roles' => 
+  'dir_roles' =>
   array (
     'docs' => 'doc',
     'examples' => 'doc',
     'tests' => 'test',
   ),
-  'exceptions' => 
+  'exceptions' =>
   array (
   ),
-  'installexceptions' => 
+  'installexceptions' =>
   array (
   ),
-  'installas' => 
+  'installas' =>
   array (
   ),
-  'platformexceptions' => 
+  'platformexceptions' =>
   array (
   ),
-  'scriptphaseexceptions' => 
+  'scriptphaseexceptions' =>
   array (
   ),
-  'ignore' => 
+  'ignore' =>
   array (
   ),
   'include' => false,
-  'deps' => 
+  'deps' =>
   array (
-    1 => 
+    1 =>
     array (
       'type' => 'pkg',
       'rel' => 'ge',
@@ -54,9 +60,9 @@ $phpunit->assertEquals(array (
       'name' => 'PEAR',
     ),
   ),
-  'maintainers' => 
+  'maintainers' =>
   array (
-    0 => 
+    0 =>
     array (
       'handle' => 'cellog',
       'name' => 'Greg Beaver',
@@ -72,13 +78,13 @@ $phpunit->assertEquals(array (
   'outputdirectory' => false,
   'pathtopackagefile' => false,
   'lang' => 'en',
-  'configure_options' => 
+  'configure_options' =>
   array (
   ),
-  'replacements' => 
+  'replacements' =>
   array (
   ),
-  'pearcommonclass' => 'PEAR_Common',
+  'pearcommonclass' => 'PEAR_PackageFileManager_ComplexGenerator',
   'simpleoutput' => false,
   'addhiddenfiles' => false,
   'cleardependencies' => false,
