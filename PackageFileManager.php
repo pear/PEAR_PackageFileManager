@@ -816,10 +816,12 @@ class PEAR_PackageFileManager
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
         }
         if (!in_array($role, $GLOBALS['_PEAR_Common_maintainer_roles'])) {
+            $cb = array($this->_options['pearcommonclass'], 'getUserRoles');
+            if (!is_callable($cb)) {
+                $cb = array('PEAR_Common', 'getUserRoles');
+            }
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_WRONG_MROLE,
-                implode(', ', call_user_func(array($this->_options['pearcommonclass'],
-                    'getUserRoles'))),
-                $role);
+                implode(', ', call_user_func($cb)), $role);
         }
         if (!isset($this->_packageXml['maintainers'])) {
             $this->_packageXml['maintainers'] = array();
