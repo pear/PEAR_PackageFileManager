@@ -79,20 +79,21 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
     function dirList($directory)
     {
         static $in_recursion = false;
-        if (!$in_recursion) {
-            // include only .svn/entries files
-            // since subversion keeps its data in a hidden
-            // directory we must force PackageFileManager to
-            // consider hidden directories.
-            $this->_options['addhiddenfiles'] = true;
-            $this->_setupIgnore(array('*/.svn/entries'), 0);
-            $this->_setupIgnore(array(), 1);
-            $in_recursion = true;
-            $entries = parent::dirList($directory);
-            $in_recursion = false;
-        } else {
+        if ($in_recursion) {
             return parent::dirList($directory);
         }
+
+        // include only .svn/entries files
+        // since subversion keeps its data in a hidden
+        // directory we must force PackageFileManager to
+        // consider hidden directories.
+        $this->_options['addhiddenfiles'] = true;
+        $this->_setupIgnore(array('*/.svn/entries'), 0);
+        $this->_setupIgnore(array(), 1);
+        $in_recursion = true;
+        $entries = parent::dirList($directory);
+        $in_recursion = false;
+
         if (!$entries || !is_array($entries)) {
             return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES, $directory);
         }
@@ -115,7 +116,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $ignore = $this->_options['ignore'];
         // implicitly ignore packagefile
         $ignore[] = $this->_options['packagefile'];
-        $include = $this->_options['include'];
+        $include  = $this->_options['include'];
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
@@ -128,6 +129,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             if (!is_array($d)) {
                 continue;
             }
+
             foreach ($d as $entry) {
                 if ($ignore) {
                     if ($this->_checkIgnore($entry,
@@ -135,6 +137,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                         continue;
                     }
                 }
+
                 if ($include) {
                     if ($this->_checkIgnore($entry,
                           $directory . '/' . $entry, 0)) {
@@ -201,7 +204,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         } elseif (function_exists('simplexml_load_string')) {
             // this breaks simplexml because "svn:" is an invalid namespace, so strip it
             $stuff = str_replace('xmlns="svn:"', '', file_get_contents($svnentriesfilename));
-            $all = simplexml_load_string($stuff);
+            $all   = simplexml_load_string($stuff);
             $entries = array();
             foreach ($all->entry as $entry) {
                 if ($entry['kind'] == 'file') {
@@ -234,9 +237,8 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
 
         if (isset($entries) && is_array($entries)) {
             return $entries;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }
-?>
