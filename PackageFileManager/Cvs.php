@@ -70,25 +70,27 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
     function dirList($directory)
     {
         static $in_recursion = false;
-        if (!$in_recursion) {
-            // include only CVS/Entries files
-            $this->_setupIgnore(array('*/CVS/Entries'), 0);
-            $this->_setupIgnore(array(), 1);
-            $in_recursion = true;
-            $entries      = parent::dirList($directory);
-            $in_recursion = false;
-        } else {
+        if ($in_recursion) {
             return parent::dirList($directory);
         }
+
+        // include only CVS/Entries files
+        $this->_setupIgnore(array('*/CVS/Entries'), 0);
+        $this->_setupIgnore(array(), 1);
+        $in_recursion = true;
+        $entries      = parent::dirList($directory);
+        $in_recursion = false;
+
         if (!$entries || !is_array($entries)) {
-            if (strcasecmp(get_class($this->_parent),
-                'PEAR_PackageFileManager') == 0) {
+            if (strcasecmp(get_class($this->_parent), 'PEAR_PackageFileManager') == 0) {
                 $code = PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES;
             } else {
                 $code = PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES;
             }
+
             return $this->_parent->raiseError($code, $directory);
         }
+
         return $this->_readCVSEntries($entries);
     }
 
@@ -123,6 +125,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
             if (!is_array($d)) {
                 continue;
             }
+
             foreach ($d as $entry) {
                 if ($ignore) {
                     if ($this->_checkIgnore($this->_getCVSFileName($entry),
@@ -130,17 +133,20 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
                         continue;
                     }
                 }
+
                 if ($include) {
                     if ($this->_checkIgnore($this->_getCVSFileName($entry),
                           $directory . '/' . $this->_getCVSFileName($entry), 0)) {
                         continue;
                     }
                 }
+
                 if ($this->_isCVSFile($entry)) {
                     $ret[] = $directory . '/' . $this->_getCVSFileName($entry);
                 }
             }
         }
+
         return $ret;
     }
 
@@ -176,9 +182,9 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
         $cvsfile = @file($cvsentryfilename);
         if (is_array($cvsfile)) {
             return $cvsfile;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -196,4 +202,3 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
         return $cvsentry{0} == '/' && !strpos($cvsentry, 'dummy timestamp');
     }
 }
-?>
