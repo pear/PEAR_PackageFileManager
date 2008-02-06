@@ -35,29 +35,29 @@ require_once 'PEAR/PackageFile/v2/rw.php';
 /**#@+
  * Error Codes
  */
-define('PEAR_PACKAGEFILEMANAGER2_NOPKGDIR', 3);
-define('PEAR_PACKAGEFILEMANAGER2_NOBASEDIR', 4);
-define('PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND', 5);
-define('PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE', 6);
-define('PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE', 7);
-define('PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE', 8);
-define('PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE', 9);
-define('PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE', 10);
-define('PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST', 11);
-define('PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES', 12);
-define('PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST', 13);
-define('PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS', 14);
-define('PEAR_PACKAGEFILEMANAGER2_NO_FILES', 20);
-define('PEAR_PACKAGEFILEMANAGER2_IGNORED_EVERYTHING', 21);
-define('PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE', 22);
-define('PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE', 23);
-define('PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE', 24);
-define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED', 26);
-define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO', 27);
-define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT', 28);
-define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL', 29);
-define('PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL', 30);
-define('PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL', 31);
+define('PEAR_PACKAGEFILEMANAGER2_NOPKGDIR',                     3);
+define('PEAR_PACKAGEFILEMANAGER2_NOBASEDIR',                    4);
+define('PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND',           5);
+define('PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE',  6);
+define('PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE',            7);
+define('PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE',              8);
+define('PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE',             9);
+define('PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE',         10);
+define('PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST',           11);
+define('PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES',                12);
+define('PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST',            13);
+define('PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS',              14);
+define('PEAR_PACKAGEFILEMANAGER2_NO_FILES',                    20);
+define('PEAR_PACKAGEFILEMANAGER2_IGNORED_EVERYTHING',          21);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE',             22);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE',         23);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_ROLE',                24);
+define('PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED',                26);
+define('PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO',            27);
+define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT',   28);
+define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL',              29);
+define('PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL',           30);
+define('PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL',        31);
 /**#@-*/
 /**
  * Error messages
@@ -269,47 +269,47 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @since  1.6.0a1
      */
     var $_options = array(
-                      'packagefile' => 'package.xml',
+                      'packagefile'       => 'package.xml',
                       'filelistgenerator' => 'file',
-                      'license' => 'PHP License',
-                      'baseinstalldir' => '',
+                      'license'           => 'PHP License',
+                      'baseinstalldir'    => '',
                       'changelogoldtonew' => true,
                       'roles' =>
                         array(
-                            'h' => 'src',
-                            'c' => 'src',
-                            'cpp' => 'src',
-                            'm4' => 'src',
-                            'w32' => 'src',
-                            'dll' => 'ext',
-                            'php' => 'php',
+                            'h'    => 'src',
+                            'c'    => 'src',
+                            'cpp'  => 'src',
+                            'm4'   => 'src',
+                            'w32'  => 'src',
+                            'dll'  => 'ext',
+                            'php'  => 'php',
                             'html' => 'doc',
-                            '*' => 'data',
+                            '*'    => 'data',
                              ),
                       'dir_roles' =>
                         array(
-                            'docs' => 'doc',
+                            'docs'     => 'doc',
                             'examples' => 'doc',
-                            'tests' => 'test',
+                            'tests'    => 'test',
                              ),
-                      'exceptions' => array(),
+                      'exceptions'        => array(),
                       'installexceptions' => array(),
-                      'ignore' => array(),
+                      'ignore'  => array(),
                       'include' => false,
-                      'notes' => '',
-                      'changelognotes' => false,
-                      'outputdirectory' => false,
+                      'notes'   => '',
+                      'changelognotes'    => false,
+                      'outputdirectory'   => false,
                       'pathtopackagefile' => false,
                       'lang' => 'en',
-                      'configure_options' => array(),
-                      'replacements' => array(),
-                      'globalreplacements' => array(),
+                      'configure_options'       => array(),
+                      'replacements'            => array(),
+                      'globalreplacements'      => array(),
                       'globalreplaceexceptions' => array(),
-                      'simpleoutput' => false,
-                      'addhiddenfiles' => false,
+                      'simpleoutput'      => false,
+                      'addhiddenfiles'    => false,
                       'cleardependencies' => false,
-                      'clearcontents' => true,
-                      'clearchangelog' => false,
+                      'clearcontents'     => true,
+                      'clearchangelog'    => false,
                       );
 
     /**
@@ -351,6 +351,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if ($clear) {
             $this->_options['include'] = array();
         }
+
         if (is_array($include)) {
             foreach ($include as $fn) {
                 if (is_string($fn)) {
@@ -509,18 +510,19 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     {
         if (!isset($options['packagedirectory']) || !$options['packagedirectory']) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOPKGDIR);
-        } else {
-            if (!file_exists($options['packagedirectory'])) {
-                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL,
-                    $options['packagedirectory']);
-            }
-            $options['packagedirectory'] = str_replace(DIRECTORY_SEPARATOR,
-                                                     '/',
-                                                     realpath($options['packagedirectory']));
-            if ($options['packagedirectory']{strlen($options['packagedirectory']) - 1} != '/') {
-                $options['packagedirectory'] .= '/';
-            }
         }
+
+        if (!file_exists($options['packagedirectory'])) {
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL,
+                $options['packagedirectory']);
+        }
+        $options['packagedirectory'] = str_replace(DIRECTORY_SEPARATOR,
+                                                 '/',
+                                                 realpath($options['packagedirectory']));
+        if ($options['packagedirectory']{strlen($options['packagedirectory']) - 1} != '/') {
+            $options['packagedirectory'] .= '/';
+        }
+
         if (isset($options['pathtopackagefile']) && $options['pathtopackagefile']) {
             if (!file_exists($options['pathtopackagefile'])) {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL,
@@ -533,6 +535,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $options['pathtopackagefile'] .= '/';
             }
         }
+
         if (isset($options['outputdirectory']) && $options['outputdirectory']) {
             if (!file_exists($options['outputdirectory'])) {
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL,
@@ -545,9 +548,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $options['outputdirectory'] .= '/';
             }
         }
+
         if (!isset($options['baseinstalldir']) || !$options['baseinstalldir']) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NOBASEDIR);
         }
+
         $this->_options = array_merge($this->_options, $options);
         if (!isset($this->_options['roles']['*'])) {
             $this->_options['roles']['*'] = 'data';
@@ -593,14 +598,14 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 if (file_exists($usergenerator) && is_readable($usergenerator)) {
                     include_once $usergenerator;
                 }
+
                 if (!class_exists($className)) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE,
                         $className);
                 }
-            } else {
-                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND,
-                    $className);
             }
+
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND, $className);
         }
     }
 
@@ -625,16 +630,14 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (!$pm->getDate()) {
             $pm->setDate(date('Y-m-d'));
         }
+
         if (!$pm->validate(PEAR_VALIDATE_NORMAL)) {
             return false;
         }
+
         $this->_subpackages[] = &$pm;
         if ($dependency !== null) {
-            if ($required) {
-                $type = 'required';
-            } else {
-                $type = 'optional';
-            }
+            $type = $required ? 'required' : 'optional';
             if ($pm->getChannel()) {
                 if ($dependency) {
                     $this->addPackageDepWithChannel($type, $pm->getPackage(), $pm->getChannel(),
@@ -774,15 +777,17 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function &importFromPackageFile1($packagefile, $options = array())
     {
-        $z = &PEAR_Config::singleton();
+        $z   = &PEAR_Config::singleton();
         $pkg = new PEAR_PackageFile($z);
-        $pf = $pkg->fromPackageFile($packagefile, PEAR_VALIDATE_NORMAL);
+        $pf  = $pkg->fromPackageFile($packagefile, PEAR_VALIDATE_NORMAL);
         if (PEAR::isError($pf)) {
             return $pf;
         }
+
         if ($pf->getPackagexmlVersion() == '1.0') {
             $packagefile = &$pf;
         }
+
         $a = &PEAR_PackageFileManager2::importOptions($packagefile, $options);
         return $a;
     }
@@ -806,10 +811,12 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if (PEAR::isError($res)) {
                 return $res;
             }
+
             $res->setOld();
             if (isset($options['cleardependencies']) && $options['cleardependencies']) {
                 $res->clearDeps();
             }
+
             if (!isset($options['clearcontents']) || $options['clearcontents']) {
                 $res->clearContents();
             } else {
@@ -817,6 +824,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
             $packagefile = $packagefile->getPackageFile();
         }
+
         if (!isset($res)) {
             if (PEAR::isError($res =
                   &PEAR_PackageFileManager2::_getExistingPackageXML(dirname($packagefile) .
@@ -824,9 +832,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 return $res;
             }
         }
+
         if (PEAR::isError($ret = $res->_importOptions($packagefile, $options))) {
             return $ret;
         }
+
         return $res;
     }
 
@@ -842,9 +852,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function _importOptions($packagefile, $options)
     {
-        $this->_options['packagedirectory'] = dirname($packagefile);
+        $this->_options['packagedirectory']  = dirname($packagefile);
         $this->_options['pathtopackagefile'] = dirname($packagefile);
-        $this->_options['baseinstalldir'] = '';
+        $this->_options['baseinstalldir']    = '';
         return $this->setOptions(array_merge($this->_options, $options), true);
     }
 
@@ -1057,6 +1067,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT,
                 'Task passed in is not a PEAR_Task_Postinstallscript task');
         }
+
         // necessary for validation
         $this->addFile('', $path, array('role' => 'php', 'name' => $path));
         $this->setPackagefile($this->_options['packagedirectory'] .
@@ -1065,6 +1076,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT,
                 $res[1]);
         }
+
         if (!isset($this->_options['replacements'])) {
             $this->_options['replacements'] = array();
         }
@@ -1086,13 +1098,13 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     {
         if (!$this->isIncludeable('PHP/CompatInfo.php')) {
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO);
-        } else {
-            include_once 'PHP/CompatInfo.php';
-            if (!is_array($options)) {
-                $options = array();
-            }
-            $this->_detectDependencies = $options;
         }
+
+        include_once 'PHP/CompatInfo.php';
+        if (!is_array($options)) {
+            $options = array();
+        }
+        $this->_detectDependencies = $options;
     }
 
     /**
@@ -1106,12 +1118,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function isIncludeable($file)
     {
-        if (!defined('PATH_SEPARATOR')) {
-            define('PATH_SEPARATOR', strtolower(substr(PHP_OS, 0, 3)) == 'win' ? ';' : ':');
-        }
         foreach (explode(PATH_SEPARATOR, ini_get('include_path')) as $path) {
-            if (file_exists($path . DIRECTORY_SEPARATOR . $file) &&
-                  is_readable($path . DIRECTORY_SEPARATOR . $file)) {
+            $p = $path . DIRECTORY_SEPARATOR . $file;
+            if (file_exists($p) && is_readable($p)) {
                 return true;
             }
         }
@@ -1145,17 +1154,20 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 echo 'WARNING: ' . $errmsg['message'] . $nl;
             }
         }
+
         if ($this->_options['simpleoutput']) {
             $state = PEAR_VALIDATE_NORMAL;
         } else {
             $state = PEAR_VALIDATE_PACKAGING;
         }
+
         $this->_getDependencies();
         if ($this->_options['clearchangelog']) {
             $this->clearChangeLog();
         } else {
             $this->_updateChangeLog();
         }
+
         $outputdir = ($this->_options['outputdirectory'] ?
                         $this->_options['outputdirectory'] : $this->_options['packagedirectory']);
         $this->setPackagefile($this->_options['packagedirectory'] . $this->_options['packagefile']);
@@ -1189,30 +1201,33 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
             return true;
         }
+
         if ((file_exists($outputdir . $this->_options['packagefile']) &&
                 is_writable($outputdir . $this->_options['packagefile']))
                 ||
-                @touch($outputdir . $this->_options['packagefile'])) {
+                @touch($outputdir . $this->_options['packagefile'])
+        ) {
             if ($fp = @fopen($outputdir . $this->_options['packagefile'] . '.tmp', "w")) {
                 $written = @fwrite($fp, $packagexml);
                 @fclose($fp);
                 if ($written === false) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE);
                 }
+
                 if (!@copy($outputdir . $this->_options['packagefile'] . '.tmp',
                         $outputdir . $this->_options['packagefile'])) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE);
-                } else {
-                    @unlink($outputdir . $this->_options['packagefile'] . '.tmp');
-                    return true;
                 }
-            } else {
-                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE,
-                    $outputdir . $this->_options['packagefile'] . '.tmp');
+
+                @unlink($outputdir . $this->_options['packagefile'] . '.tmp');
+                return true;
             }
-        } else {
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE, $outputdir);
+
+            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE,
+                    $outputdir . $this->_options['packagefile'] . '.tmp');
         }
+
+        return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE, $outputdir);
     }
 
     /**
@@ -1321,8 +1336,10 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if (!is_array($options['ignore'])) {
                 $options['ignore'] = array();
             }
-            for ($i = 0; $i < count($this->_subpackages); $i++) {
-                $save = $this->_subpackages[$i]->getArray();
+
+            $subp = count($this->_subpackages);
+            for ($i = 0; $i < $subp; $i++) {
+                $save     = $this->_subpackages[$i]->getArray();
                 $filelist = $this->_subpackages[$i]->getFileList();
                 foreach ($filelist as $file => $atts) {
                     $options['ignore'][] = '*' . $file; // ignore all subpackage files
@@ -1331,11 +1348,12 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
         }
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
-        $generator = new $generatorclass($this, $options);
+        $generator      = new $generatorclass($this, $options);
         $this->clearContents($this->_options['baseinstalldir']);
         if ($this->_options['simpleoutput']) {
             return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
         }
+
         return $this->_getDirTag($this->_struc = $generator->getFileList());
     }
 
@@ -1358,6 +1376,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (PEAR::isError($struc)) {
             return $struc;
         }
+
         extract($this->_options);
         $ret = array();
         foreach ($struc as $dir => $files) {
@@ -1367,65 +1386,70 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $role = $dir_roles['/'];
                 }
                 return $this->_getSimpleDirTag($struc[$dir], $role, '');
-            } else {
-                // directory
-                if (!isset($files['file']) || is_array($files['file'])) {
-                    // contains only directories
-                    if (isset($dir_roles[$_curdir . $dir])) {
-                        $myrole = $dir_roles[$_curdir . $dir];
-                    } else {
-                        $myrole = $role;
-                    }
-                    $recurdir = ($_curdir == '') ? $dir . '/' : $_curdir . $dir . '/';
-                    if ($recurdir == '//') {
-                        $recurdir = '';
-                    }
-                    $this->_getSimpleDirTag($files, $myrole, $recurdir);
+            }
+
+            // directory
+            if (!isset($files['file']) || is_array($files['file'])) {
+                // contains only directories
+                if (isset($dir_roles[$_curdir . $dir])) {
+                    $myrole = $dir_roles[$_curdir . $dir];
                 } else {
-                    // contains files
-                    $myrole = '';
-                    if (!$role) {
-                        $myrole = false;
-                        if (isset($exceptions[$files['path']])) {
-                            $myrole = $exceptions[$files['path']];
-                        } elseif (isset($roles[$files['ext']])) {
-                            $myrole = $roles[$files['ext']];
-                        } else {
-                            $myrole = $roles['*'];
-                        }
+                    $myrole = $role;
+                }
+                $recurdir = ($_curdir == '') ? $dir . '/' : $_curdir . $dir . '/';
+                if ($recurdir == '//') {
+                    $recurdir = '';
+                }
+                $this->_getSimpleDirTag($files, $myrole, $recurdir);
+            } else {
+                // contains files
+                $myrole = '';
+                if (!$role) {
+                    $myrole = false;
+                    if (isset($exceptions[$files['path']])) {
+                        $myrole = $exceptions[$files['path']];
+                    } elseif (isset($roles[$files['ext']])) {
+                        $myrole = $roles[$files['ext']];
                     } else {
-                        $myrole = $role;
-                        if (isset($exceptions[$files['path']])) {
-                            $myrole = $exceptions[$files['path']];
-                        }
+                        $myrole = $roles['*'];
                     }
-                    $test = explode('/', $files['path']);
-                    foreach ($test as $subpath) {
-                        if ($subpath == 'CVS') {
-                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED,
-                                array('path' => $files['path']));
-                        }
+                } else {
+                    $myrole = $role;
+                    if (isset($exceptions[$files['path']])) {
+                        $myrole = $exceptions[$files['path']];
                     }
-                    $atts = array('role' => $myrole);
-                    if (isset($installexceptions[$files['path']])) {
-                        $atts['baseinstalldir'] = $installexceptions[$files['path']];
+                }
+
+                $test = explode('/', $files['path']);
+                foreach ($test as $subpath) {
+                    if ($subpath == 'CVS') {
+                        $this->pushWarning(PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED,
+                            array('path' => $files['path']));
                     }
-                    $diradd = dirname($files['path']);
-                    $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
-                    if (isset($globalreplacements) &&
-                          !in_array($files['path'], $globalreplaceexceptions, true)) {
-                        foreach ($globalreplacements as $task) {
-                            $this->addTaskToFile($files['path'], $task);
-                        }
+                }
+
+                $atts = array('role' => $myrole);
+                if (isset($installexceptions[$files['path']])) {
+                    $atts['baseinstalldir'] = $installexceptions[$files['path']];
+                }
+
+                $diradd = dirname($files['path']);
+                $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
+                if (isset($globalreplacements) &&
+                      !in_array($files['path'], $globalreplaceexceptions, true)) {
+                    foreach ($globalreplacements as $task) {
+                        $this->addTaskToFile($files['path'], $task);
                     }
-                    if (isset($replacements[$files['path']])) {
-                        foreach ($replacements[$files['path']] as $task) {
-                            $this->addTaskToFile($files['path'], $task);
-                        }
+                }
+
+                if (isset($replacements[$files['path']])) {
+                    foreach ($replacements[$files['path']] as $task) {
+                        $this->addTaskToFile($files['path'], $task);
                     }
                 }
             }
         }
+
         return;
     }
 
@@ -1447,6 +1471,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (PEAR::isError($struc)) {
             return $struc;
         }
+
         extract($this->_options);
         foreach ($struc as $dir => $files) {
             if ($dir === '/') {
@@ -1455,73 +1480,74 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                     $role = $dir_roles['/'];
                 }
                 return $this->_getDirTag($struc[$dir], $role, '');
+            }
+
+            // non-global directory
+            if (!isset($files['file']) || is_array($files['file'])) {
+                // contains only other directories
+                $myrole = '';
+                if (isset($dir_roles[$_curdir . $dir])) {
+                    $myrole = $dir_roles[$_curdir . $dir];
+                } elseif ($role) {
+                    $myrole = $role;
+                }
+                $this->_getDirTag($files, $myrole, $_curdir . $dir . '/');
             } else {
-                // non-global directory
-                if (!isset($files['file']) || is_array($files['file'])) {
-                    // contains only other directories
-                    $myrole = '';
-                    if (isset($dir_roles[$_curdir . $dir])) {
-                        $myrole = $dir_roles[$_curdir . $dir];
-                    } elseif ($role) {
-                        $myrole = $role;
+                // contains files
+                $myrole = '';
+                if (!$role) {
+                    $myrole = false;
+                    if (isset($exceptions[$files['path']])) {
+                        $myrole = $exceptions[$files['path']];
+                    } elseif (isset($roles[$files['ext']])) {
+                        $myrole = $roles[$files['ext']];
+                    } else {
+                        $myrole = $roles['*'];
                     }
-                    $this->_getDirTag($files, $myrole, $_curdir . $dir . '/');
                 } else {
-                    // contains files
-                    $myrole = '';
-                    if (!$role) {
-                        $myrole = false;
-                        if (isset($exceptions[$files['path']])) {
-                            $myrole = $exceptions[$files['path']];
-                        } elseif (isset($roles[$files['ext']])) {
-                            $myrole = $roles[$files['ext']];
-                        } else {
-                            $myrole = $roles['*'];
-                        }
-                    } else {
-                        $myrole = $role;
-                        if (isset($exceptions[$files['path']])) {
-                            $myrole = $exceptions[$files['path']];
-                        }
+                    $myrole = $role;
+                    if (isset($exceptions[$files['path']])) {
+                        $myrole = $exceptions[$files['path']];
                     }
-                    if (isset($installexceptions[$files['path']])) {
-                        $bi = $installexceptions[$files['path']];
-                    } else {
-                        $bi = $this->_options['baseinstalldir'];
+                }
+                if (isset($installexceptions[$files['path']])) {
+                    $bi = $installexceptions[$files['path']];
+                } else {
+                    $bi = $this->_options['baseinstalldir'];
+                }
+                $test = explode('/', $files['path']);
+                foreach ($test as $subpath) {
+                    if ($subpath == 'CVS') {
+                        $this->pushWarning(PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED,
+                            array('path' => $files['path']));
                     }
-                    $test = explode('/', $files['path']);
-                    foreach ($test as $subpath) {
-                        if ($subpath == 'CVS') {
-                            $this->pushWarning(PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED,
-                                array('path' => $files['path']));
-                        }
+                }
+                $atts =
+                    array('role' => $myrole,
+                          'baseinstalldir' => $bi,
+                          );
+                if (!isset($this->_options['simpleoutput']) || !$this->_options['simpleoutput']) {
+                    $md5sum = @md5_file($this->_options['packagedirectory'] . $files['path']);
+                    if (!empty($md5sum)) {
+                        $atts['md5sum'] = $md5sum;
                     }
-                    $atts =
-                        array('role' => $myrole,
-                              'baseinstalldir' => $bi,
-                              );
-                    if (!isset($this->_options['simpleoutput']) || !$this->_options['simpleoutput']) {
-                        $md5sum = @md5_file($this->_options['packagedirectory'] . $files['path']);
-                        if (!empty($md5sum)) {
-                            $atts['md5sum'] = $md5sum;
-                        }
+                }
+                $diradd = dirname($files['path']);
+                $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
+                if (isset($globalreplacements) &&
+                      !in_array($files['path'], $globalreplaceexceptions, true)) {
+                    foreach ($globalreplacements as $task) {
+                        $this->addTaskToFile($files['path'], $task);
                     }
-                    $diradd = dirname($files['path']);
-                    $this->addFile($diradd == '.' ? '/' : $diradd, $files['file'], $atts);
-                    if (isset($globalreplacements) &&
-                          !in_array($files['path'], $globalreplaceexceptions, true)) {
-                        foreach ($globalreplacements as $task) {
-                            $this->addTaskToFile($files['path'], $task);
-                        }
-                    }
-                    if (isset($replacements[$files['path']])) {
-                        foreach ($replacements[$files['path']] as $task) {
-                            $this->addTaskToFile($files['path'], $task);
-                        }
+                }
+                if (isset($replacements[$files['path']])) {
+                    foreach ($replacements[$files['path']] as $task) {
+                        $this->addTaskToFile($files['path'], $task);
                     }
                 }
             }
         }
+
         return;
     }
 
@@ -1555,13 +1581,14 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     {
         if ($this->_detectDependencies) {
             $this->_traverseFileArray($this->_struc, $ret);
-            $compatinfo = new PHP_CompatInfo();
-            $info = $compatinfo->parseArray($ret, $this->_detectDependencies);
+            $compatinfo  = new PHP_CompatInfo();
+            $info        = $compatinfo->parseArray($ret, $this->_detectDependencies);
             $max_version = (empty($info['max_version'])) ? false : $info['max_version'];
             $ret = $this->setPhpDep($info['version'], $max_version);
             if (is_a($ret, 'PEAR_Error')) {
                 return $ret;
             }
+
             foreach ($info['extensions'] as $ext) {
                 $this->addExtensionDep('required', $ext);
             }
@@ -1579,35 +1606,31 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function _updateChangeLog()
     {
-        if ($this->_oldPackageFile) {
-            $changelog = $this->_oldPackageFile->getChangelog();
-        } else {
-            $changelog = false;
-        }
+        $changelog = $this->_oldPackageFile ? $this->_oldPackageFile->getChangelog() : false;
         $notes = $this->_options['changelognotes'];
         if (!$changelog) {
             $this->setChangelogEntry($this->getVersion(), $this->generateChangeLogEntry($notes));
             return;
-        } else {
-            if (!isset($changelog['release'][0])) {
-                $changelog['release'] = array($changelog['release']);
+        }
+
+        if (!isset($changelog['release'][0])) {
+            $changelog['release'] = array($changelog['release']);
+        }
+        $found = false;
+        foreach ($changelog['release'] as $i => $centry) {
+            $changelog['release'][$i]['notes'] = trim($changelog['release'][$i]['notes']);
+            if ($centry['version']['release'] == $this->getVersion()) {
+                $changelog['release'][$i] = $this->generateChangeLogEntry($notes);
+                $found = true;
             }
-            $found = false;
-            foreach ($changelog['release'] as $i => $centry) {
-                $changelog['release'][$i]['notes'] = trim($changelog['release'][$i]['notes']);
-                if ($centry['version']['release'] == $this->getVersion()) {
-                    $changelog['release'][$i] = $this->generateChangeLogEntry($notes);
-                    $found = true;
-                }
-            }
-            if (!$found) {
-                $changelog['release'][] = $this->generateChangeLogEntry($notes);
-            }
-            usort($changelog['release'], array($this, '_changelogsort'));
-            $this->clearChangeLog();
-            foreach ($changelog['release'] as $entry) {
-                $this->setChangelogEntry($entry['version']['release'], $entry);
-            }
+        }
+        if (!$found) {
+            $changelog['release'][] = $this->generateChangeLogEntry($notes);
+        }
+        usort($changelog['release'], array($this, '_changelogsort'));
+        $this->clearChangeLog();
+        foreach ($changelog['release'] as $entry) {
+            $this->setChangelogEntry($entry['version']['release'], $entry);
         }
     }
 
@@ -1665,7 +1688,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     function _importTasks($options)
     {
         $filelist = $this->getFilelist(true);
-        $vroles = array_values($this->_options['roles']);
+        $vroles   = array_values($this->_options['roles']);
 
         foreach ($filelist as $file => $contents) {
             $atts = $contents['attribs'];
@@ -1745,7 +1768,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             // check for baseinstalldir attribute
             if (isset($options['baseinstalldir'])
                 && isset($atts['baseinstalldir'])
-                && $atts['baseinstalldir'] != $options['baseinstalldir']) {
+                && $atts['baseinstalldir'] != $options['baseinstalldir']
+            ) {
                 $this->_options['installexceptions'][$file] = $atts['baseinstalldir'];
             }
         }
@@ -1793,55 +1817,55 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if (file_exists($path . $packagefile)) {
                 $contents = file_get_contents($path . $packagefile);
             }
+
             if (!$contents) {
                 $a = PEAR_PackageFileManager2::_generateNewPackageXML();
                 return $a;
+            }
+
+            include_once 'PEAR/PackageFile/Parser/v2.php';
+            $pkg = &new PEAR_PackageFile_Parser_v2();
+            $z = &PEAR_Config::singleton();
+            $pkg->setConfig($z);
+            $pf = &$pkg->parse($contents, $path . $packagefile, false,
+                'PEAR_PackageFileManager2');
+            if (PEAR::isError($pf)) {
+                return $pf;
+            }
+            if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
+                $errors = '';
+                foreach ($pf->getValidationWarnings() as $warning) {
+                    $errors .= "\n" . ucfirst($warning['level']) . ': ' .
+                        $warning['message'];
+                }
+                if (php_sapi_name() != 'cli') {
+                    $errors = nl2br(htmlspecialchars($errors));
+                }
+                $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE, $errors);
+                return $a;
+            }
+            $pf->setOld();
+            if (isset($options['cleardependencies']) && $options['cleardependencies']) {
+                $pf->clearDeps();
+            }
+            if (!isset($options['clearcontents']) || $options['clearcontents']) {
+                $pf->clearContents();
             } else {
-                include_once 'PEAR/PackageFile/Parser/v2.php';
-                $pkg = &new PEAR_PackageFile_Parser_v2();
-                $z = &PEAR_Config::singleton();
-                $pkg->setConfig($z);
-                $pf = &$pkg->parse($contents, $path . $packagefile, false,
-                    'PEAR_PackageFileManager2');
-                if (PEAR::isError($pf)) {
-                    return $pf;
+                // merge options is required to use PEAR_PackageFileManager2::addPostinstallTask()
+                if (PEAR::isError($ret = $pf->_importOptions($packagefile, $options))) {
+                    return $ret;
                 }
-                if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
-                    $errors = '';
-                    foreach ($pf->getValidationWarnings() as $warning) {
-                        $errors .= "\n" . ucfirst($warning['level']) . ': ' .
-                            $warning['message'];
-                    }
-                    if (php_sapi_name() != 'cli') {
-                        $errors = nl2br(htmlspecialchars($errors));
-                    }
-                    $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE,
-                        $errors);
-                    return $a;
-                }
-                $pf->setOld();
-                if (isset($options['cleardependencies']) && $options['cleardependencies']) {
-                    $pf->clearDeps();
-                }
-                if (!isset($options['clearcontents']) || $options['clearcontents']) {
-                    $pf->clearContents();
-                } else {
-                    // merge options is required to use PEAR_PackageFileManager2::addPostinstallTask()
-                    if (PEAR::isError($ret = $pf->_importOptions($packagefile, $options))) {
-                        return $ret;
-                    }
-                    $pf->_importTasks($options);
-                }
+                $pf->_importTasks($options);
             }
             return $pf;
-        } else {
-            if (!is_string($path)) {
-                $path = gettype($path);
-            }
-            include_once 'PEAR.php';
-            $a = PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST);
-            return $a;
         }
+
+        if (!is_string($path)) {
+            $path = gettype($path);
+        }
+        include_once 'PEAR.php';
+        $a = PEAR::raiseError('Path does not exist: ' . $path, PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST);
+        return $a;
     }
 
     /**
@@ -1862,4 +1886,3 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         return $pf;
     }
 }
-?>
