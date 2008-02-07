@@ -1193,6 +1193,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE, $nl, $ret);
             }
         }
+
         $gen = &$this->getDefaultGenerator();
         $packagexml = $gen->toXml($state);
         if (isset($debuginterface)) {
@@ -1204,24 +1205,20 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return true;
         }
 
-        if ((file_exists($outputdir . $this->_options['packagefile']) &&
-                is_writable($outputdir . $this->_options['packagefile']))
-                ||
-                @touch($outputdir . $this->_options['packagefile'])
-        ) {
-            if ($fp = @fopen($outputdir . $this->_options['packagefile'] . '.tmp', "w")) {
+        $file = $outputdir . $this->_options['packagefile'];
+        if ((file_exists($file) && is_writable($file)) || @touch($file)) {
+            if ($fp = @fopen($file . '.tmp', "w")) {
                 $written = @fwrite($fp, $packagexml);
                 @fclose($fp);
                 if ($written === false) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE);
                 }
 
-                if (!@copy($outputdir . $this->_options['packagefile'] . '.tmp',
-                        $outputdir . $this->_options['packagefile'])) {
+                if (!@copy($file . '.tmp', $file)) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE);
                 }
 
-                @unlink($outputdir . $this->_options['packagefile'] . '.tmp');
+                @unlink($file . '.tmp');
                 return true;
             }
 
