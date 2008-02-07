@@ -45,9 +45,7 @@ class PEAR_PackageFileManager_File
      * @var array
      * @access private
      */
-    var $_options =
-            array(
-                 );
+    var $_options = array();
 
     /**
      * @access private
@@ -124,19 +122,23 @@ class PEAR_PackageFileManager_File
             }
             $stupidassphp5_1 = explode('.', $file);
             $ext = array_pop($stupidassphp5_1);
-            if (strlen($ext) == strlen($file)) {
+            if (strlen($ext) === strlen($file)) {
                 $ext = '';
             }
-            $struc[$path][] = array('file' => basename($file),
-                                    'ext' => $ext,
-                                    'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
-                                    'fullpath' => $file);
+            $struc[$path][] = array(
+                'file' => basename($file),
+                'ext' => $ext,
+                'path' => (($path == '/') ? basename($file) : $path . '/' . basename($file)),
+                'fullpath' => $file
+            );
         }
+
         if (!count($struc)) {
             $newig = implode($this->_options['ignore'], ', ');
             return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING,
                 substr($package_directory, 0, strlen($package_directory) - 1), $newig);
         }
+
         uksort($struc, 'strnatcasecmp');
         foreach ($struc as $key => $ind) {
             usort($ind, array($this, 'sortfiles'));
@@ -147,6 +149,7 @@ class PEAR_PackageFileManager_File
         if (!isset($tempstruc['/'])) {
             $tempstruc['/'] = array();
         }
+
         $struc = array('/' => $tempstruc['/']);
         $bv = 0;
         foreach ($tempstruc as $key => $ind) {
@@ -174,43 +177,44 @@ class PEAR_PackageFileManager_File
      */
     function dirList($directory)
     {
-        $ret = false;
-        if (@is_dir($directory)) {
-            $ret = array();
-            $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
-            while ($d && false !== ($entry = $d->read())) {
-                if ($this->_testFile($directory, $entry)) {
-                    if (is_file($directory . '/' . $entry)) {
-                        // if include option was set, then only pass included files
-                        if ($this->ignore[0]) {
-                            if ($this->_checkIgnore($entry, $directory . '/' . $entry, 0)) {
-                                continue;
-                            }
+        if (!@is_dir($directory)) {
+            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
+        }
+
+        $ret = array();
+        $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
+        while ($d && false !== ($entry = $d->read())) {
+            if ($this->_testFile($directory, $entry)) {
+                if (is_file($directory . '/' . $entry)) {
+                    // if include option was set, then only pass included files
+                    if ($this->ignore[0]) {
+                        if ($this->_checkIgnore($entry, $directory . '/' . $entry, 0)) {
+                            continue;
                         }
-                        // if ignore option was set, then only pass included files
-                        if ($this->ignore[1]) {
-                            if ($this->_checkIgnore($entry, $directory . '/' . $entry, 1)) {
-                                continue;
-                            }
-                        }
-                        $ret[] = $directory . '/' . $entry;
                     }
-                    if (is_dir($directory . '/' . $entry)) {
-                        $tmp = $this->dirList($directory . '/' . $entry);
-                        if (is_array($tmp)) {
-                            foreach ($tmp as $ent) {
-                                $ret[] = $ent;
-                            }
+                    // if ignore option was set, then only pass included files
+                    if ($this->ignore[1]) {
+                        if ($this->_checkIgnore($entry, $directory . '/' . $entry, 1)) {
+                            continue;
+                        }
+                    }
+                    $ret[] = $directory . '/' . $entry;
+                }
+                if (is_dir($directory . '/' . $entry)) {
+                    $tmp = $this->dirList($directory . '/' . $entry);
+                    if (is_array($tmp)) {
+                        foreach ($tmp as $ent) {
+                            $ret[] = $ent;
                         }
                     }
                 }
             }
-            if ($d) {
-                $d->close();
-            }
-        } else {
-            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
         }
+
+        if ($d) {
+            $d->close();
+        }
+
         return $ret;
     }
 
@@ -254,6 +258,7 @@ class PEAR_PackageFileManager_File
         if (file_exists($path)) {
             $path = realpath($path);
         }
+
         if (is_array($this->ignore[$return])) {
             foreach ($this->ignore[$return] as $match) {
                 // match is an array if the ignore parameter was a /path/to/pattern
@@ -264,6 +269,7 @@ class PEAR_PackageFileManager_File
                         // check to see if it matches without an appended path delimiter
                         preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path), $find);
                     }
+
                     if (count($find)) {
                         // check to see if the file matches the file portion of the regex string
                         preg_match('/^' . strtoupper($match[1]).'$/', strtoupper($file), $find);
@@ -349,13 +355,16 @@ class PEAR_PackageFileManager_File
         if (DIRECTORY_SEPARATOR == '\\') {
             $y = '\\\\';
         }
+
         $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
         $x = strtr($s, array('?' => '.', '*' => '.*', '.' => '\\.', '\\' => '\\\\', '/' => '\\/',
                              '[' => '\\[', ']' => '\\]', '-' => '\\-'));
+
         if (strpos($s, DIRECTORY_SEPARATOR) !== false &&
               strrpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {
             $x = "(?:.*$y$x?.*|$x.*)";
         }
+
         return $x;
     }
 
