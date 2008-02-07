@@ -577,36 +577,37 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $className = substr($resource, 0, -4);
         $className = str_replace('/', '_', $className);
 
-        if (!class_exists($className)) {
-            // attempt to load the interface from the standard PEAR location
-            if ($this->isIncludeable($resource)) {
-                include_once $resource;
-            } elseif (isset($this->_options['usergeneratordir'])) {
-                // attempt to load from a user-specified directory
-                if (is_dir(realpath($this->_options['usergeneratordir']))) {
-                    $this->_options['usergeneratordir'] =
-                        str_replace(DIRECTORY_SEPARATOR,
-                                    '/',
-                                    realpath($this->_options['usergeneratordir']));
-                    if ($this->_options['usergeneratordir']{strlen($this->_options['usergeneratordir']) - 1} != '/') {
-                        $this->_options['usergeneratordir'] .= '/';
-                    }
-                } else {
-                    $this->_options['usergeneratordir'] = '////';
-                }
-                $usergenerator = $this->_options['usergeneratordir'] .
-                    $this->_options['filelistgenerator'] . '.php';
-                if (file_exists($usergenerator) && is_readable($usergenerator)) {
-                    include_once $usergenerator;
-                }
+        if (class_exists($className)) {
+            return;
+        }
 
-                if (!class_exists($className)) {
-                    return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE,
-                        $className);
+        // attempt to load the interface from the standard PEAR location
+        if ($this->isIncludeable($resource)) {
+            include_once $resource;
+        } elseif (isset($this->_options['usergeneratordir'])) {
+            // attempt to load from a user-specified directory
+            if (is_dir(realpath($this->_options['usergeneratordir']))) {
+                $this->_options['usergeneratordir'] =
+                    str_replace(DIRECTORY_SEPARATOR,
+                                '/',
+                                realpath($this->_options['usergeneratordir']));
+                if ($this->_options['usergeneratordir']{strlen($this->_options['usergeneratordir']) - 1} != '/') {
+                    $this->_options['usergeneratordir'] .= '/';
                 }
+            } else {
+                $this->_options['usergeneratordir'] = '////';
             }
 
-            return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND, $className);
+            $generator = $this->_options['usergeneratordir'] .
+                             $this->_options['filelistgenerator'] . '.php';
+            if (file_exists($generator) && is_readable($generator)) {
+                include_once $usergenerator;
+            }
+
+            if (!class_exists($className)) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_GENERATOR_NOTFOUND_ANYWHERE,
+                    $className);
+            }
         }
     }
 
