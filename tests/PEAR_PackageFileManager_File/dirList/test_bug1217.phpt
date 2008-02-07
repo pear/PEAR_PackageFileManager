@@ -5,8 +5,9 @@ PEAR_PackageFileManager_File->dirList, bug #1217 test
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml->_options['addhiddenfiles'] = false;
+$ignore = array('CVS/');
 $packagexml->_setupIgnore(false, 0);
-$packagexml->_setupIgnore(false, 1);
+$packagexml->_setupIgnore($ignore, 1);
 $res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217');
 $phpunit->assertEquals(
     array(
