@@ -856,7 +856,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     {
         $this->_options['packagedirectory']  = dirname($packagefile);
         $this->_options['pathtopackagefile'] = dirname($packagefile);
-        $this->_options['baseinstalldir']    = '';
+        $this->_options['baseinstalldir']    = '/';
         return $this->setOptions(array_merge($this->_options, $options), true);
     }
 
