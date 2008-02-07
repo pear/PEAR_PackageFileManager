@@ -104,27 +104,31 @@ class PEAR_PackageFileManager_File
         if (PEAR::isError($allfiles)) {
             return $allfiles;
         }
+
         if (!count($allfiles)) {
             return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_NO_FILES,
                 substr($package_directory, 0, strlen($package_directory) - 1));
         }
+
         $struc = array();
         $package_directory_realpath = realpath($package_directory);
         if (DIRECTORY_SEPARATOR != substr($package_directory_realpath, -1, 1)) {
             $package_directory_realpath .= DIRECTORY_SEPARATOR;
         }
+
         foreach ($allfiles as $file) {
-            $path = substr(dirname($file), strlen(str_replace(DIRECTORY_SEPARATOR,
-                                                              '/',
-                                                              $package_directory_realpath)));
+            $ps   = str_replace(DIRECTORY_SEPARATOR, '/', $package_directory_realpath);
+            $path = substr(dirname($file), strlen($ps));
             if (!$path) {
                 $path = '/';
             }
+
             $stupidassphp5_1 = explode('.', $file);
             $ext = array_pop($stupidassphp5_1);
             if (strlen($ext) === strlen($file)) {
                 $ext = '';
             }
+
             $struc[$path][] = array(
                 'file' => basename($file),
                 'ext' => $ext,
@@ -185,23 +189,21 @@ class PEAR_PackageFileManager_File
         $d = @dir($directory); // thanks to Jason E Sweat (jsweat@users.sourceforge.net) for fix
         while ($d && false !== ($entry = $d->read())) {
             if ($this->_testFile($directory, $entry)) {
-                if (is_file($directory . '/' . $entry)) {
+                $de = $directory . '/' . $entry;
+                if (is_file($de)) {
                     // if include option was set, then only pass included files
-                    if ($this->ignore[0]) {
-                        if ($this->_checkIgnore($entry, $directory . '/' . $entry, 0)) {
-                            continue;
-                        }
+                    if ($this->ignore[0] && $this->_checkIgnore($entry, $de, 0)) {
+                        continue;
                     }
                     // if ignore option was set, then only pass included files
-                    if ($this->ignore[1]) {
-                        if ($this->_checkIgnore($entry, $directory . '/' . $entry, 1)) {
-                            continue;
-                        }
+                    if ($this->ignore[1] && $this->_checkIgnore($entry, $de, 1)) {
+                        continue;
                     }
-                    $ret[] = $directory . '/' . $entry;
+                    $ret[] = $de;
                 }
-                if (is_dir($directory . '/' . $entry)) {
-                    $tmp = $this->dirList($directory . '/' . $entry);
+
+                if (is_dir($de)) {
+                    $tmp = $this->dirList($de);
                     if (is_array($tmp)) {
                         foreach ($tmp as $ent) {
                             $ret[] = $ent;
@@ -234,9 +236,9 @@ class PEAR_PackageFileManager_File
     {
         if ($this->_options['addhiddenfiles']) {
             return is_file($directory . '/' . $entry) || (is_dir($directory . '/' . $entry) && !in_array($entry, array('.', '..')));
-        } else {
-            return $entry{0} != '.';
         }
+
+        return $entry{0} != '.';
     }
 
     /**
@@ -277,9 +279,20 @@ class PEAR_PackageFileManager_File
                             return $return;
                         }
                     }
+
                     // check to see if the full path matches the regex
                     preg_match('/^' . strtoupper($match[0]).'$/',
                                strtoupper($path . DIRECTORY_SEPARATOR . $file), $find);
+                    if (count($find)) {
+                        return $return;
+                    }
+
+                    // user is trying a regex with no glob, lets give him the full path to match against
+                    if (!isset($this->_options['packagedirectory'])) {
+                        return !$return;
+                    }
+                    $t = $this->_getRegExpableSearchString($this->_options['packagedirectory']);
+                    preg_match('/^' . strtoupper($t . $match[0]).'$/', strtoupper($path), $find);
                     if (count($find)) {
                         return $return;
                     }
@@ -290,6 +303,7 @@ class PEAR_PackageFileManager_File
                     if (count($find)) {
                         return $return;
                     }
+
                     // check it against the file only
                     preg_match('/^' . strtoupper($match).'$/', strtoupper($file), $find);
                     if (count($find)) {
@@ -298,6 +312,7 @@ class PEAR_PackageFileManager_File
                 }
             }
         }
+
         return !$return;
     }
 
@@ -314,7 +329,7 @@ class PEAR_PackageFileManager_File
     {
         $ig = array();
         if (is_array($ignore)) {
-            for ($i=0; $i<count($ignore);$i++) {
+            for ($i = 0, $ic = count($ignore); $i < $ic; $i++) {
                 $ignore[$i] = strtr($ignore[$i], "\\", "/");
                 $ignore[$i] = str_replace('//', '/', $ignore[$i]);
 
@@ -331,11 +346,8 @@ class PEAR_PackageFileManager_File
                     }
                 }
             }
-            if (count($ig)) {
-                $this->ignore[$index] = $ig;
-            } else {
-                $this->ignore[$index] = false;
-            }
+
+            $this->ignore[$index] = count($ig) ? $ig : false;
         } else {
             $this->ignore[$index] = false;
         }
@@ -388,18 +400,15 @@ class PEAR_PackageFileManager_File
     {
         if (!count($dir)) {
             foreach ($contents as $dir => $files) {
-                if (is_string($dir)) {
-                    if (strpos($dir, '/')) {
-                        $test = true;
-                        $a = $contents[$dir];
-                        unset($contents[$dir]);
-                        $b = explode('/', $dir);
-                        $c = array_shift($b);
-                        if (isset($contents[$c])) {
-                            $contents[$c] = $this->_setDir($contents[$c], $this->_setupDirs(array(), $b, $a));
-                        } else {
-                            $contents[$c] = $this->_setupDirs(array(), $b, $a);
-                        }
+                if (is_string($dir) && strpos($dir, '/')) {
+                    $a = $contents[$dir];
+                    unset($contents[$dir]);
+                    $b = explode('/', $dir);
+                    $c = array_shift($b);
+                    if (isset($contents[$c])) {
+                        $contents[$c] = $this->_setDir($contents[$c], $this->_setupDirs(array(), $b, $a));
+                    } else {
+                        $contents[$c] = $this->_setupDirs(array(), $b, $a);
                     }
                 }
             }
@@ -461,4 +470,3 @@ class PEAR_PackageFileManager_File
     }
     /**#@-*/
 }
-?>
