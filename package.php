@@ -20,18 +20,14 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.6.3';
+$release_version = '1.7.0';
 $release_state   = 'stable';
-$release_notes   = '* bugs
- - Fix Bug #12023: substr() miss around $package_directory in getFileList()
-   Thanks to Lorenzo Alberton (quipo) for the simple patch
- - Fix missing "$options" argument of detectDependencies()
-   that allow to customize auto PHP detection by PEAR::PHP_CompatInfo
- - Fix lot of Coding Standard (errors/warnings) by PEAR::PHP_CodeSniffer
-
-* changes
- - PHP minimum set to 4.3.0 (removed compatfunction file_get_contents)
- - PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
+$release_notes   = '
+* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
+* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
+* Implemented Request #12932 .in files should have the src role [dufuz]
+* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
+    XML_Serializer is now a required dep and simplexml is a optional one
 ';
 
 $packagexml = &PEAR_PackageFileManager2::importOptions(
@@ -55,12 +51,14 @@ $packagexml->clearDeps();
 $packagexml->setChannel('pear.php.net');
 $packagexml->setLicense('PHP License 3.01', 'http://www.php.net/license/3_01.txt');
 $packagexml->setReleaseVersion($release_version);
-$packagexml->setAPIVersion('1.6.0');
+$packagexml->setAPIVersion('1.7.0');
 $packagexml->setReleaseStability($release_state);
 $packagexml->setAPIStability('stable');
 $packagexml->setPhpDep('4.3.0');
 $packagexml->setPearinstallerDep('1.5.4');
+$packagexml->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
 $packagexml->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
+$packagexml->addExtensionDep('optional', 'simplexml');
 $packagexml->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
 $packagexml->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
