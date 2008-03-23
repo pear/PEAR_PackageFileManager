@@ -828,9 +828,9 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
 
         if (!isset($res)) {
-            if (PEAR::isError($res =
-                  &PEAR_PackageFileManager2::_getExistingPackageXML(dirname($packagefile) .
-                  DIRECTORY_SEPARATOR, basename($packagefile), $options))) {
+            $res = &PEAR_PackageFileManager2::_getExistingPackageXML(dirname($packagefile) .
+                    DIRECTORY_SEPARATOR, basename($packagefile), $options);
+            if (PEAR::isError($res)) {
                 return $res;
             }
         }
