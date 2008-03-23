@@ -208,14 +208,13 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                 }
             }
         } else {
-            unset($content);
             require_once 'XML/Unserializer.php';
             $options = array(
                 XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE    => true,
                 XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY => false
             );
             $unserializer = &new XML_Unserializer($options);
-            $status = $unserializer->unserialize($svnentriesfilename, true);
+            $status = $unserializer->unserialize($content);
             if (PEAR::isError($status)) {
                 return false;
             }
