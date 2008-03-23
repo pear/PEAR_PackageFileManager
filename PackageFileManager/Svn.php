@@ -160,15 +160,14 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      */
     function _getSVNEntries($svnentriesfilename)
     {
-        $stuff = file_get_contents($svnentriesfilename);
-
-        if (substr($stuff, 0, 5) != '<?xml') {
+        $content = file_get_contents($svnentriesfilename);
+        if (substr($content, 0, 5) != '<?xml') {
             // Not XML; assume newer (>= SVN 1.4) SVN entries format
 
             // The directory entries are seperated by #0c; look for the first #0c
             // The hex GUID (xxxx-xxxx-xxxx-xxxx-xxxx) may not always be set
             // The list of files follows this
-            if (preg_match('/\x0c\n(.*)$/ms', $stuff, $matches)) {
+            if (preg_match('/\x0c\n(.*)$/ms', $content, $matches)) {
                 $file_list = $matches[1];
 
                 $files = explode("\x0c", trim($file_list));
@@ -197,8 +196,8 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             }
         } elseif (function_exists('simplexml_load_string')) {
             // this breaks simplexml because "svn:" is an invalid namespace, so strip it
-            $stuff = str_replace('xmlns="svn:"', '', file_get_contents($svnentriesfilename));
-            $all   = simplexml_load_string($stuff);
+            $content = str_replace('xmlns="svn:"', '', $content);
+            $all     = simplexml_load_string($content);
             $entries = array();
             foreach ($all->entry as $entry) {
                 if ($entry['kind'] == 'file') {
@@ -209,24 +208,31 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
                 }
             }
         } else {
-            unset($stuff);
-            include_once 'XML/Tree.php';
-            $parser  = &new XML_Tree($svnentriesfilename);
-            $tree    = &$parser->getTreeFromFile();
+            unset($content);
+            require_once 'XML/Unserializer.php';
+            $options = array(
+                XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE    => true,
+                XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY => false
+            );
+            $unserializer = &new XML_Unserializer($options);
+            $status = $unserializer->unserialize($svnentriesfilename, true);
+            if (PEAR::isError($status)) {
+                return false;
+            }
+            $tree = $unserializer->getUnserializedData();
 
             // loop through the xml tree and keep only valid entries being files
             $entries = array();
-            foreach ($tree->children as $entry) {
-                if ($entry->name == 'entry'
-                    && $entry->attributes['kind'] == 'file') {
-                    if (isset($entry->attributes['deleted'])) {
+            foreach ($tree['entry'] as $entry) {
+                if ($entry['kind'] == 'file') {
+                    if (isset($entry['deleted'])) {
                         continue;
                     }
-                    array_push($entries, $entry->attributes['name']);
+                    array_push($entries, $entry['name']);
                 }
             }
 
-            unset($parser, $tree);
+            unset($unserializer, $tree);
         }
 
         if (isset($entries) && is_array($entries)) {
