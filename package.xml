@@ -67,7 +67,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
  - Fix lot of Coding Standard (errors/warnings) by PEAR::PHP_CodeSniffer
 
 * changes
- - PHP minimum set to 4.3.0 (removed compatfunction file_get_contents)
+ - PHP minimum set to 4.3.0 (removed compat function file_get_contents)
  - PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
  </notes>
  <contents>
@@ -334,7 +334,6 @@ The new PEAR_PackageFileManager2 class is not.</description>
    </package>
   </optional>
  </dependencies>
- <phprelease />
  <changelog>
   <release>
    <version>
