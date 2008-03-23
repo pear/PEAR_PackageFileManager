@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.6.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -48,27 +48,23 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2007-11-20</date>
- <time>21:02:50</time>
+ <date>2008-03-23</date>
+ <time>22:45:43</time>
  <version>
-  <release>1.6.3</release>
-  <api>1.6.0</api>
+  <release>1.7.0</release>
+  <api>1.7.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
- <notes>* bugs
- - Fix Bug #12023: substr() miss around $package_directory in getFileList()
-   Thanks to Lorenzo Alberton (quipo) for the simple patch
- - Fix missing &quot;$options&quot; argument of detectDependencies()
-   that allow to customize auto PHP detection by PEAR::PHP_CompatInfo
- - Fix lot of Coding Standard (errors/warnings) by PEAR::PHP_CodeSniffer
-
-* changes
- - PHP minimum set to 4.3.0 (removed compat function file_get_contents)
- - PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
+ <notes>
+* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
+* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
+* Implemented Request #12932 .in files should have the src role [dufuz]
+* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
+    XML_Serializer is now a required dep and simplexml is a optional one
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -222,9 +218,6 @@ The new PEAR_PackageFileManager2 class is not.</description>
        <file name="testEntries" role="test" />
        <file name="testEntries.Extra" role="test" />
       </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/testCVS -->
-      <file name=".test" role="test" />
-      <file name="test1.txt" role="test" />
-      <file name="test2.txt" role="test" />
      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest -->
      <file name="setup.php.inc" role="test" />
      <file name="test_dirList_invalid.phpt" role="test" />
@@ -255,6 +248,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_bug1217 -->
       <file name="test_bug1217.phpt" role="test" />
       <file name="test_invalid.phpt" role="test" />
+      <file name="test_request10945.phpt" role="test" />
       <file name="test_valid.phpt" role="test" />
       <file name="test_valid_addhiddenfiles.phpt" role="test" />
       <file name="test_valid_with_ignore.phpt" role="test" />
@@ -325,6 +319,11 @@ The new PEAR_PackageFileManager2 class is not.</description>
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
+   <package>
+    <name>XML_Serializer</name>
+    <channel>pear.php.net</channel>
+    <min>0.18.0</min>
+   </package>
   </required>
   <optional>
    <package>
@@ -332,9 +331,32 @@ The new PEAR_PackageFileManager2 class is not.</description>
     <channel>pear.php.net</channel>
     <min>1.4.0</min>
    </package>
+   <extension>
+    <name>simplexml</name>
+   </extension>
   </optional>
  </dependencies>
+ <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.7.0</release>
+    <api>1.7.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-03-23</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>
+* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
+* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
+* Implemented Request #12932 .in files should have the src role [dufuz]
+* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
+    XML_Serializer is now a required dep and simplexml is a optional one
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.6.3</release>
@@ -355,8 +377,7 @@ The new PEAR_PackageFileManager2 class is not.</description>
 
 * changes
  - PHP minimum set to 4.3.0 (removed compatfunction file_get_contents)
- - PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
-   </notes>
+ - PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)</notes>
   </release>
   <release>
    <version>
