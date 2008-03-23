@@ -723,7 +723,7 @@ class PEAR_PackageFileManager
     }
 
     /**
-     * Add a replacement option for all files
+     * Add a replacement option for all files, or files matching the glob pattern
      *
      * This sets an install-time complex search-and-replace function
      * allowing the setting of platform-specific variables in all
@@ -754,8 +754,16 @@ class PEAR_PackageFileManager
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE,
                 implode($types, ', '), $type);
         }
-        $this->_options['globalreplacements'][] =
-            array('type' => $type, 'from' => $from, 'to' => $to);
+        $glob = defined('GLOB_BRACE') ? glob($path, GLOB_BRACE) : glob($path);
+        if (false !== $glob) {
+            foreach ($glob as $pathItem) {
+                $this->_options['replacements'][$pathItem][] = array(
+                    'type' => $type,
+                    'from' => $from,
+                    'to'   => $to
+                );
+            }
+        }
     }
 
     /**

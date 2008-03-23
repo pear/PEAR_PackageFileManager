@@ -952,7 +952,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     }
 
     /**
-     * Add a replacement option for a file
+     * Add a replacement option for a file, or files matching the glob pattern
      *
      * This sets an install-time complex search-and-replace function
      * allowing the setting of platform-specific variables in an
@@ -965,6 +965,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * the package.xml file used to install this file.
      *
      * @param string $path relative path of file (relative to packagedirectory option)
+     *                     glob patterns are allowed (eg. {Dir1,Dir2}/*.php)
      * @param string $type variable type, either php-const, pear-config or package-info
      * @param string $from text to replace in the source file
      * @param string $to   variable name to use for replacement
@@ -987,7 +988,12 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
                 implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
         }
-        $this->_options['replacements'][$path][] = $task;
+        $glob = defined('GLOB_BRACE') ? glob($path, GLOB_BRACE) : glob($path);
+        if (false !== $glob) {
+            foreach ($glob as $pathItem) {
+                $this->_options['replacements'][$pathItem][] = $task;
+            }
+        }
     }
 
     /**
