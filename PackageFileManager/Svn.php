@@ -48,12 +48,6 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
 {
     function PEAR_PackageFileManager_Svn(&$parent, $options)
     {
-        if (version_compare(phpversion(), '5.0.0', '>=')) {
-            if (!function_exists('simplexml_load_string')) {
-                die('PEAR_PackageFileManager_SVN Error: simplexml extension is required' .
-                    ' in PHP 5+.  PHP 4 uses XML_Tree');
-            }
-        }
         parent::PEAR_PackageFileManager_File($parent, $options);
     }
 
