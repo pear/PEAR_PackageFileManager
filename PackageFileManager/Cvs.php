@@ -49,6 +49,11 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
      */
     var $_cvsIgnore = array('.cvsignore');
 
+    function PEAR_PackageFileManager_CVS(&$parent, $options)
+    {
+        parent::PEAR_PackageFileManager_File($parent, $options);
+    }
+
     /**
      * Return a list of all files in the CVS repository
      *
