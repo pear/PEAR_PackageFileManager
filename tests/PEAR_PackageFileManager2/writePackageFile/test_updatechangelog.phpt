@@ -26,7 +26,7 @@ $packagexml->setPearinstallerDep('1.4.3');
 $packagexml->writePackageFile();
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertEquals('<?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.3" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Chiara_PEAR_Server</name>
  <channel>pear.chiaraquartet.net</channel>
  <summary>A lightweight pearweb-compatible channel server for hosting a PEAR channel</summary>
@@ -69,7 +69,7 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
  <notes>hi</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="1c49b66b8bb3cc255847d67d5c4dc389" name="Server.php" role="php" />
+   <file baseinstalldir="/" md5sum="ccd913d7beeb2f9bc16b4964b2d7c44c" name="Server.php" role="php" />
   </dir>
  </contents>
  <dependencies>
@@ -80,7 +80,24 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
    <pearinstaller>
     <min>1.4.3</min>
    </pearinstaller>
+   <package>
+    <name>DB_DataObject</name>
+    <channel>pear.php.net</channel>
+    <min>1.7.12</min>
+   </package>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+    <min>3.2.2</min>
+   </package>
   </required>
+  <group hint="Public frontend for users to browse channel packages" name="pearweb">
+   <package>
+    <name>Crtx_PEAR_Channel_Frontend</name>
+    <channel>pear.crtx.org</channel>
+    <min>0.1.1</min>
+   </package>
+  </group>
  </dependencies>
  <phprelease />
  <changelog>
@@ -373,7 +390,7 @@ fix invalid release exception error message</notes>
    <license>PHP License</license>
    <notes>* Fixes bug which prevented non-admin leads from releasing.
 * Adds support for groupings of user handles by channel
-* Fixes bug relating to DB_DataObject configuration when channel database 
+* Fixes bug relating to DB_DataObject configuration when channel database
   name is not the default.
 * Minor revisions for clarity in install/update messages
 * Check to see if specified database exists before attempting to create it
@@ -389,7 +406,7 @@ fix invalid release exception error message</notes>
     <api>alpha</api>
    </stability>
    <date>' . date('Y-m-d') . '</date>
-   <license>PHP License</license>
+   <license uri="http://www.php.net/license">PHP License</license>
    <notes>hi</notes>
   </release>
  </changelog>
