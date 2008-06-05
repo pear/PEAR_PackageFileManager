@@ -271,7 +271,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     var $_options = array(
                       'packagefile'       => 'package.xml',
                       'filelistgenerator' => 'file',
-                      'license'           => 'PHP License',
+                      'license'           => 'New BSD License',
                       'baseinstalldir'    => '',
                       'changelogoldtonew' => true,
                       'roles' =>
