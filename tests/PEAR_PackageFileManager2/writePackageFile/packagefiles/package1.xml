@@ -363,7 +363,7 @@ fix invalid release exception error message</notes>
    <license>PHP License</license>
    <notes>* Fixes bug which prevented non-admin leads from releasing.
 * Adds support for groupings of user handles by channel
-* Fixes bug relating to DB_DataObject configuration when channel database 
+* Fixes bug relating to DB_DataObject configuration when channel database
   name is not the default.
 * Minor revisions for clarity in install/update messages
 * Check to see if specified database exists before attempting to create it
