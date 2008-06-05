@@ -286,7 +286,7 @@ class PEAR_PackageFileManager
                       'packagefile' => 'package.xml',
                       'doctype' => 'http://pear.php.net/dtd/package-1.0',
                       'filelistgenerator' => 'file',
-                      'license' => 'PHP License',
+                      'license' => 'New BSD License',
                       'changelogoldtonew' => true,
                       'roles' =>
                         array(
