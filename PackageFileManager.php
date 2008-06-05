@@ -57,6 +57,7 @@ define('PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO', 27);
 define('PEAR_PACKAGEFILEMANAGER_NONOTES', 28);
 define('PEAR_PACKAGEFILEMANAGER_NOLICENSE', 29);
+define('PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES', 32);
 /**#@-*/
 /**
  * Error messages
@@ -130,6 +131,8 @@ array(
             'Release Notes (option \'notes\') must be specified in PEAR_PackageFileManager setOptions',
         PEAR_PACKAGEFILEMANAGER_NOLICENSE =>
             'Release License (option \'license\') must be specified in PEAR_PackageFileManager setOptions',
+        PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES =>
+            'Directory "%s" is not a SVN directory (it must have the .svn/entries file)',
         ),
         // other language translations go here
      );

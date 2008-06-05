@@ -58,6 +58,7 @@ define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT',   28);
 define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL',              29);
 define('PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL',           30);
 define('PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL',        31);
+define('PEAR_PACKAGEFILEMANAGER2_NOSVNENTRIES',                32);
 /**#@-*/
 /**
  * Error messages
@@ -119,6 +120,8 @@ array(
             'path "%path%" contains CVS directory',
         PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO =>
             'PHP_Compat is not installed, cannot detect dependencies',
+        PEAR_PACKAGEFILEMANAGER2_NOSVNENTRIES =>
+            'Directory "%s" is not a SVN directory (it must have the .svn/entries file)',
        ),
         // other language translations go here
      );
