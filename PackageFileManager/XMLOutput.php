@@ -185,4 +185,3 @@ class PEAR_PackageFileManager_XMLOutput extends PEAR_Common
         return $ret;
     }
 }
-?>

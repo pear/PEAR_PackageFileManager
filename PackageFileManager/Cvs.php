@@ -121,6 +121,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
             if (!$directory) {
                 continue;
             }
+
             $d = $this->_getCVSEntries($cvsentry);
             if (!is_array($d)) {
                 continue;
