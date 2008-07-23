@@ -13,9 +13,12 @@ $packagexml->_options['maintainers'] =
     );
 $res = $packagexml->_getExistingPackageXML(dirname(dirname(__FILE__)) . '/', 'test1_package.xml');
 $phpunit->assertFalse(is_object($res), 'returned error');
-$PEAR_Common = $packagexml->_options['pearcommonclass'];
-$common = new $PEAR_Common;
-$contents = $common->infoFromAny(dirname(dirname(__FILE__)) . '/test1_package.xml');
+
+$info = dirname(dirname(__FILE__)) . '/test1_package.xml';
+$packagefile = &new PEAR_PackageFile(PEAR_Config::singleton());
+$pf = &$packagefile->fromAnyFile($info, PEAR_VALIDATE_NORMAL);
+$contents = $pf->toArray();
+
 $phpunit->assertEquals($contents['release_deps'], $packagexml->_packageXml['release_deps'], 'wrong deps');
 $phpunit->assertEquals(array(
         array('name' => 'Gerg', 'email' => 'foo@example.com',
