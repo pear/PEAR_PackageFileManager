@@ -1686,52 +1686,48 @@ class PEAR_PackageFileManager
             }
             if (!$contents) {
                 return $this->_generateNewPackageXML();
-            } else {
-                $PEAR_Common = $this->_options['pearcommonclass'];
-                if (!class_exists($PEAR_Common)) {
-                    return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
-                }
-                $common = new $PEAR_Common;
-                if (is_a($common, 'PEAR_Common')) {
-                    $this->_oldPackageXml =
-                    $this->_packageXml = $common->infoFromString($contents);
-                } else { // new way
-                    include_once 'PEAR/PackageFile.php';
-                    $z = &PEAR_Config::singleton();
-                    $pkg = &new PEAR_PackageFile($z);
-                    $pf = &$pkg->fromXmlString($contents, PEAR_VALIDATE_DOWNLOADING, $path . $packagefile);
-                    if (PEAR::isError($pf)) {
-                        return $pf;
-                    }
-                    if ($pf->getPackagexmlVersion() != '1.0') {
-                        return PEAR::raiseError('PEAR_PackageFileManager can only manage ' .
-                            'package.xml version 1.0, use PEAR_PackageFileManager_v2 for newer' .
-                            ' package files');
-                    }
-                    $this->_oldPackageXml =
-                    $this->_packageXml = $pf->toArray();
-                }
-                if (PEAR::isError($this->_packageXml)) {
-                    return $this->_packageXml;
-                }
-                if ($this->_options['cleardependencies']) {
-                    $this->_packageXml['release_deps'] = $this->_options['deps'];
-                }
-                if ($this->_options['deps'] !== false) {
-                    $this->_packageXml['release_deps'] = $this->_options['deps'];
-                } else {
-                    if (isset($this->_packageXml['release_deps'])) {
-                        $this->_options['deps'] = $this->_packageXml['release_deps'];
-                    }
-                }
-                if ($this->_options['maintainers'] !== false) {
-                    $this->_packageXml['maintainers'] = $this->_options['maintainers'];
-                } else {
-                    $this->_options['maintainers'] = $this->_packageXml['maintainers'];
-                }
-                unset($this->_packageXml['filelist']);
-                unset($this->_packageXml['provides']);
             }
+
+            $PEAR_Common = $this->_options['pearcommonclass'];
+            if (!class_exists($PEAR_Common)) {
+                return $this->raiseError(PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS);
+            }
+
+            include_once 'PEAR/PackageFile.php';
+            $z = &PEAR_Config::singleton();
+            $pkg = &new PEAR_PackageFile($z);
+            $pf = &$pkg->fromXmlString($contents, PEAR_VALIDATE_DOWNLOADING, $path . $packagefile);
+            if (PEAR::isError($pf)) {
+                return $pf;
+            }
+            if ($pf->getPackagexmlVersion() != '1.0') {
+                return PEAR::raiseError('PEAR_PackageFileManager can only manage ' .
+                    'package.xml version 1.0, use PEAR_PackageFileManager_v2 for newer' .
+                    ' package files');
+            }
+            $this->_oldPackageXml =
+            $this->_packageXml = $pf->toArray();
+
+            if (PEAR::isError($this->_packageXml)) {
+                return $this->_packageXml;
+            }
+            if ($this->_options['cleardependencies']) {
+                $this->_packageXml['release_deps'] = $this->_options['deps'];
+            }
+            if ($this->_options['deps'] !== false) {
+                $this->_packageXml['release_deps'] = $this->_options['deps'];
+            } else {
+                if (isset($this->_packageXml['release_deps'])) {
+                    $this->_options['deps'] = $this->_packageXml['release_deps'];
+                }
+            }
+            if ($this->_options['maintainers'] !== false) {
+                $this->_packageXml['maintainers'] = $this->_options['maintainers'];
+            } else {
+                $this->_options['maintainers'] = $this->_packageXml['maintainers'];
+            }
+            unset($this->_packageXml['filelist']);
+            unset($this->_packageXml['provides']);
             return true;
         } else {
             if (!is_string($path)) {
