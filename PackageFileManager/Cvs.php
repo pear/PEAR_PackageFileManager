@@ -87,12 +87,7 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
         $in_recursion = false;
 
         if (!$entries || !is_array($entries)) {
-            if (strcasecmp(get_class($this->_parent), 'PEAR_PackageFileManager') == 0) {
-                $code = PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES;
-            } else {
-                $code = PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES;
-            }
-
+            $code = PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES;
             return $this->_parent->raiseError($code, $directory);
         }
 
