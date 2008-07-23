@@ -89,7 +89,8 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $in_recursion = false;
 
         if (!$entries || !is_array($entries)) {
-            return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES, $directory);
+            $code = PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES;
+            return $this->_parent->raiseError($code, $directory);
         }
         return $this->_readSVNEntries($entries);
     }
@@ -163,34 +164,35 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $content = file_get_contents($svnentriesfilename);
         if (substr($content, 0, 5) != '<?xml') {
             // Not XML; assume newer (>= SVN 1.4) SVN entries format
+            // http://svn.collab.net/repos/svn/trunk/subversion/libsvn_wc/README
 
             // The directory entries are seperated by #0c; look for the first #0c
             // The hex GUID (xxxx-xxxx-xxxx-xxxx-xxxx) may not always be set
             // The list of files follows this
-            if (preg_match('/\x0c\n(.*)$/ms', $content, $matches)) {
-                $file_list = $matches[1];
+            if (!preg_match('/\x0c\n(.*)$/ms', $content, $matches)) {
+                return false;
+            }
 
-                $files = explode("\x0c", trim($file_list));
+            // Each file entry seems to look something like this:
+            // [filename]
+            // [type of file e.g. "dir", "file"]
+            // [varying number of \n]
+            // [optional "deleted" string]
+            $files = explode("\x0c", trim($matches[1]));
+            foreach ($files as $file) {
+                $lines = explode("\n", trim($file));
+                if (isset($lines[1]) && $lines[1] == 'file') {
+                    $deleted = false;
+                    foreach ($lines as $line) {
+                        // 'deleted' means it's already gone
+                        // 'delete' means it's marked as ready to delete
+                        if ($line == 'deleted' || $line == 'delete') {
+                            $deleted = true;
+                        }
+                    }
 
-                // Each file entry seems to look something like this:
-                // [filename]
-                // [type of file e.g. "dir", "file"]
-                // [varying number of \n]
-                // [optional "deleted" string]
-                foreach ($files as $file) {
-                    $lines = explode("\n", trim($file));
-                    if (isset($lines[1]) && $lines[1] == 'file') {
-                        $deleted = false;
-                        foreach ($lines as $line) {
-                            // 'deleted' means it's already gone
-                            // 'delete' means it's marked as ready to delete
-                            if ($line == 'deleted' || $line == 'delete') {
-                                $deleted = true;
-                            }
-                        }
-                        if (!$deleted) {
-                            $entries[] = $lines[0];
-                        }
+                    if (!$deleted) {
+                        $entries[] = $lines[0];
                     }
                 }
             }
@@ -201,7 +203,9 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             $entries = array();
             foreach ($all->entry as $entry) {
                 if ($entry['kind'] == 'file') {
-                    if (isset($entry['deleted'])) {
+                    // 'deleted' means it's already gone
+                    // 'delete' means it's marked as ready to delete
+                    if (isset($entry['deleted']) || isset($entry['delete'])) {
                         continue;
                     }
                     array_push($entries, $entry['name']);
@@ -224,7 +228,9 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             $entries = array();
             foreach ($tree['entry'] as $entry) {
                 if ($entry['kind'] == 'file') {
-                    if (isset($entry['deleted'])) {
+                    // 'deleted' means it's already gone
+                    // 'delete' means it's marked as ready to delete
+                    if (isset($entry['deleted']) || isset($entry['delete'])) {
                         continue;
                     }
                     array_push($entries, $entry['name']);
