@@ -48,17 +48,17 @@ The new PEAR_PackageFileManager2 class is not.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2008-03-23</date>
- <time>22:45:43</time>
+ <date>2008-06-06</date>
+ <time>03:24:06</time>
  <version>
-  <release>1.7.0</release>
+  <release>1.7.0RC1</release>
   <api>1.7.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
 * Implemented Request #10945 Ignore should take directory into consideration [dufuz]
 * Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
@@ -246,6 +246,14 @@ The new PEAR_PackageFileManager2 class is not.</description>
        <file name="fourthfile.php" role="test" />
        <file name="secondfile.php" role="test" />
       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_bug1217 -->
+      <dir name="test_request10945">
+       <dir name="dir">
+        <file name="file.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_request10945/dir -->
+       <dir name="upload">
+        <file name="file.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_request10945/upload -->
+      </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_request10945 -->
       <file name="test_bug1217.phpt" role="test" />
       <file name="test_invalid.phpt" role="test" />
       <file name="test_request10945.phpt" role="test" />
@@ -340,6 +348,25 @@ The new PEAR_PackageFileManager2 class is not.</description>
  <changelog>
   <release>
    <version>
+    <release>1.7.0RC1</release>
+    <api>1.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-06-06</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
+* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
+* Implemented Request #12932 .in files should have the src role [dufuz]
+* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
+    XML_Serializer is now a required dep and simplexml is a optional one
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>1.7.0</release>
     <api>1.7.0</api>
    </version>
@@ -349,13 +376,11 @@ The new PEAR_PackageFileManager2 class is not.</description>
    </stability>
    <date>2008-03-23</date>
    <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
-   <notes>
-* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
+   <notes>* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
 * Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
 * Implemented Request #12932 .in files should have the src role [dufuz]
 * Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
-    XML_Serializer is now a required dep and simplexml is a optional one
-   </notes>
+    XML_Serializer is now a required dep and simplexml is a optional one</notes>
   </release>
   <release>
    <version>

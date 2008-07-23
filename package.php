@@ -20,8 +20,8 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.7.0';
-$release_state   = 'stable';
+$release_version = '1.7.0RC1';
+$release_state   = 'beta';
 $release_notes   = '
 * Implemented Request #10945 Ignore should take directory into consideration [dufuz]
 * Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
@@ -30,7 +30,7 @@ $release_notes   = '
     XML_Serializer is now a required dep and simplexml is a optional one
 ';
 
-$packagexml = &PEAR_PackageFileManager2::importOptions(
+$p = &PEAR_PackageFileManager2::importOptions(
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package.xml',
     array(
       'packagefile' => 'package.xml',
@@ -43,35 +43,35 @@ $packagexml = &PEAR_PackageFileManager2::importOptions(
       'baseinstalldir' => 'PEAR',
       'simpleoutput' => true
       ));
-$packagexml->setNotes($release_notes);
-$packagexml->addIgnore(array('package.php', '*.tgz'));
-$packagexml->setPackageType('php');
-$packagexml->addRelease();
-$packagexml->clearDeps();
-$packagexml->setChannel('pear.php.net');
-$packagexml->setLicense('PHP License 3.01', 'http://www.php.net/license/3_01.txt');
-$packagexml->setReleaseVersion($release_version);
-$packagexml->setAPIVersion('1.7.0');
-$packagexml->setReleaseStability($release_state);
-$packagexml->setAPIStability('stable');
-$packagexml->setPhpDep('4.3.0');
-$packagexml->setPearinstallerDep('1.5.4');
-$packagexml->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
-$packagexml->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
-$packagexml->addExtensionDep('optional', 'simplexml');
-$packagexml->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/Perforce.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/Svn.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/SimpleGenerator.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/XMLOutput.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->addReplacement('PackageFileManager/ComplexGenerator.php', 'package-info', '@PEAR-VER@', 'version');
-$packagexml->generateContents();
+$p->setNotes($release_notes);
+$p->addIgnore(array('package.php', '*.tgz'));
+$p->setPackageType('php');
+$p->addRelease();
+$p->clearDeps();
+$p->setChannel('pear.php.net');
+$p->setLicense('New BSD License', 'http://www.opensource.org/licenses/bsd-license.php');
+$p->setReleaseVersion($release_version);
+$p->setAPIVersion('1.7.0');
+$p->setReleaseStability($release_state);
+$p->setAPIStability('stable');
+$p->setPhpDep('4.3.0');
+$p->setPearinstallerDep('1.5.4');
+$p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
+$p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
+$p->addExtensionDep('optional', 'simplexml');
+$p->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Perforce.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Svn.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/SimpleGenerator.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/XMLOutput.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/ComplexGenerator.php', 'package-info', '@PEAR-VER@', 'version');
+$p->generateContents();
+
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
-    $packagexml->writePackageFile();
+    $p->writePackageFile();
 } else {
-    $packagexml->debugPackageFile();
+    $p->debugPackageFile();
 }
-?>
