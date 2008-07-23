@@ -452,6 +452,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * - changelogoldtonew: True if the ChangeLog should list from oldest entry to
      *                      newest.  Set to false if you would like new entries first
      * - simpleoutput: True if the package.xml should be human-readable
+     * - clearchangelog: True if change log should not be generated/updated
      * - addhiddenfiles: True if you wish to add hidden files/directories that begin with .
      *                   like .bashrc.  This is only used by the File generator.  The CVS
      *                   generator will use all files in CVS regardless of format
@@ -944,6 +945,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (!isset($this->_options['globalreplacements'])) {
             $this->_options['globalreplacements'] = array();
         }
+
         $l = null;
         $task = new PEAR_Task_Replace_rw($this, $this->_config, $l, '');
         $task->setInfo($from, $to, $type);
@@ -951,6 +953,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
                 implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
         }
+
         $this->_options['globalreplacements'][] = $task;
     }
 
@@ -983,6 +986,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         if (!isset($this->_options['replacements'])) {
             $this->_options['replacements'] = array();
         }
+
         include_once 'PEAR/Task/Replace/rw.php';
         $l = null;
         $task = new PEAR_Task_Replace_rw($this, $this->_config, $l, '');
@@ -991,6 +995,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_REPLACETYPE,
                 implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
         }
+
         $glob = defined('GLOB_BRACE') ? glob($path, GLOB_BRACE) : glob($path);
         if (false !== $glob) {
             foreach ($glob as $pathItem) {
@@ -1053,8 +1058,8 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
     function &initPostinstallScript($path)
     {
         include_once 'PEAR/Task/Postinstallscript/rw.php';
-        $task = new PEAR_Task_Postinstallscript_rw($this, $this->_config, $l,
-            array('name' => $path, 'role' => 'php'));
+        $options = array('name' => $path, 'role' => 'php');
+        $task = new PEAR_Task_Postinstallscript_rw($this, $this->_config, $l, $options);
         return $task;
     }
 
@@ -1358,11 +1363,12 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
         $generator      = new $generatorclass($this, $options);
         $this->clearContents($this->_options['baseinstalldir']);
+        $this->_struc = $generator->getFileList();
         if ($this->_options['simpleoutput']) {
-            return $this->_getSimpleDirTag($this->_struc = $generator->getFileList());
+            return $this->_getSimpleDirTag($this->_struc);
         }
 
-        return $this->_getDirTag($this->_struc = $generator->getFileList());
+        return $this->_getDirTag($this->_struc);
     }
 
     /**
