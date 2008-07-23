@@ -44,7 +44,6 @@ define('PEAR_PACKAGEFILEMANAGER2_DEST_UNWRITABLE',              8);
 define('PEAR_PACKAGEFILEMANAGER2_CANTCOPY_PKGFILE',             9);
 define('PEAR_PACKAGEFILEMANAGER2_CANTOPEN_TMPPKGFILE',         10);
 define('PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST',           11);
-define('PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES',                12);
 define('PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST',            13);
 define('PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS',              14);
 define('PEAR_PACKAGEFILEMANAGER2_NO_FILES',                    20);
@@ -58,7 +57,6 @@ define('PEAR_PACKAGEFILEMANAGER2_INVALID_POSTINSTALLSCRIPT',   28);
 define('PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL',              29);
 define('PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL',           30);
 define('PEAR_PACKAGEFILEMANAGER2_PATHTOPKGDIR_NOTREAL',        31);
-define('PEAR_PACKAGEFILEMANAGER2_NOSVNENTRIES',                32);
 /**#@-*/
 /**
  * Error messages
@@ -98,7 +96,7 @@ array(
             'Failed to open temporary file "%s" for writing',
         PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST =>
             'package.xml file path "%s" doesn\'t exist or isn\'t a directory',
-        PEAR_PACKAGEFILEMANAGER2_NOCVSENTRIES =>
+        PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES =>
             'Directory "%s" is not a CVS directory (it must have the CVS/Entries file)',
         PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST =>
             'Package source base directory "%s" doesn\'t exist or isn\'t a directory',
@@ -120,7 +118,7 @@ array(
             'path "%path%" contains CVS directory',
         PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO =>
             'PHP_Compat is not installed, cannot detect dependencies',
-        PEAR_PACKAGEFILEMANAGER2_NOSVNENTRIES =>
+        PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES =>
             'Directory "%s" is not a SVN directory (it must have the .svn/entries file)',
        ),
         // other language translations go here
