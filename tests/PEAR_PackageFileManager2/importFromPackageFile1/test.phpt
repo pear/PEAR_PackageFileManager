@@ -5,28 +5,28 @@ PEAR_PackageFileManager2->setOptions, existing package.xml, no changelog
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml = PEAR_PackageFileManager2::importFromPackageFile1(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' .
-    DIRECTORY_SEPARATOR . 'package.xml', array('packagedirectory' => '.', 'baseinstalldir' => '/'));
+    DIRECTORY_SEPARATOR . 'package_foo.xml', array('packagedirectory' => '.', 'baseinstalldir' => '/'));
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml, 'packagefile');
 $phpunit->assertEquals(array (
-  'release' => 
+  'release' =>
   array (
-    0 => 
+    0 =>
     array (
-      'version' => 
+      'version' =>
       array (
         'release' => '1.4.0',
         'api' => '1.4.0',
       ),
-      'stability' => 
+      'stability' =>
       array (
         'release' => 'stable',
         'api' => 'stable',
       ),
       'date' => '2005-09-18',
-      'license' => 
+      'license' =>
       array (
-        'attribs' => 
+        'attribs' =>
         array (
           'uri' => 'http://www.php.net/license',
         ),
@@ -50,25 +50,25 @@ New features in a nutshell:
 * support for custom file roles and installation tasks
 NOTE: users of PEAR_Frontend_Web/PEAR_Frontend_Gtk must upgrade their installations
 to the latest version, or PEAR will not upgrade properly
- 
+
 ',
     ),
-    1 => 
+    1 =>
     array (
-      'version' => 
+      'version' =>
       array (
         'release' => '1.4.1',
         'api' => '1.4.1',
       ),
-      'stability' => 
+      'stability' =>
       array (
         'release' => 'stable',
         'api' => 'stable',
       ),
       'date' => '2005-09-25',
-      'license' => 
+      'license' =>
       array (
-        'attribs' => 
+        'attribs' =>
         array (
           'uri' => 'http://www.php.net/license',
         ),
@@ -109,25 +109,25 @@ THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
 * fix Bug #5501: the commands list mentions XML-RPC
 * fix Bug #5509: addDependecyGroup does not validate group name
 * fix Bug #5513: PEAR 1.4 does not install non-pear.php.net packages
- 
+
 ',
     ),
-    2 => 
+    2 =>
     array (
-      'version' => 
+      'version' =>
       array (
         'release' => '1.4.2',
         'api' => '1.4.2',
       ),
-      'stability' => 
+      'stability' =>
       array (
         'release' => 'stable',
         'api' => 'stable',
       ),
       'date' => '2005-10-08',
-      'license' => 
+      'license' =>
       array (
-        'attribs' => 
+        'attribs' =>
         array (
           'uri' => 'http://www.php.net/license',
         ),
@@ -146,25 +146,25 @@ THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
 * fix Bug #5580: pear makerpm XML_sql2xml-0.3.2.tgz error
 * fix Bug #5619: pear makerpm produces invalid .spec dependancy code
 * fix Bug #5629: pear install http_download dies with bad error message
- 
+
 ',
     ),
-    3 => 
+    3 =>
     array (
-      'version' => 
+      'version' =>
       array (
         'release' => '1.4.3',
         'api' => '1.4.3',
       ),
-      'stability' => 
+      'stability' =>
       array (
         'release' => 'stable',
         'api' => 'stable',
       ),
       'date' => '2005-11-03',
-      'license' => 
+      'license' =>
       array (
-        'attribs' => 
+        'attribs' =>
         array (
           'uri' => 'http://www.php.net/license',
         ),
@@ -172,7 +172,7 @@ THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
       ),
       'notes' => 'MINOR SECURITY FIX release
 A security vulnerability has been discovered in all
-PEAR versions (1.0 to 1.4.2).  This vulnerability has been fixed, 
+PEAR versions (1.0 to 1.4.2).  This vulnerability has been fixed,
 and this is a recommended upgrade for all users.
 Run "pear channel-update" after upgrading for exponentially
 faster list-all/remote-list!!
@@ -200,7 +200,7 @@ faster list-all/remote-list!!
 * fix Bug #5725: PHP5 warnings need improvement
 * fix Bug #5789: small typo
 * fix Bug #5810: internet should not be contacted on install if dependencies are installed
- 
+
 ',
     ),
   ),
