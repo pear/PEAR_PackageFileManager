@@ -5,20 +5,16 @@ PEAR_PackageFileManager_Cvs->dirList, valid test
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['ignore'] = 
-$packagexml->_options['include'] = false;
+$packagexml->_options['ignore'] = $packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
-mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
-copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
-    . DIRECTORY_SEPARATOR . 'testEntries',
-    
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries');
-copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
-    . DIRECTORY_SEPARATOR . 'testEntries.Extra',
-    
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries.Extra');
+
+$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR;
+
+mkdir($file . 'CVS');
+copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries',       $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
+copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries.Extra', $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
+
+
 $res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
 $phpunit->assertNoErrors('after dirlist');
 $phpunit->assertEquals(
@@ -29,11 +25,11 @@ $phpunit->assertEquals(
     ),
     $res,
     'incorrect dir structure');
-unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries');
-unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries.Extra');
-rmdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+
+unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
+unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
+rmdir($file . 'CVS');
+
 echo 'tests done';
 ?>
 --EXPECT--

@@ -5,30 +5,23 @@ PEAR_PackageFileManager_Cvs, valid test 1
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['ignore'] =
-$packagexml->_options['include'] = false;
+$packagexml->_options['ignore'] = $packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
 
 $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS';
 if (!file_exists($file)) {
     mkdir($file);
 }
-copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
-    . DIRECTORY_SEPARATOR . 'testEntries',
 
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries');
-$z = fopen(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries', 'a');
+copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries', $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
+
+$z = fopen($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries', 'a');
 fwrite($z, "\n/unused/1.16/dummy timestamp//");
 fclose($z);
-copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
-    . DIRECTORY_SEPARATOR . 'testEntries.Extra',
 
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries.Extra');
-touch(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'unused');
+copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries.Extra', $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
+touch($file . 'CVS' . DIRECTORY_SEPARATOR . 'unused');
+
 $res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
 $phpunit->assertEquals(
     array(
@@ -38,13 +31,12 @@ $phpunit->assertEquals(
     ),
     $res,
     'incorrect dir structure');
-unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries');
-unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'Entries.Extra');
-unlink(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
-    DIRECTORY_SEPARATOR . 'unused');
-rmdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+
+unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
+unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
+unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'unused');
+rmdir($file . 'CVS');
+
 echo 'tests done';
 ?>
 --EXPECT--
