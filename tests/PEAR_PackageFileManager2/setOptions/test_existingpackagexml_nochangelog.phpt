@@ -3,7 +3,7 @@ PEAR_PackageFileManager2->setOptions, existing package.xml, no changelog
 --SKIPIF--
 --FILE--
 <?php
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $reg = &$config->getRegistry();
 require_once 'PEAR/ChannelFile.php';
 $chan = new PEAR_ChannelFile;

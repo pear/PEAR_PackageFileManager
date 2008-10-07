@@ -7,7 +7,7 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $res = $packagexml->dirList('fargusblurbe[]--#/"');
 $phpunit->assertErrors(
     array('package' => 'PEAR_Error', 'message' =>
-    'PEAR_PackageFileManager Error: Package source base directory ' .
+    'PEAR_PackageFileManager_Plugins Error: Package source base directory ' .
     '"fargusblurbe[]--#/"" doesn\'t exist or isn\'t a directory')
 , 'error'
 );

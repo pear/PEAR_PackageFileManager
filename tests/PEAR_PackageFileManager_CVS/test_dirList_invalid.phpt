@@ -10,10 +10,10 @@ $packagexml->_options['packagefile'] = 'package.xml';
 $res = $packagexml->dirList('fargusblurbe[]--#/"');
 $phpunit->assertErrors(array(
     array('package' => 'PEAR_Error',
-    'message' => 'PEAR_PackageFileManager Error: Directory "fargusblurbe[]--#/"" is ' .
+    'message' => 'PEAR_PackageFileManager_Plugins Error: Directory "fargusblurbe[]--#/"" is ' .
     'not a CVS directory (it must have the CVS/Entries file)'),
     array('package' => 'PEAR_Error',
-    'message' => 'PEAR_PackageFileManager Error: Package source base directory ' .
+    'message' => 'PEAR_PackageFileManager_Plugins Error: Package source base directory ' .
     '"fargusblurbe[]--#/"" doesn\'t exist or isn\'t a directory'),
 ), 'no cvs entries');
 $phpunit->assertIsa('PEAR_Error', $res, 'no error');

@@ -5,13 +5,17 @@ PEAR_PackageFileManager_Cvs, valid test 1
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['ignore'] = 
+$packagexml->_options['ignore'] =
 $packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
-mkdir(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS');
+
+$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS';
+if (!file_exists($file)) {
+    mkdir($file);
+}
 copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
     . DIRECTORY_SEPARATOR . 'testEntries',
-    
+
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
     DIRECTORY_SEPARATOR . 'Entries');
 $z = fopen(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
@@ -20,7 +24,7 @@ fwrite($z, "\n/unused/1.16/dummy timestamp//");
 fclose($z);
 copy(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'testCVS'
     . DIRECTORY_SEPARATOR . 'testEntries.Extra',
-    
+
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .
     DIRECTORY_SEPARATOR . 'Entries.Extra');
 touch(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS' .

@@ -3,7 +3,7 @@ PEAR_PackageFileManager2->setOptions, existing package.xml, unknown channel
 --SKIPIF--
 --FILE--
 <?php
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $a = $packagexml->setOptions(array('packagedirectory' => dirname(__FILE__) .
     DIRECTORY_SEPARATOR . 'existingpackagexml', 'packagefile' => 'package_nochangelog.xml',
     'baseinstalldir' => '/'));

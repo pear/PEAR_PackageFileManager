@@ -3,7 +3,7 @@ PEAR_PackageFileManager2->setOptions, existing package.xml, no changelog
 --SKIPIF--
 --FILE--
 <?php
-require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
+require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $reg = &$config->getRegistry();
 require_once 'PEAR/ChannelFile.php';
 $chan = new PEAR_ChannelFile;
@@ -17,16 +17,16 @@ $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertNull($a, 'return');
 $phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml->_oldPackageFile, 'old packagefile');
 $phpunit->assertEquals(array (
-  'release' => 
+  'release' =>
   array (
-    0 => 
+    0 =>
     array (
-      'version' => 
+      'version' =>
       array (
         'release' => '0.1.0',
         'api' => '0.1.0',
       ),
-      'stability' => 
+      'stability' =>
       array (
         'release' => 'alpha',
         'api' => 'beta',
@@ -35,14 +35,14 @@ $phpunit->assertEquals(array (
       'license' => 'BSD license',
       'notes' => 'initial release',
     ),
-    1 => 
+    1 =>
     array (
-      'version' => 
+      'version' =>
       array (
         'release' => '0.2.0',
         'api' => '0.1.0',
       ),
-      'stability' => 
+      'stability' =>
       array (
         'release' => 'alpha',
         'api' => 'beta',
