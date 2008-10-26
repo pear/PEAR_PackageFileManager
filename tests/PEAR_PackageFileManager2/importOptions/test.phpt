@@ -6,8 +6,11 @@ PEAR_PackageFileManager2->setOptions, existing package.xml, no changelog
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml = PEAR_PackageFileManager2::importFromPackageFile1(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' .
     DIRECTORY_SEPARATOR . 'package_foo.xml', array('packagedirectory' => '.', 'baseinstalldir' => '/'));
+
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml, 'packagefile');
+
+$changelog = $packagexml->getChangelog();
 $phpunit->assertEquals(array (
   'release' =>
   array (
@@ -196,7 +199,8 @@ faster list-all/remote-list!!
 * fix Bug #5810: internet should not be contacted on install if dependencies are installed',
     ),
   ),
-), $packagexml->getChangelog(), 'changelog');
+), $changelog, 'changelog');
+
 echo 'tests done';
 ?>
 --EXPECT--
