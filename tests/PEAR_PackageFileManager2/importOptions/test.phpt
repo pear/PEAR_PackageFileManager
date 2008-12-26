@@ -168,11 +168,14 @@ THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
         '_content' => 'PHP License',
       ),
       'notes' => 'MINOR SECURITY FIX release
+
 A security vulnerability has been discovered in all
 PEAR versions (1.0 to 1.4.2).  This vulnerability has been fixed,
 and this is a recommended upgrade for all users.
+
 Run "pear channel-update" after upgrading for exponentially
 faster list-all/remote-list!!
+
 * fix installation of files named like ".test"
 * fix base class for writeable unixeol/windowseol classes
 * fix running of post-install scripts with empty or no paramgroup
