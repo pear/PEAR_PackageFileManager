@@ -548,7 +548,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
    <notes>
   Major bugfix release.  This is a recommended download for ALL PEAR users
-  
+
   UPGRADING FROM 1.4.0 WILL CAUSE A SERIES OF NOTICES.  IGNORE THEM.
   THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
 
@@ -628,7 +628,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   MINOR SECURITY FIX release
 
   A security vulnerability has been discovered in all
-  PEAR versions (1.0 to 1.4.2).  This vulnerability has been fixed, 
+  PEAR versions (1.0 to 1.4.2).  This vulnerability has been fixed,
   and this is a recommended upgrade for all users.
 
   Run "pear channel-update" after upgrading for exponentially
