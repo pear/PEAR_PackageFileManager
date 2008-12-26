@@ -10,8 +10,10 @@ $packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
 
 $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR;
+if (!file_exists($file)) {
+    mkdir($file . 'CVS');
+}
 
-mkdir($file . 'CVS');
 copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries',       $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
 copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries.Extra', $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
 

@@ -5,15 +5,16 @@ PEAR_PackageFileManager_Cvs, valid test 1
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['ignore'] = $packagexml->_options['include'] = false;
+//$packagexml->_options['ignore'] =
+$packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
 
-$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR . 'CVS';
+$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR;
 if (!file_exists($file)) {
     mkdir($file);
 }
 
-copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries', $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
+copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries', $file . DIRECTORY_SEPARATOR . 'Entries');
 
 $z = fopen($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries', 'a');
 fwrite($z, "\n/unused/1.16/dummy timestamp//");

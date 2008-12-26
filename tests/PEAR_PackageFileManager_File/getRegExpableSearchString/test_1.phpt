@@ -13,6 +13,7 @@ $y = '\/';
 if (DIRECTORY_SEPARATOR == '\\') {
     $y = '\\\\';
 }
+
 $res1 .= $y;
 $phpunit->assertEquals("(?:.*$y$res1?.*|$res1.*)", $res, 'wrong regexp 2');
 echo 'tests done';

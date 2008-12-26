@@ -9,9 +9,10 @@ $a = $packagexml->setOptions(array('packagedirectory' => dirname(__FILE__) .
     'baseinstalldir' => '/'));
 $phpunit->assertErrors(
 array(
+    array('package' => 'PEAR_Error', 'message' => 'Unknown channel: pear.chiaraquartet.net'),
     array('package' => 'PEAR_PackageFile_v2', 'message' => 'Unknown channel "pear.chiaraquartet.net"'),
     array('package' => 'PEAR_Error', 'message' => 'PEAR_PackageFileManager2 Error: Package validation failed:
-Error Unknown channel "pear.chiaraquartet.net"'),
+Error: Unknown channel "pear.chiaraquartet.net"'),
 )
 ,'existing packagexml');
 $phpunit->assertIsa('PEAR_Error', $a, 'return');
