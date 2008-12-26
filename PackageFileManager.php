@@ -39,16 +39,12 @@ define('PEAR_PACKAGEFILEMANAGER_DEST_UNWRITABLE', 8);
 define('PEAR_PACKAGEFILEMANAGER_CANTCOPY_PKGFILE', 9);
 define('PEAR_PACKAGEFILEMANAGER_CANTOPEN_TMPPKGFILE', 10);
 define('PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST', 11);
-define('PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES', 12);
-define('PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST', 13);
 define('PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS', 14);
 define('PEAR_PACKAGEFILEMANAGER_NOPACKAGE', 15);
 define('PEAR_PACKAGEFILEMANAGER_WRONG_MROLE', 16);
 define('PEAR_PACKAGEFILEMANAGER_NOSUMMARY', 17);
 define('PEAR_PACKAGEFILEMANAGER_NODESC', 18);
 define('PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS', 19);
-define('PEAR_PACKAGEFILEMANAGER_NO_FILES', 20);
-define('PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING', 21);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE', 22);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE', 23);
 define('PEAR_PACKAGEFILEMANAGER_INVALID_ROLE', 24);
@@ -57,7 +53,7 @@ define('PEAR_PACKAGEFILEMANAGER_CVS_PACKAGED', 26);
 define('PEAR_PACKAGEFILEMANAGER_NO_PHPCOMPATINFO', 27);
 define('PEAR_PACKAGEFILEMANAGER_NONOTES', 28);
 define('PEAR_PACKAGEFILEMANAGER_NOLICENSE', 29);
-define('PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES', 32);
+
 /**#@-*/
 /**
  * Error messages
@@ -92,10 +88,6 @@ array(
             'Failed to open temporary file "%s" for writing',
         PEAR_PACKAGEFILEMANAGER_PATH_DOESNT_EXIST =>
             'package.xml file path "%s" doesn\'t exist or isn\'t a directory',
-        PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES =>
-            'Directory "%s" is not a CVS directory (it must have the CVS/Entries file)',
-        PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST =>
-            'Package source base directory "%s" doesn\'t exist or isn\'t a directory',
         PEAR_PACKAGEFILEMANAGER_RUN_SETOPTIONS =>
             'Run $managerclass->setOptions() before any other methods',
         PEAR_PACKAGEFILEMANAGER_NOPACKAGE =>
@@ -111,10 +103,6 @@ array(
             'Maintainer role must be one of "%s", was "%s"',
         PEAR_PACKAGEFILEMANAGER_ADD_MAINTAINERS =>
             'Add maintainers to a package before generating the package.xml',
-        PEAR_PACKAGEFILEMANAGER_NO_FILES =>
-            'No files found, check the path "%s"',
-        PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING =>
-            'No files left, check the path "%s" and ignore option "%s"',
         PEAR_PACKAGEFILEMANAGER_INVALID_PACKAGE =>
             'Package validation failed:%s%s',
         PEAR_PACKAGEFILEMANAGER_INVALID_REPLACETYPE =>
@@ -131,8 +119,6 @@ array(
             'Release Notes (option \'notes\') must be specified in PEAR_PackageFileManager setOptions',
         PEAR_PACKAGEFILEMANAGER_NOLICENSE =>
             'Release License (option \'license\') must be specified in PEAR_PackageFileManager setOptions',
-        PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES =>
-            'Directory "%s" is not a SVN directory (it must have the .svn/entries file)',
         ),
         // other language translations go here
      );

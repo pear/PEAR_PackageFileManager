@@ -21,6 +21,8 @@
  * @since     File available since Release 0.1
  */
 
+require_once 'PEAR/PackageFileManager/Plugins.php';
+
 /**
  * Retrieve the files from a directory listing
  *
@@ -39,19 +41,13 @@
  * @since     Class available since Release 0.1
  */
 
-class PEAR_PackageFileManager_File
+class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
 {
     /**
      * @var array
      * @access private
      */
     var $_options = array();
-
-    /**
-     * @access private
-     * @var PEAR_PackageFileManager
-     */
-    var $_parent;
 
     /**
      * @access private
@@ -66,14 +62,12 @@ class PEAR_PackageFileManager_File
      * {@link PEAR_PackageFileManager::setOptions()} for
      * more information and formatting of this option
      *
-     * @param object &$parent PEAR_PackageFileManager
      * @param array  $options list of generation options
      *
      * @return void
      */
-    function PEAR_PackageFileManager_File(&$parent, $options)
+    function PEAR_PackageFileManager_File($options)
     {
-        $this->_parent  = &$parent;
         $this->_options = array_merge($this->_options, $options);
     }
 
@@ -96,6 +90,7 @@ class PEAR_PackageFileManager_File
             // ignore auto-generated package2.xml from PEAR 1.4.0
             $ignore[] = 'package2.xml';
         }
+
         $include = $this->_options['include'];
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
@@ -106,7 +101,7 @@ class PEAR_PackageFileManager_File
         }
 
         if (!count($allfiles)) {
-            return $this->_parent->raiseError(PEAR_PACKAGEFILEMANAGER_NO_FILES,
+            return parent::raiseError(PEAR_PACKAGEFILEMANAGER_PLUGINS_NO_FILES,
                 substr($package_directory, 0, strlen($package_directory) - 1));
         }
 
@@ -139,7 +134,7 @@ class PEAR_PackageFileManager_File
 
         if (!count($struc)) {
             $newig = implode($this->_options['ignore'], ', ');
-            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_IGNORED_EVERYTHING,
+            return parent::raiseError(PEAR_PACKAGEFILEMANAGER_PLUGINS_IGNORED_EVERYTHING,
                 substr($package_directory, 0, strlen($package_directory) - 1), $newig);
         }
 
@@ -177,12 +172,12 @@ class PEAR_PackageFileManager_File
      *
      * @access protected
      * @return array list of files in a directory
-     * @throws PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST
+     * @throws PEAR_PACKAGEFILEMANAGER_PLUGINS_DIR_DOESNT_EXIST
      */
     function dirList($directory)
     {
         if (!@is_dir($directory)) {
-            return PEAR_PackageFileManager::raiseError(PEAR_PACKAGEFILEMANAGER_DIR_DOESNT_EXIST, $directory);
+            return parent::raiseError(PEAR_PACKAGEFILEMANAGER_PLUGINS_DIR_DOESNT_EXIST, $directory);
         }
 
         $ret = array();
@@ -328,30 +323,37 @@ class PEAR_PackageFileManager_File
     function _setupIgnore($ignore, $index)
     {
         $ig = array();
-        if (is_array($ignore)) {
-            for ($i = 0, $ic = count($ignore); $i < $ic; $i++) {
-                $ignore[$i] = strtr($ignore[$i], "\\", "/");
-                $ignore[$i] = str_replace('//', '/', $ignore[$i]);
+        if (!is_array($ignore)) {
+            $this->ignore[$index] = false;
+            return;
+        }
 
-                if (!empty($ignore[$i])) {
-                    if (!is_numeric(strpos($ignore[$i], '/'))) {
+        for ($i = 0, $ic = count($ignore); $i < $ic; $i++) {
+            $ignore[$i] = strtr($ignore[$i], "\\", "/");
+            $ignore[$i] = str_replace('//', '/', $ignore[$i]);
+
+            if (!empty($ignore[$i])) {
+                if (!is_numeric(strpos($ignore[$i], '/'))) {
+                    $ig[] = $this->_getRegExpableSearchString($ignore[$i]);
+                } else {
+                    // People tend to forgot to add * when they want to ignore
+                    // a whole dir so we try to discover it for them
+                    $one = strrpos($ignore[$i], '/');
+                    if ($one !== false && strlen($ignore[$i])-1 == $one) {
+                        $ignore[$i] .= '*';
+                    }
+
+                    if (basename($ignore[$i]) . '/' == $ignore[$i]) {
                         $ig[] = $this->_getRegExpableSearchString($ignore[$i]);
                     } else {
-                        if (basename($ignore[$i]) . '/' == $ignore[$i]) {
-                            $ig[] = $this->_getRegExpableSearchString($ignore[$i]);
-                        } else {
-                            $ig[] = array($this->_getRegExpableSearchString($ignore[$i]),
-                                      $this->_getRegExpableSearchString(basename($ignore[$i])));
-                        }
+                        $ig[] = array($this->_getRegExpableSearchString($ignore[$i]),
+                                  $this->_getRegExpableSearchString(basename($ignore[$i])));
                     }
                 }
             }
-
-            $this->ignore[$index] = count($ig) ? $ig : false;
-        } else {
-            $this->ignore[$index] = false;
         }
-    }
+
+        $this->ignore[$index] = count($ig) ? $ig : false;    }
 
     /**
      * Converts $s into a string that can be used with preg_match

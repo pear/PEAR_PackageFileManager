@@ -23,19 +23,13 @@ PEAR::setErrorHandling(PEAR_ERROR_DIE);
 $release_version = '1.0.0alpha1';
 $release_state   = 'alpha';
 $release_notes   = '
-* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
-* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
-* Implemented Request #12932 .in files should have the src role [dufuz]
-* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
-    XML_Serializer is now a required dep and simplexml is a optional one
-
-Split from plugins and PFM1 for easier maintenance
+Split out the plugins used by PFM v1 and v2
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package.xml',
+    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package_plugins.xml',
     array(
-      'packagefile' => 'package.xml',
+      'packagefile' => 'package_plugins.xml',
       'exceptions' => array(
           'ChangeLog' => 'doc',
           'NEWS'      => 'doc'),
@@ -47,15 +41,15 @@ $p = &PEAR_PackageFileManager2::importOptions(
       ));
 $p->setNotes($release_notes);
 $p->addInclude(array(
-    'PackageFileManager2.php',
-    'examples/basicConvert.php',
-    'examples/detectDependencies.php',
-    'examples/easyMigration.php',
-    'examples/makepackage.php',
-    'examples/updatepackage.php',
+    'PackageFileManager/Plugins.php',
+    'PackageFileManager/File.php',
+    'PackageFileManager/Svn.php',
+    'PackageFileManager/Cvs.php',
+    'PackageFileManager/Perforce.php',
+    'tests/PEAR_PackageFileManager_File/',
+    'tests/PEAR_PackageFileManager_CVS/',
     'tests/phpt_test.php.inc',
-    'tests/setup.php.inc',
-    'tests/PEAR_PackageFileManager2/',
+    'tests/setup.phpc.inc',
 ));
 $p->setPackageType('php');
 $p->addRelease();
@@ -68,9 +62,12 @@ $p->setReleaseStability($release_state);
 $p->setAPIStability('stable');
 $p->setPhpDep('4.3.0');
 $p->setPearinstallerDep('1.5.4');
-$p->addPackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
-$p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
-$p->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
+$p->addExtensionDep('optional', 'simplexml');
+$p->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Perforce.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Svn.php', 'package-info', '@PEAR-VER@', 'version');
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {

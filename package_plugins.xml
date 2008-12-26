@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.0alpha1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_PackageFileManager_Plugins</name>
+ <channel>pear.php.net</channel>
+ <summary>The plugins for PEAR_PackageFileManager to pick up what files to use, supported are File, CVS, SVN, Perforce</summary>
+ <description>The plugins for PEAR_PackageFileManager to pick up what files to use.
+Supported are
+* File
+* CVS
+* SVN
+* Perforce
+
+This package is to be used with PackageFileManager v1 and v2 and can&apos;t be used on it&apos;s own</description>
+ <lead>
+  <name>Helgi Thormar Thorbjoernsson</name>
+  <user>dufuz</user>
+  <email>dufuz@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Tim Jackson</name>
+  <user>timj</user>
+  <email>tim@timj.co.uk</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>farell@php.net</email>
+  <active>no</active>
+ </lead>
+ <developer>
+  <name>Arnaud Limbourg</name>
+  <user>Arnaud</user>
+  <email>arnaud@limbourg.com</email>
+  <active>no</active>
+ </developer>
+ <date>2008-07-24</date>
+ <time>02:06:41</time>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>
+Split out the drivers used by PFM v1 and v2
+ </notes>
+ <contents>
+  <dir baseinstalldir="PEAR" name="/">
+   <dir name="PackageFileManager">
+    <file name="Cvs.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="File.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="Perforce.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="Plugins.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="Svn.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /PackageFileManager -->
+   <dir name="tests">
+    <dir name="PEAR_PackageFileManager_CVS">
+     <dir name="footest">
+      <dir name="blarfoo">
+       <file name="blartest.txt" role="test" />
+      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/blarfoo -->
+      <dir name="subfoo">
+       <dir name="subsubfoo">
+        <file name="boo.txt" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/subfoo/subsubfoo -->
+       <file name="test11.txt" role="test" />
+       <file name="test12.txt" role="test" />
+      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/subfoo -->
+      <dir name="testCVS">
+       <file name="testEntries" role="test" />
+       <file name="testEntries.Extra" role="test" />
+      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/testCVS -->
+     </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest -->
+     <file name="setup.php.inc" role="test" />
+     <file name="test_dirList_invalid.phpt" role="test" />
+     <file name="test_dirList_valid.phpt" role="test" />
+     <file name="test_dirList_valid_with_ignore.phpt" role="test" />
+     <file name="test_dirList_valid_with_include.phpt" role="test" />
+     <file name="test_general_valid1.phpt" role="test" />
+     <file name="test_general_valid2.phpt" role="test" />
+    </dir> <!-- /tests/PEAR_PackageFileManager_CVS -->
+    <dir name="PEAR_PackageFileManager_File">
+     <dir name="checkIgnore">
+      <file name="test_complex_multiple_no.phpt" role="test" />
+      <file name="test_complex_multiple_pass.phpt" role="test" />
+      <file name="test_complex_no.phpt" role="test" />
+      <file name="test_emptyarray.phpt" role="test" />
+      <file name="test_nonarray.phpt" role="test" />
+      <file name="test_simple_dir_no.phpt" role="test" />
+      <file name="test_simple_dir_pass.phpt" role="test" />
+      <file name="test_simple_no.phpt" role="test" />
+      <file name="test_simple_pass.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/checkIgnore -->
+     <dir name="dirList">
+      <dir name="test_bug1217">
+       <file name="0" role="test" />
+       <file name="firstfile.php" role="test" />
+       <file name="fourthfile.php" role="test" />
+       <file name="secondfile.php" role="test" />
+      </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_bug1217 -->
+      <dir name="test_request10945">
+       <dir name="dir">
+        <file name="file.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_request10945/dir -->
+       <dir name="upload">
+        <file name="file.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_request10945/upload -->
+      </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList/test_request10945 -->
+      <file name="test_bug1217.phpt" role="test" />
+      <file name="test_invalid.phpt" role="test" />
+      <file name="test_request10945.phpt" role="test" />
+      <file name="test_valid.phpt" role="test" />
+      <file name="test_valid_addhiddenfiles.phpt" role="test" />
+      <file name="test_valid_with_ignore.phpt" role="test" />
+      <file name="test_valid_with_include.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/dirList -->
+     <dir name="getFileList">
+      <file name="test_valid.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/getFileList -->
+     <dir name="getRegExpableSearchString">
+      <file name="test_1.phpt" role="test" />
+      <file name="test_dir_regexp.phpt" role="test" />
+      <file name="test_file_regexp.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/getRegExpableSearchString -->
+     <dir name="setDir">
+      <file name="test_concept.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/setDir -->
+     <dir name="setupDirs">
+      <file name="test_concept.phpt" role="test" />
+      <file name="test_valid.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/setupDirs -->
+     <dir name="setupIgnore">
+      <file name="test_complex.phpt" role="test" />
+      <file name="test_complex_multiple.phpt" role="test" />
+      <file name="test_emptyarray.phpt" role="test" />
+      <file name="test_nonarray.phpt" role="test" />
+      <file name="test_simple.phpt" role="test" />
+      <file name="test_simple_0.phpt" role="test" />
+      <file name="test_simple_dir.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager_File/setupIgnore -->
+     <file name="setup.php.inc" role="test" />
+    </dir> <!-- /tests/PEAR_PackageFileManager_File -->
+    <file name="phpt_test.php.inc" role="test" />
+   </dir> <!-- /tests -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>XML_Serializer</name>
+    <channel>pear.php.net</channel>
+    <min>0.18.0</min>
+   </package>
+  </required>
+  <optional>
+   <extension>
+    <name>simplexml</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-07-24</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Split out the drivers used by PFM v1 and v2
+   </notes>
+  </release>
+ </changelog>
+</package>

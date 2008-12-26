@@ -20,7 +20,7 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.0alpha1';
+$release_version = '1.7.0alpha1';
 $release_state   = 'alpha';
 $release_notes   = '
 * Implemented Request #10945 Ignore should take directory into consideration [dufuz]
@@ -29,13 +29,13 @@ $release_notes   = '
 * Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
     XML_Serializer is now a required dep and simplexml is a optional one
 
-Split from plugins and PFM1 for easier maintenance
+Split plugins and PFM2 into their own packages
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package.xml',
+    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package_PFM1.xml',
     array(
-      'packagefile' => 'package.xml',
+      'packagefile' => 'package_PFM1.xml',
       'exceptions' => array(
           'ChangeLog' => 'doc',
           'NEWS'      => 'doc'),
@@ -47,15 +47,26 @@ $p = &PEAR_PackageFileManager2::importOptions(
       ));
 $p->setNotes($release_notes);
 $p->addInclude(array(
-    'PackageFileManager2.php',
-    'examples/basicConvert.php',
-    'examples/detectDependencies.php',
-    'examples/easyMigration.php',
-    'examples/makepackage.php',
-    'examples/updatepackage.php',
+    'PackageFileManager.php',
+    'PackageFileManager/ComplexGenerator.php',
+    'PackageFileManager/SimpleGenerator.php',
+    'PackageFileManager/XMLOutput.php',
+    'examples/generatePackage.xml.php',
+    'examples/createPhpDocumentor_package.xml.php',
+    'tests/addConfigureOption/',
+    'tests/addDependency/',
+    'tests/addMaintainer/',
+    'tests/addReplacement/',
+    'tests/generateNewPackageXML/',
+    'tests/getExistingPackageXML/',
+    'tests/importOptions/',
+    'tests/PEAR_PackageFileManager_XMLOutput/',
+    'tests/setOptions/',
+    'tests/Bad_file.php',
     'tests/phpt_test.php.inc',
     'tests/setup.php.inc',
-    'tests/PEAR_PackageFileManager2/',
+    'tests/test1_package.xml',
+    'tests/Test_file.php',
 ));
 $p->setPackageType('php');
 $p->addRelease();
@@ -63,14 +74,18 @@ $p->clearDeps();
 $p->setChannel('pear.php.net');
 $p->setLicense('New BSD License', 'http://www.opensource.org/licenses/bsd-license.php');
 $p->setReleaseVersion($release_version);
-$p->setAPIVersion('1.0.0');
+$p->setAPIVersion('1.7.0');
 $p->setReleaseStability($release_state);
 $p->setAPIStability('stable');
 $p->setPhpDep('4.3.0');
 $p->setPearinstallerDep('1.5.4');
-$p->addPackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
+$p->addSubpackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
+$p->addSubpackageDepWithChannel('required', 'PEAR_PackageFileManager2', 'pear.php.net');
 $p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
-$p->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/SimpleGenerator.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/XMLOutput.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/ComplexGenerator.php', 'package-info', '@PEAR-VER@', 'version');
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {

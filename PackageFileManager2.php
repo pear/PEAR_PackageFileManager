@@ -24,10 +24,7 @@
  * PEAR Packagefile parser
  */
 require_once 'PEAR/PackageFile.php';
-/**
- * needed for error constants
- */
-require_once 'PEAR/PackageFileManager.php';
+
 /**
  * PEAR Packagefile version 2.0
  */
@@ -96,8 +93,6 @@ array(
             'Failed to open temporary file "%s" for writing',
         PEAR_PACKAGEFILEMANAGER2_PATH_DOESNT_EXIST =>
             'package.xml file path "%s" doesn\'t exist or isn\'t a directory',
-        PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES =>
-            'Directory "%s" is not a CVS directory (it must have the CVS/Entries file)',
         PEAR_PACKAGEFILEMANAGER2_DIR_DOESNT_EXIST =>
             'Package source base directory "%s" doesn\'t exist or isn\'t a directory',
         PEAR_PACKAGEFILEMANAGER2_RUN_SETOPTIONS =>
@@ -118,8 +113,6 @@ array(
             'path "%path%" contains CVS directory',
         PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO =>
             'PHP_Compat is not installed, cannot detect dependencies',
-        PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES =>
-            'Directory "%s" is not a SVN directory (it must have the .svn/entries file)',
        ),
         // other language translations go here
      );
@@ -1359,7 +1352,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
         }
         $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
-        $generator      = new $generatorclass($this, $options);
+        $generator      = new $generatorclass($options);
         $this->clearContents($this->_options['baseinstalldir']);
         $this->_struc = $generator->getFileList();
         if ($this->_options['simpleoutput']) {
@@ -1844,6 +1837,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             if (PEAR::isError($pf)) {
                 return $pf;
             }
+
             if (!$pf->validate(PEAR_VALIDATE_DOWNLOADING)) {
                 $errors = '';
                 foreach ($pf->getValidationWarnings() as $warning) {
@@ -1856,19 +1850,23 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 $a = $pf->raiseError(PEAR_PACKAGEFILEMANAGER2_INVALID_PACKAGE, $errors);
                 return $a;
             }
+
             $pf->setOld();
             if (isset($options['cleardependencies']) && $options['cleardependencies']) {
                 $pf->clearDeps();
             }
+
             if (!isset($options['clearcontents']) || $options['clearcontents']) {
                 $pf->clearContents();
             } else {
                 // merge options is required to use PEAR_PackageFileManager2::addPostinstallTask()
-                if (PEAR::isError($ret = $pf->_importOptions($packagefile, $options))) {
+                $ret = $pf->_importOptions($packagefile, $options);
+                if (PEAR::isError($ret)) {
                     return $ret;
                 }
                 $pf->_importTasks($options);
             }
+
             return $pf;
         }
 

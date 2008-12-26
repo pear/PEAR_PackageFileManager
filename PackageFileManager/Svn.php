@@ -46,9 +46,9 @@ require_once 'PEAR/PackageFileManager/File.php';
 
 class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
 {
-    function PEAR_PackageFileManager_Svn(&$parent, $options)
+    function PEAR_PackageFileManager_Svn($options)
     {
-        parent::PEAR_PackageFileManager_File($parent, $options);
+        parent::PEAR_PackageFileManager_File($options);
     }
 
     /**
@@ -89,8 +89,8 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $in_recursion = false;
 
         if (!$entries || !is_array($entries)) {
-            $code = PEAR_PACKAGEFILEMANAGER_NOSVNENTRIES;
-            return $this->_parent->raiseError($code, $directory);
+            $code = PEAR_PACKAGEFILEMANAGER_PLUGINS_NOSVNENTRIES;
+            return parent::raiseError($code, $directory);
         }
         return $this->_readSVNEntries($entries);
     }

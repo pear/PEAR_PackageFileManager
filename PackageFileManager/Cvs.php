@@ -49,9 +49,9 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
      */
     var $_cvsIgnore = array('.cvsignore');
 
-    function PEAR_PackageFileManager_CVS(&$parent, $options)
+    function PEAR_PackageFileManager_CVS($options)
     {
-        parent::PEAR_PackageFileManager_File($parent, $options);
+        parent::PEAR_PackageFileManager_File($options);
     }
 
     /**
@@ -87,8 +87,8 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
         $in_recursion = false;
 
         if (!$entries || !is_array($entries)) {
-            $code = PEAR_PACKAGEFILEMANAGER_NOCVSENTRIES;
-            return $this->_parent->raiseError($code, $directory);
+            $code = PEAR_PACKAGEFILEMANAGER_PLUGINS_NOCVSENTRIES;
+            return parent::raiseError($code, $directory);
         }
 
         return $this->_readCVSEntries($entries);
