@@ -9,28 +9,21 @@ $packagexml->_options['ignore'] = array('*1*');
 $packagexml->_options['include'] = false;
 $packagexml->_options['packagefile'] = 'package.xml';
 
-$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest' . DIRECTORY_SEPARATOR;
-if (!file_exists($file)) {
-    mkdir($file . 'CVS');
-}
 
-copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries',       $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
-copy($file . 'testCVS' . DIRECTORY_SEPARATOR . 'testEntries.Extra', $file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
-
-$res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest');
+$res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp');
 $phpunit->assertEquals(
     array(
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/test2.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footest/.test',
+        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp/test2.txt',
+        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp/.test',
     ),
     $res,
     'incorrect dir structure');
 
-unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries');
-unlink($file . 'CVS' . DIRECTORY_SEPARATOR . 'Entries.Extra');
-rmdir($file . 'CVS');
-
 echo 'tests done';
+?>
+--CLEAN--
+<?php
+require_once dirname(__FILE__) . '/teardown.php.inc';
 ?>
 --EXPECT--
 tests done
