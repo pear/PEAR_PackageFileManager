@@ -68,6 +68,7 @@ $p->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 
 $p->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
 $p->addReplacement('PackageFileManager/Perforce.php', 'package-info', '@PEAR-VER@', 'version');
 $p->addReplacement('PackageFileManager/Svn.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/Plugins.php', 'package-info', '@PEAR-VER@', 'version');
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {

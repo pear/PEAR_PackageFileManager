@@ -41,8 +41,8 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2008-07-24</date>
- <time>02:06:41</time>
+ <date>2008-12-26</date>
+ <time>21:01:15</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -53,7 +53,7 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Split out the drivers used by PFM v1 and v2
+Split out the plugins used by PFM v1 and v2
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -76,23 +76,8 @@ Split out the drivers used by PFM v1 and v2
    </dir> <!-- /PackageFileManager -->
    <dir name="tests">
     <dir name="PEAR_PackageFileManager_CVS">
-     <dir name="footest">
-      <dir name="blarfoo">
-       <file name="blartest.txt" role="test" />
-      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/blarfoo -->
-      <dir name="subfoo">
-       <dir name="subsubfoo">
-        <file name="boo.txt" role="test" />
-       </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/subfoo/subsubfoo -->
-       <file name="test11.txt" role="test" />
-       <file name="test12.txt" role="test" />
-      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/subfoo -->
-      <dir name="testCVS">
-       <file name="testEntries" role="test" />
-       <file name="testEntries.Extra" role="test" />
-      </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest/testCVS -->
-     </dir> <!-- /tests/PEAR_PackageFileManager_CVS/footest -->
      <file name="setup.php.inc" role="test" />
+     <file name="teardown.php.inc" role="test" />
      <file name="test_dirList_invalid.phpt" role="test" />
      <file name="test_dirList_valid.phpt" role="test" />
      <file name="test_dirList_valid_with_ignore.phpt" role="test" />
@@ -196,10 +181,10 @@ Split out the drivers used by PFM v1 and v2
     <release>alpha</release>
     <api>stable</api>
    </stability>
-   <date>2008-07-24</date>
+   <date>2008-12-26</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
-Split out the drivers used by PFM v1 and v2
+Split out the plugins used by PFM v1 and v2
    </notes>
   </release>
  </changelog>
