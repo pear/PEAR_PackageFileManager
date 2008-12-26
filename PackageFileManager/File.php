@@ -353,7 +353,8 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
             }
         }
 
-        $this->ignore[$index] = count($ig) ? $ig : false;    }
+        $this->ignore[$index] = count($ig) ? $ig : false;
+    }
 
     /**
      * Converts $s into a string that can be used with preg_match
