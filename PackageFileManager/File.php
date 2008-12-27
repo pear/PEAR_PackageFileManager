@@ -337,10 +337,16 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
                 if (!is_numeric(strpos($ignore[$i], '/'))) {
                     $ig[] = $this->_getRegExpableSearchString($ignore[$i]);
                 } else {
-                    // People tend to forgot to add * when they want to ignore
-                    // a whole dir so we try to discover it for them
+                    /*
+                     People tend to forgot to add * when they want to ignore
+                     a whole dir so we try to discover it for them
+                     Make sure the char before the last / is not * as adding *
+                     after a / as well is not optimal
+                    */
                     $one = strrpos($ignore[$i], '/');
-                    if ($one !== false && strlen($ignore[$i])-1 == $one) {
+                    $two = strrpos($ignore[$i], '*');
+                    $len = strlen($ignore[$i]);
+                    if ($one !== false && $len-1 == $one && $len-2 != $two) {
                         $ignore[$i] .= '*';
                     }
 
