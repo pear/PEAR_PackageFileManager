@@ -286,6 +286,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
                     if (!isset($this->_options['packagedirectory'])) {
                         return !$return;
                     }
+
                     $t = $this->_getRegExpableSearchString($this->_options['packagedirectory']);
                     preg_match('/^' . strtoupper($t . $match[0]).'$/', strtoupper($path), $find);
                     if (count($find)) {
@@ -322,12 +323,12 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
      */
     function _setupIgnore($ignore, $index)
     {
-        $ig = array();
         if (!is_array($ignore)) {
             $this->ignore[$index] = false;
             return;
         }
 
+        $ig = array();
         for ($i = 0, $ic = count($ignore); $i < $ic; $i++) {
             $ignore[$i] = strtr($ignore[$i], "\\", "/");
             $ignore[$i] = str_replace('//', '/', $ignore[$i]);
@@ -415,11 +416,14 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
                     }
                 }
             }
+
             return $contents;
         }
+
         $me = array_shift($dir);
         if (!isset($struc[$me])) {
             $struc[$me] = array();
+
         }
         $struc[$me] = $this->_setupDirs($struc[$me], $dir, $contents);
         return $struc;
