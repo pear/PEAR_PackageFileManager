@@ -212,6 +212,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
             $d->close();
         }
 
+        usort($ret, array($this, 'mystrucsort'));
         return $ret;
     }
 
