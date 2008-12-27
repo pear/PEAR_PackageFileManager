@@ -344,9 +344,10 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
                      after a / as well is not optimal
                     */
                     $one = strrpos($ignore[$i], '/');
-                    $two = strrpos($ignore[$i], '*');
                     $len = strlen($ignore[$i]);
-                    if ($one !== false && $len-1 == $one && $len-2 != $two) {
+                    if ($one !== false && $len-1 == $one &&
+                        ($len > 1 && $ignore[$i][$len-2] != '*')
+                    ) {
                         $ignore[$i] .= '*';
                     }
 
