@@ -256,6 +256,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
             $path = realpath($path);
         }
 
+        $path = strtr($path, '\\', '/');
         if (is_array($this->ignore[$return])) {
             foreach ($this->ignore[$return] as $match) {
                 // match is an array if the ignore parameter was a /path/to/pattern
@@ -330,7 +331,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
 
         $ig = array();
         for ($i = 0, $ic = count($ignore); $i < $ic; $i++) {
-            $ignore[$i] = strtr($ignore[$i], "\\", "/");
+            $ignore[$i] = strtr($ignore[$i], '\\', '/');
             $ignore[$i] = str_replace('//', '/', $ignore[$i]);
 
             if (!empty($ignore[$i])) {
