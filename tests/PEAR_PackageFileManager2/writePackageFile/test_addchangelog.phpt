@@ -5,28 +5,38 @@ PEAR_PackageFileManager2->writePackageFile
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 $reg = &$config->getRegistry();
+
 require_once 'PEAR/ChannelFile.php';
 $chan = new PEAR_ChannelFile;
 $chan->setSummary('blah');
 $chan->setName('pear.chiaraquartet.net');
 $reg->addChannel($chan);
-$dpath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' .
-    DIRECTORY_SEPARATOR;
+
+$dpath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' . DIRECTORY_SEPARATOR;
 copy($dpath . 'package1.xml', $temp_path . '/package1.xml');
 copy($dpath . 'Server.php', $temp_path . '/Server.php');
-$packagexml = PEAR_PackageFileManager2::importOptions($temp_path . '/package1.xml', array(
-    'baseinstalldir' => '/',
-    'include' => array('Server.php')));
+
+$packagexml = PEAR_PackageFileManager2::importOptions($temp_path . '/package1.xml',
+    array(
+        'baseinstalldir' => '/',
+        'include' => array('Server.php')
+    )
+);
+
 $phpunit->assertNoErrors('setup');
+
 $packagexml->setReleaseVersion('1.3.0a1');
 $packagexml->setNotes('hi');
 $packagexml->generateContents();
 $packagexml->setPhpDep('5.0.0');
 $packagexml->setPearinstallerDep('1.4.3');
 $packagexml->writePackageFile();
+
+$generator = &$packagexml->getDefaultGenerator();
+
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertEquals('<?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="' . $generator->getPackagerVersion() . '" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Chiara_PEAR_Server</name>
  <channel>pear.chiaraquartet.net</channel>
  <summary>A lightweight pearweb-compatible channel server for hosting a PEAR channel</summary>
@@ -424,8 +434,8 @@ fix invalid release exception error message</notes>
   </release>
  </changelog>
 </package>
-', file_get_contents($temp_path . DIRECTORY_SEPARATOR .
-    'package.xml'), 'contents');
+', file_get_contents($temp_path . DIRECTORY_SEPARATOR . 'package.xml'), 'contents');
+
 echo 'tests done';
 ?>
 --EXPECT--
