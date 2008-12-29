@@ -31,6 +31,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
     array(
       'packagefile' => 'package_plugins.xml',
       'exceptions' => array(
+          'LICENSE'   => 'doc',
           'ChangeLog' => 'doc',
           'NEWS'      => 'doc'),
       'filelistgenerator' => 'cvs',
@@ -41,6 +42,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
       ));
 $p->setNotes($release_notes);
 $p->addInclude(array(
+    'LICENSE_PLUGINS',
     'PackageFileManager/Plugins.php',
     'PackageFileManager/File.php',
     'PackageFileManager/Svn.php',
@@ -64,11 +66,7 @@ $p->setPhpDep('4.3.0');
 $p->setPearinstallerDep('1.5.4');
 $p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
 $p->addExtensionDep('optional', 'simplexml');
-$p->addReplacement('PackageFileManager/File.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/Cvs.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/Perforce.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/Svn.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/Plugins.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PackageFileManager/*.php', 'package-info', '@PEAR-VER@', 'version');
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
