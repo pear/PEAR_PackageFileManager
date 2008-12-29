@@ -23,17 +23,17 @@ Split out the plugins used by PFM v1 and v2
 $p = &PEAR_PackageFileManager2::importOptions(
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'package_plugins.xml',
     array(
-      'packagefile' => 'package_plugins.xml',
-      'exceptions' => array(
-          'LICENSE'   => 'doc',
-          'ChangeLog' => 'doc',
-          'NEWS'      => 'doc'),
-      'filelistgenerator' => 'cvs',
-      'packagedirectory' => dirname(__FILE__),
-      'changelogoldtonew' => false,
-      'baseinstalldir' => 'PEAR',
-      'simpleoutput' => true
-      ));
+        'packagefile' => 'package_plugins.xml',
+        'exceptions' => array(
+            'LICENSE_PLUGINS' => 'doc',
+        ),
+        'filelistgenerator' => 'cvs',
+        'packagedirectory' => dirname(__FILE__),
+        'changelogoldtonew' => false,
+        'baseinstalldir' => 'PEAR',
+        'simpleoutput' => true
+    )
+);
 $p->setNotes($release_notes);
 $p->addInclude(array(
     'LICENSE_PLUGINS',
@@ -56,11 +56,14 @@ $p->setReleaseVersion($release_version);
 $p->setAPIVersion('1.0.0');
 $p->setReleaseStability($release_state);
 $p->setAPIStability('stable');
+
 $p->setPhpDep('4.3.0');
 $p->setPearinstallerDep('1.5.4');
 $p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
 $p->addExtensionDep('optional', 'simplexml');
+
 $p->addReplacement('PackageFileManager/*.php', 'package-info', '@PEAR-VER@', 'version');
+
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
