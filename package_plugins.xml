@@ -41,8 +41,8 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2008-12-26</date>
- <time>21:01:15</time>
+ <date>2008-12-29</date>
+ <time>04:56:01</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -148,6 +148,7 @@ Split out the plugins used by PFM v1 and v2
     </dir> <!-- /tests/PEAR_PackageFileManager_File -->
     <file name="phpt_test.php.inc" role="test" />
    </dir> <!-- /tests -->
+   <file name="LICENSE_PLUGINS" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -170,7 +171,11 @@ Split out the plugins used by PFM v1 and v2
    </extension>
   </optional>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="LICENSE" name="LICENSE_PLUGINS" />
+  </filelist>
+ </phprelease>
  <changelog>
   <release>
    <version>
@@ -181,7 +186,7 @@ Split out the plugins used by PFM v1 and v2
     <release>alpha</release>
     <api>stable</api>
    </stability>
-   <date>2008-12-26</date>
+   <date>2008-12-29</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 Split out the plugins used by PFM v1 and v2

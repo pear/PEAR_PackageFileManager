@@ -5,20 +5,14 @@
  *
  * PHP versions 4 and 5
  *
- * LICENSE: This source file is subject to version 3.01 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
- *
  * @category  PEAR
- * @package   PEAR_PackageFileManager
+ * @package   PEAR_PackageFileManager_Plugins
  * @author    Greg Beaver <cellog@php.net>
- * @copyright 2003-2007 The PHP Group
- * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @copyright 2003-2009 The PEAR Group
+ * @license   New BSD, Revised
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/PEAR_PackageFileManager
- * @since     File available since Release 0.1
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
+ * @since     File available since Release 1.0.0alpha1
  */
 
 require_once 'PEAR/PackageFileManager/Plugins.php';
@@ -32,15 +26,14 @@ require_once 'PEAR/PackageFileManager/Plugins.php';
  * repository when generating the package.xml
  *
  * @category  PEAR
- * @package   PEAR_PackageFileManager
+ * @package   PEAR_PackageFileManager_Plugins
  * @author    Greg Beaver <cellog@php.net>
- * @copyright 2003-2007 The PHP Group
- * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @copyright 2003-2009 The PEAR Group
+ * @license   New BSD, Revised
  * @version   Release: @PEAR-VER@
- * @link      http://pear.php.net/package/PEAR_PackageFileManager
- * @since     Class available since Release 0.1
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
+ * @since     Class available since Release 1.0.0alpha1
  */
-
 class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
 {
     /**

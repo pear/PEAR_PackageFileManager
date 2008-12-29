@@ -1,4 +1,19 @@
 <?php
+/**
+ * Base class for all the plugins
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager_Plugins
+ * @author    Helgi Þormar Þorbjörnsson <helgi@php.net>
+ * @copyright 2009 The PEAR Group
+ * @license   New BSD, Revised
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
+ * @since     File available since Release 1.0.0alpha1
+ */
+
 /**#@+
  * Error Codes
  */
@@ -26,6 +41,24 @@ array(
         'Directory "%s" is not a SVN directory (it must have the .svn/entries file)',
 );
 
+/**
+ * Generate a file list from a Subversion checkout
+ *
+ * Largely based on the CVS class, modified to suit
+ * subversion organization.
+ *
+ * Note that this will <b>NOT</b> work on a
+ * repository, only on a checked out Subversion module
+ *
+ * @category  PEAR
+ * @package   PEAR_PackageFileManager_Plugins
+ * @author    Helgi Þormar Þorbjörnsson <helgi@php.net>
+ * @copyright 2009 The PEAR Group
+ * @license   New BSD, Revised
+ * @version   Release: @PEAR-VER@
+ * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
+ * @since     Class available since Release 1.0.0alpha1
+ */
 class PEAR_PackageFileManager_Plugins
 {
     /**
@@ -40,7 +73,7 @@ class PEAR_PackageFileManager_Plugins
      * @return PEAR_Error
      * @static
      * @access public
-     * @since  1.6.0a1
+     * @since 1.0.0alpha1
      */
     function raiseError($code, $i1 = '', $i2 = '')
     {

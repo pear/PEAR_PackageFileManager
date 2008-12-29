@@ -2,17 +2,11 @@
 /**
  * This is the package.xml generator for PEAR_PackageFileManager2
  *
- * LICENSE: This source file is subject to version 3.01 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
- *
  * @category   PEAR
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @copyright  2005-2009 The PEAR Group
+ * @license    New BSD, Revised
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      File available since Release 1.6.0
@@ -23,12 +17,6 @@ PEAR::setErrorHandling(PEAR_ERROR_DIE);
 $release_version = '1.7.0alpha1';
 $release_state   = 'alpha';
 $release_notes   = '
-* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
-* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
-* Implemented Request #12932 .in files should have the src role [dufuz]
-* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
-    XML_Serializer is now a required dep and simplexml is a optional one
-
 Split plugins and PFM2 into their own packages
 ';
 
@@ -37,6 +25,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
     array(
       'packagefile' => 'package_PFM1.xml',
       'exceptions' => array(
+          'LICENSE'   => 'doc',
           'ChangeLog' => 'doc',
           'NEWS'      => 'doc'),
       'filelistgenerator' => 'cvs',
@@ -47,6 +36,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
       ));
 $p->setNotes($release_notes);
 $p->addInclude(array(
+    'LICENSE',
     'PackageFileManager.php',
     'PackageFileManager/ComplexGenerator.php',
     'PackageFileManager/SimpleGenerator.php',
