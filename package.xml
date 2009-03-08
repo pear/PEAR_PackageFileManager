@@ -135,7 +135,7 @@ Split from plugins and PFM1 for easier maintenance
     <min>4.3.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.4</min>
+    <min>1.8.0alpha1</min>
    </pearinstaller>
    <package>
     <name>PEAR_PackageFileManager_Plugins</name>

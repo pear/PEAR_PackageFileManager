@@ -157,7 +157,7 @@ Split out the plugins used by PFM v1 and v2
     <min>4.3.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.4</min>
+    <min>1.8.0alpha1</min>
    </pearinstaller>
    <package>
     <name>XML_Serializer</name>
