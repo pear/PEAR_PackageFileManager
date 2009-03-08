@@ -52,9 +52,7 @@ New features in a nutshell:
 * support for static dependencies on a url-based package
 * support for custom file roles and installation tasks
 NOTE: users of PEAR_Frontend_Web/PEAR_Frontend_Gtk must upgrade their installations
-to the latest version, or PEAR will not upgrade properly
-
-',
+to the latest version, or PEAR will not upgrade properly',
     ),
     1 =>
     array (
@@ -81,6 +79,7 @@ to the latest version, or PEAR will not upgrade properly
 
 UPGRADING FROM 1.4.0 WILL CAUSE A SERIES OF NOTICES.  IGNORE THEM.
 THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
+
 * fix prompt processing in post-install scripts
 * make dual package.xml equivalency stricter when using package.xml/package2.xml
 * fix critical error in validating bogus php dependencies of package.xml 1.0
@@ -111,9 +110,7 @@ THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
 * fix Bug #5488: pecl uninstall package fails if package has a package.xml 1.0
 * fix Bug #5501: the commands list mentions XML-RPC
 * fix Bug #5509: addDependecyGroup does not validate group name
-* fix Bug #5513: PEAR 1.4 does not install non-pear.php.net packages
-
-',
+* fix Bug #5513: PEAR 1.4 does not install non-pear.php.net packages',
     ),
     2 =>
     array (
@@ -148,9 +145,7 @@ THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
 * fix Bug #5550: PHP notices/warnings/errors are 1 file off in trace
 * fix Bug #5580: pear makerpm XML_sql2xml-0.3.2.tgz error
 * fix Bug #5619: pear makerpm produces invalid .spec dependancy code
-* fix Bug #5629: pear install http_download dies with bad error message
-
-',
+* fix Bug #5629: pear install http_download dies with bad error message',
     ),
     3 =>
     array (
@@ -202,9 +197,7 @@ faster list-all/remote-list!!
 * fix Bug #5683: Deadlock with (almost) circular dependency
 * fix Bug #5725: PHP5 warnings need improvement
 * fix Bug #5789: small typo
-* fix Bug #5810: internet should not be contacted on install if dependencies are installed
-
-',
+* fix Bug #5810: internet should not be contacted on install if dependencies are installed',
     ),
   ),
 ), $changelog, 'changelog');
