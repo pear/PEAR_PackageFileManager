@@ -52,7 +52,7 @@ Features include
   <active>no</active>
  </developer>
  <date>2009-03-09</date>
- <time>14:10:19</time>
+ <time>14:56:11</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -73,27 +73,34 @@ Split from plugins and PFM1 for easier maintenance
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
+   <dir name="examples">
+    <file name="basicConvert.php" role="doc" />
+    <file name="detectDependencies.php" role="doc" />
+    <file name="easyMigration.php" role="doc" />
+    <file name="makepackage.php" role="doc" />
+    <file name="updatepackage.php" role="doc" />
+   </dir> <!-- /examples -->
    <dir name="tests">
     <dir name="PEAR_PackageFileManager2">
      <dir name="importFromPackageFile1">
       <dir name="packagefiles">
        <file name="package_foo.xml" role="test" />
-      </dir> <!-- //tests/PEAR_PackageFileManager2/importFromPackageFile1/packagefiles -->
+      </dir> <!-- /tests/PEAR_PackageFileManager2/importFromPackageFile1/packagefiles -->
       <file name="setup.php.inc" role="test" />
       <file name="test.phpt" role="test" />
-     </dir> <!-- //tests/PEAR_PackageFileManager2/importFromPackageFile1 -->
+     </dir> <!-- /tests/PEAR_PackageFileManager2/importFromPackageFile1 -->
      <dir name="importOptions">
       <dir name="packagefiles">
        <file name="package_foo.xml" role="test" />
-      </dir> <!-- //tests/PEAR_PackageFileManager2/importOptions/packagefiles -->
+      </dir> <!-- /tests/PEAR_PackageFileManager2/importOptions/packagefiles -->
       <file name="setup.php.inc" role="test" />
       <file name="test.phpt" role="test" />
-     </dir> <!-- //tests/PEAR_PackageFileManager2/importOptions -->
+     </dir> <!-- /tests/PEAR_PackageFileManager2/importOptions -->
      <dir name="setOptions">
       <dir name="existingpackagexml">
        <file name="package_changelog.xml" role="test" />
        <file name="package_nochangelog.xml" role="test" />
-      </dir> <!-- //tests/PEAR_PackageFileManager2/setOptions/existingpackagexml -->
+      </dir> <!-- /tests/PEAR_PackageFileManager2/setOptions/existingpackagexml -->
       <file name="setup.php.inc" role="test" />
       <file name="test_existingpackagexml_changelog.phpt" role="test" />
       <file name="test_existingpackagexml_nochangelog.phpt" role="test" />
@@ -102,18 +109,20 @@ Split from plugins and PFM1 for easier maintenance
       <file name="test_nobaseinstalldir.phpt" role="test" />
       <file name="test_nonrealpackagedirectory.phpt" role="test" />
       <file name="test_nopackagedirectory.phpt" role="test" />
-     </dir> <!-- //tests/PEAR_PackageFileManager2/setOptions -->
+     </dir> <!-- /tests/PEAR_PackageFileManager2/setOptions -->
      <dir name="writePackageFile">
       <dir name="packagefiles">
        <file name="package1.xml" role="test" />
        <file name="Server.php" role="test" />
-      </dir> <!-- //tests/PEAR_PackageFileManager2/writePackageFile/packagefiles -->
+      </dir> <!-- /tests/PEAR_PackageFileManager2/writePackageFile/packagefiles -->
       <file name="setup.php.inc" role="test" />
       <file name="test_addchangelog.phpt" role="test" />
       <file name="test_updatechangelog.phpt" role="test" />
-     </dir> <!-- //tests/PEAR_PackageFileManager2/writePackageFile -->
-    </dir> <!-- //tests/PEAR_PackageFileManager2 -->
-   </dir> <!-- //tests -->
+     </dir> <!-- /tests/PEAR_PackageFileManager2/writePackageFile -->
+    </dir> <!-- /tests/PEAR_PackageFileManager2 -->
+    <file name="phpt_test.php.inc" role="test" />
+    <file name="setup.php.inc" role="test" />
+   </dir> <!-- /tests -->
    <file name="LICENSE" role="doc" />
    <file name="PackageFileManager2.php" role="php">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />

@@ -53,7 +53,7 @@ PEAR_PackageFileManager is fully unit tested.</description>
   <active>no</active>
  </developer>
  <date>2009-03-09</date>
- <time>14:10:24</time>
+ <time>14:56:07</time>
  <version>
   <release>1.7.0alpha1</release>
   <api>1.7.0</api>
@@ -68,13 +68,28 @@ Split plugins and PFM2 into their own packages
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
+   <dir name="examples">
+    <file name="createPhpDocumentor_package.xml.php" role="doc" />
+    <file name="generatePackage.xml.php" role="doc" />
+   </dir> <!-- /examples -->
+   <dir name="PackageFileManager">
+    <file name="ComplexGenerator.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="SimpleGenerator.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+    <file name="XMLOutput.php" role="php">
+     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+    </file>
+   </dir> <!-- /PackageFileManager -->
    <dir name="tests">
     <dir name="addConfigureOption">
      <file name="test_invalid_nosetoptions.phpt" role="test" />
      <file name="test_valid_add1.phpt" role="test" />
      <file name="test_valid_add2.phpt" role="test" />
      <file name="test_valid_replace.phpt" role="test" />
-    </dir> <!-- //tests/addConfigureOption -->
+    </dir> <!-- /tests/addConfigureOption -->
     <dir name="addDependency">
      <file name="test_invalid_nosetoptions.phpt" role="test" />
      <file name="test_invalid_phppkg.phpt" role="test" />
@@ -82,17 +97,17 @@ Split plugins and PFM2 into their own packages
      <file name="test_valid_add_pkg_explicit.phpt" role="test" />
      <file name="test_valid_add_pkg_implicit.phpt" role="test" />
      <file name="test_valid_replace.phpt" role="test" />
-    </dir> <!-- //tests/addDependency -->
+    </dir> <!-- /tests/addDependency -->
     <dir name="addMaintainer">
      <file name="test_invalid_nosetoptions.phpt" role="test" />
      <file name="test_invalid_wrongrole.phpt" role="test" />
      <file name="test_valid_add.phpt" role="test" />
      <file name="test_valid_replace.phpt" role="test" />
-    </dir> <!-- //tests/addMaintainer -->
+    </dir> <!-- /tests/addMaintainer -->
     <dir name="addReplacement">
      <file name="test_invalid_replacement.phpt" role="test" />
      <file name="test_valid_replacement.phpt" role="test" />
-    </dir> <!-- //tests/addReplacement -->
+    </dir> <!-- /tests/addReplacement -->
     <dir name="generateNewPackageXML">
      <file name="test_invalid_nodescription.phpt" role="test" />
      <file name="test_invalid_nopackage.phpt" role="test" />
@@ -102,21 +117,21 @@ Split plugins and PFM2 into their own packages
      <file name="test_valid_withdepsfalse.phpt" role="test" />
      <file name="test_valid_withmaintainers.phpt" role="test" />
      <file name="test_valid_withmaintainersfalse.phpt" role="test" />
-    </dir> <!-- //tests/generateNewPackageXML -->
+    </dir> <!-- /tests/generateNewPackageXML -->
     <dir name="getExistingPackageXML">
      <file name="test_invalid_notexists_nopackage.phpt" role="test" />
      <file name="test_invalid_wrongdir.phpt" role="test" />
      <file name="test_valid_deps.phpt" role="test" />
      <file name="test_valid_maintainers.phpt" role="test" />
      <file name="test_valid_simple.phpt" role="test" />
-    </dir> <!-- //tests/getExistingPackageXML -->
+    </dir> <!-- /tests/getExistingPackageXML -->
     <dir name="importOptions">
      <file name="test_invalid.phpt" role="test" />
      <file name="test_valid.phpt" role="test" />
-    </dir> <!-- //tests/importOptions -->
+    </dir> <!-- /tests/importOptions -->
     <dir name="PEAR_PackageFileManager_XMLOutput">
      <file name="test_valid1.phpt" role="test" />
-    </dir> <!-- //tests/PEAR_PackageFileManager_XMLOutput -->
+    </dir> <!-- /tests/PEAR_PackageFileManager_XMLOutput -->
     <dir name="setOptions">
      <file name="test_invalid_badfilelistgenerator1.phpt" role="test" />
      <file name="test_invalid_badfilelistgenerator2.phpt" role="test" />
@@ -129,8 +144,13 @@ Split plugins and PFM2 into their own packages
      <file name="test_valid_filelistgeneratorcustom.phpt" role="test" />
      <file name="test_valid_filelistgeneratorcvs.phpt" role="test" />
      <file name="test_valid_filelistgeneratorfile.phpt" role="test" />
-    </dir> <!-- //tests/setOptions -->
-   </dir> <!-- //tests -->
+    </dir> <!-- /tests/setOptions -->
+    <file name="Bad_file.php" role="test" />
+    <file name="phpt_test.php.inc" role="test" />
+    <file name="setup.php.inc" role="test" />
+    <file name="test1_package.xml" role="test" />
+    <file name="Test_file.php" role="test" />
+   </dir> <!-- /tests -->
    <file name="LICENSE" role="doc" />
    <file name="PackageFileManager.php" role="php">
     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
