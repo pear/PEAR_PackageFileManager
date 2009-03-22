@@ -246,10 +246,6 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
      */
     function _checkIgnore($file, $path, $return = 1)
     {
-        if (file_exists($path)) {
-            $path = realpath($path);
-        }
-
         $path = strtr($path, '\\', '/');
         if (is_array($this->ignore[$return])) {
             foreach ($this->ignore[$return] as $match) {
