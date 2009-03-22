@@ -14,10 +14,10 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.0alpha1';
-$release_state   = 'alpha';
+$release_version = '1.0.0beta1';
+$release_state   = 'beta1';
 $release_notes   = '
-Split out the plugins used by PFM v1 and v2
+  * Fix Bug #15244: symlinked files are not exluded [dufuz]
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(

@@ -14,16 +14,10 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.0alpha1';
-$release_state   = 'alpha';
+$release_version = '1.0.0beta1';
+$release_state   = 'beta';
 $release_notes   = '
-* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
-* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
-* Implemented Request #12932 .in files should have the src role [dufuz]
-* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
-    XML_Serializer is now a required dep and simplexml is a optional one
-
-Split from plugins and PFM1 for easier maintenance
+  * Removed exportCompatiblePackageFile1() since it is deprecated and would require PFM1 to work.
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
