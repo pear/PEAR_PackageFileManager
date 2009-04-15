@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.0alpha1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager_Plugins</name>
  <channel>pear.php.net</channel>
  <summary>The plugins for PEAR_PackageFileManager to pick up what files to use, supported are File, CVS, SVN, Perforce</summary>
@@ -41,19 +41,19 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2009-03-09</date>
- <time>14:56:15</time>
+ <date>2009-04-15</date>
+ <time>03:55:35</time>
  <version>
-  <release>1.0.0alpha1</release>
+  <release>1.0.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Split out the plugins used by PFM v1 and v2
+* Fix Bug #15244: symlinked files are not exluded [dufuz]
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -173,6 +173,21 @@ Split out the plugins used by PFM v1 and v2
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-04-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Fix Bug #15244: symlinked files are not exluded [dufuz]
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.0alpha1</release>

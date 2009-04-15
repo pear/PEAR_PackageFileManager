@@ -14,8 +14,8 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.0beta1';
-$release_state   = 'beta1';
+$release_version = '1.0.0';
+$release_state   = 'stable';
 $release_notes   = '
   * Fix Bug #15244: symlinked files are not exluded [dufuz]
 ';

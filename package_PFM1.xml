@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.0alpha1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -52,19 +52,19 @@ PEAR_PackageFileManager is fully unit tested.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2009-03-09</date>
- <time>14:56:07</time>
+ <date>2009-04-15</date>
+ <time>03:55:41</time>
  <version>
-  <release>1.7.0alpha1</release>
+  <release>1.7.0</release>
   <api>1.7.0</api>
  </version>
  <stability>
-  <release>alpha</release>
+  <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Split plugins and PFM2 into their own packages
+No changes since alpha1
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -186,6 +186,21 @@ Split plugins and PFM2 into their own packages
  <changelog>
   <release>
    <version>
+    <release>1.7.0</release>
+    <api>1.7.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-04-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+No changes since alpha1
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>1.7.0alpha1</release>
     <api>1.7.0</api>
    </version>
@@ -210,25 +225,6 @@ Split plugins and PFM2 into their own packages
    </stability>
    <date>2008-06-06</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
-   <notes>
-* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
-* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
-* Implemented Request #12932 .in files should have the src role [dufuz]
-* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
-    XML_Serializer is now a required dep and simplexml is a optional one
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>1.7.0</release>
-    <api>1.7.0</api>
-   </version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api>
-   </stability>
-   <date>2008-03-23</date>
-   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
    <notes>
 * Implemented Request #10945 Ignore should take directory into consideration [dufuz]
 * Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)

@@ -14,10 +14,10 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.7.0alpha1';
-$release_state   = 'alpha';
+$release_version = '1.7.0';
+$release_state   = 'stable';
 $release_notes   = '
-Split plugins and PFM2 into their own packages
+  No changes since alpha1
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
