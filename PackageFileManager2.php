@@ -590,7 +590,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             $generator = $this->_options['usergeneratordir'] .
                              $this->_options['filelistgenerator'] . '.php';
             if (file_exists($generator) && is_readable($generator)) {
-                include_once $usergenerator;
+                include_once $generator;
             }
 
             if (!class_exists($className)) {
