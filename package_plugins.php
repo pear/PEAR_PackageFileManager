@@ -14,10 +14,11 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.0';
+$release_version = '1.0.1';
 $release_state   = 'stable';
 $release_notes   = '
-  * Fix Bug #15244: symlinked files are not exluded [dufuz]
+  * Fix Bug #16111: CVS plugin does not identify CVS directories [cweiske]
+* Fix Bug #16287: Problem with SVN plugin ? [cweiske]
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
@@ -27,7 +28,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
         'exceptions' => array(
             'LICENSE_PLUGINS' => 'doc',
         ),
-        'filelistgenerator' => 'cvs',
+        'filelistgenerator' => 'svn',
         'packagedirectory' => dirname(__FILE__),
         'changelogoldtonew' => false,
         'baseinstalldir' => 'PEAR',

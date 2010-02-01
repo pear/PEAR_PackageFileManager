@@ -49,6 +49,13 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
     var $ignore = false;
 
     /**
+     * If we are on windows
+     * @access private
+     * @var boolean
+     */
+    var $windows = false;
+
+    /**
      * Set up the File filelist generator
      *
      * 'ignore' and 'include' are the only options that this class uses.  See
@@ -61,6 +68,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
      */
     function PEAR_PackageFileManager_File($options)
     {
+        $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
         $this->_options = array_merge($this->_options, $options);
     }
 
@@ -246,6 +254,10 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
      */
     function _checkIgnore($file, $path, $return = 1)
     {
+        if ($this->windows && file_exists($path)) {
+            $path = realpath($path);
+        }
+
         $path = strtr($path, '\\', '/');
         if (is_array($this->ignore[$return])) {
             foreach ($this->ignore[$return] as $match) {
