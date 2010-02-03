@@ -14,10 +14,10 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.0';
+$release_version = '1.0.1';
 $release_state   = 'stable';
 $release_notes   = '
-  No changes since beta1
+Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
@@ -28,7 +28,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
           'LICENSE'   => 'doc',
           'ChangeLog' => 'doc',
           'NEWS'      => 'doc'),
-      'filelistgenerator' => 'cvs',
+      'filelistgenerator' => 'svn',
       'packagedirectory' => dirname(__FILE__),
       'changelogoldtonew' => false,
       'baseinstalldir' => 'PEAR',

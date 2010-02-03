@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager2</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager2 takes an existing package.xml file and updates it with a new filelist and changelog</summary>
@@ -51,10 +51,10 @@ Features include
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2009-04-15</date>
- <time>03:55:26</time>
+ <date>2010-02-04</date>
+ <time>00:18:40</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -63,7 +63,7 @@ Features include
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-No changes since beta1
+Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -146,6 +146,21 @@ No changes since beta1
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-02-04</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.0</release>
