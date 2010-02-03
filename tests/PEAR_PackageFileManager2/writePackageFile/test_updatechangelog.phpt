@@ -76,7 +76,9 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
   <api>alpha</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>hi</notes>
+ <notes>
+hi
+ </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="ccd913d7beeb2f9bc16b4964b2d7c44c" name="Server.php" role="php" />
@@ -122,7 +124,9 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
    </stability>
    <date>2004-07-30</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Initial development release for testing purposes only</notes>
+   <notes>
+Initial development release for testing purposes only
+   </notes>
   </release>
   <release>
    <version>
@@ -135,7 +139,9 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
    </stability>
    <date>2004-08-02</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Add new channel.listAll and channel.update methods</notes>
+   <notes>
+Add new channel.listAll and channel.update methods
+   </notes>
   </release>
   <release>
    <version>
@@ -148,7 +154,9 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
    </stability>
    <date>2004-08-03</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Add xmlrpc dep</notes>
+   <notes>
+Add xmlrpc dep
+   </notes>
   </release>
   <release>
    <version>
@@ -161,8 +169,10 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
    </stability>
    <date>2004-08-12</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Fix package.listAll to make up for pearweb kludge, fix package.getDownloadURL,
-fix package.info</notes>
+   <notes>
+Fix package.listAll to make up for pearweb kludge, fix package.getDownloadURL,
+fix package.info
+   </notes>
   </release>
   <release>
    <version>
@@ -175,7 +185,9 @@ fix package.info</notes>
    </stability>
    <date>2004-08-13</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Fix issue with xml-rpc that borks XML_RPC package on client-side</notes>
+   <notes>
+Fix issue with xml-rpc that borks XML_RPC package on client-side
+   </notes>
   </release>
   <release>
    <version>
@@ -188,7 +200,9 @@ fix package.info</notes>
    </stability>
    <date>2004-08-17</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>update for new version of PEAR</notes>
+   <notes>
+update for new version of PEAR
+   </notes>
   </release>
   <release>
    <version>
@@ -201,7 +215,9 @@ fix package.info</notes>
    </stability>
    <date>2004-10-01</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>update for new version of PEAR - complete rewrite, must be installed from scratch</notes>
+   <notes>
+update for new version of PEAR - complete rewrite, must be installed from scratch
+   </notes>
   </release>
   <release>
    <version>
@@ -214,7 +230,9 @@ fix package.info</notes>
    </stability>
    <date>2005-02-14</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>rewrite to work with PEAR 1.4.0a1, must be installed from scratch</notes>
+   <notes>
+rewrite to work with PEAR 1.4.0a1, must be installed from scratch
+   </notes>
   </release>
   <release>
    <version>
@@ -227,7 +245,9 @@ fix package.info</notes>
    </stability>
    <date>2005-02-14</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Add new XMLRPC5 frontend for those without xmlrpc extension</notes>
+   <notes>
+Add new XMLRPC5 frontend for those without xmlrpc extension
+   </notes>
   </release>
   <release>
    <version>
@@ -240,7 +260,9 @@ fix package.info</notes>
    </stability>
    <date>2005-02-17</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Fix problems in mysqlinstall.php post-install script</notes>
+   <notes>
+Fix problems in mysqlinstall.php post-install script
+   </notes>
   </release>
   <release>
    <version>
@@ -253,7 +275,9 @@ fix package.info</notes>
    </stability>
    <date>2005-02-17</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Fix package.info</notes>
+   <notes>
+Fix package.info
+   </notes>
   </release>
   <release>
    <version>
@@ -266,7 +290,9 @@ fix package.info</notes>
    </stability>
    <date>2005-02-17</date>
    <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
-   <notes>Fix package.listLatestReleases</notes>
+   <notes>
+Fix package.listLatestReleases
+   </notes>
   </release>
   <release>
    <version>
@@ -279,7 +305,8 @@ fix package.info</notes>
    </stability>
    <date>2005-03-12</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>* Added Category support
+   <notes>
+* Added Category support
 - Added Table categories
 - Added Server\\Backend\\DBDataObject\\Categories.php
 - Added necessary exceptions
@@ -295,7 +322,8 @@ fix package.info</notes>
 * Now allows input of license_uri
 * Now allows input of new maintainer password
 * Fixed bug with Parent Packages
-* Added URI field for Maintainers</notes>
+* Added URI field for Maintainers
+   </notes>
   </release>
   <release>
    <version>
@@ -308,9 +336,11 @@ fix package.info</notes>
    </stability>
    <date>2005-03-17</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>add check for weird addslashes/stripslashes behavior that seems to vary from system to system
+   <notes>
+add check for weird addslashes/stripslashes behavior that seems to vary from system to system
 add exception for invalid release upload
-API is unchanged in this release</notes>
+API is unchanged in this release
+   </notes>
   </release>
   <release>
    <version>
@@ -323,10 +353,12 @@ API is unchanged in this release</notes>
    </stability>
    <date>2005-03-21</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>* fix package.getDownloadURL and package.getDepDownloadURL when a different case is
+   <notes>
+* fix package.getDownloadURL and package.getDepDownloadURL when a different case is
   passed in (smarty as opposed to Smarty)
 * fix duplicate names listing for multiple leads in DBDataObject-&gt;listPackageMaintainers()
-API is unchanged in this release</notes>
+API is unchanged in this release
+   </notes>
   </release>
   <release>
    <version>
@@ -339,7 +371,9 @@ API is unchanged in this release</notes>
    </stability>
    <date>2005-03-24</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>* implement package.getDownloadURL and package.getDepDownloadURL 1.1</notes>
+   <notes>
+* implement package.getDownloadURL and package.getDepDownloadURL 1.1
+   </notes>
   </release>
   <release>
    <version>
@@ -352,9 +386,11 @@ API is unchanged in this release</notes>
    </stability>
    <date>2005-04-18</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Implement ssl, port, path options for channel server connection and xmlrpc.php file name
+   <notes>
+Implement ssl, port, path options for channel server connection and xmlrpc.php file name
 rename to Chiara_PEAR_Server
-add ability to deprecate a package in favor of another</notes>
+add ability to deprecate a package in favor of another
+   </notes>
   </release>
   <release>
    <version>
@@ -367,11 +403,13 @@ add ability to deprecate a package in favor of another</notes>
    </stability>
    <date>2005-04-18</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Implement REST support
+   <notes>
+Implement REST support
 fix subpackage support
 fix package.info
 fix PHP5 issue with visibility of Xmlrpc5 server contructor
-add the ability to delete a package</notes>
+add the ability to delete a package
+   </notes>
   </release>
   <release>
    <version>
@@ -384,8 +422,10 @@ add the ability to delete a package</notes>
    </stability>
    <date>2005-05-31</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>Consolidate post-install scripts
-fix invalid release exception error message</notes>
+   <notes>
+Consolidate post-install scripts
+fix invalid release exception error message
+   </notes>
   </release>
   <release>
    <version>
@@ -398,13 +438,15 @@ fix invalid release exception error message</notes>
    </stability>
    <date>2005-10-04</date>
    <license>PHP License</license>
-   <notes>* Fixes bug which prevented non-admin leads from releasing.
+   <notes>
+* Fixes bug which prevented non-admin leads from releasing.
 * Adds support for groupings of user handles by channel
 * Fixes bug relating to DB_DataObject configuration when channel database
   name is not the default.
 * Minor revisions for clarity in install/update messages
 * Check to see if specified database exists before attempting to create it
-  on first-time installations.</notes>
+  on first-time installations.
+   </notes>
   </release>
   <release>
    <version>
@@ -417,7 +459,9 @@ fix invalid release exception error message</notes>
    </stability>
    <date>' . date('Y-m-d') . '</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>hi</notes>
+   <notes>
+hi
+   </notes>
   </release>
  </changelog>
 </package>
