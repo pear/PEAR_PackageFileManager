@@ -5,6 +5,9 @@ PEAR_PackageFileManager_File->dirList, valid listing, addhiddenfiles option
 if (@file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'CVS')) {
     echo 'skip cannot run in CVS';
 }
+if (@file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . '.svn')) {
+    echo 'skip cannot run in SVN';
+}
 ?>
 --FILE--
 <?php
