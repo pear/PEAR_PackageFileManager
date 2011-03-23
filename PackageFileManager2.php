@@ -106,7 +106,7 @@ array(
         PEAR_PACKAGEFILEMANAGER2_CVS_PACKAGED =>
             'path "%path%" contains CVS directory',
         PEAR_PACKAGEFILEMANAGER2_NO_PHPCOMPATINFO =>
-            'PHP_Compat is not installed, cannot detect dependencies',
+            'pear/PHP_CompatInfo is not installed, cannot detect dependencies',
        ),
         // other language translations go here
      );
