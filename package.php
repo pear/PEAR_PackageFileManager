@@ -14,10 +14,10 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.1';
+$release_version = '1.0.2';
 $release_state   = 'stable';
 $release_notes   = '
-Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
+* Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
@@ -57,7 +57,7 @@ $p->setAPIVersion('1.0.0');
 $p->setReleaseStability($release_state);
 $p->setAPIStability('stable');
 $p->setPhpDep('4.3.0');
-$p->setPearinstallerDep('1.8.0alpha1');
+$p->setPearinstallerDep('1.8.0');
 $p->addPackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
 $p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
 $p->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');

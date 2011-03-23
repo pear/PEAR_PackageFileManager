@@ -561,7 +561,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
 
         // file generator resource to load
-        $resource = 'PEAR/PackageFileManager/' . $this->_options['filelistgenerator'] . '.php';
+        $resource = 'PEAR/PackageFileManager/' . ucfirst(strtolower($this->_options['filelistgenerator'])) . '.php';
         // file generator class name
         $className = substr($resource, 0, -4);
         $className = str_replace('/', '_', $className);
@@ -588,7 +588,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
 
             $generator = $this->_options['usergeneratordir'] .
-                             $this->_options['filelistgenerator'] . '.php';
+                             ucfirst(strtolower($this->_options['filelistgenerator'])) . '.php';
             if (file_exists($generator) && is_readable($generator)) {
                 include_once $generator;
             }
@@ -875,7 +875,11 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 implode(', ', $res[3]), $res[1] . ': ' . $res[2]);
         }
 
+        $current_dir = getcwd();
+        chdir($this->_options['packagedirectory']);
         $glob = defined('GLOB_BRACE') ? glob($path, GLOB_BRACE) : glob($path);
+        chdir($current_dir);
+
         if (false !== $glob) {
             foreach ($glob as $pathItem) {
                 $this->_options['replacements'][$pathItem][] = $task;
@@ -1240,7 +1244,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             }
         }
 
-        $generatorclass = 'PEAR_PackageFileManager_' . $this->_options['filelistgenerator'];
+        $generatorclass = 'PEAR_PackageFileManager_' . ucfirst(strtolower($this->_options['filelistgenerator']));
         $generator      = new $generatorclass($options);
         $this->clearContents($this->_options['baseinstalldir']);
         $this->_struc = $generator->getFileList();
