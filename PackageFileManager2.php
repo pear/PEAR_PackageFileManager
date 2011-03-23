@@ -1544,23 +1544,35 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      */
     function _changelogsort($a, $b)
     {
-        if ($this->_options['changelogoldtonew']) {
-            $c = strtotime($a['date']);
-            $d = strtotime($b['date']);
-            $v1 = $a['version']['release'];
-            $v2 = $b['version']['release'];
-        } else {
-            $d = strtotime($a['date']);
-            $c = strtotime($b['date']);
-            $v2 = $a['version']['release'];
-            $v1 = $b['version']['release'];
+        if (isset($a['date']) && isset($b['date'])) {
+            if ($this->_options['changelogoldtonew']) {
+                $c = strtotime($a['date']);
+                $d = strtotime($b['date']);
+            } else {
+                $d = strtotime($a['date']);
+                $c = strtotime($b['date']);
+            }
+
+            if ($c - $d > 0) {
+                return 1;
+            } elseif ($c - $d < 0) {
+                return -1;
+            }
         }
-        if ($c - $d > 0) {
-            return 1;
-        } elseif ($c - $d < 0) {
-            return -1;
+
+        if (isset($a['version']['release']) && isset($b['version']['release'])) {
+            if ($this->_options['changelogoldtonew']) {
+                $v1 = $a['version']['release'];
+                $v2 = $b['version']['release'];
+            } else {
+                $v2 = $a['version']['release'];
+                $v1 = $b['version']['release'];
+            }
+
+            return version_compare($v1, $v2);
         }
-        return version_compare($v1, $v2);
+
+        return 0;
     }
 
     /**
