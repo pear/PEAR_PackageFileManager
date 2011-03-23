@@ -18,6 +18,7 @@ $release_version = '1.0.2';
 $release_state   = 'stable';
 $release_notes   = '
 * Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
+* Fixed Bug #17451: Misleading error message about PHP_Compat/PHP_CompatInfo [dufuz]
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
