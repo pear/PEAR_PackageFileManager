@@ -59,8 +59,8 @@ $p->setReleaseStability($release_state);
 $p->setAPIStability('stable');
 
 $p->setPhpDep('4.3.0');
-$p->setPearinstallerDep('1.8.0alpha1');
-$p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.18.0');
+$p->setPearinstallerDep('1.8.0');
+$p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.19.0');
 $p->addExtensionDep('optional', 'simplexml');
 
 $p->addReplacement('PackageFileManager/*.php', 'package-info', '@PEAR-VER@', 'version');

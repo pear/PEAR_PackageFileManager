@@ -68,7 +68,7 @@ $p->setAPIVersion('1.7.0');
 $p->setReleaseStability($release_state);
 $p->setAPIStability('stable');
 $p->setPhpDep('4.3.0');
-$p->setPearinstallerDep('1.8.0alpha1');
+$p->setPearinstallerDep('1.8.0');
 $p->addSubpackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
 $p->addSubpackageDepWithChannel('required', 'PEAR_PackageFileManager2', 'pear.php.net');
 $p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
