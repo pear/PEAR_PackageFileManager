@@ -1,5 +1,5 @@
 --TEST--
-PEAR_PackageFileManager_File->dirList, valid listing, ignore option
+PEAR_PackageFileManager_File->getFileList, valid listing, ignore option
 --SKIPIF--
 <?php
 if (@file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'CVS')) {
