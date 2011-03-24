@@ -4,8 +4,8 @@ PEAR_PackageFileManager_File->checkIgnore, non-array
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_setupIgnore(false, 1);
-$res = $packagexml->_checkIgnore(basename('anything\\goes'),
+$pfm->_setupIgnore(false, 1);
+$res = $pfm->_checkIgnore(basename('anything\\goes'),
     'anything\\goes', 1);
 $phpunit->assertFalse($res, 'wrongo');
 echo 'tests done';

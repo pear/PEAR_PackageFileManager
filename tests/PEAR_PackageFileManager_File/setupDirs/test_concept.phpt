@@ -9,12 +9,12 @@ if (@file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'CVS')) {
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['ignore'] =
-$packagexml->_options['include'] = false;
-$packagexml->_setupIgnore(false, 0);
-$packagexml->_setupIgnore(false, 1);
-$list = $packagexml->dirList($package_directory =
+$pfm->_options['addhiddenfiles'] = false;
+$pfm->_options['ignore'] =
+$pfm->_options['include'] = false;
+$pfm->_setupIgnore(false, 0);
+$pfm->_setupIgnore(false, 1);
+$list = $pfm->dirList($package_directory =
     dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest');
 $struc = array();
 foreach($list as $file) {
@@ -90,7 +90,7 @@ $phpunit->assertEquals(
               ), $struc, 'wrong basic structure');
 uksort($struc,'strnatcasecmp');
 foreach($struc as $key => $ind) {
-	usort($ind, array($packagexml, 'sortfiles'));
+	usort($ind, array($pfm, 'sortfiles'));
 	$struc[$key] = $ind;
 }
 $phpunit->assertEquals(

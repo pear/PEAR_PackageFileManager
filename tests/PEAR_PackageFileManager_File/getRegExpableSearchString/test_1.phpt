@@ -10,7 +10,7 @@ if (DIRECTORY_SEPARATOR == '\\') {
     $y = '\\\\';
 }
 
-$res1 = $packagexml->_getRegExpableSearchString('frog?.a*\\/[]-');
+$res1 = $pfm->_getRegExpableSearchString('frog?.a*\\/[]-');
 if (DIRECTORY_SEPARATOR == '\\') {
     $str = "frog.\.a.*\\\\\\\\\\[\\]\\-";
 } else {
@@ -19,7 +19,7 @@ if (DIRECTORY_SEPARATOR == '\\') {
 
 $phpunit->assertEquals($str, $res1, 'wrong regexp 1');
 
-$res = $packagexml->_getRegExpableSearchString('frog?.a*\\/[]-' . DIRECTORY_SEPARATOR);
+$res = $pfm->_getRegExpableSearchString('frog?.a*\\/[]-' . DIRECTORY_SEPARATOR);
 
 $res1 .= $y;
 $phpunit->assertEquals("(?:.*$y$res1?.*|$res1.*)", $res, 'wrong regexp 2');

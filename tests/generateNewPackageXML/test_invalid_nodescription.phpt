@@ -4,9 +4,9 @@ PEAR_PackageFileManager->_generateNewPackageXML, invalid test, no description
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['package'] = 'test';
-$packagexml->_options['summary'] = 'test';
-$packagexml->_generateNewPackageXML();
+$pfm->_options['package'] = 'test';
+$pfm->_options['summary'] = 'test';
+$pfm->_generateNewPackageXML();
 $phpunit->assertErrors(array(array('package' => 'PEAR_Error', 'message' =>
     'PEAR_PackageFileManager Error: Detailed Package Description ' .
     '(option \'description\') must be' .

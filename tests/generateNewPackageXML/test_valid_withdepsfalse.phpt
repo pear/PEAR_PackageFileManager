@@ -4,11 +4,11 @@ PEAR_PackageFileManager->_generateNewPackageXML, valid test, with deps set to fa
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['package'] = 'test';
-$packagexml->_options['summary'] = 'test';
-$packagexml->_options['description'] = 'test';
-$packagexml->_options['deps'] = false;
-$ret = $packagexml->_generateNewPackageXML();
+$pfm->_options['package'] = 'test';
+$pfm->_options['summary'] = 'test';
+$pfm->_options['description'] = 'test';
+$pfm->_options['deps'] = false;
+$ret = $pfm->_generateNewPackageXML();
 $phpunit->assertFalse(is_object($ret), 'did not return true');
 $phpunit->showall();
 $phpunit->assertEquals(
@@ -26,7 +26,7 @@ $phpunit->assertEquals(
   array (
   ),
 ),
-    $packagexml->_packageXml,
+    $pfm->_packageXml,
     'incorrect package');
 echo 'tests done';
 ?>

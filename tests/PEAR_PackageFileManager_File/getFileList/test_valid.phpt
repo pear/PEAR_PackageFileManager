@@ -12,13 +12,13 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 
 $path = dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR;
 
-$packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['packagefile'] = 'package.xml';
-$packagexml->_options['ignore'] =
-$packagexml->_options['include'] = false;
-$packagexml->_options['packagedirectory'] = $path . 'footest/';
+$pfm->_options['addhiddenfiles'] = false;
+$pfm->_options['packagefile'] = 'package.xml';
+$pfm->_options['ignore'] =
+$pfm->_options['include'] = false;
+$pfm->_options['packagedirectory'] = $path . 'footest/';
 
-$res = $packagexml->getFileList();
+$res = $pfm->getFileList();
 $phpunit->assertEquals(
     array(
         '/' =>

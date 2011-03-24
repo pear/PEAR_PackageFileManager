@@ -4,7 +4,7 @@ PEAR_PackageFileManager_File->getRegExpableSearchString, directory pattern
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$res = $packagexml->_getRegExpableSearchString('frog/');
+$res = $pfm->_getRegExpableSearchString('frog/');
 $y = '\/';
 if (DIRECTORY_SEPARATOR == '\\') {
     $y = '\\\\';

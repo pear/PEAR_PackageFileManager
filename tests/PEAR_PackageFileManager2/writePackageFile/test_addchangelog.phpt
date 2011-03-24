@@ -16,7 +16,7 @@ $dpath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' . DIRECTORY_SE
 copy($dpath . 'package1.xml', $temp_path . '/package1.xml');
 copy($dpath . 'Server.php', $temp_path . '/Server.php');
 
-$packagexml = PEAR_PackageFileManager2::importOptions($temp_path . '/package1.xml',
+$pfm = PEAR_PackageFileManager2::importOptions($temp_path . '/package1.xml',
     array(
         'baseinstalldir' => '/',
         'include' => array('Server.php')
@@ -25,14 +25,14 @@ $packagexml = PEAR_PackageFileManager2::importOptions($temp_path . '/package1.xm
 
 $phpunit->assertNoErrors('setup');
 
-$packagexml->setReleaseVersion('1.3.0a1');
-$packagexml->setNotes('hi');
-$packagexml->generateContents();
-$packagexml->setPhpDep('5.0.0');
-$packagexml->setPearinstallerDep('1.4.3');
-$packagexml->writePackageFile();
+$pfm->setReleaseVersion('1.3.0a1');
+$pfm->setNotes('hi');
+$pfm->generateContents();
+$pfm->setPhpDep('5.0.0');
+$pfm->setPearinstallerDep('1.4.3');
+$pfm->writePackageFile();
 
-$generator = &$packagexml->getDefaultGenerator();
+$generator = &$pfm->getDefaultGenerator();
 
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertEquals('<?xml version="1.0" encoding="UTF-8"?>
@@ -66,7 +66,7 @@ Chiara_PEAR_Server replaces PEAR_Server</description>
   <active>yes</active>
  </lead>
  <date>' . date('Y-m-d') . '</date>
- <time>' . $packagexml->getTime() . '</time>
+ <time>' . $pfm->getTime() . '</time>
  <version>
   <release>1.3.0a1</release>
   <api>0.18.0</api>

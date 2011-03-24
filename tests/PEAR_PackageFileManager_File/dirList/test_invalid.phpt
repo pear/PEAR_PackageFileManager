@@ -4,7 +4,7 @@ PEAR_PackageFileManager_File->dirList, source base directory doesn't exist
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$res = $packagexml->dirList('fargusblurbe[]--#/"');
+$res = $pfm->dirList('fargusblurbe[]--#/"');
 $phpunit->assertErrors(
     array('package' => 'PEAR_Error', 'message' =>
     'PEAR_PackageFileManager_Plugins Error: Package source base directory ' .

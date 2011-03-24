@@ -4,10 +4,10 @@ PEAR_PackageFileManager->_generateNewPackageXML, simple valid test
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['package'] = 'test';
-$packagexml->_options['summary'] = 'test';
-$packagexml->_options['description'] = 'test';
-$ret = $packagexml->_generateNewPackageXML();
+$pfm->_options['package'] = 'test';
+$pfm->_options['summary'] = 'test';
+$pfm->_options['description'] = 'test';
+$ret = $pfm->_generateNewPackageXML();
 $phpunit->assertFalse(is_object($ret), 'did not return true');
 $phpunit->assertEquals(
     array (
@@ -24,7 +24,7 @@ $phpunit->assertEquals(
   array (
   ),
 ),
-    $packagexml->_packageXml,
+    $pfm->_packageXml,
     'incorrect package');
 echo 'tests done';
 ?>

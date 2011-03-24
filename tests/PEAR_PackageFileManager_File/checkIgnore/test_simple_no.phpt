@@ -4,14 +4,14 @@ PEAR_PackageFileManager_File->checkIgnore, simple non-match
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_setupIgnore(array('frog*'), 1);
-$packagexml->_setupIgnore(array('frog*'), 0);
+$pfm->_setupIgnore(array('frog*'), 1);
+$pfm->_setupIgnore(array('frog*'), 0);
 $base = basename('anything\\goes');
 
-$res = $packagexml->_checkIgnore($base, 'anything\\goes', 1);
+$res = $pfm->_checkIgnore($base, 'anything\\goes', 1);
 $phpunit->assertNotTrue($res, 'wrongo 1');
 
-$res = $packagexml->_checkIgnore($base, 'anything\\goes', 0);
+$res = $pfm->_checkIgnore($base, 'anything\\goes', 0);
 $phpunit->assertNotFalse($res, 'wrongo 2');
 
 echo 'tests done';

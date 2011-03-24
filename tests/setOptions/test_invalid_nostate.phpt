@@ -4,7 +4,7 @@ PEAR_PackageFileManager->setOptions, invalid, no state
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->setOptions(array('version' => '1.0'));
+$pfm->setOptions(array('version' => '1.0'));
 $phpunit->assertErrors(array(
     array('package' => 'PEAR_Error', 'message' =>
     'PEAR_PackageFileManager Error: Release State (option \'state\') ' .

@@ -4,12 +4,12 @@ PEAR_PackageFileManager_Cvs->dirList, valid test
 --FILE--
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_options['ignore'] = $packagexml->_options['include'] = false;
-$packagexml->_options['packagefile'] = 'package.xml';
+$pfm->_options['addhiddenfiles'] = false;
+$pfm->_options['ignore'] = $pfm->_options['include'] = false;
+$pfm->_options['packagefile'] = 'package.xml';
 
 
-$res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp');
+$res = $pfm->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp');
 $phpunit->assertNoErrors('after dirlist');
 $phpunit->assertEquals(
     array(

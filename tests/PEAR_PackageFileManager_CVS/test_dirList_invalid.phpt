@@ -5,11 +5,11 @@ PEAR_PackageFileManager_Cvs->dirList, invalid test
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 
-$packagexml->_options['ignore'] = array();
-$packagexml->_options['include'] = false;
-$packagexml->_options['packagefile'] = 'package.xml';
+$pfm->_options['ignore'] = array();
+$pfm->_options['include'] = false;
+$pfm->_options['packagefile'] = 'package.xml';
 
-$res = $packagexml->dirList('fargusblurbe[]--#/"');
+$res = $pfm->dirList('fargusblurbe[]--#/"');
 
 $phpunit->assertErrors(array(
     array('package' => 'PEAR_Error',

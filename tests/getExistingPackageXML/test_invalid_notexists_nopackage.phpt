@@ -4,7 +4,7 @@ PEAR_PackageFileManager->_getExistingPackageXML, invalid test, doesn't exist, pa
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_getExistingPackageXML(dirname(__FILE__), 'blah.xml');
+$pfm->_getExistingPackageXML(dirname(__FILE__), 'blah.xml');
 $phpunit->assertErrors(array(array('package' => 'PEAR_Error', 'message' =>
     'PEAR_PackageFileManager Error: Package Name (option \'package\') ' .
     'must by specified in PEAR_PackageFileManager '.

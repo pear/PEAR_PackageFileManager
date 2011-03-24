@@ -4,7 +4,7 @@ PEAR_PackageFileManager->importOptions, valid test
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$res = $packagexml->importOptions(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'test1_package.xml');
+$res = $pfm->importOptions(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'test1_package.xml');
 $phpunit->assertTrue($res, 'return');
 $phpunit->assertEquals(array (
   'packagefile' => 'package.xml',
@@ -108,7 +108,7 @@ Features include
   'date' => '2003-10-14',
   'version' => '1.1.0',
   'state' => 'stable',
-), $packagexml->getOptions(), 'options');
+), $pfm->getOptions(), 'options');
 echo 'tests done';
 ?>
 --EXPECT--

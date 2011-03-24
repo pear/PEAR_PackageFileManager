@@ -8,16 +8,16 @@ $y = '\/';
 if (DIRECTORY_SEPARATOR == '\\') {
     $y = '\\\\';
 }
-$packagexml->_setupIgnore(array('frog*', 'frog*/test.php'), 1);
+$pfm->_setupIgnore(array('frog*', 'frog*/test.php'), 1);
 $x = 'frog.*\\' . DIRECTORY_SEPARATOR . 'test\.php';
 $phpunit->assertEquals(
     array('frog.*', array($x, 'test\.php')),
-    $packagexml->ignore[1], 'incorrect setup');
+    $pfm->ignore[1], 'incorrect setup');
 
-$packagexml->_setupIgnore(array('frog*', 'frog*\\test.php'), 1);
+$pfm->_setupIgnore(array('frog*', 'frog*\\test.php'), 1);
 $phpunit->assertEquals(
     array('frog.*', array($x, 'test\.php')),
-    $packagexml->ignore[1], 'incorrect setup');
+    $pfm->ignore[1], 'incorrect setup');
 echo 'tests done';
 ?>
 --EXPECT--

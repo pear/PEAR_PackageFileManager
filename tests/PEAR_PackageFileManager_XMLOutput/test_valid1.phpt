@@ -5,7 +5,7 @@ PEAR_PackageFileManager_XMLOutput
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
 require_once 'PEAR/PackageFileManager/XMLOutput.php';
-$packagexml = new PEAR_PackageFileManager_XMLOutput;
+$pfm = new PEAR_PackageFileManager_XMLOutput;
 $arr = 
 array(
     '/' =>
@@ -94,7 +94,7 @@ $phpunit->assertEquals(array(str_replace("\r", '', '      <dir baseinstalldir="f
         <file role="doc" name="wow"/>
        </dir> <!-- files -->
       </dir> <!-- / -->
-')), array($packagexml->_doFileList('', $arr, '/')), 'test');
+')), array($pfm->_doFileList('', $arr, '/')), 'test');
 echo 'tests done';
 ?>
 --EXPECT--

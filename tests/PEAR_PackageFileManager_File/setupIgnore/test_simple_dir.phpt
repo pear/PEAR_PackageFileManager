@@ -9,13 +9,13 @@ if (DIRECTORY_SEPARATOR == '\\') {
     $y = '\\\\';
 }
 
-$packagexml->_setupIgnore(array('frog*/'), 1);
+$pfm->_setupIgnore(array('frog*/'), 1);
 $x = 'frog.*\\' . DIRECTORY_SEPARATOR;
-$phpunit->assertEquals(array("(?:.*$y$x?.*|$x.*)"),  $packagexml->ignore[1], 'incorrect setup');
+$phpunit->assertEquals(array("(?:.*$y$x?.*|$x.*)"),  $pfm->ignore[1], 'incorrect setup');
 
-$packagexml->_setupIgnore(array('frog*\\'), 1);
+$pfm->_setupIgnore(array('frog*\\'), 1);
 $x = 'frog.*\\' . DIRECTORY_SEPARATOR;
-$phpunit->assertEquals(array("(?:.*$y$x?.*|$x.*)"), $packagexml->ignore[1], 'incorrect setup');
+$phpunit->assertEquals(array("(?:.*$y$x?.*|$x.*)"), $pfm->ignore[1], 'incorrect setup');
 echo 'tests done';
 ?>
 --EXPECT--

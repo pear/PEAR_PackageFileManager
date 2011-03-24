@@ -9,10 +9,10 @@ if (@file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'CVS')) {
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['addhiddenfiles'] = false;
-$packagexml->_setupIgnore(false, 0);
-$packagexml->_setupIgnore(false, 1);
-$res = $packagexml->dirList(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest');
+$pfm->_options['addhiddenfiles'] = false;
+$pfm->_setupIgnore(false, 0);
+$pfm->_setupIgnore(false, 1);
+$res = $pfm->dirList(dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest');
 $phpunit->assertEquals(
     array(
         dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'footest/blarfoo/blartest.txt',

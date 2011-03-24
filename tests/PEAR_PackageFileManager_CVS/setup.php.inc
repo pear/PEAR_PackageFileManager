@@ -3,7 +3,7 @@ error_reporting(1803);
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'phpt_test.php.inc';
 require_once 'PEAR/PackageFileManager/Cvs.php';
 $options    = array('lang' => 'en');
-$packagexml = new PEAR_PackageFileManager_Cvs($options);
+$pfm = new PEAR_PackageFileManager_Cvs($options);
 $phpunit    = new PEAR_PHPTest(true);
 
 $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR;

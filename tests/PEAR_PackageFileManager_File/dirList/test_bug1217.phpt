@@ -4,13 +4,13 @@ PEAR_PackageFileManager_File->dirList, bug #1217 test
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml->_options['packagedirectory'] = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/';
-$packagexml->_options['addhiddenfiles'] = false;
+$pfm->_options['packagedirectory'] = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/';
+$pfm->_options['addhiddenfiles'] = false;
 
-$packagexml->_setupIgnore(false, 0);
-$packagexml->_setupIgnore(array('CVS/'), 1);
+$pfm->_setupIgnore(false, 0);
+$pfm->_setupIgnore(array('CVS/'), 1);
 
-$res = $packagexml->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217');
+$res = $pfm->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217');
 $phpunit->assertEquals(
     array(
         dirname(__FILE__) . DIRECTORY_SEPARATOR . 'test_bug1217/0',

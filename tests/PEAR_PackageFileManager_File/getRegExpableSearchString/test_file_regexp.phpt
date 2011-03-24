@@ -4,7 +4,7 @@ PEAR_PackageFileManager_File->getRegExpableSearchString, file pattern
 --FILE--
 <?php
 require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$res = $packagexml->_getRegExpableSearchString('frog?-*.php');
+$res = $pfm->_getRegExpableSearchString('frog?-*.php');
 $phpunit->assertEquals('frog.\-.*\.php', $res, 'wrong regexp');
 $phpunit->assertNotFalse(preg_match("/^$res$/", 'frog1-hairy.php'), 'did not match frog1-hairy.php');
 $phpunit->assertNotFalse(preg_match("/^$res$/", 'frog1-hairy/thingo.php'), 'did not match frog1-hairy/thingo.php');
