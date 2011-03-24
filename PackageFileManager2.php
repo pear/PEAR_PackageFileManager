@@ -133,10 +133,10 @@ array(
  * //require_once 'PEAR/Config.php';
  * //PEAR_Config::singleton('/path/to/unusualpearconfig.ini');
  * // use the above lines if the channel information is not validating
- * $packagexml = new PEAR_PackageFileManager2;
+ * $pfm = new PEAR_PackageFileManager2;
  * // for an existing package.xml use
- * // $packagexml = {@link importOptions()} instead
- * $e = $packagexml->setOptions(
+ * // $pfm = {@link importOptions()} instead
+ * $e = $pfm->setOptions(
  * array('baseinstalldir' => 'PhpDocumentor',
  *  'packagedirectory' => 'C:/Web Pages/chiara/phpdoc2/',
  *  'filelistgenerator' => 'cvs', // generate from cvs, use file for directory
@@ -145,40 +145,40 @@ array(
  *  'dir_roles' => array('tutorials' => 'doc'),
  *  'exceptions' => array('README' => 'doc', // README would be data, now is doc
  *                        'PHPLICENSE.txt' => 'doc'))); // same for the license
- * $packagexml->setPackage('MyPackage');
- * $packagexml->setSummary('this is my package');
- * $packagexml->setDescription('this is my package description');
- * $packagexml->setChannel('mychannel.example.com');
- * $packagexml->setAPIVersion('1.0.0');
- * $packagexml->setReleaseVersion('1.2.1');
- * $packagexml->setReleaseStability('stable');
- * $packagexml->setAPIStability('stable');
- * $packagexml->setNotes("We've implemented many new and exciting features");
- * $packagexml->setPackageType('php'); // this is a PEAR-style php script package
- * $packagexml->addRelease(); // set up a release section
- * $packagexml->setOSInstallCondition('windows');
- * $packagexml->addInstallAs('pear-phpdoc.bat', 'phpdoc.bat');
- * $packagexml->addIgnoreToRelease('pear-phpdoc');
- * $packagexml->addRelease(); // add another release section for all other OSes
- * $packagexml->addInstallAs('pear-phpdoc', 'phpdoc');
- * $packagexml->addIgnoreToRelease('pear-phpdoc.bat');
- * $packagexml->addRole('pkg', 'doc'); // add a new role mapping
- * $packagexml->setPhpDep('4.2.0');
- * $packagexml->setPearinstallerDep('1.4.0a12');
- * $packagexml->addMaintainer('lead', 'cellog', 'Greg Beaver', 'cellog@php.net');
- * $packagexml->setLicense('PHP License', 'http://www.php.net/license');
- * $packagexml->generateContents(); // create the <contents> tag
+ * $pfm->setPackage('MyPackage');
+ * $pfm->setSummary('this is my package');
+ * $pfm->setDescription('this is my package description');
+ * $pfm->setChannel('mychannel.example.com');
+ * $pfm->setAPIVersion('1.0.0');
+ * $pfm->setReleaseVersion('1.2.1');
+ * $pfm->setReleaseStability('stable');
+ * $pfm->setAPIStability('stable');
+ * $pfm->setNotes("We've implemented many new and exciting features");
+ * $pfm->setPackageType('php'); // this is a PEAR-style php script package
+ * $pfm->addRelease(); // set up a release section
+ * $pfm->setOSInstallCondition('windows');
+ * $pfm->addInstallAs('pear-phpdoc.bat', 'phpdoc.bat');
+ * $pfm->addIgnoreToRelease('pear-phpdoc');
+ * $pfm->addRelease(); // add another release section for all other OSes
+ * $pfm->addInstallAs('pear-phpdoc', 'phpdoc');
+ * $pfm->addIgnoreToRelease('pear-phpdoc.bat');
+ * $pfm->addRole('pkg', 'doc'); // add a new role mapping
+ * $pfm->setPhpDep('4.2.0');
+ * $pfm->setPearinstallerDep('1.4.0a12');
+ * $pfm->addMaintainer('lead', 'cellog', 'Greg Beaver', 'cellog@php.net');
+ * $pfm->setLicense('PHP License', 'http://www.php.net/license');
+ * $pfm->generateContents(); // create the <contents> tag
  * // replace @PHP-BIN@ in this file with the path to php executable!  pretty neat
  * $test->addReplacement('pear-phpdoc', 'pear-config', '@PHP-BIN@', 'php_bin');
  * $test->addReplacement('pear-phpdoc.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
- * $pkg = &$packagexml->exportCompatiblePackageFile1(); // get a PEAR_PackageFile object
+ * $pkg = &$pfm->exportCompatiblePackageFile1(); // get a PEAR_PackageFile object
  * // note use of {@link debugPackageFile()} - this is VERY important
  * if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
  *     $pkg->writePackageFile();
- *     $packagexml->writePackageFile();
+ *     $pfm->writePackageFile();
  * } else {
  *     $pkg->debugPackageFile();
- *     $packagexml->debugPackageFile();
+ *     $pfm->debugPackageFile();
  * }
  * ?>
  * </code>
@@ -1092,12 +1092,12 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         }
 
         $gen = &$this->getDefaultGenerator();
-        $packagexml = $gen->toXml($state);
+        $pfm = $gen->toXml($state);
         if (isset($debuginterface)) {
             if ($debuginterface) {
-                echo '<pre>' . htmlentities($packagexml) . '</pre>';
+                echo '<pre>' . htmlentities($pfm) . '</pre>';
             } else {
-                echo $packagexml;
+                echo $pfm;
             }
             return true;
         }
@@ -1105,7 +1105,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
         $file = $outputdir . $this->_options['packagefile'];
         if ((file_exists($file) && is_writable($file)) || @touch($file)) {
             if ($fp = @fopen($file . '.tmp', "w")) {
-                $written = @fwrite($fp, $packagexml);
+                $written = @fwrite($fp, $pfm);
                 @fclose($fp);
                 if ($written === false) {
                     return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_CANTWRITE_PKGFILE);
