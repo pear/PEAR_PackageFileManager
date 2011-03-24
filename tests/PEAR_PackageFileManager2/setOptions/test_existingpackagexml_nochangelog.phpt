@@ -10,13 +10,13 @@ $chan = new PEAR_ChannelFile;
 $chan->setSummary('blah');
 $chan->setName('pear.chiaraquartet.net');
 $reg->addChannel($chan);
-$a = $packagexml->setOptions(array('packagedirectory' => dirname(__FILE__) .
+$a = $pfm->setOptions(array('packagedirectory' => dirname(__FILE__) .
     DIRECTORY_SEPARATOR . 'existingpackagexml', 'packagefile' => 'package_nochangelog.xml',
     'baseinstalldir' => '/'));
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertNull($a, 'return');
-$phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml->_oldPackageFile, 'old packagefile');
-$phpunit->assertFalse($packagexml->_oldPackageFile->getChangelog(), 'changelog');
+$phpunit->assertIsa('PEAR_PackageFileManager2', $pfm->_oldPackageFile, 'old packagefile');
+$phpunit->assertFalse($pfm->_oldPackageFile->getChangelog(), 'changelog');
 echo 'tests done';
 ?>
 --EXPECT--

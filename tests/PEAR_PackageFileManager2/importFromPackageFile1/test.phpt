@@ -4,13 +4,13 @@ PEAR_PackageFileManager2->setOptions, existing package.xml, no changelog
 --FILE--
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$packagexml = PEAR_PackageFileManager2::importFromPackageFile1(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' .
+$pfm = PEAR_PackageFileManager2::importFromPackageFile1(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'packagefiles' .
     DIRECTORY_SEPARATOR . 'package_foo.xml', array('packagedirectory' => '.', 'baseinstalldir' => '/'));
 
 $phpunit->assertNoErrors('existing packagexml');
-$phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml, 'packagefile');
+$phpunit->assertIsa('PEAR_PackageFileManager2', $pfm, 'packagefile');
 
-$changelog = $packagexml->getChangelog();
+$changelog = $pfm->getChangelog();
 $phpunit->assertEquals(array (
   'release' =>
   array (

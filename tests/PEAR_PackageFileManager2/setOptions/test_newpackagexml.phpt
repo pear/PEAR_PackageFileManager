@@ -4,10 +4,10 @@ PEAR_PackageFileManager2->setOptions, new package.xml
 --FILE--
 <?php
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'setup.php.inc';
-$a = $packagexml->setOptions(array('packagedirectory' => $temp_path, 'baseinstalldir' => '/'));
+$a = $pfm->setOptions(array('packagedirectory' => $temp_path, 'baseinstalldir' => '/'));
 $phpunit->assertNoErrors('new packagexml');
 $phpunit->assertNull($a, 'return');
-$phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml->_oldPackageFile, 'old packagefile');
+$phpunit->assertIsa('PEAR_PackageFileManager2', $pfm->_oldPackageFile, 'old packagefile');
 echo 'tests done';
 ?>
 --EXPECT--

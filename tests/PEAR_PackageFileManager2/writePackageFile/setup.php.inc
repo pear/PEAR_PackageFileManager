@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(1803);
 require_once dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR . 'phpt_test.php.inc';
 $temp_path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testit';
 
@@ -92,5 +92,5 @@ if (!empty($home)) {
 }
 $config = &PEAR_Config::singleton($temp_path . DIRECTORY_SEPARATOR . 'pear.conf', $temp_path . DIRECTORY_SEPARATOR . 'pear.conf');
 require_once 'PEAR/PackageFileManager2.php';
-$packagexml = new PEAR_PackageFileManager2;
+$pfm = new PEAR_PackageFileManager2;
 ?>

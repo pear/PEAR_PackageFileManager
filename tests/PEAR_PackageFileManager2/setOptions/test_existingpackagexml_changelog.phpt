@@ -10,12 +10,12 @@ $chan = new PEAR_ChannelFile;
 $chan->setSummary('blah');
 $chan->setName('pear.chiaraquartet.net');
 $reg->addChannel($chan);
-$a = $packagexml->setOptions(array('packagedirectory' => dirname(__FILE__) .
+$a = $pfm->setOptions(array('packagedirectory' => dirname(__FILE__) .
     DIRECTORY_SEPARATOR . 'existingpackagexml', 'packagefile' => 'package_changelog.xml',
     'baseinstalldir' => '/'));
 $phpunit->assertNoErrors('existing packagexml');
 $phpunit->assertNull($a, 'return');
-$phpunit->assertIsa('PEAR_PackageFileManager2', $packagexml->_oldPackageFile, 'old packagefile');
+$phpunit->assertIsa('PEAR_PackageFileManager2', $pfm->_oldPackageFile, 'old packagefile');
 $phpunit->assertEquals(array (
   'release' =>
   array (
@@ -52,7 +52,7 @@ $phpunit->assertEquals(array (
       'notes' => 'implement new custom role format for PEAR 1.4.3',
     ),
   ),
-), $packagexml->_oldPackageFile->getChangelog(), 'changelog');
+), $pfm->_oldPackageFile->getChangelog(), 'changelog');
 echo 'tests done';
 ?>
 --EXPECT--
