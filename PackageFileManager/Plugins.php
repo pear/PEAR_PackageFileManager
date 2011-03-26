@@ -62,6 +62,12 @@ array(
 class PEAR_PackageFileManager_Plugins
 {
     /**
+     * @var array
+     * @access protected
+     */
+    var $_options = array();
+
+    /**
      * Utility function to shorten error generation code
      *
      * {@source}
@@ -80,5 +86,17 @@ class PEAR_PackageFileManager_Plugins
         return PEAR::raiseError('PEAR_PackageFileManager_Plugins Error: ' .
                     sprintf($GLOBALS['_PEAR_PACKAGEFILEMANAGER_PLUGINS_ERRORS'][$code],
                     $i1, $i2), $code);
+    }
+
+    /**
+     * Merge a new set of options (as an array) to the currently set
+     * options
+     *
+     * @param $options array Options to merge with the current options
+     * @return void
+     */
+    function setOptions($options)
+    {
+        $this->_options = array_merge($this->_options, $options);
     }
 }

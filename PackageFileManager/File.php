@@ -37,12 +37,6 @@ require_once 'PEAR/PackageFileManager/Plugins.php';
 class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
 {
     /**
-     * @var array
-     * @access private
-     */
-    var $_options = array();
-
-    /**
      * @access private
      * @var array|false
      */
@@ -69,7 +63,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
     function PEAR_PackageFileManager_File($options)
     {
         $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
-        $this->_options = array_merge($this->_options, $options);
+        $this->setOptions($options);
     }
 
     /**
@@ -92,18 +86,22 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
             $ignore[] = 'package2.xml';
         }
 
+        $dir = $package_directory;
+        if ($dir{strlen($dir) - 1} === DIRECTORY_SEPARATOR) {
+            $dir = substr($package_directory, 0, strlen($package_directory) - 1);
+        }
+
         $include = $this->_options['include'];
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
-        $allfiles = $this->dirList(substr($package_directory, 0, strlen($package_directory) - 1));
+        $allfiles = $this->dirList($dir);
         if (PEAR::isError($allfiles)) {
             return $allfiles;
         }
 
         if (!count($allfiles)) {
-            return parent::raiseError(PEAR_PACKAGEFILEMANAGER_PLUGINS_NO_FILES,
-                substr($package_directory, 0, strlen($package_directory) - 1));
+            return parent::raiseError(PEAR_PACKAGEFILEMANAGER_PLUGINS_NO_FILES, $dir);
         }
 
         $struc = array();
