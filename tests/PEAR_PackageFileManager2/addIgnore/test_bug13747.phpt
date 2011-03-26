@@ -1,5 +1,5 @@
 --TEST--
-PEAR_PackageFileManager2->addReplacement, Bug #16406 - Tasks are not being kept
+PEAR_PackageFileManager2->addIgnore, Bug #13747 - Ignore option excludes more than it should
 --FILE--
 <?php
 require_once 'PEAR/PackageFileManager2.php';
@@ -9,7 +9,7 @@ $pfm->setOptions(
     array(
         'baseinstalldir'    => '/',
         'filelistgenerator' => 'file',
-        'packagedirectory'  => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'bug16406',
+        'packagedirectory'  => dirname(__FILE__) . DIRECTORY_SEPARATOR . 'bug13747',
         'packagefile'       => 'package.xml'
     )
 );
@@ -18,8 +18,8 @@ $pfm->setPackage('Test');
 $pfm->setSummary('Test');
 $pfm->setDescription('Test');
 $pfm->setUri('__uri');
-$pfm->setLicense('LGPL License', 'http://www.gnu.org/licenses/lgpl.html');
-$pfm->addMaintainer('lead', 'sunetjensen', 'Sune Jensen', 'sune@intraface.dk');
+$pfm->setLicense('New BSD');
+$pfm->addMaintainer('lead', 'dufuz', 'Helgi', 'helgi@php.net');
 
 $pfm->setPackageType('php');
 
@@ -34,19 +34,18 @@ $pfm->clearDeps();
 $pfm->setPhpDep('5.2.0');
 $pfm->setPearinstallerDep('1.8.1');
 
-// Add replacement relative to package directory
-$pfm->addReplacement('Class.php', 'pear-config', '@php-dir@', 'php_dir');
+$pfm->addIgnore('conf/');
 
 $pfm->generateContents();
-
 $res = $pfm->debugPackageFile();
-
 if (PEAR::isError($res)) {
      echo $res->toString()."\n";
 }
 ?>
 --EXPECTF--
-Analyzing Class.php
+Analyzing config/xml.php
+Analyzing templates/confirm.php
+Analyzing something.php
 <?xml version="1.0" encoding="UTF-8"?>
 <package packagerversion="1.10.0beta1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
@@ -57,9 +56,9 @@ Analyzing Class.php
  <summary>Test</summary>
  <description>Test</description>
  <lead>
-  <name>Sune Jensen</name>
-  <user>sunetjensen</user>
-  <email>sune@intraface.dk</email>
+  <name>Helgi</name>
+  <user>dufuz</user>
+  <email>helgi@php.net</email>
   <active>yes</active>
  </lead>
  <date>%s</date>
@@ -72,15 +71,15 @@ Analyzing Class.php
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL License</license>
+ <license>New BSD</license>
  <notes>
 release
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="Class.php" role="php">
-    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
-   </file>
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="config/xml.php" role="php" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="templates/confirm.php" role="php" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="something.php" role="php" />
   </dir>
  </contents>
  <dependencies>
@@ -104,8 +103,8 @@ release
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-23</date>
-   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL License</license>
+   <date>2011-03-26</date>
+   <license>New BSD</license>
    <notes>
 release
    </notes>
