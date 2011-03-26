@@ -280,6 +280,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                             'docs'     => 'doc',
                             'examples' => 'doc',
                             'tests'    => 'test',
+                            'scripts'  => 'script',
                              ),
                       'exceptions'        => array(),
                       'installexceptions' => array(),
