@@ -14,11 +14,11 @@ $res = $pfm->dirList('fargusblurbe[]--#/"');
 $phpunit->assertErrors(array(
     array('package' => 'PEAR_Error',
     'message' => 'PEAR_PackageFileManager_Plugins Error: Directory "fargusblurbe[]--#/"" is ' .
-    'not a CVS directory (it must have the .svn/Entries file)'),
+    'not a SVN directory (it must have the .svn/entries file)'),
     array('package' => 'PEAR_Error',
     'message' => 'PEAR_PackageFileManager_Plugins Error: Package source base directory ' .
     '"fargusblurbe[]--#/"" doesn\'t exist or isn\'t a directory'),
-), 'no cvs entries');
+), 'no svn entries');
 $phpunit->assertIsa('PEAR_Error', $res, 'no error');
 
 echo 'tests done';
