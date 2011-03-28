@@ -1,5 +1,5 @@
 --TEST--
-PEAR_PackageFileManager_Cvs->dirList, valid test with ignore
+PEAR_PackageFileManager_Svn->dirList, valid test with ignore
 --SKIPIF--
 --FILE--
 <?php
