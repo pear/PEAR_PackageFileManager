@@ -152,9 +152,9 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
      * @uses   PEAR::XML_Tree
      * @access private
      */
-    function _getSVNEntries($svnentriesfilename)
+    function _getSVNEntries($filename)
     {
-        $content = file_get_contents($svnentriesfilename);
+        $content = file_get_contents($filename);
         if (substr($content, 0, 5) != '<?xml') {
             // Not XML; assume newer (>= SVN 1.4) SVN entries format
             // http://svn.apache.org/repos/asf/subversion/trunk/subversion/libsvn_wc/README
