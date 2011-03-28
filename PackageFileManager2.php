@@ -507,6 +507,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
             return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_PKGDIR_NOTREAL,
                 $options['packagedirectory']);
         }
+
         $options['packagedirectory'] = str_replace(DIRECTORY_SEPARATOR,
                                                  '/',
                                                  realpath($options['packagedirectory']));
@@ -532,6 +533,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                 return $this->raiseError(PEAR_PACKAGEFILEMANAGER2_OUTPUTDIR_NOTREAL,
                     $options['outputdirectory']);
             }
+
             $options['outputdirectory'] = str_replace(DIRECTORY_SEPARATOR,
                                                      '/',
                                                      realpath($options['outputdirectory']));
