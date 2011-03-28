@@ -256,13 +256,18 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
             $path = realpath($path);
         }
 
-        $path = strtr($path, '\\', '/');
+        if (DIRECTORY_SEPARATOR == '\\') {
+          $path = strtr($path, '/', '\\');
+        } else {
+          $path = strtr($path, '\\', '/');
+        }
+
         if (is_array($this->ignore[$return])) {
             foreach ($this->ignore[$return] as $match) {
                 // match is an array if the ignore parameter was a /path/to/pattern
                 if (is_array($match)) {
                     // check to see if the path matches with a path delimiter appended
-                    preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path) . '/', $find);
+                    preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path) . DIRECTORY_SEPARATOR, $find);
                     if (!count($find)) {
                         // check to see if it matches without an appended path delimiter
                         preg_match('/^' . strtoupper($match[0]).'$/', strtoupper($path), $find);

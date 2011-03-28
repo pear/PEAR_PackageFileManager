@@ -126,20 +126,20 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
             foreach ($d as $entry) {
                 if ($ignore) {
                     if ($this->_checkIgnore($this->_getCVSFileName($entry),
-                          $directory . '/' . $this->_getCVSFileName($entry), 1)) {
+                          $directory . DIRECTORY_SEPARATOR . $this->_getCVSFileName($entry), 1)) {
                         continue;
                     }
                 }
 
                 if ($include) {
                     if ($this->_checkIgnore($this->_getCVSFileName($entry),
-                          $directory . '/' . $this->_getCVSFileName($entry), 0)) {
+                          $directory . DIRECTORY_SEPARATOR . $this->_getCVSFileName($entry), 0)) {
                         continue;
                     }
                 }
 
                 if ($this->_isCVSFile($entry)) {
-                    $ret[] = $directory . '/' . $this->_getCVSFileName($entry);
+                    $ret[] = $directory . DIRECTORY_SEPARATOR . $this->_getCVSFileName($entry);
                 }
             }
         }

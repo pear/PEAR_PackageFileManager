@@ -121,18 +121,18 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
             foreach ($d as $entry) {
                 if ($ignore) {
                     if ($this->_checkIgnore($entry,
-                          $directory . '/' . $entry, 1)) {
+                          $directory . DIRECTORY_SEPARATOR . $entry, 1)) {
                         continue;
                     }
                 }
 
                 if ($include) {
                     if ($this->_checkIgnore($entry,
-                          $directory . '/' . $entry, 0)) {
+                          $directory . DIRECTORY_SEPARATOR . $entry, 0)) {
                         continue;
                     }
                 }
-                $ret[] = $directory . '/' . $entry;
+                $ret[] = $directory . DIRECTORY_SEPARATOR . $entry;
             }
         }
         return $ret;
