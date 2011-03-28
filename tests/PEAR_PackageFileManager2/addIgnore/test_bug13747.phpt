@@ -103,7 +103,7 @@ release
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-26</date>
+   <date>%s</date>
    <license>New BSD</license>
    <notes>
 release
