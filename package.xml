@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.10.0beta1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager2</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager2 takes an existing v2 package.xml file and updates it with a new filelist and changelog</summary>
@@ -51,10 +51,10 @@ Features include
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2010-02-04</date>
- <time>00:18:40</time>
+ <date>2011-03-27</date>
+ <time>22:53:10</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -63,7 +63,10 @@ Features include
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
+* Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
+* Fixed Bug #17451: Misleading error message about PHP_Compat/PHP_CompatInfo [dufuz]
+* Fixed Bug #17990: PHP Notice: Undefined index: date in PackageFileManager2.php [dufuz]
+* Directory &quot;scripts&quot; is now mapped to role script
  </notes>
  <contents>
   <dir baseinstalldir="PEAR" name="/">
@@ -76,6 +79,27 @@ Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
    </dir> <!-- /examples -->
    <dir name="tests">
     <dir name="PEAR_PackageFileManager2">
+     <dir name="addIgnore">
+      <dir name="bug13747">
+       <dir name="conf">
+        <file name="a.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager2/addIgnore/bug13747/conf -->
+       <dir name="config">
+        <file name="xml.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager2/addIgnore/bug13747/config -->
+       <dir name="templates">
+        <file name="confirm.php" role="test" />
+       </dir> <!-- /tests/PEAR_PackageFileManager2/addIgnore/bug13747/templates -->
+       <file name="something.php" role="test" />
+      </dir> <!-- /tests/PEAR_PackageFileManager2/addIgnore/bug13747 -->
+      <file name="test_bug13747.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager2/addIgnore -->
+     <dir name="addReplacement">
+      <dir name="bug16406">
+       <file name="Class.php" role="test" />
+      </dir> <!-- /tests/PEAR_PackageFileManager2/addReplacement/bug16406 -->
+      <file name="test_bug16406.phpt" role="test" />
+     </dir> <!-- /tests/PEAR_PackageFileManager2/addReplacement -->
      <dir name="importFromPackageFile1">
       <dir name="packagefiles">
        <file name="package_foo.xml" role="test" />
@@ -85,10 +109,12 @@ Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
      </dir> <!-- /tests/PEAR_PackageFileManager2/importFromPackageFile1 -->
      <dir name="importOptions">
       <dir name="packagefiles">
+       <file name="package_bug17990.xml" role="test" />
        <file name="package_foo.xml" role="test" />
       </dir> <!-- /tests/PEAR_PackageFileManager2/importOptions/packagefiles -->
       <file name="setup.php.inc" role="test" />
       <file name="test.phpt" role="test" />
+      <file name="test_bug17990.phpt" role="test" />
      </dir> <!-- /tests/PEAR_PackageFileManager2/importOptions -->
      <dir name="setOptions">
       <dir name="existingpackagexml">
@@ -129,7 +155,7 @@ Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
     <min>4.3.0</min>
    </php>
    <pearinstaller>
-    <min>1.8.0alpha1</min>
+    <min>1.8.0</min>
    </pearinstaller>
    <package>
     <name>PEAR_PackageFileManager_Plugins</name>
@@ -146,6 +172,24 @@ Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-03-27</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
+* Fixed Bug #17451: Misleading error message about PHP_Compat/PHP_CompatInfo [dufuz]
+* Fixed Bug #17990: PHP Notice: Undefined index: date in PackageFileManager2.php [dufuz]
+* Directory &quot;scripts&quot; is now mapped to role script
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.1</release>

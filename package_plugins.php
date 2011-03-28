@@ -14,11 +14,11 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.1';
+$release_version = '1.0.2';
 $release_state   = 'stable';
 $release_notes   = '
-  * Fix Bug #16111: CVS plugin does not identify CVS directories [cweiske]
-* Fix Bug #16287: Problem with SVN plugin ? [cweiske]
+* Fixed Bug #17462: SVN entries file regression (Applies to CVS as well) [dufuz]
+* Fixed Bug #18033: _getRegExpableSearchString() in File.php causes issue with paths (Applies to CVS as well) [dufuz]
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
@@ -45,6 +45,7 @@ $p->addInclude(array(
     'PackageFileManager/Perforce.php',
     'tests/PEAR_PackageFileManager_File/',
     'tests/PEAR_PackageFileManager_CVS/',
+    'tests/PEAR_PackageFileManager_Svn/',
     'tests/phpt_test.php.inc',
     'tests/setup.phpc.inc',
 ));
