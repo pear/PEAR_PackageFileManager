@@ -13,9 +13,9 @@ $res = $pfm->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp');
 $phpunit->assertNoErrors('after dirlist');
 $phpunit->assertEquals(
     array(
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp/test1.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp/test2.txt',
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp/.test',
+        $file . 'test1.txt',
+        $file . 'test2.txt',
+        $file . '.test',
     ),
     $res,
     'incorrect dir structure');

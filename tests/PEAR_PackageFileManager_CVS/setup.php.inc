@@ -15,25 +15,6 @@ touch($file . 'test1.txt');
 touch($file . 'test2.txt');
 touch($file . '.test');
 
-if (!file_exists($file . 'blarfoo')) {
-    mkdir($file . 'blarfoo');
-}
-
-touch($file . 'blarfoo/blartest.txt');
-
-if (!file_exists($file . 'subfoo')) {
-    mkdir($file . 'subfoo');
-}
-
-touch($file . 'subfoo/test11.txt');
-touch($file . 'subfoo/test12.txt');
-
-if (!file_exists($file . 'subfoo/subsubfoo')) {
-    mkdir($file . 'subfoo/subsubfoo');
-}
-
-touch($file . 'subfoo/subsubfoo/boo.txt');
-
 if (!file_exists($file . 'testCVS')) {
     mkdir($file . 'testCVS');
 }

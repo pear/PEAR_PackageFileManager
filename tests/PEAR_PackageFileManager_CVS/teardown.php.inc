@@ -1,17 +1,6 @@
 <?php
 // Cleanup
 $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp' . DIRECTORY_SEPARATOR;
-unlink($file . 'blarfoo/blartest.txt');
-rmdir($file . 'blarfoo');
-
-
-unlink($file . 'subfoo/test11.txt');
-unlink($file . 'subfoo/test12.txt');
-unlink($file . 'subfoo/subsubfoo/boo.txt');
-
-rmdir($file . 'subfoo/subsubfoo');
-rmdir($file . 'subfoo');
-
 
 unlink($file . 'test1.txt');
 unlink($file . 'test2.txt');

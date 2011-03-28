@@ -12,7 +12,7 @@ $pfm->_options['packagefile'] = 'package.xml';
 $res = $pfm->dirList(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp');
 $phpunit->assertEquals(
     array(
-        dirname(__FILE__) . DIRECTORY_SEPARATOR . 'temp/test1.txt',
+        $file . 'test1.txt',
     ),
     $res,
     'incorrect dir structure');
