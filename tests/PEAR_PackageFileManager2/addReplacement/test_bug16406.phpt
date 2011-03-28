@@ -104,7 +104,7 @@ release
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-03-23</date>
+   <date>%s</date>
    <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL License</license>
    <notes>
 release
