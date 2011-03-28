@@ -45,7 +45,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
     }
 
     /**
-     * Return a list of all files in the CVS repository
+     * Return a list of all files in the SVN repository
      *
      * This function is like {@link parent::dirList()} except
      * that instead of retrieving a regular filelist, it first
@@ -108,12 +108,12 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $this->ignore = array(false, false);
         $this->_setupIgnore($ignore, 1);
         $this->_setupIgnore($include, 0);
-        foreach ($entries as $cvsentry) {
-            $directory = @dirname(@dirname($cvsentry));
+        foreach ($entries as $entry) {
+            $directory = @dirname(@dirname($entry));
             if (!$directory) {
                 continue;
             }
-            $d = $this->_getSVNEntries($cvsentry);
+            $d = $this->_getSVNEntries($entry);
             if (!is_array($d)) {
                 continue;
             }
@@ -157,7 +157,7 @@ class PEAR_PackageFileManager_Svn extends PEAR_PackageFileManager_File
         $content = file_get_contents($svnentriesfilename);
         if (substr($content, 0, 5) != '<?xml') {
             // Not XML; assume newer (>= SVN 1.4) SVN entries format
-            // http://svn.collab.net/repos/svn/trunk/subversion/libsvn_wc/README
+            // http://svn.apache.org/repos/asf/subversion/trunk/subversion/libsvn_wc/README
 
             // The directory entries are seperated by #0c; look for the first #0c
             // The hex GUID (xxxx-xxxx-xxxx-xxxx-xxxx) may not always be set
