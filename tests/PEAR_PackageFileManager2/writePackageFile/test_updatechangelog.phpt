@@ -28,8 +28,6 @@ $phpunit->assertNoErrors('setup');
 $pfm->setReleaseVersion('0.18.3');
 $pfm->setNotes('hi');
 $pfm->generateContents();
-$pfm->setPhpDep('5.0.0');
-$pfm->setPearinstallerDep('1.4.3');
 $pfm->writePackageFile();
 
 $generator = &$pfm->getDefaultGenerator();
@@ -90,7 +88,7 @@ hi
     <min>5.0.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.3</min>
+    <min>1.4.2</min>
    </pearinstaller>
    <package>
     <name>DB_DataObject</name>
@@ -470,4 +468,5 @@ hi
 echo 'tests done';
 ?>
 --EXPECT--
+Analyzing Server.php
 tests done
