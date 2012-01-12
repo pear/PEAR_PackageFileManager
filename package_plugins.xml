@@ -159,7 +159,9 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
       <file name="test_general_valid2.phpt" role="test" />
      </dir> <!-- /tests/PEAR_PackageFileManager_Svn/dirList -->
     </dir> <!-- /tests/PEAR_PackageFileManager_Svn -->
-    <file name="phpt_test.php.inc" role="test" />
+    <file name="phpt_test.php.inc" role="test">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
    </dir> <!-- /tests -->
    <file name="LICENSE_PLUGINS" role="doc" />
   </dir> <!-- / -->
