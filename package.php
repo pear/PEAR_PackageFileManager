@@ -63,7 +63,8 @@ $p->setPhpDep('4.3.0');
 $p->setPearinstallerDep('1.8.0');
 $p->addPackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
 $p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
-$p->addReplacement('PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PEAR/PackageFileManager2.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('tests/setup.php.inc', 'pear-config', '@php_dir@', 'php_dir');
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {

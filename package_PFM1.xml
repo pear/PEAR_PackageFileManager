@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.10.0beta1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PEAR_PackageFileManager</name>
  <channel>pear.php.net</channel>
  <summary>PEAR_PackageFileManager takes an existing v1 package.xml file and updates it with a new filelist and changelog</summary>
@@ -55,8 +55,8 @@ PEAR_PackageFileManager is fully unit tested.</description>
   <email>arnaud@limbourg.com</email>
   <active>no</active>
  </developer>
- <date>2011-03-27</date>
- <time>22:53:52</time>
+ <date>2012-01-11</date>
+ <time>21:33:37</time>
  <version>
   <release>1.7.0</release>
   <api>1.7.0</api>
@@ -75,17 +75,22 @@ No changes since alpha1
     <file name="createPhpDocumentor_package.xml.php" role="doc" />
     <file name="generatePackage.xml.php" role="doc" />
    </dir> <!-- /examples -->
-   <dir name="PackageFileManager">
-    <file name="ComplexGenerator.php" role="php">
+   <dir name="PEAR">
+    <dir name="PackageFileManager">
+     <file name="ComplexGenerator.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="SimpleGenerator.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+     <file name="XMLOutput.php" role="php">
+      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+     </file>
+    </dir> <!-- /PEAR/PackageFileManager -->
+    <file name="PackageFileManager.php" role="php">
      <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
     </file>
-    <file name="SimpleGenerator.php" role="php">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
-    <file name="XMLOutput.php" role="php">
-     <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-    </file>
-   </dir> <!-- /PackageFileManager -->
+   </dir> <!-- /PEAR -->
    <dir name="tests">
     <dir name="addConfigureOption">
      <file name="test_invalid_nosetoptions.phpt" role="test" />
@@ -157,9 +162,6 @@ No changes since alpha1
     <file name="Test_file.php" role="test" />
    </dir> <!-- /tests -->
    <file name="LICENSE" role="doc" />
-   <file name="PackageFileManager.php" role="php">
-    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
-   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -198,7 +200,7 @@ No changes since alpha1
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2011-03-27</date>
+   <date>2012-01-11</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 No changes since alpha1

@@ -72,10 +72,11 @@ $p->setPearinstallerDep('1.8.0');
 $p->addSubpackageDepWithChannel('required', 'PEAR_PackageFileManager_Plugins', 'pear.php.net');
 $p->addSubpackageDepWithChannel('required', 'PEAR_PackageFileManager2', 'pear.php.net');
 $p->addPackageDepWithChannel('optional', 'PHP_CompatInfo', 'pear.php.net', '1.4.0');
-$p->addReplacement('PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/SimpleGenerator.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/XMLOutput.php', 'package-info', '@PEAR-VER@', 'version');
-$p->addReplacement('PackageFileManager/ComplexGenerator.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PEAR/PackageFileManager.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PEAR/PackageFileManager/SimpleGenerator.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PEAR/PackageFileManager/XMLOutput.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('PEAR/PackageFileManager/ComplexGenerator.php', 'package-info', '@PEAR-VER@', 'version');
+$p->addReplacement('tests/setup.php.inc', 'pear-config', '@php_dir@', 'php_dir');
 $p->generateContents();
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make')) {
