@@ -141,7 +141,9 @@ Features include
      </dir> <!-- /tests/PEAR_PackageFileManager2/writePackageFile -->
     </dir> <!-- /tests/PEAR_PackageFileManager2 -->
     <file name="phpt_test.php.inc" role="test" />
-    <file name="setup.php.inc" role="test" />
+    <file name="setup.php.inc" role="test">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
    </dir> <!-- /tests -->
    <file name="LICENSE" role="doc" />
    <file name="PackageFileManager2.php" role="php">

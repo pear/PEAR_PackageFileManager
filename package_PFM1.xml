@@ -150,7 +150,9 @@ No changes since alpha1
     </dir> <!-- /tests/setOptions -->
     <file name="Bad_file.php" role="test" />
     <file name="phpt_test.php.inc" role="test" />
-    <file name="setup.php.inc" role="test" />
+    <file name="setup.php.inc" role="test">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
     <file name="test1_package.xml" role="test" />
     <file name="Test_file.php" role="test" />
    </dir> <!-- /tests -->
