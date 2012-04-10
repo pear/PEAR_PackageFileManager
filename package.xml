@@ -69,7 +69,7 @@ Features include
 * Directory &quot;scripts&quot; is now mapped to role script
  </notes>
  <contents>
-  <dir baseinstalldir="PEAR" name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="examples">
     <file name="basicConvert.php" role="doc" />
     <file name="detectDependencies.php" role="doc" />
