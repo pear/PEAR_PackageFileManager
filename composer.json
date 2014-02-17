@@ -28,7 +28,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "PEAR_PackageFileManager": "./"
+            "PEAR": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/PEAR_PackageFileManager",
