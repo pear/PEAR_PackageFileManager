@@ -1,0 +1,51 @@
+{
+    "authors": [
+        {
+            "email": "dufuz@php.net",
+            "name": "Helgi Thormar Thorbjoernsson",
+            "role": "Lead"
+        },
+        {
+            "email": "cellog@php.net",
+            "name": "Greg Beaver",
+            "role": "Lead"
+        },
+        {
+            "email": "tim@timj.co.uk",
+            "name": "Tim Jackson",
+            "role": "Lead"
+        },
+        {
+            "email": "farell@php.net",
+            "name": "Laurent Laville",
+            "role": "Lead"
+        },
+        {
+            "email": "arnaud@limbourg.com",
+            "name": "Arnaud Limbourg",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "PEAR_PackageFileManager": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/PEAR_PackageFileManager",
+    "include-path": [
+        "./"
+    ],
+    "license": "New BSD License",
+    "name": "pear/pear_packagefilemanager",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PEAR_PackageFileManager2",
+        "source": "https://github.com/pear/PEAR_PackageFileManager2"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
