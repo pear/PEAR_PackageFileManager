@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the package.xml generator for PEAR_PackageFileManager2
+ * This is the package.xml generator for PEAR_PackageFileManager_Plugins
  *
  * @category   PEAR
  * @package    PEAR_PackageFileManager
@@ -29,7 +29,7 @@ $p = &PEAR_PackageFileManager2::importOptions(
         'exceptions' => array(
             'LICENSE_PLUGINS' => 'doc',
         ),
-        'filelistgenerator' => 'svn',
+        'filelistgenerator' => 'git',
         'packagedirectory' => dirname(__FILE__),
         'changelogoldtonew' => false,
         'baseinstalldir' => 'PEAR',
