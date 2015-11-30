@@ -24,7 +24,8 @@ foreach($list as $file) {
 	if (!$path) {
         $path = '/';
     }
-	$ext = array_pop(explode('.', $file));
+    $a = explode('.', $file);
+    $ext = array_pop($a);
 	if (strlen($ext) == strlen($file)) {
         $ext = '';
     }
