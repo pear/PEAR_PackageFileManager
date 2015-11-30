@@ -658,7 +658,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @access public
      * @since  1.0.0a1
      */
-    function &importFromPackageFile1($packagefile, $options = array())
+    public static function &importFromPackageFile1($packagefile, $options = array())
     {
         $z   = &PEAR_Config::singleton();
         $pkg = new PEAR_PackageFile($z);
@@ -686,7 +686,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @access public
      * @since  1.0.0a1
      */
-    function &importOptions($packagefile, $options = array())
+    public static function &importOptions($packagefile, $options = array())
     {
         if (is_a($packagefile, 'PEAR_PackageFile_v1')) {
             $gen = &$packagefile->getDefaultGenerator();
@@ -1202,7 +1202,6 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @param string  $i2   (optional) additional specific error info #2
      *
      * @return PEAR_Error
-     * @static
      * @access public
      * @since  1.0.0a1
      */
@@ -1718,7 +1717,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @static
      * @since  1.0.0a1
      */
-    function &_getExistingPackageXML($path, $packagefile = 'package.xml', $options = array())
+    protected static function &_getExistingPackageXML($path, $packagefile = 'package.xml', $options = array())
     {
         if (is_string($path) && is_dir($path)) {
             $contents = false;
@@ -1792,7 +1791,7 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
      * @static
      * @since  1.0.0a1
      */
-    function &_generateNewPackageXML()
+    protected static function &_generateNewPackageXML()
     {
         $pf = new PEAR_PackageFileManager2();
         $pf->_oldPackageFile = false;

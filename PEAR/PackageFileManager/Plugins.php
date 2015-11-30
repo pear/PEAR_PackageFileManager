@@ -81,7 +81,7 @@ class PEAR_PackageFileManager_Plugins
      * @access public
      * @since 1.0.0alpha1
      */
-    function raiseError($code, $i1 = '', $i2 = '')
+    public static function raiseError($code, $i1 = '', $i2 = '')
     {
         return PEAR::raiseError('PEAR_PackageFileManager_Plugins Error: ' .
                     sprintf($GLOBALS['_PEAR_PACKAGEFILEMANAGER_PLUGINS_ERRORS'][$code],

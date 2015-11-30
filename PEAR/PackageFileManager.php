@@ -1220,7 +1220,6 @@ class PEAR_PackageFileManager
      * @param string  $i2   (optional) additional specific error info #2
      *
      * @return PEAR_Error
-     * @static
      * @access public
      * @since  0.9
      */

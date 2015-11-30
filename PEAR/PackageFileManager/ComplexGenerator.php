@@ -83,12 +83,12 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
         return $ret;
     }
 
-    function getFileRoles()
+    public static function getFileRoles()
     {
         return PEAR_Common::getFileRoles();
     }
 
-    function getReplacementTypes()
+    public static function getReplacementTypes()
     {
         return PEAR_Common::getReplacementTypes();
     }
@@ -115,7 +115,8 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
 
     function analyzeSourceCode($file)
     {
-        return PEAR_Common::analyzeSourceCode($file);
+        $pear = new PEAR_Common;
+        return $pear->analyzeSourceCode($file);
     }
 
     function buildProvidesArray($a)
