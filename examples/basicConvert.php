@@ -2,7 +2,6 @@
 /**
  * Basic convert package.xml 1.0 to package.xml 2.0
  *
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @package    PEAR_PackageFileManager
  * @ignore

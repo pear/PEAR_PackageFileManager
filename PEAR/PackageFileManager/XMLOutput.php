@@ -7,9 +7,8 @@
  * @category  PEAR
  * @package   PEAR_PackageFileManager
  * @author    Greg Beaver <cellog@php.net>
- * @copyright 2004-2009 The PEAR Group
+ * @copyright 2003-2015 The PEAR Group
  * @license   New BSD, Revised
- * @version   CVS: $Id$
  * @link      http://pear.php.net/package/PEAR_PackageFileManager
  * @since     File available since Release 1.2.0
  */
@@ -20,7 +19,7 @@
  * @category  PEAR
  * @package   PEAR_PackageFileManager
  * @author    Greg Beaver <cellog@php.net>
- * @copyright 2004-2009 The PEAR Group
+ * @copyright 2003-2015 The PEAR Group
  * @license   New BSD, Revised
  * @version   Release: @PEAR-VER@
  * @link      http://pear.php.net/package/PEAR_PackageFileManager

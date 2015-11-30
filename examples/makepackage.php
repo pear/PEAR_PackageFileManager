@@ -15,9 +15,8 @@
  * @category   pear
  * @package    PEAR_PackageFileManager
  * @author     Greg Beaver <cellog@php.net>
- * @copyright  2005 The PHP Group
+ * @copyright  2003-2015 The PEAR Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id$
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      File available since Release 1.6.0
  * @ignore

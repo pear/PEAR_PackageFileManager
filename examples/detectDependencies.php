@@ -9,7 +9,6 @@
  * (version and release notes)
  * due to usage of PEAR_PackageFileManager2::importOptions().
  *
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @package    PEAR_PackageFileManager
  * @ignore

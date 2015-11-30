@@ -8,9 +8,8 @@
  * @category  PEAR
  * @package   PEAR_PackageFileManager_Plugins
  * @author    Jon Parise <jon@php.net>
- * @copyright 2005-2009 The PEAR Group
+ * @copyright 2003-2015 The PEAR Group
  * @license   New BSD, Revised
- * @version   CVS: $Id$
  * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
  * @since     File available since Release 1.0.0alpha1
  */
@@ -28,7 +27,7 @@ require_once 'PEAR/PackageFileManager/File.php';
  * @category  PEAR
  * @package   PEAR_PackageFileManager_Plugins
  * @author    Jon Parise <jon@php.net>
- * @copyright 2005-2009 The PEAR Group
+ * @copyright 2003-2015 The PEAR Group
  * @license   New BSD, Revised
  * @version   Release: @PEAR-VER@
  * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins

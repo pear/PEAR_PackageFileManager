@@ -6,7 +6,6 @@
  *   using PHP_CompatInfo( >= 1.4.0 ) if available
  * - update your package.xml 2.0 and add new release (with all related stuff)
  *
- * @version    $Id$
  * @author     Laurent Laville <pear@laurent-laville.org>
  * @package    PEAR_PackageFileManager
  * @ignore
