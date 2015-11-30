@@ -14,11 +14,11 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.2';
+$release_version = '1.0.3';
 $release_state   = 'stable';
 $release_notes   = '
-* Fixed Bug #17462: SVN entries file regression (Applies to CVS as well) [dufuz]
-* Fixed Bug #18033: _getRegExpableSearchString() in File.php causes issue with paths (Applies to CVS as well) [dufuz]
+* PHP 7 compliance
+* Make unit tests portable, resilient, work
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(

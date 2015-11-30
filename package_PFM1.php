@@ -14,10 +14,11 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.7.0';
+$release_version = '1.7.1';
 $release_state   = 'stable';
 $release_notes   = '
-  No changes since alpha1
+* PHP 7 compliance
+* Make unit tests portable, resilient, work
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(

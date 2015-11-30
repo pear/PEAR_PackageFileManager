@@ -14,13 +14,11 @@
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.2';
+$release_version = '1.0.3';
 $release_state   = 'stable';
 $release_notes   = '
-* Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
-* Fixed Bug #17451: Misleading error message about PHP_Compat/PHP_CompatInfo [dufuz]
-* Fixed Bug #17990: PHP Notice: Undefined index: date in PackageFileManager2.php [dufuz]
-* Directory "scripts" is now mapped to role script
+* PHP 7 compliance
+* Make unit tests portable, resilient, work
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
