@@ -312,20 +312,6 @@ class PEAR_PackageFileManager
                       );
 
     /**
-     * Does nothing, use setOptions
-     *
-     * The constructor is not used in order to be able to
-     * return a PEAR_Error from setOptions
-     *
-     * @see    setOptions()
-     * @access public
-     * @since  0.1
-     */
-    function PEAR_PackageFileManager()
-    {
-    }
-
-    /**
      * Set package.xml generation options
      *
      * The options array is indexed as follows:
