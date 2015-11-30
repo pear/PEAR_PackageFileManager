@@ -2,7 +2,7 @@
 /**
  * Base class for all the plugins
  *
- * PHP versions 4 and 5
+ * PHP versions 5 and 7
  *
  * @category  PEAR
  * @package   PEAR_PackageFileManager_Plugins

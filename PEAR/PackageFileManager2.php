@@ -3,7 +3,7 @@
  * PEAR_PackageFileManager2, like PEAR_PackageFileManager, is designed to
  * create and manipulate package.xml version 2.0.
  *
- * PHP versions 4 and 5
+ * PHP versions 5 and 7
  *
  * @category  PEAR
  * @package   PEAR_PackageFileManager2

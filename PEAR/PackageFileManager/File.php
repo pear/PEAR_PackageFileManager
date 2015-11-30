@@ -3,7 +3,7 @@
  * The File list plugin generator for both PEAR_PackageFileManager,
  * and PEAR_PackageFileManager2 classes.
  *
- * PHP versions 4 and 5
+ * PHP versions 5 and 7
  *
  * @category  PEAR
  * @package   PEAR_PackageFileManager_Plugins
