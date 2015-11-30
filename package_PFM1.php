@@ -11,6 +11,7 @@
  * @link       http://pear.php.net/package/PEAR_PackageFileManager
  * @since      File available since Release 1.6.0
  */
+set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
