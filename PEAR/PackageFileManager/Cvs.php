@@ -42,9 +42,9 @@ class PEAR_PackageFileManager_CVS extends PEAR_PackageFileManager_File
      */
     var $_cvsIgnore = array('.cvsignore');
 
-    function PEAR_PackageFileManager_CVS($options)
+    function __construct($options)
     {
-        parent::PEAR_PackageFileManager_File($options);
+        parent::__construct($options);
     }
 
     /**

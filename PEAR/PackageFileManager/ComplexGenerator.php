@@ -36,7 +36,7 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
     /**
      * remove a warning about missing parameters - don't delete this
      */
-    function PEAR_PackageFileManager_ComplexGenerator()
+    function __construct()
     {
     }
 

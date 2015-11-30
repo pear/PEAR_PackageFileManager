@@ -60,7 +60,7 @@ class PEAR_PackageFileManager_File extends PEAR_PackageFileManager_Plugins
      *
      * @return void
      */
-    function PEAR_PackageFileManager_File($options)
+    function __construct($options)
     {
         $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
         $this->setOptions($options);
