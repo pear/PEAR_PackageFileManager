@@ -65,7 +65,7 @@ class PEAR_PackageFileManager_ComplexGenerator extends PEAR_PackageFile_Generato
         include_once 'PEAR/PackageFile.php';
         include_once 'PEAR/Config.php';
         $config = &PEAR_Config::singleton();
-        $packagefile = &new PEAR_PackageFile($config);
+        $packagefile = new PEAR_PackageFile($config);
         $pf = &$packagefile->fromArray($pkginfo);
         if (!$pf->validate(PEAR_VALIDATE_NORMAL)) {
             $errors = $pf->getValidationWarnings();

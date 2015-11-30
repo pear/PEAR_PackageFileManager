@@ -64,7 +64,7 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
         include_once 'PEAR/PackageFile.php';
         include_once 'PEAR/Config.php';
         $config = &PEAR_Config::singleton();
-        $packagefile = &new PEAR_PackageFile($config);
+        $packagefile = new PEAR_PackageFile($config);
         $pf = &$packagefile->fromArray($pkginfo);
         parent::PEAR_PackageFile_Generator_v1($pf);
         $ret = $this->toXml();
@@ -104,7 +104,7 @@ class PEAR_PackageFileManager_SimpleGenerator extends PEAR_PackageFile_Generator
         include_once 'PEAR/PackageFile.php';
         include_once 'PEAR/Config.php';
         $config = &PEAR_Config::singleton();
-        $packagefile = &new PEAR_PackageFile($config);
+        $packagefile = new PEAR_PackageFile($config);
         PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
         if (is_array($info)) {
             $pf = &$packagefile->fromArray($info);

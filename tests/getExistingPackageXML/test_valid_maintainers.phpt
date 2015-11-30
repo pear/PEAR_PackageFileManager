@@ -15,7 +15,7 @@ $res = $pfm->_getExistingPackageXML(dirname(dirname(__FILE__)) . '/', 'test1_pac
 $phpunit->assertFalse(is_object($res), 'returned error');
 
 $info = dirname(dirname(__FILE__)) . '/test1_package.xml';
-$packagefile = &new PEAR_PackageFile(PEAR_Config::singleton());
+$packagefile = new PEAR_PackageFile(PEAR_Config::singleton());
 $pf = &$packagefile->fromAnyFile($info, PEAR_VALIDATE_NORMAL);
 $contents = $pf->toArray();
 

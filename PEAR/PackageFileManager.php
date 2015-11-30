@@ -1675,7 +1675,7 @@ class PEAR_PackageFileManager
 
             include_once 'PEAR/PackageFile.php';
             $z = &PEAR_Config::singleton();
-            $pkg = &new PEAR_PackageFile($z);
+            $pkg = new PEAR_PackageFile($z);
             $pf = &$pkg->fromXmlString($contents, PEAR_VALIDATE_DOWNLOADING, $path . $packagefile);
             if (PEAR::isError($pf)) {
                 return $pf;
