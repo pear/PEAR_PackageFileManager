@@ -303,18 +303,13 @@ class PEAR_PackageFileManager2 extends PEAR_PackageFile_v2_rw
                       );
 
     /**
-     * Does nothing, use factory
-     *
-     * The constructor is not used in order to be able to
-     * return a PEAR_Error from setOptions
-     *
      * @see    setOptions()
      * @access public
      * @since  1.0.0a1
      */
-    function PEAR_PackageFileManager2()
+    function __construct()
     {
-        parent::PEAR_PackageFile_v2();
+        parent::__construct();
         $config = &PEAR_Config::singleton();
         $this->setConfig($config);
     }
