@@ -18,6 +18,7 @@ $release_version = '1.0.3';
 $release_state   = 'stable';
 $release_notes   = '
 * PHP 7 compliance
+* Import PEAR_PackageFileManager_Git from pear.vardump.org.
 * Make unit tests portable, resilient, work
 ';
 
