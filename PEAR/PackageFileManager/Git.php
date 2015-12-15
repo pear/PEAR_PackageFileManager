@@ -3,15 +3,14 @@
  * The git list plugin generator for both PEAR_PackageFileManager,
  * and PEAR_PackageFileManager2 classes.
  *
- * PHP versions 4 and 5
+ * PHP versions 5 and 7
  *
  * @category  PEAR
  * @package   PEAR_PackageFileManager_Plugins
  * @author    Armen Baghumian <armen@OpenSourceClub.org>
  * @license   New BSD, Revised
- * @version   CVS: $Id:$
  * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
- * @since     File available since Release 1.0.1
+ * @since     File available since Release 1.0.3
  */
 
 require_once 'PEAR/PackageFileManager/File.php';
@@ -26,9 +25,9 @@ require_once 'PEAR/PackageFileManager/File.php';
  * @package   PEAR_PackageFileManager_Plugins
  * @author    Armen Baghumian <armen@OpenSourceClub.org>
  * @license   New BSD, Revised
- * @version   Release: 1.0.0
+ * @version   Release: @PEAR-VER@
  * @link      http://pear.php.net/package/PEAR_PackageFileManager_Plugins
- * @since     Class available since Release 1.0.1
+ * @since     Class available since Release 1.0.3
  */
 class PEAR_PackageFileManager_Git extends PEAR_PackageFileManager_File
 {
