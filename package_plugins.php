@@ -40,6 +40,7 @@ $p->addInclude(array(
     'LICENSE_PLUGINS',
     'PackageFileManager/Plugins.php',
     'PackageFileManager/File.php',
+    'PackageFileManager/Git.php',
     'PackageFileManager/Svn.php',
     'PackageFileManager/Cvs.php',
     'PackageFileManager/Perforce.php',
