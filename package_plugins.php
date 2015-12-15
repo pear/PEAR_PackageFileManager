@@ -14,12 +14,10 @@ set_include_path(__DIR__ . PATH_SEPARATOR . get_include_path());
 require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
-$release_version = '1.0.3';
+$release_version = '1.0.4';
 $release_state   = 'stable';
 $release_notes   = '
-* PHP 7 compliance
-* Import PEAR_PackageFileManager_Git from pear.vardump.org.
-* Make unit tests portable, resilient, work
+* Correct instatllation directory
 ';
 
 $p = &PEAR_PackageFileManager2::importOptions(
@@ -32,7 +30,6 @@ $p = &PEAR_PackageFileManager2::importOptions(
         'filelistgenerator' => 'git',
         'packagedirectory' => dirname(__FILE__),
         'changelogoldtonew' => false,
-        'baseinstalldir' => 'PEAR',
         'simpleoutput' => true
     )
 );

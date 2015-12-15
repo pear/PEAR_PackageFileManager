@@ -43,9 +43,9 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
   <active>no</active>
  </developer>
  <date>2015-12-15</date>
- <time>10:25:58</time>
+ <time>11:33:37</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -54,12 +54,10 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* PHP 7 compliance
-* Import PEAR_PackageFileManager_Git from pear.vardump.org.
-* Make unit tests portable, resilient, work
+* Correct instatllation directory
  </notes>
  <contents>
-  <dir baseinstalldir="PEAR" name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="PEAR">
     <dir name="PackageFileManager">
      <file name="Cvs.php" role="php">
@@ -198,6 +196,21 @@ This package is to be used with PackageFileManager v1 and v2 and can&apos;t be u
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2015-12-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Correct instatllation directory
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.3</release>

@@ -52,9 +52,9 @@ Features include
   <active>no</active>
  </developer>
  <date>2015-12-15</date>
- <time>10:25:48</time>
+ <time>11:33:24</time>
  <version>
-  <release>1.0.3</release>
+  <release>1.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -63,11 +63,10 @@ Features include
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* PHP 7 compliance
-* Make unit tests portable, resilient, work
+* Correct instatllation directory
  </notes>
  <contents>
-  <dir baseinstalldir="PEAR" name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="examples">
     <file name="basicConvert.php" role="doc" />
     <file name="detectDependencies.php" role="doc" />
@@ -174,6 +173,21 @@ Features include
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.4</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2015-12-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Correct instatllation directory
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.3</release>
