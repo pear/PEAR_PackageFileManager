@@ -64,6 +64,7 @@ $p->setPhpDep('5.3.0');
 $p->setPearinstallerDep('1.10.1');
 $p->addPackageDepWithChannel('required', 'XML_Serializer', 'pear.php.net', '0.19.0');
 $p->addExtensionDep('optional', 'simplexml');
+$p->addConflictingPackageDepWithUri('PEAR_PackageFileManager_Git', 'pear.vardump.org');
 
 $p->addReplacement('PEAR/PackageFileManager/*.php', 'package-info', '@PEAR-VER@', 'version');
 $p->addReplacement('tests/setup.php.inc', 'pear-config', '@php_dir@', 'php_dir');
